@@ -1,3 +1,5 @@
+# Bachelor of Math at UQ
+
 This is a pretty ambitious project... My goal for the next 3 years is to document my entire math degree journey in this single repo. Every lecture, tutorial, assignment. All my notetaking, will be captured in this repo. My dream is, at the end of it all, I'll be able to complie these notes into a book, which I'll distribute to close friends, family, and anyone else who helped me along the way.
 
 Along the way I think I'll develop some nifty tools to help me in this process!
