@@ -1,28 +1,16 @@
-%From M275 "Topology" at SJSU
-\newcommand{\id}{\mathrm{id}}
-\newcommand{\taking}[1]{\xrightarrow{#1}}
 \newcommand{\inv}{^{-1}}
-
-%From M170 "Introduction to Graph Theory" at SJSU
-\DeclareMathOperator{\diam}{diam}
-\DeclareMathOperator{\ord}{ord}
-\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
-
-%From the USAMO .tex files
-\newcommand{\ts}{\textsuperscript}
-\newcommand{\dg}{^\circ}
-\newcommand{\ii}{\item}
-
-% % From Math 55 and Math 145 at Harvard
-% \newenvironment{subproof}[1][Proof]{%
-% \begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
-% {\end{proof}}
-
-\newcommand{\liff}{\leftrightarrow}
-\newcommand{\lthen}{\rightarrow}
 \newcommand{\opname}{\operatorname}
 \newcommand{\surjto}{\twoheadrightarrow}
 \newcommand{\injto}{\hookrightarrow}
+
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+\let\varlnot\lnot
+\newcommand{\ordsim}{\mathord{\sim}}
+\renewcommand{\lnot}{\ordsim}
+\newcommand{\lxor}{\oplus}
+\newcommand{\lnand}{\barwedge}
+
 \newcommand{\On}{\mathrm{On}} % ordinals
 \DeclareMathOperator{\img}{im} % Image
 \DeclareMathOperator{\Img}{Im} % Image
@@ -47,6 +35,8 @@
 \newcommand{\ul}{\underline}
 \newcommand{\wt}{\widetilde}
 \newcommand{\wh}{\widehat}
+\newcommand{\ut}{\undertilde}
+
 \newcommand{\vocab}[1]{\textbf{\color{blue} #1}}
 \providecommand{\half}{\frac{1}{2}}
 \newcommand{\dang}{\measuredangle} %% Directed angle
@@ -61,7 +51,6 @@
 \newcommand{\symsum}{\sum_{\mathrm{sym}}}
 \newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
 \newcommand{\symprod}{\prod_{\mathrm{sym}}}
-\newcommand{\Qed}{\begin{flushright}\qed\end{flushright}}
 \newcommand{\parinn}{\setlength{\parindent}{1cm}}
 \newcommand{\parinf}{\setlength{\parindent}{0cm}}
 % \newcommand{\norm}{\|\cdot\|}
@@ -114,33 +103,19 @@
 \newcommand{\lnx}{\ln x}
 \newcommand{\expx}{\exp x}
 
-\newcommand{\bba}{\mathbb{A}}   \newcommand{\bbn}{\mathbb{N}}
-\newcommand{\bbb}{\mathbb{B}}   \newcommand{\bbo}{\mathbb{O}}
-\newcommand{\bbc}{\mathbb{C}}   \newcommand{\bbp}{\mathbb{P}}
-\newcommand{\bbd}{\mathbb{D}}   \newcommand{\bbq}{\mathbb{Q}}
-\newcommand{\bbe}{\mathbb{E}}   \newcommand{\bbr}{\mathbb{R}}
-\newcommand{\bbf}{\mathbb{F}}   \newcommand{\bbs}{\mathbb{S}}
-\newcommand{\bbg}{\mathbb{G}}   \newcommand{\bbt}{\mathbb{T}}
-\newcommand{\bbh}{\mathbb{H}}   \newcommand{\bbu}{\mathbb{U}}
-\newcommand{\bbi}{\mathbb{I}}    \newcommand{\bbv}{\mathbb{V}}
-\newcommand{\bbj}{\mathbb{J}}   \newcommand{\bbw}{\mathbb{W}}
-\newcommand{\bbk}{\mathbb{K}}   \newcommand{\bbx}{\mathbb{X}}
-\newcommand{\bbl}{\mathbb{L}}    \newcommand{\bby}{\mathbb{Y}}
-\newcommand{\bbm}{\mathbb{M}}   \newcommand{\bbz}{\mathbb{Z}}
-
 \newcommand{\lb}{\left(}
 \newcommand{\rb}{\right)}
 \newcommand{\lbr}{\left\lbrace}
 \newcommand{\rbr}{\right\rbrace}
 \newcommand{\lsb}{\left[}
 \newcommand{\rsb}{\right]}
-\newcommand{\suchthat}{\medspace\middle|\medspace}
 \newcommand{\bracks}[1]{\lb #1 \rb}
 \newcommand{\braces}[1]{\lbr #1 \rbr}
 \newcommand{\sqbracks}[1]{\lsb #1 \rsb}
-
+\renewcommand{\abs}[1]{\left| #1 \right|}
 \renewcommand{\floor}[1]{\lfloor #1 \rfloor}
 \renewcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\suchthat}{\medspace\middle|\medspace}
 
 \newcommand{\cd}{\cdot}
 \newcommand{\tf}{\therefore}
@@ -149,6 +124,9 @@
 \newcommand{\Suppose}{\text{Suppose }}
 \newcommand{\WeSee}{\text{We see }}
 \newcommand{\So}{\text{So }}
+\newcommand{\Then}{\text{Then }}
+\newcommand{\false}{\text{False}}
+\newcommand{\true}{\text{True}}
 
 \newcommand{\QED}{\hfill \qed}
 

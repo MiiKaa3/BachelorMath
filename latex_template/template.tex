@@ -1,12 +1,17 @@
 \documentclass{report}
 
-\input{../../latex_template/preamble}
-\input{../../latex_template/macros}
-\input{../../latex_template/letterfonts}
+% \input{../../latex_template/preamble}
+% \input{../../latex_template/macros}
+% \input{../../latex_template/letterfonts}
 
-\title{\Huge{MATH1061}\\Discrete Mathematics I}
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+
+
+\title{\Huge{MATHXXXX}\\Course Title Here}
 \author{\huge{Michael Kasumagic, s4430266}}
-\date{\huge{Semester 2, 2024}}
+\date{\huge{Semester X, XXXX}}
 
 \begin{document}
 
@@ -43,10 +48,10 @@
 \pagebreak
 \chapter{template.tex - Delete later!}
 \section{Random Examples}
-\dfn{Limit of Sequence in $\bbR$}{Let $\{s_n\}$ be a sequence in $\bbR$. We say $$\lim_{n\to\infty}s_n=s$$ where $s\in\bbR$ if $\forall$ real numbers $\eps>0$ $\exists$ natural number $N$ such that for $n>N$ $$s-\eps<s_n<s+\eps\text{ i.e. }|s-s_n|<\eps$$}
+\dfn{Limit of Sequence in $\bbr$}{Let $\{s_n\}$ be a sequence in $\bbr$. We say $$\lim_{n\to\infty}s_n=s$$ where $s\in\bbr$ if $\forall$ real numbers $\eps>0$ $\exists$ natural number $N$ such that for $n>N$ $$s-\eps<s_n<s+\eps\text{ i.e. }|s-s_n|<\eps$$}
 \qs{}{Is the set ${x-}$axis${\setminus\{\text{Origin}\}}$ a closed set}
 \sol We have to take its complement and check whether that set is a open set i.e. if it is a union of open balls
-\nt{We will do topology in Normed Linear Space  (Mainly $\bbR^n$ and occasionally $\bbC^n$)using the language of Metric Space}
+\nt{We will do topology in Normed Linear Space  (Mainly $\bbr^n$ and occasionally $\bbc^n$)using the language of Metric Space}
 \clm{Topology}{}{Topology is cool}
 \ex{Open Set and Close Set}{
 	\begin{tabular}{rl}
@@ -77,26 +82,26 @@
 \end{myproof}
 
 \cor{}{By the result of the proof, we can then show...}
-\mlenma{}{Suppose $\vec{v_1}, \dots, \vec{v_n} \in \RR[n]$ is subspace of $\RR^n$.}
+\mlenma{}{Suppose $\vec{v_1}, \dots, \vec{v_n} \in \bbr^n$ is subspace of $\bbr^n$.}
 \mprop{}{$1 + 1 = 2$.}
 
 \section{Random}
-\dfn{Normed Linear Space and Norm $\boldsymbol{\|\cdot\|}$}{Let $V$ be a vector space over $\bbR$ (or $\bbC$). A norm on $V$ is function $\|\cdot\|\ V\to \bbR_{\geq 0}$ satisfying \begin{enumerate}[label=\bfseries\tiny\protect\circled{\small\arabic*}]
+\dfn{Normed Linear Space and Norm $\boldsymbol{\|\cdot\|}$}{Let $V$ be a vector space over $\bbr$ (or $\bbc$). A norm on $V$ is function $\|\cdot\|\ V\to \bbr_{\geq 0}$ satisfying \begin{enumerate}[label=\bfseries\tiny\protect\circled{\small\arabic*}]
 		\item \label{n:1}$\|x\|=0 \iff x=0$ $\forall$ $x\in V$
-		\item \label{n:2}	$\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbR$(or $\bbC$), $x\in V$
+		\item \label{n:2}	$\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbr$(or $\bbc$), $x\in V$
 		\item \label{n:3} $\|x+y\| \leq \|x\|+\|y\|$ $\forall$ $x,y\in V$ (Triangle Inequality/Subadditivity)
 	\end{enumerate}And $V$ is called a normed linear space.
 
-	$\bullet $ Same definition works with $V$ a vector space over $\bbC$ (again $\|\cdot\|\to\bbR_{\geq 0}$) where \ref{n:2} becomes $\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbC$, $x\in V$, where for $\lambda=a+ib$, $|\lambda|=\sqrt{a^2+b^2}$ }
+	$\bullet $ Same definition works with $V$ a vector space over $\bbc$ (again $\|\cdot\|\to\bbr_{\geq 0}$) where \ref{n:2} becomes $\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbc$, $x\in V$, where for $\lambda=a+ib$, $|\lambda|=\sqrt{a^2+b^2}$ }
 
 
-\ex{$\bs{p-}$Norm}{\label{pnorm}$V={\bbR}^m$, $p\in\bbR_{\geq 0}$. Define for $x=(x_1,x_2,\cdots,x_m)\in\bbR^m$ $$\|x\|_p=\Big(|x_1|^p+|x_2|^p+\cdots+|x_m|^p\Big)^{\frac1p}$$(In school $p=2$)}
+\ex{$\bs{p-}$Norm}{\label{pnorm}$V={\bbr}^m$, $p\in\bbr_{\geq 0}$. Define for $x=(x_1,x_2,\cdots,x_m)\in\bbr^m$ $$\|x\|_p=\Big(|x_1|^p+|x_2|^p+\cdots+|x_m|^p\Big)^{\frac1p}$$(In school $p=2$)}
 \textbf{Special Case $\bs{p=1}$}: $\|x\|_1=|x_1|+|x_2|+\cdots+|x_m|$ is clearly a norm by usual triangle inequality. \par
-\textbf{Special Case $\bs{p\to\infty\ (\bbR^m$ with $\|\cdot\|_{\infty})}$}: $\|x\|_{\infty}=\max\{|x_1|,|x_2|,\cdots,|x_m|\}$\\
+\textbf{Special Case $\bs{p\to\infty\ (\bbr^m$ with $\|\cdot\|_{\infty})}$}: $\|x\|_{\infty}=\max\{|x_1|,|x_2|,\cdots,|x_m|\}$\\
 For $m=1$ these $p-$norms are nothing but $|x|$.
 Now exercise
 \qs{}{\label{exs1}Prove that triangle inequality is true if $p\geq 1$ for $p-$norms. (What goes wrong for $p<1$ ?)}
-\sol{\textbf{For Property \ref{n:3} for norm-2}	\subsubsection*{\textbf{When field is $\bbR:$}} We have to show\begin{align*}
+\sol{\textbf{For Property \ref{n:3} for norm-2}	\subsubsection*{\textbf{When field is $\bbr:$}} We have to show\begin{align*}
 		         & \sum_i(x_i+y_i)^2\leq \left(\sqrt{\sum_ix_i^2} +\sqrt{\sum_iy_i^2}\right)^2                                       \\
 		\implies & \sum_i (x_i^2+2x_iy_i+y_i^2)\leq \sum_ix_i^2+2\sqrt{\left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]}+\sum_iy_i^2 \\
 		\implies & \left[\sum_ix_iy_i\right]^2\leq \left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]
@@ -107,7 +112,7 @@ Now exercise
 		\begin{itemize}
 			\item $\|x\|^2=\langle x,x\rangle$
 			\item $\langle x,y\rangle=\langle y,x\rangle$
-			\item $\langle \cdot,\cdot\rangle$ is $\bbR-$linear in each slot i.e. \begin{align*}
+			\item $\langle \cdot,\cdot\rangle$ is $\bbr-$linear in each slot i.e. \begin{align*}
 				      \langle rx+x',y\rangle=r\langle x,y\rangle+\langle x',y\rangle	\text{ and similarly for second slot}
 			      \end{align*}Here in $\langle x,y\rangle$ $x$ is in first slot and $y$ is in second slot.
 		\end{itemize}
@@ -117,7 +122,7 @@ Now exercise
 		                                       & =\langle x,x\rangle -2\lambda\langle x,y\rangle+\lambda^2\langle y,y\rangle
 	\end{align*}Now unless $x=\lambda y$ we have $\langle x-\lambda y,x-\lambda y\rangle>0$ Hence the quadratic equation has no root therefore the discriminant is greater than zero.
 
-	\subsubsection*{\textbf{When field is $\bbC:$}}Modify the definition by $$\langle x,y\rangle=\sum_i\overline{x_i}y_i$$Then we still have $\langle x,x\rangle\geq 0$}
+	\subsubsection*{\textbf{When field is $\bbc:$}}Modify the definition by $$\langle x,y\rangle=\sum_i\overline{x_i}y_i$$Then we still have $\langle x,x\rangle\geq 0$}
 
 \section{Algorithms}
 \begin{algorithm}[H]

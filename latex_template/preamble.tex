@@ -3,6 +3,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[tmargin=2cm,rmargin=1in,lmargin=1in,margin=0.85in,bmargin=2cm,footskip=.2in]{geometry}
 \usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools}
+\allowdisplaybreaks
+\usepackage{undertilde}
 \usepackage{xfrac}
 \usepackage[makeroom]{cancel}
 \usepackage{mathtools}
@@ -38,9 +40,11 @@
     \import{./figures/}{#1.pdf_tex}
 }
 
-\usepackage{tikzsymbols}
-\renewcommand\qedsymbol{$\Laughey$}
 
+\usepackage{tikzsymbols}
+% \renewcommand\qedsymbol{$\Laughey$}
+
+\definecolor{commentgreen}{RGB}{2,112,10}
 %%
 %% Julia definition (c) 2014 Jubobs
 %%
@@ -62,10 +66,47 @@
     basicstyle      	= \ttfamily,
     keywordstyle    	= \bfseries\color{blue},
     stringstyle     	= \color{magenta},
-    commentstyle    	= \color{ForestGreen},
+    commentstyle    	= \color{commentgreen},
     showstringspaces	= false,
 		numbers						= left,
 		tabsize						= 4,
+}
+
+%% 
+%% Shamelessly stolen from Vivi on Stackoverflow
+%% https://tex.stackexchange.com/questions/75116/what-can-i-use-to-typeset-matlab-code-in-my-document
+%%
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+		morekeywords={subtitle}
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{commentgreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    % numberstyle={\tiny \color{black}},% size of the numbers
+    % numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+%% 
+%% Shamelessly stolen from egreg on Stackoverflow
+%% https://tex.stackexchange.com/questions/280681/how-to-have-multiple-lines-of-intertext-within-align-environment
+%%
+\newlength{\normalparindent}
+\AtBeginDocument{\setlength{\normalparindent}{\parindent}}
+\newcommand{\longintertext}[1]{%
+  \intertext{%
+    \parbox{\linewidth}{%
+      \setlength{\parindent}{\normalparindent}
+      \noindent#1%
+    }%
+  }%
 }
 
 %\usepackage{import}
