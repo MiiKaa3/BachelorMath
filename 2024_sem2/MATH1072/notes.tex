@@ -27,7 +27,7 @@ In this course, we will be looking at:
 	\item MATLAB - Only 6 lab sessions. MATLAB will be incorprated into assignments.
 \end{itemize}
 
-\subsubsection*{An overview of the tools of applied mathematics}
+\subsection*{An overview of the tools of applied mathematics}
 \begin{itemize}
 	\item Creating and studying models of phenomena in the world:
 	\begin{itemize}
@@ -51,7 +51,7 @@ In this course, we will be looking at:
 	\end{itemize}
 \end{itemize}
 
-\subsubsection*{Dimensional Analysis}
+\subsection*{Dimensional Analysis}
 \dfn{Base Quantities}{
 	There exist base quantities (or dimensions) that provide units in terms of which the units of all other physical quantities can be expressed. Conventionally, these are: mass ($M$), length ($L$), time ($T$) (and temperature, electric current, amount of substance, luminous intensity).
 }
@@ -82,7 +82,9 @@ An equation that is true regardless of units is said to be \textbf{dimensionally
 In such an equation, the dimensions of all terms must be the same.
 \clm{Equations representing physical laws are dimensionally homogeneous.}{}{To achieve this in our mathematical model we seek \textit{all possible} dimensionless products among the variables. Such a collection is called \textbf{complete set}.}
 
-\subsubsection*{A Simple Pendulum}
+\pagebreak
+\section{Lecture 2}
+\subsection*{A Simple Pendulum}
 Consider the simple pendulum, with mass $m$, length $r$ released from angle of displacement $\theta$, and acted upon by gravity $g$.\\
 
 \fbox{\makebox[\textwidth][c]{
@@ -101,131 +103,241 @@ Consider the simple pendulum, with mass $m$, length $r$ released from angle of d
 		\node at (0.4,-1.2) {$\theta$};
 	\end{tikzpicture}
 }}
+We want to find the relationship between the period, $\tau$ and $\theta,m,r$ and $g$. I.e. we want to find 
+$$\tau = f(r, m, \theta, g)$$
+First, lets find the dimensions of the system.
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		$[\tau]$ & $[r]$ & $[m]$ & $[\theta]$ & $[g]$ \\ \hline 
+		$T$ & $L$ & $M$ & $1$ & $LT^{-2}$ \\ \hline
+	\end{tabular}
+\end{center}
+\nt{$g$ is a dimensionless variable! In other words, its dimensions are $M^0L^0T^0$.\\}
 
+The product of these varaibles takes the form:
+$$
+\tau^a r^b m^c \theta^d g^e
+$$
+and its dimensions are
+$$
+[\tau^a r^b m^c \theta^d g^e] = [\tau^a] [r^b] [m^c] [\theta^d] [g^e] = T^a\cd L^b \cd M^c \cd 1^d \cd L^eT^{-2e} = M^cL^{b+e}T^{a-2e}.
+$$
+Since we desire to solve represent a physical law, by claim 1.1.1, we know we're looking for a dimensionally homogeneous system.
+\begin{align*}
+	\Let M^cL^{b+e}T^{a-2e} &= M^0L^0T^0 \\
+	\Then \left.\begin{array}{rcc}
+		a - 2e & = & 0 \\
+		b + e & = & 0 \\
+		c & = & 0 
+	\end{array}\right\rbrace& e = \frac{a}{2}, b = -\frac{a}{2}, d \text{ is free.}\\
+\intertext{In other words, solve the linear system $A\utilde{x}=\utilde{0}$ (In other OTHER words, solve for the nullspace of $\cln(A)$.)}
+	\tau^{a}r^{-\frac{a}{2}}m^0\theta^dg^{\frac{a}{2}} &= \bracks{\tau r^{-\half} g^\half}^a\theta^d \\
+		&= \bracks{\tau\sqrt{\frac{g}{r}}}^a\theta^d
+\intertext{By setting $(a,d)$ to $(1,0)$, and $(0,1)$, we obtain independent dimensionless products, $\Pi_1$ and $\Pi_2$.}
+	\Pi_1 &= \tau\sqrt{\frac{g}{r}} \\
+	\Pi_2 &= \theta
+\end{align*}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\pagebreak
-\chapter{template.tex - Delete later!}
-\section{Random Examples}
-\dfn{Limit of Sequence in $\bbR$}{Let $\{s_n\}$ be a sequence in $\bbR$. We say $$\lim_{n\to\infty}s_n=s$$ where $s\in\bbR$ if $\forall$ real numbers $\eps>0$ $\exists$ natural number $N$ such that for $n>N$ $$s-\eps<s_n<s+\eps\text{ i.e. }|s-s_n|<\eps$$}
-\qs{}{Is the set ${x-}$axis${\setminus\{\text{Origin}\}}$ a closed set}
-\sol We have to take its complement and check whether that set is a open set i.e. if it is a union of open balls
-\nt{We will do topology in Normed Linear Space  (Mainly $\bbR^n$ and occasionally $\bbC^n$)using the language of Metric Space}
-\clm{Topology}{}{Topology is cool}
-\ex{Open Set and Close Set}{
-	\begin{tabular}{rl}
-		Open Set:   & $\bullet$ $\phi$                                              \\
-		            & $\bullet$ $\bigcup\limits_{x\in X}B_r(x)$ (Any $r>0$ will do) \\[3mm]
-		            & $\bullet$ $B_r(x)$ is open                                    \\
-		Closed Set: & $\bullet$ $X,\ \phi$                                          \\
-		            & $\bullet$ $\overline{B_r(x)}$                                 \\
-		            & $x-$axis $\cup$ $y-$axis
-	\end{tabular}}
-\thm{}{If $x\in$ open set $V$ then $\exists$ $\delta>0$ such that $B_{\delta}(x)\subset V$}
-\begin{myproof}By openness of $V$, $x\in B_r(u)\subset V$
-	\begin{center}
-		\begin{tikzpicture}
-			\draw[red] (0,0) circle [x radius=3.5cm, y radius=2cm] ;
-			\draw (3,1.6) node[red]{$V$};
-			\draw [blue] (1,0) circle (1.45cm) ;
-			\filldraw[blue] (1,0) circle (1pt) node[anchor=north]{$u$};
-			\draw (2.9,0.4) node[blue]{$B_r(u)$};
-			\draw [green!40!black] (1.7,0) circle (0.5cm) node [yshift=0.7cm]{$B_{\delta}(x)$} ;
-			\filldraw[green!40!black] (1.7,0) circle (1pt) node[anchor=west]{$x$};
-		\end{tikzpicture}
-	\end{center}
-
-	Given $x\in B_r(u)\subset V$, we want $\delta>0$ such that $x\in B_{\delta} (x)\subset B_r(u)\subset V$. Let $d=d(u,x)$. Choose $\delta $ such that $d+\delta<r$ (e.g. $\delta<\frac{r-d}{2}$)
-
-	If $y\in B_{\delta}(x)$ we will be done by showing that $d(u,y)<r$ but $$d(u,y)\leq d(u,x)+d(x,y)<d+\delta<r$$
-\end{myproof}
-
-\cor{}{By the result of the proof, we can then show...}
-\mlenma{}{Suppose $\vec{v_1}, \dots, \vec{v_n} \in \RR[n]$ is subspace of $\RR^n$.}
-\mprop{}{$1 + 1 = 2$.}
-
-\section{Random}
-\dfn{Normed Linear Space and Norm $\boldsymbol{\|\cdot\|}$}{Let $V$ be a vector space over $\bbR$ (or $\bbC$). A norm on $V$ is function $\|\cdot\|\ V\to \bbR_{\geq 0}$ satisfying \begin{enumerate}[label=\bfseries\tiny\protect\circled{\small\arabic*}]
-		\item \label{n:1}$\|x\|=0 \iff x=0$ $\forall$ $x\in V$
-		\item \label{n:2}	$\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbR$(or $\bbC$), $x\in V$
-		\item \label{n:3} $\|x+y\| \leq \|x\|+\|y\|$ $\forall$ $x,y\in V$ (Triangle Inequality/Subadditivity)
-	\end{enumerate}And $V$ is called a normed linear space.
-
-	$\bullet $ Same definition works with $V$ a vector space over $\bbC$ (again $\|\cdot\|\to\bbR_{\geq 0}$) where \ref{n:2} becomes $\|\lambda x\|=|\lambda|\|x\|$ $\forall$ $\lambda\in\bbC$, $x\in V$, where for $\lambda=a+ib$, $|\lambda|=\sqrt{a^2+b^2}$ }
-
-
-\ex{$\bs{p-}$Norm}{\label{pnorm}$V={\bbR}^m$, $p\in\bbR_{\geq 0}$. Define for $x=(x_1,x_2,\cdots,x_m)\in\bbR^m$ $$\|x\|_p=\Big(|x_1|^p+|x_2|^p+\cdots+|x_m|^p\Big)^{\frac1p}$$(In school $p=2$)}
-\textbf{Special Case $\bs{p=1}$}: $\|x\|_1=|x_1|+|x_2|+\cdots+|x_m|$ is clearly a norm by usual triangle inequality. \par
-\textbf{Special Case $\bs{p\to\infty\ (\bbR^m$ with $\|\cdot\|_{\infty})}$}: $\|x\|_{\infty}=\max\{|x_1|,|x_2|,\cdots,|x_m|\}$\\
-For $m=1$ these $p-$norms are nothing but $|x|$.
-Now exercise
-\qs{}{\label{exs1}Prove that triangle inequality is true if $p\geq 1$ for $p-$norms. (What goes wrong for $p<1$ ?)}
-\sol{\textbf{For Property \ref{n:3} for norm-2}	\subsubsection*{\textbf{When field is $\bbR:$}} We have to show\begin{align*}
-		         & \sum_i(x_i+y_i)^2\leq \left(\sqrt{\sum_ix_i^2} +\sqrt{\sum_iy_i^2}\right)^2                                       \\
-		\implies & \sum_i (x_i^2+2x_iy_i+y_i^2)\leq \sum_ix_i^2+2\sqrt{\left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]}+\sum_iy_i^2 \\
-		\implies & \left[\sum_ix_iy_i\right]^2\leq \left[\sum_ix_i^2\right]\left[\sum_iy_i^2\right]
-	\end{align*}So in other words prove $\langle x,y\rangle^2 \leq \langle x,x\rangle\langle y,y\rangle$ where
-	$$\langle x,y\rangle =\sum\limits_i x_iy_i$$
-
-	\begin{note}
-		\begin{itemize}
-			\item $\|x\|^2=\langle x,x\rangle$
-			\item $\langle x,y\rangle=\langle y,x\rangle$
-			\item $\langle \cdot,\cdot\rangle$ is $\bbR-$linear in each slot i.e. \begin{align*}
-				      \langle rx+x',y\rangle=r\langle x,y\rangle+\langle x',y\rangle	\text{ and similarly for second slot}
-			      \end{align*}Here in $\langle x,y\rangle$ $x$ is in first slot and $y$ is in second slot.
-		\end{itemize}
-	\end{note}Now the statement is just the Cauchy-Schwartz Inequality. For proof $$\langle x,y\rangle^2\leq \langle x,x\rangle\langle y,y\rangle $$ expand everything of $\langle x-\lambda y,x-\lambda y\rangle$ which is going to give a quadratic equation in variable $\lambda $ \begin{align*}
-		\langle x-\lambda y,x-\lambda y\rangle & =\langle x,x-\lambda y\rangle-\lambda\langle y,x-\lambda y\rangle                                       \\
-		                                       & =\langle x ,x\rangle -\lambda\langle x,y\rangle -\lambda\langle y,x\rangle +\lambda^2\langle y,y\rangle \\
-		                                       & =\langle x,x\rangle -2\lambda\langle x,y\rangle+\lambda^2\langle y,y\rangle
-	\end{align*}Now unless $x=\lambda y$ we have $\langle x-\lambda y,x-\lambda y\rangle>0$ Hence the quadratic equation has no root therefore the discriminant is greater than zero.
-
-	\subsubsection*{\textbf{When field is $\bbC:$}}Modify the definition by $$\langle x,y\rangle=\sum_i\overline{x_i}y_i$$Then we still have $\langle x,x\rangle\geq 0$}
-
-\section{Algorithms}
-\begin{algorithm}[H]
-\KwIn{This is some input}
-\KwOut{This is some output}
-\SetAlgoLined
-\SetNoFillComment
-\tcc{This is a comment}
-\vspace{3mm}
-some code here\;
-$x \leftarrow 0$\;
-$y \leftarrow 0$\;
-\uIf{$ x > 5$} {
-    x is greater than 5 \tcp*{This is also a comment}
+\subsection*{The Buckingham $\Pi$-Theorem}
+\thm{Buckingham $\Pi$-Theorem}{
+	An equation is dimensionally homogeneous if and only if it can be written in the form
+	$$
+		f(\Pi_1, \Pi_2, \dots, \Pi_n) = 0,
+	$$
+	where $f$ is some function satisfying certain conditions (outside out scope) and $\braces{\Pi_1, \Pi_2, \dots, \Pi_n}$ is a complete set of dimensionless products corresponding to some mathematical model.
 }
-\Else {
-    x is less than or equal to 5\;
+
+\nt{
+	$\Pi_k$ is dimensionless, i.e.
+	$\displaystyle
+		\forall \Pi_k, [\Pi_k] = 1 
+	$
 }
-\ForEach{y in 0..5} {
-    $y \leftarrow y + 1$\;
+
+The set $\bracks{\Pi_k}$ can be obtained by giving all solutions to a linear system of exponents for the model. We've found the complete set of dimensionless products for the pendulum problem, $\braces{\tau\sqrt{g/r}, \theta}$. Applying the Buckingham $\Pi$-theorem now, our mathematical model is of the form:
+$$
+	f(\Pi_1, \Pi_2) = 0 \implies f(\tau\sqrt{g/r}, \theta) = 0
+$$
+We further assume that from $f$ we can deduce 
+\begin{gather*}
+	\tau\sqrt{\frac{g}{r}} = h(\theta)\qquad \text{ by Implict Function Theorem.}
+\end{gather*}
+We'll describe implicit function theorem in detail later.
+
+\nt{
+	If $\Pi = \braces{\Pi_1, \Pi_2, \Pi_3}$, then $\Pi_1 = h(\Pi_1, \Pi_2)$. More generally, if $\Pi = \braces{\Pi_k\suchthat k\in\bbn,k\leq n}$, then $\Pi_1 = h\bracks{\Pi_2, \Pi_3, \dots, \Pi_n}$.
 }
-\For{$y$ in $0..5$} {
-    $y \leftarrow y - 1$\;
+
+\subsection*{Archimedes' Law}
+The famous ``Eureka!'' leaping from the bathtub one ;P\\
+
+Archimedes' law applies to bodies immersed in a fluid. Consider a box of mass $m$, which displaces $V$ fluid, with constant density $\rho$. Suppose your class mate claims that this phenomenon is described by the equation
+$$
+	m\dyd[^2x]{t^2} = mg - mVg
+$$
+Let's verify this\dots
+\begin{align*}
+	\sqbracks{mVg} &= [m][V][g] \\
+		&= M\cd L^3 \cd LT^{-2} \\
+		&= ML^4T^{-2} \\
+	\sqbracks{m\dyd[^2x]{t^2}} &= [m]\sqbracks{\dyd[^2x]{t^2}} \\
+		&= MLT^{-2} \\
+		&\neq [mVg]
+\end{align*}
+So we can conclude that this model is not dimensionally consistent.\\
+Another classmate suggests the equation
+$$
+	m\dyd[^2x]{t^2} = mb - \rho Vg.
+$$
+We'll similarlly analyse this like
+\begin{align*}
+	\sqbracks{\rho Vg} &= [\rho][V][g] \\
+		&= ML^{-3}\cd L^3 \cd LT^{-2} \\
+		&= ML^1T^{-2} \\
+		&= MLT^{-2} \\
+\sqbracks{m\dyd[^2x]{t^2}} &= [m]\sqbracks{\dyd[^2x]{t^2}} \\
+		&= MLT^{-2} \\
+		&= \sqbracks{\rho Vg}
+\end{align*}
+Which is dimensionally consistent!\\
+
+Let's use Buckingham $\Pi$-theorem to establish the general form any correct model must take:
+\begin{gather*}
+	\intertext{Consider the product $F^a\rho^bg^cV^dm^e$} 
+	\begin{aligned}
+		\sqbracks{F^a\rho^bg^cV^dm^e} &= (MLT^{-2})^a(ML^{-3})^b(LT^{-2})^c(L^3)^d(M)^e \\
+			&= M^aL^aT^{-2a}\cd M^bL^{-3b}\cd L^cT^{-2c}\cd L^{3d}\cd M^e \\
+			&= M^{a+b+e}L^{a-3b+c+3d}T^{-2a-2c} \\
+		\Let M^0L^0T^0 &= M^{a+b+e}L^{a-3b+c+3d}T^{-2a-2c}
+	\end{aligned} \\
+	\Rightarrow\left.\begin{array}{rcc}
+		a + b + e & = & 0 \\
+		a - 3b + c + 3d & = & 0 \\
+		-2a - 2c & = & 0
+	\end{array}\right\rbrace\begin{array}{ccl}
+		c & = & -a \\
+		b & = & -a-e \\
+		d & = & -a-e
+	\end{array}\\
+	\begin{aligned}
+		\So F^a\rho^bg^cV^dm^e &= F^a\rho^{-a-e}g^{-a}V^{-a-e}m^e \\
+			&= F^a\rho^{-a}g^{-a}V^{-a}\rho^{-e}V^{-e}m^e \\
+			&= \bracks{F\rho^{-1}g^{-1}V^{-1}}^a \bracks{\rho^{-1}V^{-1}m}^e \\
+			&= \bracks{\frac{F}{\rho gV}}^a \bracks{\frac{m}{\rho V}}^e \\
+		\tf \Pi &= \braces{\frac{F}{\rho gV}, \frac{m}{\rho V}}.
+	\end{aligned}
+\end{gather*}
+
+Now that we've deduced $\Pi$, we know that any valid physcial law must take the form:
+$$
+	\frac{F}{\rho gV} = h\bracks{\frac{m}{\rho V}}
+$$
+$$
+	\implies F = \rho gV h\bracks{\frac{m}{\rho V}}
+$$
+
+\nt{
+	Generally, when proceeding with the linear algebra portion of this procedure, keep in mind the power of your desired dependent variable, and try to express all other powers in terms of it. For example, in the pendulum example, and in the Archimedes' law exmaple too, we expressed the other variables in terms of $a$, because this was the power of the desired dependent variables $\tau$ and $F$, respectively. 
 }
-\While{$x > 5$} {
-    $x \leftarrow x - 1$\;
+
+\section{Lecture 3}
+\subsection*{Drag Force}
+Consider a sphere of radius $r$, moving through a viscous fluidd. We wish to model the drag force, $F$, dependent on the relevant variables $\eta$, the viscosity, $v$, the velocity, and $r$ the radius.
+\begin{gather*}
+	\intertext{Consider the product $F^a\eta^bv^cr^d$} 
+	\begin{aligned}
+		[F]^a[\eta]^b[v]^c[r]^d &= \bracks{MLT^{-2}}^a\bracks{ML^{-1} T^{-1}}^b\bracks{LT^{-1}}^c\bracks{L}^d \\
+			&= \bracks{M^aL^aT^{-2a}}\bracks{M^bL^{-b}T^{-b}}\bracks{L^cT^{-c}}\bracks{L^d} \\
+			&= M^{a+b}L^{a-b+c+d}T^{-2a-b-c} \\
+		\Let M^0L^0T^0 &= M^{a+b}L^{a-b+c+d}T^{-2a-b-c}
+	\end{aligned}\\
+	\Rightarrow \left.\begin{array}{rcc}
+		a + b & = & 0 \\
+		a - b + c + d & = & 0 \\
+		-2a - b - c & = & 0
+	\end{array}\right\rbrace \begin{array}{ccl}
+		b & = & -a \\
+		c & = & -a \\
+ 		d & = & -a
+	\end{array} \\
+	\begin{aligned}
+		\So F^a\eta^bv^cr^d &= F^a\eta^{-a}v^{-a}r^{-a} \\
+			&= \bracks{F\eta^{-1}v^{-1}r^{-1}}^{a} \\
+			&= \bracks{\frac{F}{\eta v r }}^{a} \\
+		\tf \Pi &= \braces{\frac{F}{\eta v r }}
+	\end{aligned}
+\end{gather*}
+So from the Buckingham $\Pi$-theorem, we know that many valid physcial law must take the form:
+$$
+	f\bracks{\frac{F}{\eta vr}} = 0
+$$
+$$
+	\implies \frac{F}{\eta vr} = k
+$$
+In other words, $F = k\eta vr$, where $k$ is some dimensionless constant.
+
+\nt{
+	This result, that drag force is proportional to velocity is known as Stokes' Law, and in fact, the constant $k=6\pi$.
 }
-\Return Return something here\;
-\caption{what}
-\end{algorithm}
+
+\subsection*{A Mixing Model}
+Initially, a tank of water with $v_0$ litres has $m_0$ grams of salt dissolved in it. Brine with $n$ grams of salt per litre runs into the tank at a rate of $x$ litres per minute. The contents are constantly stirred (so you can assume that the concentration of salt is always uniform throughout the tank) and water runs out of the tank at the rate of $y$ litres per minute. Let $s(t)$ denote the amount of salt in the tank at time $t$ (measured in minutes). Determine the equation which governs the net rate of change of salt, checking that all terms are dimensionally consistent.
+\begin{gather*}
+	\longintertext{Let $c(t)$ denote the density of salt at time $t$.\\
+	Let $v(t)$ denote the volume of water in the tank at time $t$.}
+	\begin{aligned}
+		\text{We have } c(t) &=\frac{s(t)}{v(t)} \\
+		\text{And } v(t) &= v_0 + (x-y)t \\
+		\implies c(t) &= \frac{s(t)}{v_0+(x-y)t}. \\
+	\end{aligned}
+	\intertext{Salt enters at a rate of $nx$ grams/minute and leaves at a rate of $yc(t)$ per minute.}
+	yc(t) = \frac{ys(t)}{v_0+(x-y)t}.
+	\intertext{Therefore, the net rate of change is}
+	\dyd[s]{t} = nx - \frac{ys}{v_0+(x-y)t}, s(0)=m_0.
+	\intertext{Now lets check the model for dimensional homogeneity!}
+	\begin{aligned}
+		\sqbracks{\dyd[s]{t}} &= MT^{-1} \\
+		[nx] &= ML^{-3}\cd L^3T^{-1} \\
+			&= MT^{-1} \\
+		[v_0] &= L^3 \\
+		[(x-y)t] &= L^3T^{-1}T \\
+			&= L^3 \\
+		\Rightarrow \sqbracks{\frac{ys}{v_0+(x-y)t}} &= \frac{ML^3T^{-1}}{L^3} \\
+			&= \frac{ML^3T^{-1}}{L^3} \\
+			&= MT^{-1}
+		\end{aligned}\\
+		\tf \sqbracks{\dyd[s]{t}} = \sqbracks{nx} = \sqbracks{\frac{ys}{v_0+(x-y)t}}
+\end{gather*}
+So, the system is dimensionally homogeneous.
+
+\subsection*{Scaling}
+\textbf{Question,} can we scale experiments in a laboratory to ensure that the observed effects are consistent?\\
+We can use dimensionless variables, and try to preserve their values. Some examples of dimensionless variables in fluid dynamics include
+\begin{gather*}
+	\text{Reynold's Number,}\qquad Re = \frac{\rho lv}{\eta} \\
+	\text{Froude's Number,}\qquad Fr = \frac{v}{\sqrt{gl}} \\
+	\text{Mach Number,}\qquad M = \frac{v}{c}
+\end{gather*}
+where, $\rho$ is the fluid denisty, $l$ is the length of an object, $v$ is velocty, $\eta$ is the viscosity of the fluid, $g$ is gravitational acceleration, and $c$ is the speed of sound.
+
+\subsection*{A Ship Model}
+Suppose our model involves $Fr$, which we seek to keep fixed. \\
+The true boat has hull length $l=20\text{m}$, at speed $v=10\text{ms}^{-1}$\\
+We can model this with a boat of hull length $l^*=0.2m$, i.e. $l^*=l/100$. \\
+What is $v^*$?
+\begin{gather*}
+	\begin{aligned}
+		Fr &= \frac{v}{\sqrt{gl}} = \frac{v^*}{\sqrt{gl^*}} \\
+		\tf v^* &= v \sqrt{\frac{gl^*}{gl}} \\
+			&= v \sqrt{\frac{l^*}{l}} \\
+			&= 10 \sqrt{\frac{0.2}{20}} \\
+		\tf v^* &= 1 \text{ms}^{-1}
+	\end{aligned}
+\end{gather*}
+
+\chapter{Week 2}
+\section{Lecture 4}
+
 
 \end{document}

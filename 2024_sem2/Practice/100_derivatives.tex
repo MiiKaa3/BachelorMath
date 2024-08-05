@@ -1,0 +1,998 @@
+\documentclass{article}
+\usepackage[
+  left=2cm,
+  right=2cm,
+  top=2cm,
+  bottom=2cm
+]{geometry}
+
+\usepackage{michaelsty}
+\allowdisplaybreaks[1]
+
+\newcounter{question}
+\newcommand{\questionDiff}[2][\ddx]{
+  \stepcounter{question}
+  (Q\thequestion.) $\displaystyle #1\lb #2 \rb$
+}
+\newcommand{\questionImplicit}[2][\dydx]{
+  \stepcounter{question}
+  (Q\thequestion.) $\displaystyle \text{Find } #1 \text{ for } #2$
+}
+\newcommand{\questionDefinition}[2][\ddx]{
+  \stepcounter{question}
+  (Q\thequestion.) $\displaystyle #1\lb #2 \rb$, using the definition of the derivative.
+}
+
+\title{100 Derivatives}
+\author{Problems by: blackpenredpen \\ Solutions by: Michael Kasumagic}
+\date{$10^{\text{th}}$ of June, 2024}
+
+\begin{document}
+\maketitle
+
+\questionDiff{ax^2 + bx + c}
+\begin{align*}
+  \Rightarrow \ddx ax^2 + \ddx bx + \ddx c &= 2ax + b
+\end{align*}
+
+\questionDiff{\frac{\sin x}{1 + \cos x}}
+\begin{align*}
+  \Rightarrow \ddx\lb \frac{u}{v} \rb &= \frac{u'v - uv'}{v^2} \\
+  u = \sin x &\Rightarrow u' = \cos x \\
+  v = 1 + \cos x &\Rightarrow v' = -\sin x \\
+  \Rightarrow \dfdx &= \frac{\cos x (1+\cos x) + \sin^2 x}{(1+\cos x)^2} \\
+    &= \frac{\cos x + \cos^2 x + \sin^2 x}{(1+\cos x)^2} \\
+    &= \frac{\cos x + 1}{(1+\cos x)^2} \\
+  \tf\dfdx &= \frac{1}{(1+\cos x)} 
+\end{align*}
+
+\questionDiff{\frac{1 + \cos x}{\sin x}}
+\begin{align*}
+  \Rightarrow \ddx\lb \frac{u}{v} \rb &= \frac{u'v - uv'}{v^2} \\
+  u = 1 + \cos x &=\Rightarrow u' = -\sin x \\
+  v = \sin x &\Rightarrow v' = \cos x \\
+  \Rightarrow \dfdx &= \frac{-\sin^2x - \cos x - \cos^2 x}{\sin^2 x} \\
+    &= \frac{-\cos x - 1 (\sin^2 x + \cos^2x)}{\sin^2x} \\
+    &= \frac{-\cos x -1}{\sin^2x} \\
+    &= \frac{-1}{\sin^2x} - \frac{\cos x}{\sin^2x}\\
+  \tf\dfdx &= -\cot x\csc x -\csc^2x 
+\end{align*}
+
+\questionDiff{\sqrt{3x+1}}
+\begin{align*}
+  \Rightarrow \ddx (3x+1)^{1/2} &= \frac{1}{2}(3x+1)^{-1/2}\ddx(3x+1) \\
+    &= \frac{1}{2\sqrt{3x+1}} (3) \\
+  \tf\dfdx&= \frac{3}{2\sqrt{3x+1}}
+\end{align*}
+
+\questionDiff{\sin^3x+\sin x^3}
+\begin{align*}
+  \Rightarrow \ddx \sin^3 x + \ddx \sin x^3 &= 3 \sin^2 x \ddx(\sin x) + \cos x^3 \ddx(x^3) \\
+  \tf\dfdx &= 3\sin^2x\cos x+3x^2\cos x^3
+\end{align*}
+
+\questionDiff{\frac{1}{x^4}}
+\begin{align*}
+  \Rightarrow \ddx x^{-4} &= -4x^{-5} \\
+  \tf\dfdx &= \frac{-4}{x^5}
+\end{align*}
+
+\questionDiff{(1 + \cot x)^3}
+\begin{align*}
+  \Rightarrow 3(1 + \cot x)^2 \ddx(1+\cot x) &= -3\csc^2x(1+\cot x)^2
+\end{align*}
+
+\questionDiff{x^2(2x^3+1)^{10}}
+\begin{align*}
+  \Rightarrow \ddx u\cd v &= u'v + uv' \\
+  u = x^2 &\Rightarrow u' = 2x \\
+  v = (2x^3 + 1)^{10} &\Rightarrow v' = 10(2x^3+1)^9\ddx(2x^3+1) \\
+  \tf\dvdx &= 60x^2(2x^3 + 1)^9 \\
+  \tf\dfdx &= (2x)(2x^3+1)^{10} + 60x^4(2x^3+1)^9 \\
+    &= 2x(2x^3+1)^9(2x^3+1 + 30x^3) \\
+  \tf\dfdx&= 2x(2x^3+1)^9(32x^3+1)
+\end{align*}
+
+\questionDiff{\frac{x}{(x^2+1)^2}}
+\begin{align*}
+  \Rightarrow \ddx \frac{u}{v} &= \frac{u'v = uv'}{v^2} \\
+  u = x &\Rightarrow u' = 1 \\
+  v = (x^2+1)^2 &\Rightarrow v' = (4x^3+4x) \\
+  \tf\dfdx &= \frac{(x^2+1)^2 - x(4x^3+4x)}{(x^2+1)^4} \\
+    &= \frac{(x^2+1)^2-4x^2(x^2+1)}{(x^2+1)^4} \\
+    &= \frac{(x^2+1)-4x^2}{(x^2+1)^3} \\
+  \tf\dfdx &= \frac{1 - 3x^2}{(x^2+1)^3}
+\end{align*}
+
+\questionDiff{\frac{20}{1+5\exp(-2x)}}
+\begin{align*}
+  \Rightarrow \ddx\frac{u}{v} &= \frac{u'v - uv'}{v^2} \\
+  u = 20 &\Rightarrow u' = 0 \\
+  v = 1 + 5\exp(-2x) &\Rightarrow v' = -10\exp(-2x) \\
+  \tf\dfdx &= \frac{200\exp(-2x)}{(1+5\exp(-2x))^2}
+\end{align*}
+
+\questionDiff{\sqrt{\exp(x)} + \exp(\sqrt{x})}
+\begin{align*}
+  \Rightarrow \ddx\sqrt{\exp(x)} + \ddx(\exp(\sqrt{x})) &= \frac{1}{2}(\exp(x))^{-\frac{1}{2}}\ddx(\exp(x)) + \exp(\sqrt{x})\ddx\sqrt{x} \\
+    &= \frac{\exp(x)}{2\sqrt{\exp(x)}} + \frac{\exp(\sqrt{x})}{2\sqrt{x}} \\
+  \tf\dfdx &= \frac{\sqrt{\exp(x)}}{2} + \frac{\exp(\sqrt{x})}{2\sqrt{x}}
+\end{align*}
+
+\questionDiff{\sec^3(2x)}
+\begin{align*}
+  \Rightarrow 3\sec^2(2x)\ddx(\sec(2x)) &= 3\sec^2(2x)\sec(2x)\tan(2x)\ddx(2x) \\
+  \tf\dfdx &= 6\sec^3(2x)\tan(2x)
+\end{align*}
+
+\questionDiff{\frac{1}{2}\sec x\tan x + \frac{1}{2}\ln(\sec x+\tan x)}
+\begin{align*}
+  \Rightarrow \ddx\lb \frac{\tan x}{2\cos x} \rb + \ddx\lb \frac{1}{2} \ln(\sec x+\tan x) \rb &= \ddx\lb \frac{\sin x}{2\cos^2x} \rb + \ddx\lb \frac{1}{2} \ln(\sec x+\tan x) \rb \\
+  \ddx\lb\frac{\sin x}{2\cos^2x}\rb &= \ddx \lb\frac{u}{v}\rb = \frac{u'v-uv'}{v^2} \\
+  u = \sin x &\Rightarrow u' = \cos x \\
+  v = 2\cos^2x &\Rightarrow v' = -4\cos x\sin x \\
+  \tf\ddx\lb\frac{\sin x}{2\cos^2x}\rb &= \frac{2\cos^3x + 4\cos x\sin^2x}{4\cos^4x} \\
+    &= \frac{\cos^2x + 2\sin^2x}{2\cos^3x} \\
+    &= \frac{1}{2\cos x} + \frac{\sin^2x}{\cos^3x} \\
+    &= \frac{1}{2}\sec x + \sec x\tan^2 x \\
+  \ddx\lb\frac{1}{2}\ln\lb\sec x + \tan x\rb\rb &= \frac{1}{2\sec x + 2\tan x}\ddx\lb\sec x + \tan x\rb \\
+    &= \frac{\sec x\tan x + \sec^2x}{2\sec x + 2\tan x} \\
+    &= \frac{\sec x(\tan x + \sec x)}{2(\sec x + \tan x)} \\
+    &= \frac{1}{2} \sec x \\
+  \tf\dfdx&= \frac{1}{2}\sec x + \sec x\tan^2 x + \frac{1}{2} \sec x \\
+    &= \sec x + \sec x\tan^2 x \\
+    &= \sec x (1 + \tan^2 x) \\
+    &= \sec x (\sec^2x) \\
+  \tf\dfdx &= \sec^3x
+\end{align*}
+
+\questionDiff{\frac{x\exp(x)}{1+\exp(x)}}
+\begin{align*}
+  \Rightarrow \ddx\lb\frac{u}{v}\rb &= \frac{u'v - uv'}{v^2} \\
+  u = x\exp(x) &\Rightarrow u' = \alpha'\beta + \alpha\beta' \\
+  \alpha = x &\Rightarrow \alpha' = 1 \\
+  \beta = \exp(x) &\Rightarrow \beta' = \exp(x) \\
+  \tf u' &= \exp(x) + x\exp(x) \\
+  v = 1 + \exp(x) &\Rightarrow v' = \exp(x) \\
+  \tf\dfdx &= \frac{(\exp(x)+x\exp(x))(1+\exp(x)) - (x\exp(x))(\exp(x))}{(1+\exp(x))^2} \\
+    &= \frac{\exp(x)+x\exp(x)+\exp(2x)+x\exp(2x) - x\exp(2x)}{(1+\exp(x))^2} \\
+  \tf\dfdx&= \frac{\exp(x)+x\exp(x)+\exp(2x)}{(1+\exp(x))^2}
+\end{align*}
+
+\questionDiff{\exp(4x)\cos\lb\frac{x}{2}\rb}
+\begin{align*}
+  \Rightarrow \ddx(u\cd v) &= u'v + uv' \\
+  u = \exp(4x) &\Rightarrow u' = 4\exp(4x) \\
+  v = \cos\lb\frac{x}{2}\rb &\Rightarrow v' = -\frac{1}{2}\sin\lb\frac{x}{2}\rb \\
+  \tf\dfdx &= 4\exp(4x)\cos\lb\frac{x}{2}\rb - \frac{1}{2}\exp(4x)\sin\lb\frac{x}{2}\rb
+\end{align*}
+
+\questionDiff{\frac{1}{\sqrt[4]{x^3-2}}}
+\begin{align*}
+  \Rightarrow (x^3-2)^{-1/4} &= -\frac{1}{4}(x^3-2)^{-5/4}\ddx(x^3-2) \\
+    &= \frac{-3x^2}{4\sqrt[4]{(x^3-2)^5}}
+\end{align*}
+
+\questionDiff{\arctan\lb\sqrt{x^2-1}\rb}
+\begin{align*}
+  \Rightarrow \frac{1}{x^2}\ddx\lb\sqrt{x^2-1}\rb &= \frac{1}{x^2}\ddx\lb x^2-1\rb^{1/2} \\
+    &= \frac{1}{x^2}\cd\frac{1}{2}(x^2-1)^{-1/2}\ddx(x^2-1) \\
+    &= \frac{1}{x^2}\cd\frac{1}{2\sqrt{x^2-1}}\cd2x \\
+  \tf\dfdx&= \frac{1}{x\sqrt{x^2-1}}
+\end{align*}
+
+\questionDiff{\frac{\ln x}{x^3}}
+\begin{align*}
+  \Rightarrow \ddx\lb \ln x \cd x^{-3} \rb &= \ddx u\cd v \\
+    &= u'v + uv' \\
+  u = \ln x &\Rightarrow u' = \frac{1}{x} \\
+  v = x^{-3} &= v' = -3x^{-4} \\
+  \tf\dfdx&= \frac{1}{x^4} - \frac{3\ln x}{x^4} \\
+    &= \frac{1-3\ln x}{x^4}
+\end{align*}
+
+\questionDiff{x^x}
+\begin{align*}
+  \Rightarrow \ddx \exp(\ln x^x) &= \exp(x\ln x) \\
+    &= \exp(x\ln x) \ddx (x\ln x) \\
+    &= u'v + uv' \\
+  \ddx(x\ln x) &= \ddx (u\cd v) \\
+  u = x &\Rightarrow u' = 1 \\
+  v = \ln x &\Rightarrow v' = \frac{1}{x} \\
+  \tf\ddx(x\ln x) &= \ln x + 1 \\
+  \tf\dfdx &= \exp(x\ln x)(\ln x + 1) \\
+    &= x^x(\ln x + 1)
+\end{align*}
+
+\questionImplicit{x^3 + y^3 = 6xy}
+\begin{align*}
+  \Rightarrow \ddx x^3 + \ddx y^3 &= \ddx 6xy \\
+  3x^2 + 3y^2\dydx &= y\ddx(6x) + 6x\dydx \\
+  3x^2 + 3y^2\dydx &= 6y + 6x\dydx \\
+  3y^2\dydx - 6x\dydx &= 6y - 3x^2  \\
+  \dydx(3y^2 - 6x) &= 6y - 3x^2  \\
+  \dydx &= \frac{6y - 3x^2}{3y^2 - 6x} \\
+  \tf\dydx &= \frac{2y - x^2}{y^2 - 2x} 
+\end{align*}
+
+\questionImplicit{y\sin y = x\sin x}
+\begin{align*}
+  \Rightarrow\ddx(y\sin y) &= \ddx(x\sin x) \\
+  \sin y\dydx + y \cos y\dydx &= \sin x + x\cos x \\
+  \dydx(\sin y + y \cos y) &= \sin x + x\cos x \\
+  \dydx &= \frac{\sin x + x\cos x}{\sin y + y \cos y}
+\end{align*}
+
+\questionImplicit{\ln\lb\frac{x}{y}\rb = \exp(xy^3)}
+\begin{align*}
+  \Rightarrow\ddx\lb\ln\lb\frac{x}{y}\rb\rb &= \ddx\lb\exp(xy^3)\rb\\
+  \ddx(\ln x - \ln y) &= \exp(xy^3)\ddx(xy^3)\\
+  \frac{1}{x} - \frac{1}{y}\dydx &= \exp(xy^3)(y^3 + 3xy^2\dydx) \\ 
+  \frac{1}{x} - \frac{1}{y}\dydx &= y^3\exp(xy^3) + 3xy^2\exp(xy^3)\dydx \\ 
+  \frac{1}{x} - y^3\exp(xy^3) &= \frac{1}{y}\dydx + 3xy^2\exp(xy^3)\dydx \\ 
+  \tf\dydx &= \frac{\frac{1}{x} - y^3\exp(xy^3)}{\frac{1}{y} + 3xy^2\exp(xy^3)} \\ 
+    &= \frac{\frac{1}{x} - y^3\exp(xy^3)}{\frac{1}{y} + 3xy^2\exp(xy^3)} \cd \frac{xy}{xy}\\
+  \tf\dydx&= \frac{y - xy^4\exp(xy^3)}{x + 3x^2y^3\exp(xy^3)}  
+\end{align*}
+
+\questionImplicit{x = \sec y}
+\begin{align*}
+  \Rightarrow\ddx(x) &= \ddx(\sec y) \\
+  1 &= \sec y\tan y \dydx \\
+  \tf\dydx &= \frac{1}{\sec y\tan y} \\
+    &= \frac{\cos y}{\tan y}
+\end{align*}
+\begin{align*}
+  x &= \sec y \\
+  \Rightarrow\arcsec x &= \arcsec\sec y \\
+  \arcsec x &= y \\
+  \ddx\arcsec x &= \ddx y \\
+  \frac{1}{x\sqrt{x^2-1}} &= \dydx
+\end{align*}
+
+\questionImplicit{(x-y)^2 = \sin x + \sin y}
+\begin{align*}
+  \Rightarrow \ddx(x-y)^2 &= \ddx\sin x + \ddx\sin y \\
+  2(x-y)\ddx(x-y) &= \cos x + \cos y \ddx y \\
+  (2x - 2y)\lb 1 - \dydx\rb &= \cos x + \cos y \dydx \\
+  2x - 2x\dydx - 2y + 2y\dydx &= \cos x + \cos y \dydx \\
+  2x - 2y - \cos x &= \cos y \dydx + 2x\dydx - 2y\dydx \\
+  \tf\dydx &= \frac{2x - 2y - \cos x}{2x - 2y + \cos y}
+\end{align*}
+
+\questionImplicit{x^y = y^x}
+\begin{align*}
+  \Rightarrow \ln(x^y) &= \ln(y^x) \\
+  y\ln(x) &= x\ln(y) \\
+  \frac{\ln(x)}{x} &= \frac{\ln(y)}{y} \\
+  \ddx x^{-1}\ln(x) &= \ddx y^{-1}\ln(y) \\
+  \frac{-\ln x}{x^2} + \frac{1}{x^2} &= \frac{-\ln y}{y^2} \dydx + \frac{1}{y^2}\dydx \\
+  \frac{1-\ln x}{x^2} &= \lb\frac{1-\ln y}{y^2} \rb\dydx \\
+  \frac{1-\ln x}{x^2} \cd \frac{y^2}{1-\ln y} &= \dydx \\
+  \tf\dydx  &= \frac{y^2-y^2\ln x}{x^2 - x^2\ln y}
+\end{align*}
+
+\questionImplicit{\arctan(x^2y) = x + y^3}
+\begin{align*}
+  \Rightarrow \ddx\arctan(x^2y) &= \ddx x + \ddx y^3 \\
+  \frac{1}{1+(x^2y)^2}\cd\ddx(x^2y) &= 1 + 3y^2\dydx \\
+  \frac{1}{1+(x^2y)^2}(2xy + x^2\dydx) &= 1 + 3y^2\dydx \\
+  \frac{2xy}{1+(x^2y)^2} + \frac{x^2}{1+(x^2y)^2}\dydx &= 1 + 3y^2\dydx \\
+  \frac{2xy}{1+(x^2y)^2} - 1  &= 3y^2\dydx - \frac{x^2}{1+(x^2y)^2}\dydx \\
+  2xy - 1-(x^2y)^2  &= \bracks{3y^2+3y^2(x^2y)^2 - x^2}\dydx \\
+  2xy - x^4y^2 - 1  &= \bracks{3y^2+3x^4y^4 - x^2}\dydx \\
+  \tf\dydx &= \frac{2xy - x^4y^2 - 1}{3y^2+3x^4y^4 - x^2} 
+\end{align*}
+
+\questionImplicit{\frac{x^2}{x^2 - y^2} = 3y}
+\begin{align*}
+  \Rightarrow \ddx\frac{x^2}{x^2 - y^2} &= \ddx3y \\
+  \frac{(2x)(x^2 - y^2) - (x^2)(2x - 2y\dydx)}{(x^2 - y^2)^2} &= 3\dydx \\
+  -2xy^2 + 2x^2y\dydx &= (x^2 - y^2)^2\dydx \\
+  -2xy^2 + 2x^2y\dydx &= (3x^4 - 6x^2y^2 + 3y^4)\dydx \\
+  -2xy^2 &= (3x^4 - 6x^2y^2 + 3y^4)\dydx - 2x^2y\dydx \\
+  -2xy^2 &= (3x^4 - 6x^2y^2 + 3y^4 - 2x^2y)\dydx \\
+  \tf\dydx &= \frac{2xy^2}{6x^2y^2 + 2x^2y - 3x^4 - 3y^4}
+\end{align*}
+
+\questionImplicit{\exp\bracks{\frac{x}{y}} = x + y^2}
+\begin{align*}
+  \Rightarrow \ddx\exp\bracks{\frac{x}{y}} &= \ddx x + \ddx y^2 \\
+  \exp\bracks{\frac{x}{y}} \cd \ddx xy^{-1} &= 1 + 2y\dydx \\
+  \exp\bracks{\frac{x}{y}} \cd \bracks{1y^{-1} - 1xy^{-2}\dydx} &= 1 + 2y\dydx \\
+  \frac{\exp\bracks{x/y}}{y} - \frac{x\exp\bracks{x/y}}{y^2}\dydx &= 1 + 2y\dydx \\
+  \frac{\exp\bracks{x/y}}{y} - 1 &= 2y\dydx + \frac{x\exp\bracks{x/y}}{y^2}\dydx \\
+  y\exp\bracks{x/y} - y^2 &= 2y^3\dydx + x\exp\bracks{x/y}\dydx \\
+  \tf\dydx &= \frac{y\exp\bracks{x/y} - y^2}{2y^3 + x\exp\bracks{x/y}}
+\end{align*}
+
+\questionImplicit{(x^2 + y^2 - 1)^3 = y}
+\begin{align*}
+  \Rightarrow \ddx(x^2 + y^2 - 1)^3 &= \ddx y \\
+  3(x^2 + y^2 - 1)^2 \cd \ddx(x^2 + y^2 - 1) &= \dydx \\
+  6x(x^2 + y^2 - 1)^2 + 6y(x^2 + y^2 - 1)^2\dydx &= \dydx \\
+  6x(x^2 + y^2 - 1)^2 &= \dydx - 6y(x^2 + y^2 - 1)^2\dydx \\
+  \tf\dydx &= \frac{6x(x^2 + y^2 - 1)^2}{1 - 6y(x^2 + y^2 - 1)^2}
+\end{align*}
+
+\questionImplicit[\dydxsq]{9x^2 + y^2 = 9}
+\begin{align*}
+  \Rightarrow \ddx 9x^2 + \ddx y^2 &= \ddx 9 \\
+  18x + 2y\dydx &= 0 \\
+  \tf\dydx &= \frac{-9x}{y} \\
+  \dydxsq &= \ddx\frac{-9x}{y} \\
+    &= \frac{u'v - uv'}{v^2} \\
+    u = -9x &\Rightarrow u' = -9 \\
+    v = y &\Rightarrow v' = \dydx = \frac{-9x}{y} \\
+  \tf\dydxsq &= \frac{(-9)(y) - (-9x)\bracks{\frac{-9x}{y}}}{y^2} \\
+    &= \frac{-9y - \frac{81x^2}{y}}{y^2} \\
+    &= \frac{-9y^2 - 81x^2}{y^3} \\
+    &= \frac{-9(y^2 + 9x^2)}{y^3} \\
+    &= \frac{-9(9)}{y^3} \\
+  \tf\dydxsq &= \frac{-81}{y^3}
+\end{align*}
+
+\questionDiff[\ddxsq]{\frac{1}{9}\sec(3x)}
+\begin{align*}
+  \Rightarrow \frac{1}{9}\sec(3x)\tan(3x)\ddx(3x) &= \frac{1}{3}\sec(3x)\tan(3x) \\
+    &= u'v + uv' \\
+  u = \frac{1}{3}\sec(3x) &\Rightarrow u' = \sec(3x)\tan(3x) \\
+  v = \tan(3x) &\Rightarrow v' = 3\sec^2(3x) \\
+  \tf\dydxsq &= \sec(3x)\tan^2(3x) + \sec^3(3x)
+\end{align*}
+
+\questionDiff[\ddxsq]{\frac{x+1}{\sqrt{x}}}
+\begin{align*}
+  \Rightarrow\ddxsq\bracks{\frac{x+1}{\sqrt{x}}\cd\frac{\sqrt{x}}{\sqrt{x}}} &= \ddxsq\bracks{\frac{x^{3/2}+x^{1/2}}{x}} \\
+    &= \ddxsq\bracks{x^{1/2}+x^{-1/2}} \\
+    &= \ddxsq(x^{1/2})+\ddxsq(x^{-1/2}) \\
+    &= \ddx\bracks{\frac{1}{2}x^{-1/2}} + \ddx\bracks{\frac{-1}{2}x^{-3/2}} \\
+    &= \frac{-1}{4}x^{-3/2} + \frac{3}{4}x^{-5/2} \\
+    &= \frac{-1}{4}x^{-3/2}x^{-2/2}x^{2/2} + \frac{3}{4}x^{-5/2} \\
+    &= \frac{-1}{4}x^{-5/2}x^{2/2} + \frac{3}{4}x^{-5/2} \\
+    &= \frac{-x^{2/2}}{4x^{-5/2}} + \frac{3}{4x^{-5/2}} \\
+    &= \frac{3-x^{2/2}}{4x^{-5/2}} \\
+    &= \frac{3-x^{2/2}}{4x^{-5/2}} \\
+    &= \frac{3-x}{4\sqrt{x^5}}
+\end{align*}
+
+\questionDiff[\ddxsq]{\arcsin(x^2)}
+\begin{align*}
+  \Rightarrow\ddx\bracks{\frac{1}{\sqrt{1-x^4}}\ddx\bracks{x^2}} &= \ddx\bracks{\frac{2x}{\sqrt{1-x^4}}} \\
+    &= \ddx\bracks{\frac{2x}{\sqrt{1-x^4}}} \\
+    &= \frac{u'v - uv'}{v^2} \\
+  u = 2x &\Rightarrow u' = 2 \\
+  v = \sqrt{1-x^4} &\Rightarrow v' = \frac{-4x^3}{2\sqrt{1-x^4}} \\
+  \tf\dydxsq &= \frac{(2)(\sqrt{1-x^4}) - (2x)(\frac{-4x^3}{2\sqrt{1-x^4}})}{(\sqrt{1-x^4})^2} \\
+    &= \frac{2\sqrt{1-x^4} + \frac{8x^4}{2\sqrt{1-x^4}}}{1-x^4} \\
+    &= \frac{2\sqrt{1-x^4} + \frac{8x^4}{2\sqrt{1-x^4}}}{1-x^4} \cd \frac{2\sqrt{1-x^4}}{2\sqrt{1-x^4}} \\
+    &= \frac{4(1-x^4) + 8x^4}{2(1-x^4)(1-x^4)^{1/2}} \\
+    &= \frac{2(1-x^4) + 4x^4}{(1-x^4)^{3/2}} \\
+    &= \frac{2+2x^4}{(1-x^4)^{3/2}} \\
+  \tf\dydxsq &= \frac{2+2x^4}{\sqrt{(1-x^4)^3}}
+\end{align*}
+
+\questionDiff[\ddxsq]{\frac{1}{1+\cos x}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{-1(1+\cos x)^{-2}\ddx(1+\cos x)} &= \ddx\bracks{\sin x(1+\cos x)^{-2}} \\
+    &= \ddx\bracks{\frac{\sin x}{(1 + \cos x)^2}} \\
+    &= \frac{u'v - uv'}{v^2} \\
+  u = \sin x &\Rightarrow u' = \cos x \\
+  v = (1 + \cos x)^2 &\Rightarrow v' = -2\sin x(1 + \cos x) \\
+  \tf\dydxsq &= \frac{(\cos x)(1 + \cos x)^2 + 2\sin^2 x(1 + \cos x)}{(1 + \cos x)^4} \\
+    &= \frac{(\cos x)(1 + \cos x)^2 + 2\sin^2 x(1 + \cos x)}{(1 + \cos x)^4} \\
+    &= \frac{(\cos x)(1 + \cos x) + 2\sin^2 x}{(1 + \cos x)^3} \\
+    &= \frac{\cos x + \cos^2 x + 2\sin^2 x}{(1 + \cos x)^3}
+\end{align*}
+
+\questionDiff[\ddxsq]{x\arctan x}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\arctan x + \frac{x}{1+x^2}} &= \ddx(\arctan x) + \ddx\bracks{\frac{x}{1 + x^2}} \\
+    &= \frac{1}{1+x^2} + \frac{u'v - uv'}{v^2}  \\
+  u = x &\Rightarrow u' = 1 \\
+  v = 1 + x^2 &\Rightarrow v' = 2x \\
+  \tf\dydxsq &= \frac{1}{1+x^2} + \frac{1 + x^2 - 2x^2}{(1 + x^2)^2} \\
+    &= \frac{1}{1+x^2} \cd \frac{1+x^2}{1+x^2} + \frac{1 - x^2}{(1 + x^2)^2} \\
+    &= \frac{1+x^2}{(1+x^2)^2} + \frac{1 - x^2}{(1 + x^2)^2} \\
+  \tf\dydxsq &= \frac{2}{(1 + x^2)^2}
+\end{align*}
+
+\questionDiff[\ddxsq]{x^4\ln x}
+\begin{align*}
+  \Rightarrow\ddx(4x^3\ln x + x^3) &= \ddx(4x^3\ln x) + \ddx(x^3) \\
+    &= \ddx(4x^3\ln x) + \ddx(x^3) \\
+    &= 12x^2\ln x + 4x^2 + 3x^2 \\
+    &= 12x^2\ln x + 7x^2
+\end{align*}
+
+\questionDiff[\ddxsq]{\exp\bracks{-x^2}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{-2x\exp(-x^2)} &= -2\exp(-x^2) + 4x^2\exp(-x^2) \\
+    &= 4x^2\exp(-x^2) - 2\exp(-x^2) \\
+  \tf\dydxsq &= 2\exp(-x^2) (2x^2 - 1) 
+\end{align*}
+
+\questionDiff[\ddxsq]{\cos(\ln x)}
+\begin{align*}
+  \Rightarrow\ddx\bracks{\frac{-\sin(\ln x)}{x}} &= \frac{u'v - uv'}{v^2} \\
+  u = -\sin(\ln x) &\Rightarrow u' = \frac{-\cos(\ln x)}{x} \\
+  v = x &= v' = 1 \\
+  \tf\dydxsq &= \frac{-\cos(\ln x) + \sin(\ln x)}{x^2} \\
+    &= \frac{\sin(\ln x) - \cos(\ln x)}{x^2} 
+\end{align*}
+
+\questionDiff[\ddxsq]{\ln(\cos x)}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\frac{-\sin x}{\cos x}} &= \ddx(-\tan(x)) \\
+  \tf\dydxsq &= -\sec^2 x
+\end{align*}
+
+\questionDiff{\sqrt{1-x^2} + x\arcsin(x)}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\sqrt{1-x^2}} + \ddx\bracks{x\arcsin(x)} &= \frac{-2x}{2\sqrt{1-x^2}} + \arcsin x + \frac{x}{\sqrt{1 - x^2}} \\
+    &= \frac{-2x}{2\sqrt{1-x^2}} + \arcsin x + \frac{2x}{2\sqrt{1 - x^2}} \\
+  \tf\dydx &= \arcsin(x)
+\end{align*}
+
+\questionDiff{x\sqrt{4-x^2}}
+\begin{align*}
+  \Rightarrow u'v + uv' &\ \\
+  u = x &\Rightarrow u' = 1 \\
+  v = \sqrt{4-x^2} &\Rightarrow v' = \frac{-x}{\sqrt{4 - x^2}} \\
+  \tf\dydx &= \sqrt{4-x^2} - \frac{x^2}{\sqrt{4 - x^2}} \\
+    &= \frac{4-x^2}{\sqrt{4-x^2}} - \frac{x^2}{\sqrt{4 - x^2}} \\
+  \tf\dydx &= \frac{4 - 2x^2}{\sqrt{4 - x^2}}
+\end{align*}
+
+\questionDiff{\frac{\sqrt{x^2 - 1}}{x}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &\ \\
+  u = \sqrt{x^2 - 1} &\Rightarrow u' = \frac{2x}{2\sqrt{x^2 - 1}} \\
+  v = x &\Rightarrow v' = 1 \\
+  \tf\dydx &= \frac{\frac{2x^2}{2\sqrt{x^2 - 1}} - \sqrt{x^2 - 1}}{x^2} \\
+    &= \frac{\frac{2x^2}{2\sqrt{x^2 - 1}} - \sqrt{x^2 - 1}}{x^2} \cd \frac{2\sqrt{x^2 - 1}}{2\sqrt{x^2 - 1}} \\
+    &= \frac{-1}{x^2\sqrt{x^2 - 1}}
+\end{align*}
+
+\questionDiff{\frac{x}{\sqrt{x^2 - 1}}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &\ \\
+  u = x &\Rightarrow u' = 1 \\
+  v = \sqrt{x^2 - 1} &\Rightarrow v' = \frac{2x}{2\sqrt{x^2 - 1}} \\
+  \tf\dydx &= \frac{\sqrt{x^2 - 1} - \frac{2x^2}{2\sqrt{x^2 - 1}}}{x^2 - 1} \\
+    &= \frac{\sqrt{x^2 - 1} - \frac{2x^2}{2\sqrt{x^2 - 1}}}{x^2 - 1} \cd \frac{2\sqrt{x^2 - 1}}{2\sqrt{x^2 - 1}} \\
+    &= \frac{-1}{\sqrt{(x^2 - 1)^3}} 
+\end{align*}
+
+\questionDiff{\cos(\arcsin x)}
+\begin{align*}
+  \Rightarrow -\sin(\arcsin x) \cd \ddx(\arcsin x) &= -\sin(\arcsin x) \cd \frac{1}{1 - \sqrt{x^2}} \\
+    &= \frac{-x}{\sqrt{1 - x^2}}
+\end{align*}
+
+\questionDiff{\ln\bracks{x^2 + 3x + 5}}
+\begin{align*}
+  \Rightarrow \frac{1}{x^2 + 3x + 5} \cd \ddx\bracks{x^2 + 3x + 5} &= \frac{2x + 3}{x^2 + 3x + 5}
+\end{align*}
+
+\questionDiff{\arctan^24x}
+\begin{align*}
+  \Rightarrow 2 \arctan4x \cd \ddx\bracks{\arctan 4x} &= \frac{2\arctan4x}{1 + 16x^2} \cd \ddx{4x} \\
+    &= \frac{8\arctan4x}{1 + 16x^2}
+\end{align*}
+
+\questionDiff{\sqrt[3]{x^2}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{x^{2/3}} &= \frac{2}{3\sqrt[3]{x}}
+\end{align*}
+
+\questionDiff{\sin\bracks{\sqrt{x}\ln x}}
+\begin{align*}
+  \Rightarrow \cos\bracks{\sqrt{x}\ln x} \cd\ddx\bracks{\sqrt{x}\ln x} &= \cos\bracks{\sqrt{x}\ln x} \bracks{\frac{\ln x}{2\sqrt{x}} + \frac{1}{\sqrt{x}}} \\
+    &= \frac{\bracks{2 + \ln x}\cos\bracks{\sqrt{x}\ln x}}{2\sqrt{x}}
+\end{align*}
+
+\questionDiff{\csc x^2}
+\begin{align*}
+  \Rightarrow -\csc x^2 \cot x^2 \cd \ddx\bracks{x^2} &= -2x\csc x^2 \cot x^2 
+\end{align*}
+
+\questionDiff{\frac{x^2 - 1}{\ln x}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &\ \\
+  u = x^2 - 1 &\Rightarrow u' = 2x \\
+  v = \ln x &\Rightarrow v' = \frac{1}{x} \\
+  \dydx &= \frac{2x\ln x - \frac{x^2 - 1}{x}}{\ln^2 x} \\
+    &= \frac{2x^2\ln x - x^2 + 1}{x\ln^2 x}
+\end{align*}
+
+\questionDiff{10^x}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\exp(x\ln10)} &= \exp(x\ln10) \ddx(x\ln10) \\
+    &= \ln10\cd10^x
+\end{align*}
+
+\questionDiff{\sqrt[3]{x + \ln^2 x}}
+\begin{align*}
+  \Rightarrow \frac{1}{3\sqrt[3]{\bracks{x + \ln^2 x}^2}} \cd\ddx\bracks{x + \ln^2 x} &= \frac{1}{3\sqrt[3]{\bracks{x + \ln^2 x}^2}} \cd\bracks{1 + \frac{2\ln x}{x}} \\
+    &= \frac{1 + \frac{2\ln x}{x}}{3\sqrt[3]{\bracks{x + \ln^2 x}^2}} \\
+    &= \frac{x + 2\ln x}{3x\sqrt[3]{\bracks{x + \ln^2 x}^2}}
+\end{align*}
+
+\questionDiff{x^{3/4} - 2x^{1/4}}
+\begin{align*}
+  \Rightarrow \frac{3}{4} x^{-1/4} - \frac{1}{2}x^{-3/4} &= \frac{3}{4} x^{-1/4} - \frac{1}{2}x^{-3/4}x^{2/4}x^{-2/4} \\ 
+    &= \frac{3}{4} x^{-1/4} - \frac{1}{2}x^{-1/4}x^{-2/4} \\
+    &= x^{-1/4}\bracks{\frac{3}{4}  - \frac{2}{4}x^{-2/4}} \\
+    &=  x^{-1/4}\bracks{\frac{3x^{1/2}}{4x^{1/2}}  - \frac{2}{4x^{1/2}}} \\
+    &=  x^{-1/4}\bracks{\frac{3x^{1/2} - 2}{4x^{1/2}}} \\
+    &=  \frac{3x^{1/2} - 2}{4x^{1/2}x^{1/4}} \\
+  \tf\dydx &=  \frac{3\sqrt{x} - 2}{4\sqrt[4]{x^3}} 
+\end{align*}
+
+\questionDiff{\log_2\bracks{x\sqrt{1+x^2}}}
+\begin{align*}
+  \ddx\bracks{\frac{1}{\ln 2}\ln\bracks{x\sqrt{1+x^2}}} &= \frac{1}{\ln(2)x\sqrt{1+x^2}}\ddx\bracks{x\sqrt{1+x^2}} \\
+    &= \frac{1}{\ln(2)x\sqrt{1+x^2}}\bracks{\sqrt{1+x^2} + \frac{2x^2}{2\sqrt{1 + x^2}}} 
+\end{align*}
+
+\questionDiff{\frac{x-1}{x^2 - x + 1}}
+\begin{align*}
+  \Rightarrow \ddx\frac{u}{v} &= \frac{u'v - uv'}{v^2} \\
+  u = x - 1 &\Rightarrow u' = 1 \\
+  v = x^2 - x + 1 &\Rightarrow 2x - 1 \\ 
+  \tf\dydx &= \frac{x^2 - x + 1 - 2x^2 + 2x + x - 1}{(x^2 - x + 1)^2} \\
+    &= \frac{2x - x^2}{(x^2 - x + 1)^2}
+\end{align*}
+
+\questionDiff{\frac{1}{3}\cos^3x - \cos x}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\frac{1}{3}\cos^3x} - \ddx\bracks{\cos x} &= \sin x - \cos^2x\sin x \\
+    &= \sin x\bracks{1 - \cos^2x} \\
+    &= \sin^3x
+\end{align*}
+
+\questionDiff{\exp(x\cos x)}
+\begin{align*}
+  \Rightarrow \exp(x\cos x) \cd \ddx(x\cos x) &= \exp(x\cos x)(u'v + uv') \\
+  u =  x &\Rightarrow u' = 1 \\
+  v = \cos x &\Rightarrow v' = -\sin x \\
+  \tf\dydx &= \exp(x\cos x)(\cos x -x\sin x)
+\end{align*}
+
+\questionDiff{\bracks{x - \sqrt{x}}\bracks{x + \sqrt{x}}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{x^2 - x} &= 2x - 1
+\end{align*}
+
+\questionDiff{\arccot\bracks{\frac{1}{x}}}
+\begin{align*}
+  \Rightarrow \frac{-1}{1 + \frac{1}{x^2}}\cd\ddx\bracks{\frac{1}{x}} &= \frac{-1}{1 + \frac{1}{x^2}}\cd\ddx\bracks{\frac{1}{x}} \\
+    &= \frac{-1}{1 + \frac{1}{x^2}}\cd\frac{-1}{x^2} \\
+    &= \frac{1}{1 + \frac{1}{x^2}}\cd\frac{1}{x^2} \\
+  \tf\dydx &= \frac{1}{x^2+1}
+\end{align*}
+
+\questionDiff{x\arctan x - \ln\sqrt{x^2 + 1}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{x\arctan x} - \ddx\bracks{\ln\sqrt{x^2 + 1}} &= (u'v + uv') - \bracks{\frac{1}{\alpha}\cd\dyd[\alpha]{x}} \\
+  u = x &\Rightarrow u' = 1 \\
+  v = \arctan x &\Rightarrow v' = \frac{1}{1 + x^2} \\
+  \alpha = \sqrt{x^2 + 1} &\Rightarrow \alpha' = \frac{2x}{2\sqrt{x^2 + 1}} \\
+  \tf\dydx &= \arctan x + \frac{x}{1+x^2} - \bracks{\frac{1}{\sqrt{x^2 + 1}}\cd\frac{2x}{2\sqrt{x^2 + 1}}} \\
+    &= \arctan x + \frac{x}{1+x^2} - \frac{2x}{2x^2 + 2} \\
+    &= \arctan x
+\end{align*}
+
+\questionDiff{\frac{x\sqrt{1-x^2}}{2} + \frac{\arcsin x}{2}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\frac{x\sqrt{1-x^2}}{2}} + \ddx\bracks{\frac{\arcsin x}{2}} &= \frac{\sqrt{1 - x^2}}{2} - \frac{x^2}{2\sqrt{1-x^2}} + \frac{1}{2\sqrt{1-x^2}} \\
+    &= \frac{\sqrt{1 - x^2}}{2} + \frac{1 - x^2}{2\sqrt{1-x^2}} \\
+    &= \frac{1 - x^2}{\sqrt{1-x^2}} \\
+  \tf\dydx &= \sqrt{1 - x^2} 
+\end{align*}
+
+\questionDiff{\frac{\sinx - \cosx}{\sinx + \cosx}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &: \\
+  u = \sinx-\cosx &\Rightarrow u' = \cosx+\sinx \\
+  v = \sinx+\cosx &\Rightarrow v' = \cosx-\sinx \\
+    &~\qquad = -(\sinx-\cosx) \\
+  \tf\dydx &= \frac{(\cosx+\sinx)^2 + (\sinx-\cosx)^2}{(\sinx+\cosx)^2} \\
+    &= \frac{\cos^2x+2\sinx\cosx+\sin^2x + \sin^2x-2\sinx\cosx+\cos^2x}{(\sinx+\cosx)^2} \\
+    &= \frac{\cos^2x+\sin^2x + \sin^2x+\cos^2x}{(\sinx+\cosx)^2} \\
+    &= \frac{2}{(\sinx+\cosx)^2} 
+\end{align*}
+
+\questionDiff{4x^2(2x^3 - 5x^2)}
+\begin{align*}
+  \Rightarrow \ddx\bracks{8x^5 - 20x^4} &= 40x^4 - 80x^3
+\end{align*}
+
+\questionDiff{\sqrt{x}(4 - x^2)}
+\begin{align*}
+  \Rightarrow\ddx\bracks{4\sqrt{x} - \sqrt{x^5}} &= \frac{2}{\sqrt{x}} - \frac{5\sqrt{x^3}}{2} \\
+    &= \frac{2}{\sqrt{x}} - \frac{5\sqrt{x^3}}{2} \\
+    &= \frac{4-5x^2}{2\sqrt{x}}
+\end{align*}
+
+\questionDiff{\sqrt{\frac{1 + x}{1 - x}}}
+\begin{align*}
+  \Rightarrow\bracks{\frac{1 + x}{1 - x}}^{ 1/2} &= \frac{1}{2}\bracks{\frac{1 + x}{1 - x}}^{-1/2}\cd\ddx\bracks{\frac{1 + x}{1 - x}} \\
+    &= \frac{1}{2}\sqrt{\frac{1 - x}{1 + x}}\bracks{\frac{2}{(1 - x)^2}} \\
+    &= \frac{1}{(1 - x)^2}\sqrt{\frac{1 - x}{1 + x}} \\
+    &= \frac{1}{\sqrt{(1 - x)^3}\sqrt{1 + x}} 
+\end{align*}
+
+\questionDiff{\sin(\sinx)}
+\begin{align*}
+  \Rightarrow \cos(\sinx)\ddx\sinx &= \cosx\cos(\sinx)
+\end{align*}
+
+\questionDiff{\frac{1 + \exp(2x)}{1 - \exp(2x)}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &: \\
+  u = 1 + \exp(2x) &\Rightarrow u' = 2\exp(2x) \\
+  v = 1 - \exp(2x) &\Rightarrow v' = -2\exp(2x) \\
+  \frac{u'v - uv'}{v^2} &= \frac{2\exp(2x)(1 - \exp(2x)) + 2\exp(2x)(1 + \exp(2x))}{(1 - \exp(2x))^2} \\
+    &= \frac{2\exp(2x)(1 - \exp(2x) + 1 + \exp(2x))}{(1 - \exp(2x))^2} \\
+    &= \frac{4\exp(2x)}{(1 - \exp(2x))^2}
+\end{align*}
+
+\questionDiff{\frac{x}{1 + \lnx}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &: \\
+  u = x &\Rightarrow u' = 1 \\
+  v = 1 + \lnx &\Rightarrow v' = \frac{1}{x} \\
+  \tf\dydx &= \frac{\lnx}{(1 + \lnx)^2} 
+\end{align*}
+
+\questionDiff{x^{\frac{x}{\lnx}}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\exp\bracks{\frac{x}{\lnx}\lnx}} &= \ddx\bracks{\expx} \\
+    &= \exp(x) \\
+    &= \exp\bracks{\frac{x}{\lnx}\lnx} \\
+    &= \exp\bracks{\lnx^{\frac{x}{\lnx}}} \\
+    &= x^{\frac{x}{\lnx}} 
+\end{align*}
+
+\questionDiff{\ln\sqrt{\frac{x^2-1}{x^2+1}}}
+\begin{align*}
+  \Rightarrow \sqrt{\frac{x^2 + 1}{x^2 - 1}}\cd\ddx\bracks{\sqrt{\frac{x^2 - 1}{x^2 + 1}}} &= \sqrt{\frac{x^2 + 1}{x^2 - 1}}\cd\frac{1}{2}\cd\sqrt{\frac{x^2+1}{x^2-1}}\cd\ddx\bracks{\frac{x^2 - 1}{x^2 + 1}} \\
+    &= \frac{1}{2}\cd\frac{x^2+1}{x^2-1}\cd\frac{u'v - uv'}{v^2} \\
+  u = x^2 - 1 &\Rightarrow u' = 2x \\
+  v = x^2 + 1 &\Rightarrow v' = 2x \\
+  \tf\dydx &= \frac{1}{2}\cd\frac{x^2+1}{x^2-1}\cd\frac{2x(x^2 + 1) - 2x(x^2 - 1)}{(x^2 + 1)^2} \\
+    &= \frac{1}{2}\cd\frac{x^2+1}{x^2-1}\cd\frac{2x(x^2 + 1 - x^2 + 1)}{(x^2 + 1)^2} \\
+    &= \frac{1}{2}\cd\frac{x^2+1}{x^2-1}\cd\frac{4x}{(x^2 + 1)^2} \\
+    &= \frac{1}{2}\cd\frac{1}{x^2-1}\cd\frac{4x}{x^2 + 1} \\
+    &= \frac{2x}{x^4 - 1}
+\end{align*}
+
+\questionDiff{\arctan(2x+3)}
+\begin{align*}
+  \Rightarrow \frac{1}{1 + (2x+3)^2}\cd\ddx(2x+3) &= \frac{2}{1 + (2x+3)^2} \\
+    &= \frac{1}{2x^2 + 6x + 5}
+\end{align*}
+
+\questionDiff{\cot^42x}
+\begin{align*}
+  \Rightarrow 4\cot^32x\cd\ddx(\cot2x) &= 4\cot^32x(-\csc^22x)\ddx(2x) \\
+    &= -8\cot^32x\csc^22x
+\end{align*}
+
+\questionDiff{\frac{x^2}{1 + \frac{1}{x}}}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\frac{x^3}{x + 1}} &= \frac{u'v - uv'}{v^2} \\
+  u = x^3 &\Rightarrow u' = 3x^2 \\
+  v = x + 1 \Rightarrow v' = 1 \\
+  \tf\dydx &= \frac{3x^2(x+1) - x^3}{(x+1)^2} \\
+    &= \frac{2x^3 + 3x^2}{(x+1)^2}
+\end{align*}
+
+\questionDiff{\exp\bracks{\frac{x}{1 + x^2}}}
+\begin{align*}
+  \Rightarrow \exp\bracks{\frac{x}{1 + x^2}}\cd\ddx\bracks{\frac{x}{1 + x^2}} &= \exp\bracks{\frac{x}{1 + x^2}}\cd\frac{u'v - uv'}{v^2} \\
+  u = x &\Rightarrow u' = 1 \\
+  v = 1 + x^2 &\Rightarrow v' = 2x \\
+  \tf\dydx &= \exp\bracks{\frac{x}{1 + x^2}}\cd\frac{(1 + x^2) - 2x^2}{(1 + x^2)^2} \\
+    &= \frac{1 - x^2}{(1 + x^2)^2} \exp\bracks{\frac{x}{1 + x^2}}
+\end{align*}
+
+\questionDiff{\arcsin^3x}
+\begin{align*}
+  \Rightarrow 3\arcsin^2x\cd\ddx(\arcsinx) &= \frac{3\arcsin^2x}{\sqrt{1-x^2}}
+\end{align*}
+
+\questionDiff{\frac{1}{2}\sec^2x - \ln\secx}
+\begin{align*}
+  \Rightarrow \ddx\bracks{\frac{1}{2}\sec^2x} - \ddx(\ln\secx) &= \secx\ddx(\secx) - \frac{1}{\secx}\ddx(\secx) \\
+    &= \secx\secx\tanx - \frac{1}{\secx}\secx\tanx \\
+    &= \sec^2x\tanx - \tanx \\
+    &= \bracks{\frac{1}{\cos^2x} - 1}\tanx \\
+    &= \bracks{\frac{1}{\cos^2x} - \frac{\cos^2x}{\cos^2x}}\tanx \\
+    &= \bracks{\frac{1 - \cos^2x}{\cos^2x}}\tanx \\
+    &= \bracks{\frac{\sin^2x}{\cos^2x}}\tanx \\
+    &= \tan^3x
+\end{align*}
+
+\questionDiff{\ln\ln\lnx}
+\begin{align*}
+  \Rightarrow \frac{1}{\ln\lnx}\cd\ddx(\ln\lnx) &= \frac{1}{\ln\lnx}\cd\frac{1}{\lnx}\cd\ddx(\lnx) \\
+    &= \frac{1}{\ln\lnx}\cd\frac{1}{\lnx}\cd\frac{1}{x} \\
+    &= \frac{1}{x\ln(x)\ln(\lnx)}
+\end{align*}
+
+\questionDiff{\pi^3}
+\begin{align*}
+  \Rightarrow 0 \text{, Ok}
+\end{align*}
+
+\questionDiff{\ln\bracks{x+\sqrt{1 + x^2}}}
+\begin{align*}
+  \Rightarrow \frac{1}{x+\sqrt{1+x^2}}\cd\ddx(x+\sqrt{1 + x^2}) &= \frac{1}{x+\sqrt{1+x^2}}\bracks{1 + \frac{1}{2\sqrt{1 + x^2}}\cd\ddx\bracks{1 + x^2}} \\
+    &= \frac{1}{x+\sqrt{1+x^2}}\bracks{1 + \frac{x}{\sqrt{1 + x^2}}} \\
+    &= \frac{1}{x+\sqrt{1+x^2}}\bracks{\frac{x + \sqrt{1 + x^2}}{\sqrt{1 + x^2}}} \\
+    &= \frac{1}{\sqrt{1 + x^2}}
+\end{align*}
+
+\questionDiff{\arsinhx}
+\begin{align*}
+  \Rightarrow \frac{1}{\sqrt{1 + x^2}}&\text{, by identity.} \\
+  \Rightarrow y &= \arsinhx \\
+  \sinh y &= x \\
+  \ddx( \sinh y &= x ) \\
+  \cosh y \dydx &= 1 \\
+  \dydx &= \frac{1}{\cosh y} \\
+  \cosh^2t - \sinh^2t &= 1 \\
+  \cosh^2t &= 1 + \sinh^2t \\
+  \cosh t &= \sqrt{1 + \sinh^2t} \\
+  \tf\dydx &= \frac{1}{\sqrt{1 + \sinh^2y}} \\
+    &= \frac{1}{\sqrt{1 + \sinh^2\arsinhx}} \\
+    &= \frac{1}{\sqrt{1 + x^2}}
+\end{align*}
+
+\questionDiff{\expx\sinhx}
+\begin{align*}
+  u'v + uv' &: \\
+  u = \expx &\Rightarrow u' = \expx \\
+  v = \sinhx &\Rightarrow v' = \coshx \\
+  \tf\dydx &= \expx\sinhx + \expx\coshx  \\
+    &= \expx(\coshx + \sinhx) \\
+    &= \exp(2x)
+\end{align*}
+
+\questionDiff{\sech\bracks{\frac{1}{x}}}
+\begin{align*}
+  \Rightarrow -\sech\frac{1}{x}\tanh\frac{1}{x}\cd\ddx\bracks{\frac{1}{x}} &= -\sech\frac{1}{x}\tanh\frac{1}{x}\cd\ddx\bracks{\frac{1}{x}} \\
+    &= \frac{1}{x^2}\sech\frac{1}{x}\tanh\frac{1}{x}
+\end{align*}
+
+\questionDiff{\cosh\lnx}
+\begin{align*}
+  \Rightarrow \sinh\lnx\cd\ddx(\lnx) &= \frac{1}{x}\sinh\lnx \\
+    &= \frac{1}{x}\cd\frac{\exp(\lnx) - \exp(-\lnx)}{2} \\
+    &= \frac{x - \exp(\ln\bracks{\frac{1}{x}})}{2x} \\
+    &= \frac{x - \frac{1}{x}}{2x}  \\
+    &= \frac{x^2 - 1}{2x^2}
+\end{align*}
+
+\questionDiff{\ln\coshx}
+\begin{align*}
+  \Rightarrow \frac{1}{\coshx}\cd\ddx(\coshx) &= \frac{\sinhx}{\coshx} \\
+    &= \tanhx
+\end{align*}
+
+\questionDiff{\frac{\sinhx}{1 + \coshx}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &: \\
+  u = \sinhx &\Rightarrow u' = \coshx \\
+  v = 1 + \coshx &\Rightarrow v' = \sinhx \\
+  \tf\dydx &= \frac{\coshx+\cosh^2x - \sinh^2x}{(1 + \coshx)^2} \\
+    &= \frac{1 + \coshx}{(1 + \coshx)^2} \\
+    &= \frac{1}{1 + \coshx}
+\end{align*}
+
+\questionDiff{\artanh(\cosx)}
+\begin{align*}
+  \Rightarrow \frac{1}{1 - \cos^2x}\cd\ddx(\cosx) &= \frac{-\sinx}{\sin^2x} \\
+    &= \frac{-1}{\sinx} \\
+    &= -\cscx
+\end{align*}
+
+\questionDiff{x\artanhx + \ln\sqrt{1 - x^2}}
+\begin{align*}
+  \Rightarrow \ddx(x\artanhx) + \ddx\bracks{\frac{1}{2}\ln\bracks{1 - x^2}} &= u'v + uv' + \frac{1}{2\bracks{1 - x^2}}\cd\dydx\bracks{1 - x^2} \\
+  u = x &\Rightarrow u' = 1 \\
+  v = \artanhx &\Rightarrow v' = \frac{1}{1 - x^2} \\
+  \tf\dydx &= \artanhx + \frac{x}{1 - x^2} + \frac{-2x}{2\bracks{1 - x^2}} \\
+    &= \artanhx + \frac{x}{1 - x^2} - \frac{x}{1 - x^2} \\
+    &= \artanhx 
+\end{align*}
+
+\questionDiff{\arsinh(\tanx)}
+\begin{align*}
+  \Rightarrow \frac{1}{\sqrt{1 + \tan^2x}}\cd\ddx(\tanx) &= \frac{\sec^2x}{\sqrt{\sec^2x}} \\
+    &= \frac{\sec^2x}{\secx} \\
+    &= \secx
+\end{align*}
+
+\questionDiff{\arcsin(\tanhx)}
+\begin{align*}
+  \Rightarrow \frac{1}{\sqrt{1 - \tanh^2x}}\cd\ddx(\tanhx) &= \frac{\sech^2x}{\sqrt{\sech^2x}} \\
+    &= \frac{\sech^2x}{\sechx} \\
+    &= \sechx
+\end{align*}
+
+\questionDiff{\frac{\artanhx}{1 - x^2}}
+\begin{align*}
+  \Rightarrow \frac{u'v - uv'}{v^2} &: \\
+  u = \artanhx &\Rightarrow u' = \frac{1}{1 - x^2} \\
+  v = 1 - x^2 &\Rightarrow v' = -2x \\
+  \tf\dydx &= \frac{\frac{1 - x^2}{1 - x^2} + 2x\artanhx}{\bracks{1 - x^2}^2} \\
+    &= \frac{1 + 2x\artanhx}{\bracks{1 - x^2}^2}
+\end{align*}
+
+\questionDefinition{x^3}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{(x+h)^3 - x^3}{h} \\
+  &= \lim_{h\to0} \frac{x^3 + 3x^2h + 3xh^2 + h^3 - x^3}{h} \\
+  &= \lim_{h\to0} \frac{3x^2h + 3xh^2 + h^3}{h} \\
+  &= \lim_{h\to0} 3x^2 + 3xh + h^2 \\
+  &= 3x^2 + 3x0 + 0^2 \\
+  &= 3x^2
+\end{align*}
+
+\questionDefinition{\sqrt{3x+1}}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{\sqrt{3(x+h)+1} - \sqrt{3x+1}}{h} \\
+  &=  \lim_{h\to0} \frac{\sqrt{3(x+h)+1} - \sqrt{3x+1}}{h} \cd \frac{\sqrt{3(x+h)+1} + \sqrt{3x+1}}{\sqrt{3(x+h)+1} + \sqrt{3x+1}} \\
+  &=  \lim_{h\to0} \frac{3x+3h+1 - 3x-1}{h\bracks{\sqrt{3(x+h)+1} + \sqrt{3x+1}}} \\
+  &=  \lim_{h\to0} \frac{3h}{h\bracks{\sqrt{3(x+h)+1} + \sqrt{3x+1}}} \\
+  &=  \lim_{h\to0} \frac{3}{\sqrt{3(x+h)+1} + \sqrt{3x+1}} \\
+  &=  \frac{3}{\sqrt{3x+1} + \sqrt{3x+1}} \\
+  &=  \frac{3}{2\sqrt{3x+1}}
+\end{align*}
+
+\questionDefinition{\frac{1}{2x+5}}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{\frac{1}{2(x+h)+5} - \frac{1}{2x+5}}{h} \\
+  &= \lim_{h\to0} \frac{\frac{1}{2(x+h)+5} - \frac{1}{2x+5}}{h} \cd \frac{2(x+h)+5}{2(x+h)+5} \\
+  &= \lim_{h\to0} \frac{1 - \frac{2(x+h)+5}{2x+5}}{h\bracks{2(x+h)+5}} \cd \frac{2x+5}{2x+5} \\
+  &= \lim_{h\to0} \frac{2x + 5 - 2x - 2h - 5}{h\bracks{2(x+h)+5}\bracks{2x+5}} \\
+  &= \lim_{h\to0} \frac{-2h}{h\bracks{2(x+h)+5}\bracks{2x+5}} \\
+  &= \lim_{h\to0} \frac{-2}{\bracks{2(x+h)+5}\bracks{2x+5}} \\
+  &= \frac{-2}{\bracks{2x+5}\bracks{2x+5}} \\
+  &= \frac{-2}{\bracks{2x+5}^2}
+\end{align*}
+
+\questionDefinition{\frac{1}{x^2}}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{\frac{1}{(x+h)^2} - \frac{1}{x^2}}{h} \\
+  &= \lim_{h\to0} \frac{\frac{1}{(x+h)^2} - \frac{1}{x^2}}{h} \cd \frac{(x+h)^2}{(x+h)^2} \\
+  &= \lim_{h\to0} \frac{1 - \frac{(x+h)^2}{x^2}}{h(x+h)^2} \cd \frac{x^2}{x^2} \\
+  &= \lim_{h\to0} \frac{x^2 - (x+h)^2}{hx^2(x+h)^2} \\
+  &= \lim_{h\to0} \frac{x^2 - x^2 - 2xh - h^2}{hx^2(x+h)^2} \\
+  &= \lim_{h\to0} \frac{-2xh -h^2}{hx^2(x+h)^2} \\
+  &= \lim_{h\to0} \frac{-2x - h}{x^2(x+h)^2} \\
+  &= \frac{-2x}{x^4} \\
+  &= \frac{-2}{x^3} 
+\end{align*}
+
+\questionDefinition{\sinx}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{\sin(x+h) - \sin(x)}{h} \\
+  &= \lim_{h\to0} \frac{\sin(x)\cos(h) + \cos(x)\sin(h) - \sin(x)}{h} \\
+  &= \lim_{h\to0} \frac{\sin(x)(\cos(h) - 1) + \cos(x)\sin(h)}{h} \\
+  &= \lim_{h\to0} \frac{\sin(x)(\cos(h) - 1)}{h} + \lim_{h\to0} \frac{\cos(x)\sin(h)}{h} \\
+  &= \sin(x)\lim_{h\to0} \frac{ \cos(h) - 1}{h} + \cos(x)\lim_{h\to0} \frac{\sin(h)}{h} \\
+  &= \sin(x)\cd0 + \cos(x)\cd1 \\
+  &= \cos(x)
+\end{align*}
+Evaluating the limits $\lim_{h\to0}\frac{\cos(h)-1}{h}$ and $\lim_{h\to0}\frac{\sin(h)}{h}$ is a litte controversial here. Using L'Hopital's rule, would require us to differentiate $\sin(x)$, which is the question we're trying to answer. We have a couple ways to evaluate these limits, without ustilisting differentation. $\forall h\in\bbr, -h^2 + 1 \leq \frac{\sin(h)}{h} \leq h^2+1$, so by squeeze theorem, the limit of $\frac{\sin(h)}{h}$ as $h$ goes to $0$ is 1. $\frac{\cos(h) - 1}{h}$ is a little tricker and utilises the Taylor series of $\cos(h)$, namely
+$$
+  \cos(h) = 1 - \frac{h^2}{2!} + \frac{h^4}{4!} - \frac{h^6}{6!} \cdots .
+$$
+Minus 1 from both sides, and cancelling the denominator $h$ with the polynomial terms, we're left with
+$$
+  \lim_{h\to0} -\frac{h}{2!} +\frac{h^3}{4!} -\frac{h^6}{6!} \cdots ,
+$$
+which trivially evaluates to $0$. We could also evaluate these limits using our calculators, and see that
+$$
+  \begin{array}{l|l}
+    \multicolumn{1}{c|}{h}            & \multicolumn{1}{c}{\frac{\cos(h) - 1}{h}} \\ \hline 
+    0.1                               & -0.049958\dots                                 \\
+    0.01                              & -0.004999\dots                                 \\
+    0.001                             & -0.000499\dots                                 \\
+    0.0001                            & -0.000049\dots                                 \\
+    0.00001                           & -0.000005\dots                                 \\
+    \multicolumn{1}{c|}{\vdots}       & \multicolumn{1}{c}{\vdots}                \\
+    0                                 & 0                                         \\
+  \end{array}
+  \qquad
+  \begin{array}{l|l}
+    \multicolumn{1}{c|}{h}            & \multicolumn{1}{c}{\frac{\sin(h)}{h}}     \\ \hline 
+    0.1                               & 0.998334\dots                                  \\
+    0.01                              & 0.999983\dots                                  \\
+    0.001                             & 0.999999\dots                                  \\
+    0.0001                            & 0.999999\dots                                  \\
+    0.00001                           & 0.999999\dots                                  \\
+    \multicolumn{1}{c|}{\vdots}       & \multicolumn{1}{c}{\vdots}                \\
+    0                                 & 1                                         \\
+  \end{array} .
+$$
+But, this method, while it works, just rubs me the wrong way. \\
+ 
+\questionDefinition{\secx}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{\sec(x+h) - \sec(x)}{h} \\
+  &= \lim_{h\to0} \frac{\sec(x+h) - \sec(x)}{h} \cd \frac{\cos(x+h)\cos(x)}{\cos(x+h)\cos(x)} \\
+  &= \lim_{h\to0} \frac{\cos(x) - \cos(x+h)}{h\cos(x+h)\cos(x)} \\
+  &= \lim_{h\to0} \frac{\cos(x) - \cos(x)\cos(h) + \sin(x)\sin(h)}{h\cos(x+h)\cos(x)} \\
+  &= \lim_{h\to0} \frac{\cos(x)(1 - \cos(h)) + \sin(x)\sin(h)}{h\cos(x+h)\cos(x)} \\
+  &= \lim_{h\to0} \frac{1}{\cos(x+h)\cos(x)} \cd \bracks{\lim_{h\to0} \frac{\cos(x)(1 - \cos(h))}{h} + \lim_{h\to0} \frac{\sin(x)\sin(h)}{h}} \\
+  &= \frac{1}{\cos(x)\cos(x)} \cd \bracks{\cos(x)\lim_{h\to0} \frac{1 - \cos(h)}{h} + \sin(x)\lim_{h\to0} \frac{\sin(h)}{h}} \\
+  &= \frac{1}{\cos(x)\cos(x)} \cd \bracks{\cos(x)\cd0 + \sin(x)\cd1} \\
+  &= \frac{\sin(x)}{\cos(x)\cos(x)} \\
+  &= \sec(x)\tan(x)
+\end{align*}
+
+\questionDefinition{\arcsinx}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{\arcsin(x+h) - \arcsinx}{h} \\
+  &= \lim_{h\to0} \frac{\arcsin(x+h) - \arcsinx}{h} \\
+\end{align*}
+
+\questionDefinition{\arctanx}
+\begin{align*}
+  \Rightarrow
+\end{align*}
+
+\questionDefinition{f(x)g(x)}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{f(x+h)g(x+h) - f(x)g(x)}{h} \\
+  &= \lim_{h\to0} \frac{f(x+h)g(x+h) - f(x)g(x+h) + f(x)g(x+h) - f(x)g(x)}{h} \\
+  &= \lim_{h\to0} \frac{g(x+h)(f(x+h) - f(x)) + f(x)(g(x+h) - g(x))}{h} \\
+  &= \lim_{h\to0} g(x+h) \cd \lim_{h\to0} \frac{(f(x+h) - f(x))}{h} + f(x)\lim_{h\to0} \frac{(g(x+h) - g(x))}{h} \\
+  &= g(x)\lim_{h\to0} \frac{f(x+h) - f(x)}{h} + f(x)\lim_{h\to0} \frac{g(x+h) - g(x)}{h} \\
+  &= g(x)f'(x) + f(x)g'(x) \\
+  &= f'(x)g(x) + f(x)g'(x)
+\end{align*}
+
+\questionDefinition{\frac{f(x)}{g(x)}}
+\begin{align*}
+  &\Rightarrow \lim_{h\to0} \frac{\frac{f(x+h)}{g(x+h)} - \frac{f(x)}{g(x)}}{h} \\
+  &= \lim_{h\to0} \frac{\frac{f(x+h)}{g(x+h)} - \frac{f(x)}{g(x)}}{h} \cd \frac{g(x+h)g(x)}{g(x+h)g(x)}\\
+  &= \lim_{h\to0} \frac{f(x+h)g(x) - f(x)g(x+h)}{hg(x+h)g(x)} \\
+  &= \lim_{h\to0} \frac{f(x+h)g(x) - g(x)f(x) + g(x)f(x) - f(x)g(x+h)}{h} \cd \lim_{h\to0} \frac{1}{g(x+h)g(x)} \\
+  &= \lim_{h\to0} \frac{g(x)\bracks{f(x+h) - f(x)} + f(x)\bracks{g(x) - g(x+h)}}{h} \cd \frac{1}{g(x)g(x)} \\
+  &= \lim_{h\to0} \frac{g(x)\bracks{f(x+h) - f(x)} - f(x)\bracks{g(x+h) - g(x)}}{h} \cd \frac{1}{g(x)^2} \\
+  &= \frac{1}{g(x)^2} \bracks{\lim_{h\to0} \frac{g(x)\bracks{f(x+h) - f(x)}}{h} - \lim_{h\to0}\frac{f(x)\bracks{g(x+h) - g(x)}}{h}}  \\
+  &= \frac{1}{g(x)^2} \bracks{g(x)\lim_{h\to0} \frac{f(x+h) - f(x)}{h} - f(x)\lim_{h\to0}\frac{g(x+h) - g(x)}{h}}  \\
+  &= \frac{1}{g(x)^2} \bracks{g(x)f'(x) - f(x)g'(x)}  \\
+  &= \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2}
+\end{align*}
+
+\questionDiff{^3x}
+\begin{align*}
+  \Rightarrow \ddx\bracks{x^{x^x}} &= \ddx\bracks{\exp\bracks{\lnx^{x^x}}} \\
+    &= \ddx\bracks{\exp\bracks{x^x\lnx}} \\
+    &= \ddx\bracks{\exp\bracks{\exp\bracks{\lnx^x}\lnx}} \\
+    &= \ddx\bracks{\exp\bracks{\exp\bracks{x\lnx}\lnx}} \\
+    &= x^{x^x}\ddx\bracks{\exp\bracks{x\lnx}\lnx} \\
+    &= x^{x^x}(u'v + uv') \\
+  u &= \exp\bracks{x\lnx} \\
+    &= x^x \\
+  u' &= \exp\bracks{x\lnx}\ddx(x\lnx) \\
+    &= x^x(\alpha'\beta + \alpha\beta') \\
+  \alpha = x &\Rightarrow \alpha' = 1 \\
+  \beta = \lnx &\Rightarrow \beta' = \frac{1}{x} \\
+  \tf u' &= \exp\bracks{x\lnx}(\lnx + 1) \\
+    &= x^x(\lnx + 1) \\
+  v = \lnx &\Rightarrow v' = \frac{1}{x} \\
+  \tf\dydx &= x^{x^x}\bracks{x^x(\lnx + 1)\lnx + x^x\frac{1}{x}} \\
+    &= x^{x^x}x^x\bracks{(\lnx + 1)\lnx + \frac{1}{x}} \\
+    &= x^{x+x^x}\bracks{\ln^2x + \lnx + \frac{1}{x}} 
+\end{align*}
+
+\end{document}
