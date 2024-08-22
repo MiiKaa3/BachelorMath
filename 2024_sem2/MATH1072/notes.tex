@@ -338,6 +338,404 @@ What is $v^*$?
 
 \chapter{Week 2}
 \section{Lecture 4}
+\subsection*{Multivariate Limits}
+\subsubsection*{Review of one-variable case}
+Let $f:\rmd\to\bbr$ be a function with domain $\rmd$, an open subset of $\bbr$. For $a\in\rmd$ we say that the limit $\dps{\lim_{x\to a}f(x)}$ exists if and only if (i) the left-sided limit exist, (ii) the right-sided limit exists, and (iii) these limits equal each other, namely
+$$
+	\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x).
+$$
+Furthermore, if the limit exists, and is equal to the value of the function at $f$, namely,
+$$
+	\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a),
+$$
+we say that $f$ is continuous at $a$. The precise defintion of the one variable limit its
+$$
+	\lim_{x\to a}f(x)=L\iff \forall\veps>0,\exists\delta>0:0<\abs{x-a}<\delta\implies\abs{f(x)-L}<\veps.
+$$
+\subsubsection*{The two-variable case}
+When $f$ is multivariate, finding the limit is more subtle. There are more then two ways to approach a given point. Consider 
+$$
+	f(x,y) = \frac{x^2}{x^2+y^2},
+$$
+with domain $\bbr^2\setminus{(0,0)}$.
+We could approach this limit along the line $y=0$. If $x\neq0$,
+\begin{gather*}
+	f(x,0) = \frac{x^2}{x^2 + 0} = 1, \\
+	\Then \lim_{x\to0} f(x,0) = \lim_{x\to0} 1 = 1
+\end{gather*}
+Suppose next we approach the limit along the line $x=0$, if $y\neq0$,
+\begin{gather*}
+	f(0,y) = \frac{0^2}{0^2 + y^2} = 0, \\
+	\Then \lim_{y\to0} f(0,y) = \lim_{y\to0} 0 = 0.
+\end{gather*}
+Since we've approached the same point with two different paths, but found different limits,
+$$
+	\lim_{x\to0} f(x,0) \neq \lim_{y\to0} f(0,y),
+$$
+we can conclude that
+$$
+	\lim_{(x,y)\to(0,0)}f(x,y) \text{ does no exist.}
+$$
+For the limit $\dps{\lim_{(x,y)\to(a,b)} f(x,y)}$ to exist, it is necessary that \textit{every} path in $\rmd$ approaching $(a,b)$ gives the same limiting value. This presents us with a simple test for determining if a limit does not exist.
+
+\ex{Test for showing no limit exists}{
+	$$
+		\text{If}\left\lbrace\begin{array}{rl}
+			f(x,y)\to L_1 & \text{as } (x,y) \to (a,b) \text{ along the path } C_1\in\rmd \\
+			f(x,y)\to L_2 & \text{as } (x,y) \to (a,b) \text{ along the path } C_2\in\rmd 
+		\end{array}\right.
+	$$
+	such that $L_1\neq L_2$ then the limit $\dps{\lim_{(x,y)\to(0,0)}f(x)}$ does not exist.
+}
+\nt{
+	The above notation is somewhat deficient and perhaps one shoule write
+	$$
+		\lim_{(x,y)\to_\rmd(a,b)}f(x,y)
+	$$
+	to indicate that only paths in $\rmd$ terminating at $(a,b)$ (which itself may or may not be in $\rmd$) are considered.
+}
+\qs{}{
+	Let $\rmd=\bbr^2\setminus{(0,0)}$ and $f:\rmd\to\bbr$ be given by $\dps{f(x,y)\frac{x^2-y^2}{x^2+y^2}.}$ Show that the limit $\dps{\lim_{(x,y)\to(0,0)}f(x)}$ does not exist.
+}
+\sol Consider the path $C_1\in\rmd,y=0$ \\ If $x\neq0$,
+\begin{gather*}
+	f(x,0) = \frac{x^2}{x^2} = 1. \\
+	\lim_{x\to0}f(x,0) = \lim_{x\to0}1 = 1.
+	\longintertext{Consider the path $C_2\in\rmd,x=0$\\If $y\neq0,$}
+	f(0,y) = \frac{-y^2}{y^2} = -1. \\
+	\lim_{y\to0}f(0,y) = \lim_{y\to0}-1 = -1 \neq \lim_{x\to0}f(x,0). \\
+	\intertext{Therefore, the limit $\dps{\lim_{(x,y)\to(0,0)}f(x,y)}$ does not exist.}
+\end{gather*}
+
+\qs{}{
+	With the same $\rmd$ as the previous question, consider $\dps{f(x,y)=\frac{xy}{x^2+y^2}}$. Show that the limit $\dps{\lim_{(x,y)\to(0,0)}f(x,y)}$ does not exist.
+}
+\sol Consider the path $C_1\in\rmd,y=0$ \\ If $x\neq0$,
+\begin{gather*}
+	f(x,0) = 0 \implies \lim_{x\to0} f(x,0) = 0 \\
+	\longintertext{Consider the path $c_2\in\rmd,x=0$\\ If $y\neq0$,}
+	f(0,y) = 0 \implies \lim_{y\to0} f(0,y) = 0 \\
+	\longintertext{Huh\dots I really thought that would work\dots\\Well, ok, Let's consider the path $C_3\in\rmd,x=y$\\ If $x\neq0$,}
+	f(x,x) = \frac{x^2}{x^2+x^2} = \frac{1}{2} \implies \lim_{x\to0} f(x,x) = \frac{1}{2}.
+	\intertext{Since this limit is different from the other two, we can conclude that the limit $\dps{\lim_{(x,y)\to(0,0)}f(x,y)}$ does not exist.}
+\end{gather*}
+\nt{
+	We can look at finitely many paths, and easily show that a limit doesn't exisit, if two paths terminating at the same point have different limiting values. But, there are infinitely many paths in $\bbr^2$ which terminate at the point $(a,b)$. This raises the question, how can we prove a limit exists?
+}
+
+\noindent Consider the example 
+$$
+	\lim_{(x,y)\to(0,0)} f(x,y) = 0, \text{ where } f(x,y) = \frac{3x^2y}{x^2 + y^2} \text{ and } \rmd=\bbr\setminus{(0,0)}.
+$$
+We can argue that the above limit is correct and true by utilising a change of variables, namely $$x=r\cos\theta \qquad y=r\sin\theta$$
+\sol
+\begin{gather*}
+	\begin{aligned}
+			f(x,y) &= f(r\cos\theta,r\sin\theta) \\
+				&= \frac{3r^2\cos^2\theta r\sin\theta}{r^2\cos^2\theta + r^2\sin^2\theta} \\
+				&= \frac{3r^3\cos^2\theta\sin\theta}{r^2\bracks{\cos^2\theta +\sin^2\theta}} \\
+				&= 3r\cos^2\theta\sin\theta
+			\abs{\cos\theta} &\leq 1\\ 
+			\abs{\sin\theta} &\leq 1 \\
+			\implies \abs{\cos^2\theta\sin\theta} &\leq 1 \\
+			\implies \abs{3r\cos^2\theta\sin\theta} &\leq 3r \\
+			\implies \abs{f(x,y)} &\leq 3r 
+	\end{aligned} \\
+	\tf \text{as } r\to0, f(x,y)\to 0
+\end{gather*}
+No matter what path of form $(r,\theta)$ we take, as that path approaches the point $(a,b)$, the limit of $f(x,y)$ approaches 0. So we can argue that $\dps{\lim_{(x,y)\to(0,0)}f(x,y)}$ exists and is equal to 0. With everything we've learned now, let's finally, formally, define the limit of a multivariate function.
+
+\dfn{The Limit of a Multivariate Function}{
+	Let $f$ be a function of two variables, whose domain $\rmd$ includes points arbitrarily close to $(a,b)$. Then we say that the limit of $f(x,y)$ as $(x,y)$ approaches $(a,b)$ is $L$, written
+	$$
+		\lim_{(x,y)\to(a,b)} f(x,y) = L,
+	$$
+	if
+	$$
+		\forall\veps>0,\exists\delta>0:0<\sqrt{\bracks{x-a}^2 + \bracks{y-b}^2}<\delta\implies \abs{f(x,y)-L}<\veps.
+	$$
+}
+
+\section{Lecture 5}
+\subsection*{Multivariate Continuity}
+\dfn{Multivariate Continuity}{
+	Given a function $f:\rmd\to\bbr$, where $\rmd$ is an open subset of $\bbr^2$. Let $(a,b)\in\rmd$. Then $f(x,y)$ is continuous at $(a,b)$ If
+	$$
+		\lim_{(x,y)\to(0,0)}f(x,y)=f(a,b),
+	$$
+	ie, the limit $(x,y)\to(a,b)$ of $f(x,y)$ exists and is equal to $f(a,b)$.\\
+	
+	Equivalently, $f$ is continuous if 
+	$$
+		\forall\veps>0,\exists\delta>0: (x,y)\in\rmd\land\sqrt{(x-a)^2+(y-b)^2}<\delta\implies\abs{f(x,y)}<\veps.
+	$$
+}
+\nt{
+	An open subset is a subset which does not have boundary points. As opposed to a closed subset which has boundary points. More formally, ``open'' $=$ for every point $p\in\rmd$, there is a disc with centre $p$ that lies entirely in $\rmd$. So, if you took $p$ on the bounary, you can never find a disc which is entirely inside $\rmd$, you'll always have a little bit peaking out of it.
+}
+\noindent So, is 
+$$
+	f(x,y) = \frac{x^2 - y^2}{x^2 + y^2}, \rmd=\bbr^2\setminus{(0,0)}
+$$
+continuous?\\
+Well, even though we already found that this limit $(x,y)\to(0,0)$ does not exist, we note that $(0,0)\notin\rmd$. Therefore, it is continuous.\\
+If we amend the domain to include $(0,0)$, the function is no longer continous, because the limit $(x,y)\to(0,0)$ does not exist.
+
+\subsection*{Limit Laws}
+Suppose $\dps{\lim_{(x,y)\to(a,b)}f(x,y)}$ and $\dps{\lim_{(x,y)\to(a,b)}g(x,y)}$ exist. \\
+Below, for ease of notation, $\lim$ denotes $\dps{\lim_{(x,y)\to(a,b)}}$. \\
+\begin{enumerate}
+	\item $\lim(f(x,y)\pm g(x,y)) = \lim f(x,y) \pm\lim g(x,y)$.
+	\item $\lim cf(x,y) = c\lim f(x,y)$, where $c$ is some constant. 
+	\item $\lim(f(x,y)\cd g(x,y)) = \lim f(x,y) \cd \lim g(x,y)$.
+	\item $\dps{\lim\frac{f(x,y)}{g(x,y)} = \frac{\lim f(x,y)}{\lim g(x,y)}}$, if $\lim g(x,y)\neq 0$.
+\end{enumerate}
+
+\section{Lecture 6}
+\subsection*{Partial Derivatives}
+\subsubsection*{Slope in the x-direction}
+Consider the surface $z=f(x,y)=1-x^2-y^2$, and the point $P=(1,-1,-1)$. Holding $y$ constant, we can we can find a cross section of the surface at that point.
+$$
+	\Let g(x) = f(x,-1)=1-x^2-1 = -x^2
+$$
+We can find the slope tangent of the surface $z$ at the point $P$, in the x-direction, by differentiating $g(x)$,
+$$
+	g'(x) = -2x \implies g'(1) = -2
+$$
+
+\subsubsection*{Slope in the y-direction}
+We can follow a similar procedure by holding $x$ constant, and generating the y-direction cross section of the surface $z$
+$$
+	\Let h(y) = f(1,y) = 1-1-y^2 = -y^2
+$$
+Now, we can evaluate the y-direction slope of the tanget of the surface $z$ at the point $P$ by taking the derivative of $h(x)$, namely
+$$
+	h'(x) = -2y \implies h'(-1) = 2.
+$$
+
+\subsubsection*{Another example}
+Given $f(x,y)=xy^3 + x^2$, find $f_x(1,2)$ and $f_y(1,2)$.
+\begin{gather*}
+	\begin{aligned}
+		f(x,y) &= xy^3 + x^2 \\
+		\tf f_x(x,y) &= y^3 + 2x \\
+		\implies f_x(1,2) &= 8 + 2 = 10 \\
+		\tf f_y(x,y) &= 3xy^2 + 0 = 3xy^2 \\
+		\implies f_y(1,2) &= 3\cd1\cd4 = 12 
+	\end{aligned}
+\end{gather*}
+Nothing scary :)
+
+\subsubsection*{Partial derivative for $f(x,y,z)$}
+Consider the volume of a box, $V(x,y,z) = xyz$. If $x$ changes by an an amount, say $\Delta x$, the volume will change by some amount, $\Delta V$. One can visualise the change in volume, by imagine a box being concatonated to the original box, with width $\Delta x$, height $y$, and depth $z$. Therefore $\Delta V = yz\Delta x$. This leads us to see that
+$$
+	\frac{\Delta V}{\Delta x} = yz.
+$$
+Now, letting $\Delta x\to 0$, we can find $\dps{\frac{\partial V}{\partial x} = yz}$.\\
+With partial derivatives, only one of the independent variables is allowed to change; all other variables are held constant.
+$$
+	\frac{\partial V}{\partial x} = \lim_{\Delta x \to 0} \frac{V(x+\Delta x, y, z) - V(x, y, z)}{\Delta x}
+$$
+
+\subsubsection*{Higher order derivatives}
+\begin{multicols}{2}
+	\noindent
+	\begin{gather*}
+		f_{xx} = \Del{2}{f}{x} \\
+		f_{yy} = \Del{2}{f}{y} \\
+		f_{xy} = \del{^2f}{x\partial y} = \del{}{y}\bracks{\del{f}{x}}\\
+		f_{yx} = \del{^2f}{y\partial x} = \del{}{x}\bracks{\del{f}{y}}\\
+	\end{gather*}
+\end{multicols}
+\thm{Clairaut's Theorem}{
+	Suppose $f$ is defined on a disk $D$ that contains the point $(a,b)$. If the functions $f_{xy}$ and $f_{yx}$ are both continuous, then $f_{xy}(a,b) = f_{yx}(a,b)$.
+}
+\noindent By extension, if $f_{xy}$ and $f_{yx}$ are both continuous everywhere, then $f_{xy} = f_{yx}$.
+\qs{}{
+	Find all the first and second order derivatives of $f(x,y) = x\sin y + y\cos x$ and show that $f_{xy} = f_{yx}$.
+}
+\sol
+\begin{gather*}
+	\begin{aligned}
+		f_x(x,y) &= \sin y - y\sin x \\
+		f_y(x,y) &= x\cos y + \cos x \\
+		f_{xx}(x,y)  &= -y\cos x \\
+		f_{yy}(x,y) &= -x\sin y \\
+		f_{xy}(x,y) &= \del{f_x}{y} \\
+			&= \cos y - \sin x \\
+		f_{yx}(x,y) &= \del{f_y}{x} \\
+			&= 	\cos y - \sin x \\
+		\tf f_{xy} &= f_{yx} 
+	\end{aligned}
+\end{gather*}
+
+\noindent An unexpected feature of multivariate calculus is the possiblity that the for some point $P$, the partial derivatives of a function may be well defined, and yet, the function is not continuous at $P$. This is opposed to the one dimensional case, where we (na\"ively), assert that continuity $\implies$ differentiability. Consider 
+$$
+	f(x,y) = \left\lbrace\begin{array}{ll}
+		\dfrac{xy}{x^2+y^2} & \text{for } (x,y)\neq(0,0) \\
+		0 & \text{for } (x,y) = (0,0)
+	\end{array}\right.
+$$
+The derivatives at $(0,0)$ are well defined:
+$$
+	\del{f}{x} = \frac{y^3 - x^2y}{(x^2+y^2)^2} \implies \del{f}{x}(0,0) = \lim_{h\to0} \frac{f(h, 0) - f(0,0)}{h} = \lim_{h\to 0} \frac{0 - 0}{h} = 0
+$$
+($\dps{\del{f}{y}}$ is defined and equal to $\dps{\del{f}{x}}$, because the function is symmetric, note that x and y can be simply interchanged in the function definition.)\\
+Here, we have a function, whose derivatives are defined at a point $P$, and yet, is discontinuous at $P$.\\
+When dealing with multivariate functions, existent derivatives are insufficient for determining differentiability.
+
+\chapter{Week 3}
+\section{Lecture 7}
+\subsection*{The Tangent Plane}
+Recall the one dimensional case, for a function $y=f(x)$, and a point $(a, f(a))$, the tangent line is given by
+$$
+	y_\top = f(a) + f'(a)(x-a)
+$$
+and can be derived by considering
+\begin{gather*}
+	y_\top = mx + c \\
+	x = a\qquad y = f(a)\qquad m = f'(a) \\
+	\tf f(a) = f'(a)a + c \\
+	\tf c = f(a) - f'(a)a \\
+	\tf y_\top = f'(a)x + f(a) - f'(a)a \\
+	\tf y_\top = f(a) + f'(a)(x-a) 
+\end{gather*}
+Let's derive the vector equation for of a tangent line, consider the vector
+$$
+	\ut{r}(x) = (x, f(x)),
+$$
+and another vector which is some $\Delta x$ away from $\ut{r}$,
+$$
+	\ut{r}(x+\Delta x) = (x + \Delta x, f(x+\Delta x)).
+$$
+Now consider $\ut{r}(x+\Delta x) - \ut{r}(x) / \Delta x$. As we allow $\Delta x$ to go to 0, $\ut{r}(x+\Delta x) - \ut{r}(x)$ is going to approach the tangent line, of $f(x)$ at the point $(x,f(x))$.
+$$
+	\lim_{\Delta x\to 0}\frac{\ut{r}(x+\Delta x) - \ut{r}(x)}{\Delta x} = \lim_{\Delta x\to 0} \begin{pmatrix}
+		\dfrac{x + \Delta x - x}{\Delta x} \\
+		\dfrac{f(x+\Delta x) - f(x)}{\Delta x}
+	\end{pmatrix} = \begin{pmatrix}
+		1 \\ f'(x)
+	\end{pmatrix}
+$$
+Therefore, the tangent vector, $\ut{r}_\top$ is $(1, f(x))$. Points on lying on the tangent, are 
+$$
+	\begin{pmatrix}
+		x \\ y
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		x_0 \\ y_0
+	\end{pmatrix}
+	+ 
+	\lm \begin{pmatrix}
+		1 \\ f'(x_0)
+	\end{pmatrix},
+$$
+where $(x,y)$ is the point on the line, $(x_0, y_0)$ are the inital conditions, namely, the point lying on $f(x)$, and $\lambda$ is some real number. We went to all this effort, because the tangential plane of a 3D surface, is analogous to the tangential lin on a 2D curve.
+
+\subsubsection*{Equation for the tagent plane}
+On a surface $z=f(x,y)$, at the point $(a,b,f(a,b))$, the tangent plane is given by
+$$
+	\boxed{z_\top = f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b)}
+$$
+This is analogous to the 2D case. We follow this by defining the plane as a vector
+$$
+	\boxed{\ut{r}_\top = (r_1,r_2,r_3) = (a,b,f(a,b)) + \lm(1, 0, f_x(a,b)) + \mu(0, 1, f_y(a,b)),}
+$$
+where $\lm=x-a$ and $\mu=y-b$.\\
+
+\noindent I like to think of it like this:
+$$
+	\ut{r}_x = (1, 0, f_x(a,b))\qquad \ut{r}_y = (1, 0, f_y(a,b))
+$$
+are linearly independent vectors. The $\Span\braces{\ut{r}_x, \ut{r}_y}$ \textit{is} the tangent plane. $\lm,\mu\in\bbr$ lets us take any linear combination of these planar basis vectors. This new vector, therefore, will lie on the tangent plane. 
+
+\ex{Tangent Plane}{
+	Find the tangent plane to the surface $z=1-x^2-y^2$ at the point $P=(1,-1,-1)$.
+	\begin{gather*}
+		\begin{aligned}
+			f(x,y) &= 1 - x^2 - y^2 \implies f(1,-1) = -1 \\
+			f_x(x,y) &= -2x \implies f_x(1,-1) = -2 \\
+			f_y(x,y) &= -2y \implies f_y(1,-1) = 2 \\
+			\tf z_\top &= -1 - 2(x-1) + 2(y+1) \\
+				&= -1 -2x +2 +2y + 2 \\
+				&= 3 - 2x + 2y 
+		\end{aligned}
+		\intertext{Alternatively\dots}
+		\ut{r}_\top
+		= 
+		\begin{pmatrix}
+			r_1 \\ r_2 \\ r_3
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			1 \\ -1 \\ -1
+		\end{pmatrix}
+		+ 
+		\lm\begin{pmatrix}
+			1 \\ 0 \\ -2
+		\end{pmatrix}
+		+
+		\mu\begin{pmatrix}
+			0 \\ 1 \\ 2
+		\end{pmatrix} 
+		= 
+		\begin{pmatrix}
+			1 + x - 1 + 0 \\ -1 + 0 + y - 1 \\ -1 - 2x + 2 + 2y + 2
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			x \\ y \\ 3 - 2x + 2y
+		\end{pmatrix}
+	\end{gather*}
+}
+
+\ex{Tangent Plane}{
+	What is the plane tangent to the surface $f(x,y) = 4 - x^2 + 4x - y^2$, at $(1,1)$?
+	\begin{gather*}
+		\begin{aligned}
+			f(1,1) &= 4 - 1 + 4 - 1 = 6 \\
+			f_x(x,y) &= -2x + 4 \implies f_x(1,1) = 2 \\
+			f_y(x,y) &= -2y \implies f_y(1,1) = -2 \\
+			\tf z_\top(x,y) &= 6 + 2(x-1) - 2(y-1) \\
+				&= 6 + 2x - 2 - 2y + 2 \\
+				&= 6 + 2x - 2y
+		\end{aligned}
+	\intertext{Alternatively\dots}
+	\ut{r}_\top 
+	=
+	\begin{pmatrix}
+		r_1 \\ r_2 \\ r_3
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		1 \\ 1 \\ 6
+	\end{pmatrix}
+	+
+	\lm\begin{pmatrix}
+		1 \\ 0 \\ 2
+	\end{pmatrix}
+	+
+	\mu\begin{pmatrix}
+		0 \\ 1 \\ -2
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		1 + x - 1 + 0 \\ 1 + 0 + y - 1 \\ 6 + 2x - 2 - 2y + 2
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		x \\ y \\ 6 + 2x - 2y
+	\end{pmatrix}
+	\end{gather*}
+}
+
+\subsubsection*{Smoothness}
+A surface, $z = f(x,y)$ is smooth at a point $(a,b)$ if $f$, $f_x$ and $f_y$ are all continuous at $(a,b)$. Informally, as you zoom more and more into $(a,b)$, it looks more and more like a flat plane.\\
+One way to observe this is looking at contours. As you zoom into a smooth function, the contours will straighten out. This means that, close to $(a,b)$, the surface can be approximated with a plane; in fact, approximated with the tangent plane.\\
+Examples of non-smooth functions include things like Brownian motion. No matter how much you zoom into Brownian motion, it always looks rough. In fact, Brownian motion is fractal.
+
+\section{Lecture 8}
 
 
 \end{document}

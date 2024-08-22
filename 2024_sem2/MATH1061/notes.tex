@@ -585,5 +585,752 @@ There is not. No matter how many XOR and NOT operations you apply, ultimately, y
 
 \chapter{Week 2}
 \section{Lecture 4}
+\dfn{Argument}{
+	Given a collection of statements, $p_1, p_2, \dots, p_n$ (called premises), and another statement $q$ (called the conclusion), an arugment is the assertion that the conjuction of the premises implies the conclusion. This is often represented
+	$$
+		\argument{
+			p_1 & \dots & \\
+			p_2 & \dots & \\
+			\multicolumn{1}{c}{\vdots} & & \\
+			p_n & \dots & \\
+		}{
+			q &
+		}
+	$$
+	An argument is \textbf{valid} if whenever all the premises are true, the conclusion is true. Mathematically,
+	$$
+		\bigwedge_{i=1}^{n} \bracks{p_i} \lthen q \equiv \top
+	$$
+	An argument is \textbf{invalid} if there exists a configuration, such that all the premises are true, but the conclusion is false.
+	$$
+		\bigwedge_{i=1}^{n} \bracks{p_i} \lthen q \not\equiv \top
+	$$
+}
+\ex{}{
+	$$
+		\argument{
+			p_1 & \text{If it is raining, then there are clouds.} & \\
+			p_2 & \text{It is raining.} & \\
+		}{\text{There are clouds.}&}
+	$$
+	$$
+		\text{Which is an argument of form:}
+		\argument{
+			& p\lthen q & \\
+			& p & \\
+		}{q &}
+	$$ 
+	This is a valid argument! As long as $p_1$ and $p_2$ are true, $q$ is necessarily true.
+	$$
+		\argument{
+			p_1 & \text{If it is raining then there are clouds.} & \\
+			p_2 & \text{There are clouds.} & \\
+		}{\text{It is raining. }&}
+	$$
+	$$
+		\text{Which is an argument of form:}
+		\argument{
+			& p\lthen q & \\
+			& q & \\
+		}{p &}
+	$$ 
+	This is an invalid argument! Because the conclusion doesn't follow from the premises. For example, if $p_1$ and $p_2$ were true, $q$ still may be false.
+}
+
+\subsection*{Rules of Inference }
+These are common argument forms.
+\subsubsection*{Modus Ponens}
+$$
+	\argument{
+		& p\lthen q & \\
+		& p & \\
+	}{q&}
+$$
+$$
+	\begin{array}{|cc|cc|c|}
+		\hline
+		p & q & \text{Premise 1: } p\lthen q & \text{Premise 2: } p & \text{Conclusion: }  q \\ \hline
+		T & T & T & T & T \\
+		T & F & F & T & F \\
+		F & T & T & F & T \\
+		F & F & T & F & T \\ 
+		\hline
+	\end{array}
+$$
+Pay special attention to row 1. This is the only row in which every premise is true. When every primise is true, the conclusion is always true. Therefore this is a valid argument form. Every argument form can be proven with a truth table in this manner.
+
+\begin{multicols}{2}
+	\subsubsection*{Modus Tellens}
+	$$
+		\argument{&p\lthen q & \\ &\lnot q & \\}{\lnot p &}
+	$$
+	
+	\subsubsection*{Generalisation}
+	$$
+		\argument{&p & \\}{p\lor q &}
+	$$
+	$$
+		\argument{&q & \\}{q\lor p &}
+	$$
+	
+	\subsubsection*{Specalisation}
+	$$
+		\argument{&p\land q & \\}{p &}
+	$$
+	$$
+		\argument{&p\land q & \\}{q &}
+	$$
+
+	\subsubsection*{Conjuction}
+	$$
+		\argument{&p & \\ &q & \\}{p\land q &}
+	$$
+	
+	\subsubsection*{Elimination}
+	$$
+		\argument{&p\lor q & \\&\lnot q & \\}{p &}
+	$$
+	$$
+		\argument{&p\lor q & \\&\lnot p & \\}{q &}
+	$$
+
+	\subsubsection*{Transitivity}
+	$$
+		\argument{&p\lthen q & \\&q\lthen r & \\}{p\lthen r &}
+	$$
+
+	\subsubsection*{Proof by Division into Cases}
+	$$
+		\argument{&p\lor q & \\&p\lthen r & \\&q\lthen r & \\}{r &}
+	$$
+
+	\subsubsection*{Contradiction}
+	$$
+		\argument{&\lnot p\lthen \bot & \\}{p &}
+	$$
+\end{multicols}
+
+\ex{Valid or invalid}{
+	Is the following argument valid?
+	$$
+		\argument{
+			1. & p \lthen \lnot r & \\
+			2. & r \lor \lnot q & \\
+			3. & q & \\
+		}{\lnot p &}
+	$$
+	We might be tempted to use a truth table, but it'll have an unreaonsable, $\bracks{2^3}$, amount of rows! We can use our rules of inference to figure this out.
+	$$
+		\argument{
+			1. & p \lthen \lnot r 	& \\
+			2. & r \lor \lnot q 		& \\
+			3. & q 									& \\
+			4. & \lnot q \lor r 		& (\text{2. by Commutativity})\\
+			5. & p \lthen r 				& (\text{4. by Logical Equivalence})\\
+			6. & r 									& (\text{3. and 5. by Modus Ponens})\\
+			7. & \lnot(\lnot r) 		& (\text{6. by Double Negative})\\
+		}{\lnot p & (\text{1. and 7. by Modus Tellens})}
+	$$
+	Therefore the argument is valid!
+}
+
+\subsection*{Searching for Invalidity}
+Another method for checking validity may be to look for truth values which make the premises true, but the conclusion false. If we can find such an example, we can prove that the arugment is invalid. If it is impossible to do this, then the argument is valid.
+
+\ex{}{
+	Consider the argument
+	$$
+		\argument{&p\lthen q &\\ &q &\\}{p &}
+	$$
+	Since $p$ is the conclusion, take it to be false.\\
+	Since $q$ is a premise, take it to be true.\\
+	The premise $p\lthen q$ is therefore $\false\lthen\true\equiv\true$.\\
+	Therfore all our premises are true.\\
+	But wait! Our conclusion was set to false!\\
+	Therefore, there and is called the existential quantifier.\\
+	
+	Let $Q(x)$ be a preda configuration of truth values, namely $(p,q)=(\false,\true)$, such that all the premises are true, but the conclusion is false.\\
+	Therefore, the argument is invalid.
+}
+
+\ex{}{
+	Consider the argument
+	$$
+		\argument{&p\lthen\lnot r &\\ &r\lor\lnot q &\\ &q &\\}{\lnot p &}
+	$$
+	Let's suppose the argument is invalid.\\
+	Then, our conclusion $\lnot p$, is false.\\
+	Then $p$ is true.\\
+	Since $q$ is a premise, take it to be true.\\
+	Consider the premise $p\lthen\lnot r$. Since $p$ is true, $\lnot r$ must also be true, such that the premise is true.\\
+	Then, $r$ is false.\\
+	Consider the premise $r\lor\lnot q$. Substituting, we see $\false\lor \false\equiv\false$.\\
+	Therefore, it is impossible for us to configure $(p,q,r)$ such that all the premises are true, and the conclusion is false.\\
+	Therefore the argument is not invalid.\\
+	Therefore the argument is valid.
+}
+
+\subsection*{Questions}
+\qs{}{
+	Write the following arguments symbolically
+	\begin{itemize}
+		\item If wages are raised, then buying increases.
+		\item If there is a depression, then buying does not increase.
+		\item Therefore, there is not a depression, or wages are not raised.
+	\end{itemize}
+	Decide whether this argument is valid, using three methods:
+	\begin{enumerate}[label=(\alph*)]
+		\item a truth table
+		\item rules of inference
+		\item configuring truth values
+	\end{enumerate}
+}
+\sol 
+\begin{gather*}
+	\Let p = \text{``Wages are raised.''} \\
+	\Let q = \text{``There is a depression.''} \\
+	\Let r = \text{``Buying increases.''} \\
+	\argument{
+		1. & p\lthen r & \\ 
+		2. & q\lthen\lnot r & \\
+	}{\lnot p\lor\lnot q &}
+\end{gather*}
+
+\sol (a)
+\begin{center}
+	\begin{tabular}{|ccc||cc||c|}
+		\hline
+		\multicolumn{3}{|c||}{Variables} & \multicolumn{2}{c||}{Premises} & \multicolumn{1}{c|}{Conclusion} \\
+		$p$ & $q$ & $r$ & $p\lthen r$ & $q\lthen\lnot r$ & $\lnot p\lor\lnot q$ \\ \hline
+		T & T & T & T & F & F \\
+		T & T & F & F & T & F \\ \cline{4-6}
+		T & F & T & T & T & T \\ \cline{4-6}
+		T & F & F & F & T & T \\
+		F & T & T & T & F & T \\ \cline{4-6}
+		F & T & F & T & T & T \\ \cline{4-6}
+		F & F & T & T & T & T \\ \cline{4-6}
+		F & F & F & T & T & T \\ \cline{4-6} \hline
+	\end{tabular}
+\end{center}
+Consider rows 3, 6, 7, and 8. Whenever all the premises are true, the conclusion is true. Therefore the argument is valid. 
+\begin{flushright}$\qed$\\\end{flushright}
+
+\sol (b)
+\begin{gather*}
+	\argument{
+		1. & p\lthen r 			 			& \text{} \\
+		2. & q\lthen\lnot r 			& \text{} \\
+		3. & r \lthen\lnot q 			& (\text{Contrapositive of 2.}) \\
+		4. & p \lthen\lnot q 			& (\text{Transitivity of 1. and 3.}) \\ 
+		5. & \lnot p \lor\lnot q	& (\text{Expansion of }\lthen) \\
+	}{\lnot p\lor\lnot q & \text{}}				 
+\end{gather*}
+Therefore, by using laws of inference, we've proven that the conclusion follows from the premises. Therefore the argument is valid.
+\begin{flushright}$\qed$\\\end{flushright}
+
+\sol (c)
+\begin{gather*}
+	\longintertext{Suppose the argument is invalid\\
+		Then, the premises are all true, and the conclusion is false.\\
+		So, $\lnot p \lor \lnot q$ is False.}
+	\argument{
+		1. & p\lthen r 													& \text{} \\
+		2. & q\lthen\lnot r 										& \text{} \\		
+		3. & \lnot (p\land q) \text{ is False} 	& \text{(De Morgan's Law)} \\
+		4. & p\land q \text{ is True} 					& \text{(Follows from 3.)} \\							
+		5. & p \text{ is True} 									& \text{(Specalisation)} \\			
+		6. & q \text{ is True} 									& \text{(Specalisation)} \\			
+		7. & r \text{ is True} 									& \text{(Follows from 1., given 5.)} \\			
+		8. & r \text{ is False}\qquad \contra 	& \text{(Follows from 2., given 6.)} \\
+	}{\lnot p\lor\lnot q &}
+\end{gather*}
+We've identified a contradiction! If we assume invalidity, we see contradictions arise. Which means our original assumption was incorrect. Which means the argument is valid.
+\begin{flushright}$\qed$\\\end{flushright}
+
+\qs{}{
+	Is the following argument valid? Again, use all three methods.
+	$$
+		\argument{
+			1. & p\lthen q &\\
+			2. & p\lor r &\\
+			3. & p\lor\lnot r &\\
+		}{q &}
+	$$
+}
+\sol (a)
+\begin{center}
+	\begin{tabular}{|ccc||ccc||c|l}
+		\cline{1-7}
+		\multicolumn{3}{|c||}{Variables} & \multicolumn{3}{c||}{Premises} & \multicolumn{1}{c|}{Conclusion} & \\ 
+		$p$ & $q$ & $r$ & $p\lthen q$ & $p\lor r$ & $p\lor\lnot r$ & $q$ \\ \cline{1-7}
+		T & T & T & T & T & T & T & $\leftarrow$\\
+		T & T & F & T & T & T & T & $\leftarrow$\\
+		T & F & T & F & T & T & F & \\
+		T & F & F & F & T & T & F & \\
+		F & T & T & T & T & F & T & \\
+		F & T & F & T & F & T & T & \\
+		F & F & T & T & T & F & F & \\
+		F & F & F & T & F & T & F & \\ \cline{1-7} 
+	\end{tabular}
+\end{center}
+Observing rows 1, and 2, we can see that when all the premises are True, the conclusion is True. Therefore the argument is valid.
+\begin{flushright}$\qed$\end{flushright}
+
+\sol (b)
+$$
+\argument{
+	1. & p\lthen q &\\
+	2. & p\lor r &\\
+	3. & p\lor\lnot r &\\
+	4. & \lnot r\lor p & (\text{Commutativity of 3.}) \\
+	5. & r \lthen p	& (\text{Logical Equivalence of 4.}) \\
+	6. & r \lthen q & (\text{Transitivity of 5. and 1.}) \\
+	7. & q & (\text{Division of Cases of 2. by 1., 6.}) \\
+}{q &}
+$$
+Therefore, we've shown using rules of inference that the Argument is logically valid.
+\begin{flushright}$\qed$\end{flushright}
+
+\sol (c) \\
+Suppose the argument is invalid\\
+Then, the premises are all true, and the conclusion is false.\\
+So, $q$ is False.
+$$
+	\argument{
+		1. & p\lthen q &\\
+		2. & p\lor r &\\
+		3. & p\lor\lnot r &\\
+		4. & p \text{ is False } & (\text{We know from 1. given } q) \\
+		5. & r \text{ is True } & (\text{We know from 2. given } p) \\
+		6. & r \text{ is False }\qquad\contra & (\text{We know from 3. given } p) \\
+	}{q &}
+$$
+We've identified a contradiction! If we assume invalidity, we see contradictions arise. Which means our original assumption was incorrect. Which means the argument is valid.
+
+\qs{}{
+	Is the following argument valid?
+	$$
+		\argument{
+			1. & p\lthen q & \\
+			2. & q\lthen r & \\
+			3. & \lnot p\lor\lnot q & \\
+		}{r &}
+	$$
+}	
+\sol I'll use rules of inference, since it's my weakest solution method.
+\begin{gather*}
+	\argument{
+		1. & p\lthen q & \\
+		2. & q\lthen r & \\
+		3. & \lnot p\lor\lnot q & \\
+		4. & p\lthen \lnot q\qquad\contra & (\text{Collection of 1.}\lor\text{ to }\lthen) \\
+	}{r &}
+\end{gather*}
+This is a contradiction, because $p$ cannot similateously imply $q$ and $\lnot q$, no matter what truth value it takes. Therefore the argument is invalid.
+\begin{flushright}$\qed$\end{flushright}
+
+\qs{}{
+	Determine whether or not the following argument is valid, using all three methods.
+	\begin{itemize}
+		\item If new messages are queued, then the filesystem is locked.
+		\item The filesystem is not locked if and only if the system is functioning normally.
+		\item New messages will not be sent to the message buffer only if they are queued.
+		\item New messages will not be sent to the message buffer.
+		\item Therefore, the system is functioning normally.
+	\end{itemize}
+}
+\sol \begin{gather*}
+	\longintertext{Let $p$ be the statement ``New messages are queued.''\\
+	Let $q$ be the statement ``The filesystem is locked.''\\
+	Let $r$ be the statement ``New messages are sent to the message buffer.''\\
+	Let $s$ be the statement ``The system is functioning normally.''\\
+	Then the argument can be written symbolically}
+	\argument{
+		1. & p\lthen q &\\
+		2. & \lnot q\liff s &\\
+		3. & p \lthen \lnot r &\\
+		4. & \lnot r &\\
+	}{s&\\}
+	\longintertext{Let's check this arguments validity with a truth table.}
+	\begin{array}{|cccc||cccc||c|l}
+		\cline{1-9}
+		\multicolumn{4}{|c||}{\text{Variables}} & \multicolumn{4}{c||}{\text{Premises}} & \multicolumn{1}{c|}{\text{Conclusion}} \\
+		p & q & r & s & p\lthen q & \lnot q\liff s & p \lthen \lnot r & \lnot r & s \\ \cline{1-9}
+		T & T & T & T & T & F & F & F & T & \\
+		T & T & T & F & T & T & F & F & F & \\
+		T & T & F & T & T & F & T & T & T & \\
+		T & T & F & F & T & T & T & T & F & \leftarrow \\
+		T & F & T & T & F & T & F & F & T & \\
+		T & F & T & F & F & F & F & F & F & \\
+		T & F & F & T & F & T & T & T & T & \\
+		T & F & F & F & F & F & T & T & F & \\
+		F & T & T & T & T & F & T & F & T & \\
+		F & T & T & F & T & T & T & F & F & \\
+		F & T & F & T & T & F & T & T & T & \\
+		F & T & F & F & T & T & T & T & F & \leftarrow \\
+		F & F & T & T & T & T & T & F & T & \\
+		F & F & T & F & T & F & T & F & F & \\
+		F & F & F & T & T & T & T & T & T & \\
+		F & F & F & F & T & F & T & T & F & \\ \cline{1-9}
+	\end{array}
+	\longintertext{Observe rows 4 and 12, where in all the premises are true, but the conclusion is false. Therefore, the argument is invalid.\\
+	Now let's prove this invalidity using rules of inference.}
+	\argument{
+		1. & p\lthen q &\\
+		2. & \lnot q\liff s &\\
+		3. & p\lthen \lnot r &\\
+		4. & \lnot r &\\
+		5. & s\lthen\lnot q & (\text{Falls from biconditional 2.}) \\
+		6. & q\lthen\lnot s & (\text{Contrapositve of 5.}) \\
+		7. & p\lthen\lnot s & (\text{Transitivity of 1. to 6.})\\
+		8. & \lnot p\lor q & (\text{Expansion of 1.}\lthen)\\ 
+		9. & \lnot p\lor\lnot r & (\text{Expansion of 3.}\lthen)\\
+	}{s&\\}
+	\longintertext{Therefore, we can see that the argument is invalid.\\
+	Finally, lets check in validity by searching for values for the variables.\\
+	Let's assume the argument is valid. All the premises are true, and the conclusion is false.\\
+	$s$ is false.}
+	\argument{
+		1. & p\lthen q &\\
+		2. & \lnot q\liff s &\\
+		3. & p \lthen \lnot r &\\
+		4. & \lnot r &\\
+		5. & s\lthen \lnot q & (\text{Falls from biconditional 2.})\\
+		6. & \lnot q \text{ is False} & (\text{Follows from 5.})\\
+		7. & q \text{ is True} & (\text{Follows from 6.})\\
+		8. & p \text{ is True} & (\text{Follows from 1. given }q)\\
+		9. & r \text{ is False} & (\text{Negation of 4.})\\
+	}{s&\\}
+\end{gather*}
+
+
+\section{Lecture 5}
+\dfn{Predicate}{
+	A predicate is a sentence which contains finitely many variables, and which becomes a statement if the varaibles are given specific values.\\
+
+	The \textbf{domain} of each variable in a predicate is the set of all possible values that may be assigned to it.
+
+	Predicates are commonly denoted with an upper case letter followed by a list of finitely many varaibles within brackets, $P(x)$, $Q(x)$, $R(x)$.
+}
+\ex{}{
+	Given some variables $x, y, a,b,c \in \bbz$, here are some example predicates:
+		\begin{itemize}
+			\item $x$ is even.
+			\item $x\leq y$.
+			\item $a$ divides $b$ and $b$ divides $c$.
+		\end{itemize}
+	The following are not predicates:
+	\begin{itemize}
+		\item Divide by 2.
+		\item Is $x$ an integer?
+	\end{itemize}
+}
+
+\dfn{Truth Set}{
+	The truth set of a predicate is the set of all values in the variables' domains, such that when a value from those domains are assigned to those variables, the predicate is evaluated as true. 
+}
+\ex{}{
+	Let $P(x)$ be the predicate $x|5$, and $\dom x= \bbn$.\\
+
+	The truth set of $P(x)$ is $\braces{-5, -1, 1, 5}$, because these are all the numbers in the domain which divide 5.
+}
+
+\subsection*{Common Domains}
+\begin{itemize}
+	\item The integers: $\bbz = \braces{\dots,-3,-2,-1,0,1,2,3,\dots}$
+	\item The positive integers: $\bbz^{+} = \braces{1, 2, 3, \dots}$
+	\item The nonnegative integers: $\bbz^{\geq0}=\braces{0,1,2,3,\dots}$
+	\item The natural numbers: $\bbn=\braces{1,2,3,\dots}$
+	\item The rational numbers: $\bbq=\braces{\frac{a}{b}\suchthat a,b\in\bbz\land b\neq0}$
+	\item The real numbers: The entire number line.
+\end{itemize}
+\nt{The real numbers have a rigorous definition, but it is outside the scope of this introducctory course.}
+
+\subsection*{The Universal Quantifier}
+The symbol $\forall$ denotes ``for all'' and is called the universal quantifier.\\
+
+Let $Q(x)$ be a predicate and $\dom x = D$.\\
+The statement 
+$$
+	\forall x\in D, Q(x)
+$$
+is true if and only if $Q(x)$ is true for every single element in $D$.\\
+It is false if and only if $Q(x)$ is false for at least one element in $D$.
+
+\ex{}{
+	Let $Q(x)$ be the predicate $x\leq x^2$, and $\dom x=\bbz$. The statement $\forall x\in\bbz, Q(x)$ can be expressed in the following equivalent ways:
+	\begin{itemize}
+		\item $\forall x\in\bbz, x\leq x^2$
+		\item For all $x\in\bbz, x\leq x^2$
+		\item Every integer is less then or equal to its sqaure.
+	\end{itemize}
+
+	Are the following statements true or false?
+	$$
+		\forall x\in\bbz, x\in\bbr
+	$$
+	True. $\because\bbz\subseteq\bbr$.
+
+	$$
+		\forall y\in\bbq, y^2\geq1
+	$$
+	False. Counterexample, let $y=\frac{1}{2}$. Then $\bracks{\frac{1}{2}}^2 = \frac{1}{4} < 1$. Take any $y< 1$. It's square is less then 1. 
+}
+
+\subsection*{The Existential Quantifier}
+The symbol $\exists$ denotes ``there exists'' and is called the existential quantifier.\\
+
+Let $Q(x)$ be a predicate and $\dom x = D$.\\
+The statement 
+$$
+	\exists x\in D: Q(x)
+$$
+is true if and only if $Q(x)$ is true for at least a single element in $D$.\\
+It is false if and only if $Q(x)$ is false for every single element in $D$.
+
+\ex{}{
+	Let $Q(x)$ be the predicate $x^2=4$, and $\dom x=\bbz$. The statement $\exists x\in D: Q(x)$ can be expressed in the following equivalent ways:
+	\begin{itemize}
+		\item $\exists x\in\bbz \text{ such that } x^2 = 4$
+		\item There exists an integer $x$ such that $x^2 = 4$
+		\item There is some integer whose square is 4.
+	\end{itemize}
+
+	Are the following true or false?
+	$$
+		\exists x\in\bbr: x^2=1 \land x<0
+	$$
+	Note that $P(x)$ is the conjuction of two other predicates.\\
+	This is true. Take $x=-1\in\bbr$.\\
+	Then $-1^2=1$ and $-1<0$.
+
+	$$
+		\exists x\in\braces{2, 4, 6}: x^2 = 9.
+	$$
+	False. We can prove this by exhaustion.\\
+	$2^2 = 4 \neq 9\quad 4^2=16\neq 9\quad 6^2=36\neq9$.\\
+	Therefore, there is no $x$ in the domain such that the predicate is satisfied.
+}
+
+\subsection*{Universal Conditional Statements}
+One of the most important statement forms in mathematics:
+$$
+	\forall x \in D, P(x)\lthen Q(x)
+$$
+\ex{}{
+	The universal conditional statement
+	$$
+		\forall x\in\bbr, x>3 \lthen x^2 > 9
+	$$
+	Can be equivalently expressed
+	\begin{itemize}
+		\item For every real number, $x$, if $x>3$, then $x^2>9$.
+		\item Whenever a real number is greater then 3, its square is greater then 9.
+		\item The squares of real numbers greater then 3, are greater then 9.
+	\end{itemize}
+}
+
+\subsection*{Questions}
+\qs{}{example}
+
+\section{Lecture 6}
+\subsection*{Negations of Quantified Statements}
+\subsubsection*{Negating the Universal Quantifier}
+Consider the universally quantified statement
+$$
+	\forall x\in D, Q(x).
+$$
+The negation of this statement is logically equivalent to
+$$
+	\exists x\in D: \lnot Q(x).
+$$
+$\forall$ negates to $\exists$, and the predicate $Q(x)$ negates to $\lnot Q(x)$.
+
+\ex{}{
+	Consider the statement
+	$$
+		\forall x\in\bbz, x \text{ is prime.}
+	$$
+	The negation of this statement is
+	$$
+		\exists x\in\bbz: x \text{ is not prime.} 
+	$$
+	Naturally, and to maintain logical equivalence, the original statement, in this case, evaluates to False, while its negation evaluates to True.\\ 
+
+	Now, Consider the statement
+	$$
+		\text{All integers are odd or even.}
+	$$
+	This can be written mathematically as
+	$$
+		\forall x\in\bbz, x\equiv0\ (\mathrm{mod}\ 2) \lor x\equiv1\ (\mathrm{mod}\ 2).
+	$$
+	And it's negation is
+	$$
+		\exists x\in\bbz: x\not\equiv0\ (\mathrm{mod}\ 2) \land x\not\equiv1\ (\mathrm{mod}\ 2). 
+	$$
+	Which when brought back into the English language, is read
+	$$
+		\text{There is an integer which is not even and not odd.}
+	$$
+	Clearly, the original statement evaluates to True, and its negation to False.
+}
+
+\subsubsection*{Negating the Existential Quantifier}
+Now let's consider the existentially quantified statement
+$$
+	\exists x\in D: P(x).
+$$
+The negation of this statement Is
+$$
+	\forall x\in D: \lnot P(x).
+$$
+$\exists$ negates to $\forall$, and the predicate $P(x)$ negates to $\lnot P(x)$.
+
+\ex{}{
+	Consider the statement
+	$$
+		\text{There is a pink elephant.}
+	$$
+	Its negation is 
+	$$
+		\text{Every elephant is not pink.}
+	$$
+	
+	${}^{}$\\Consider the statement 
+	$$
+		\exists x\in\bbq:x\in\bbz
+	$$
+	Its negation is
+	$$
+		\forall x\in\bbq, x\notin\bbz
+	$$
+	Again, we can tell that the original statement is true, and its negation is false. \\
+
+	A couple more examples\dots Let's consider the statement
+	$$
+		\text{Some rabbit has white fur.}
+	$$
+	Note that this is existentially quantified, so its negation will be universally quantified,
+	$$
+		\text{No rabbit has white fur.}
+	$$
+	Finally, consider the statement
+	$$
+		\text{Every UQ student is happy.}
+	$$
+	This time, note that this statement is universally quantified, so its negation will be existentially quantified,
+	$$
+		\text{There is a UQ student who is not happy.}
+	$$
+	We're getting the hang of this!
+}
+
+\subsubsection*{Negating the Universal Conditional Quantifier}
+Finally, we consider the statement
+$$
+	\forall x\in D, P(x)\lthen Q(x).
+$$
+Using laws of logical equivalence, and what we've just learned, we can easily conclude that the negation of this statement is
+$$
+	\exists x\in D: \lnot(P(x)\lthen Q(x)) \equiv \exists x\in D: P(x)\land\lnot Q(x)
+$$
+ultimately, the $\forall$ still negates to $\exists$, and if you consider the composite statement $R(x) = P(x)\lthen Q(x)$, then $\lnot R(x)\equiv \lnot(P(x)\lthen Q(x))\equiv \lnot(\lnot P(x)\lor Q(x)) \equiv P(x)\land\lnot Q(x)$.
+
+\ex{}{
+	Let's negate some more statements!
+	\begin{gather*}
+		\begin{aligned}
+			A &= \forall x\in\bbz, x\geq1\lthen x\in\bbn &\text{(True)}\\
+			\tf\lnot A &= \exists x\in\bbz: x\geq1\land x\notin\bbn &\text{(False)}\\
+			B &= \forall x\in\bbz, \bracks{3\divs x} \lthen \bracks{6\divs x} &\text{(False)}\\
+			\tf\lnot B &= \exists x\in\bbz: \bracks{3\divs x}\land \bracks{6\ndivs x} &\text{(True)}\\
+			C&= \text{``If a rabbit has white fur, then it has long ears''} &\text{(False)}\\
+			\tf\lnot C&= \text{``There is a rabbit with white fur and short ears''} &\text{(True)}\\
+			D&= \text{``All parks that have grass, have playgrounds.''} &\text{(False)}\\
+			\tf\lnot D&= \text{``Some park has grass and not playground.''} &\text{(True)}\\
+		\end{aligned}
+	\end{gather*}
+}
+
+\subsection*{Statements with Multiple Quantifiers}
+Some predicates, for instance $x\leq y$, involve more then one varaible. In such a case, we use the notation $P(x,y)$ to denote such a predicate. Such predicates often appear with more than one quantifier. For example, consider the statement
+$$
+	\exists x\in\bbn: \forall y\in\bbn, x\leq y.
+$$
+We would read this as ``There exists a natural number which is smaller than all natural numbers.'' or ``There is a smallest natural number.'' 
+\nt{``Such that'', :,  always pairs with the existential quantifier!}
+
+\noindent It's negation would be
+$$
+	\forall y\in\bbn, \exists x\in\bbn: x\leq y
+$$
+which is read, ``Every natural numbers has some other number which is less then or equal to it.''
+
+\subsubsection*{Establishing the Truth, when given Multiple Quantifiers}
+Suppose we want to prove the given the statement
+$$
+	\forall x\in D, \exists y\in E: P(x,y).
+$$
+To prove this, we must allow someone to pick any element in $D$ they want, and we must any element in $E$ which makes $P(x,y)$ true.
+\ex{}{
+	Let's prove the statement
+	\begin{gather*}
+		\forall x\in\bbz, \exists y\in\bbz: x + y = 0. \\
+		\forall x\in\bbz,\\
+		\Choose y=-x,\\
+		\Then x+y = x - x = 0. \tag*{\qed}
+	\end{gather*}
+}
+\noindent No matter what value for $x$ is chosen, I choose $y=-x$, and the predicate $P(x,y)$ always evaluates to true. Because we can do this for all integers $x$, we know that this statement is true.\\
+
+\noindent Now lets suppose we have the statement
+$$
+	\exists x\in D: \forall y\in E, P(x,y).
+$$
+To prove this statement, we need to find one particular $x\in D$ which makes $P(x,y)$ true, no matter what selection is made for $y\in E$.
+\ex{}{
+	Let's prove the statement
+	\begin{gather*}
+		\exists x\in\bbn: \forall y\in\bbn, x\leq y. \\
+		\Take x=1. \\
+		\text{Now, } \forall y\in\bbz, 1\leq y. \tag*{\qed}
+	\end{gather*}
+}
+
+\subsubsection*{Negations of Statements with Multiple Quantifiers}
+Consider the statement
+$$
+	\forall x\in D, \exists y\in E: P(x,y).
+$$
+This statement will negate to
+$$
+	\exists x\in D:\forall y\in E, \lnot P(x,y).
+$$
+Similarly, consider the statement
+$$
+	\exists x\in D: \forall y\in E, P(x,y).
+$$
+This statement will negate to
+$$
+	\forall x\in D, \exists y\in E: \not P(x,y).
+$$
+Again, note, that the such that always pairs with the existential quantifier. Let's look at some examples now\dots
+\ex{}{
+	\begin{gather*}
+		\begin{aligned}
+			A &= \forall x\in\bbz, \exists y\in\bbz:x+y=0 &\text{(True)}\\
+			\tf\lnot A &= \exists x\in\bbz: \forall y\in\bbz, x+y\neq0 &\text{(False)}\\
+			B &= \exists x\in\bbr: \forall y\in\bbr, \abs{x} \leq \abs{y} &\text{(False)}\\
+			\tf\lnot B &= \forall x\in\bbr, \exists y\in\bbr: \abs{y}<\abs{x} &\text{(True)}\\
+		\end{aligned}
+	\end{gather*}
+}
+
+\subsection*{Questions}
+\qs{}{example}
+
+\chapter{Week 3}
+\section{Lecture 7}
 
 \end{document}

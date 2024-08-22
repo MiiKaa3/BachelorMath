@@ -10,6 +10,9 @@
 \renewcommand{\lnot}{\ordsim}
 \newcommand{\lxor}{\oplus}
 \newcommand{\lnand}{\barwedge}
+\newcommand{\divs}{\mid}
+\newcommand{\ndivs}{\nmid}
+\def\contra{\tikz[baseline, x=0.22em, y=0.22em, line width=0.032em]\draw (0,2.83)--(2.83,0) (0.71,3.54)--(3.54,0.71) (0,0.71)--(2.83,3.54) (0.71,0)--(3.54,2.83);}
 
 \newcommand{\On}{\mathrm{On}} % ordinals
 \DeclareMathOperator{\img}{im} % Image
@@ -28,6 +31,7 @@
 \DeclareMathOperator{\Hom}{Hom} % homomorphism
 \DeclareMathOperator{\Mor}{Mor} % morphisms
 \DeclareMathOperator{\End}{End} % endomorphism
+\DeclareMathOperator{\Span}{span}
 
 \newcommand{\eps}{\epsilon}
 \newcommand{\veps}{\varepsilon}
@@ -35,7 +39,7 @@
 \newcommand{\ul}{\underline}
 \newcommand{\wt}{\widetilde}
 \newcommand{\wh}{\widehat}
-\newcommand{\ut}{\undertilde}
+\newcommand{\ut}{\utilde}
 
 \newcommand{\vocab}[1]{\textbf{\color{blue} #1}}
 \providecommand{\half}{\frac{1}{2}}
@@ -59,10 +63,6 @@
 \newcommand{\oset}{V_{\alpha}}
 \newcommand{\opset}[1]{V_{\alpha_{#1}}}
 \newcommand{\lub}{\text{lub}}
-\newcommand{\del}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\Del}[3]{\frac{\partial^{#1} #2}{\partial^{#1} #3}}
-\newcommand{\deld}[2]{\dfrac{\partial #1}{\partial #2}}
-\newcommand{\Deld}[3]{\dfrac{\partial^{#1} #2}{\partial^{#1} #3}}
 \newcommand{\lm}{\lambda}
 \newcommand{\uin}{\mathbin{\rotatebox[origin=c]{90}{$\in$}}}
 \newcommand{\usubset}{\mathbin{\rotatebox[origin=c]{90}{$\subset$}}}
@@ -125,10 +125,13 @@
 \newcommand{\WeSee}{\text{We see }}
 \newcommand{\So}{\text{So }}
 \newcommand{\Then}{\text{Then }}
+\newcommand{\Choose}{\text{Choose }}
+\newcommand{\Take}{\text{Take }}
 \newcommand{\false}{\text{False}}
 \newcommand{\true}{\text{True}}
 
 \newcommand{\QED}{\hfill \qed}
+\newcommand{\CONTRA}{\hfill \contra}
 
 \renewcommand{\dd}[1]{\frac{d}{d#1}}
 \newcommand{\dyd}[2][y]{\frac{d#1}{d#2}}
@@ -142,3 +145,16 @@
 \newcommand{\dfdx}{\dyd[f]{x}}  \newcommand{\dfdxsq}{\dyd[^2f]{x^2}}
 \newcommand{\dudx}{\dyd[u]{x}}  \newcommand{\dudxsq}{\dyd[^2u]{x^2}}
 \newcommand{\dvdx}{\dyd[v]{x}}  \newcommand{\dvdxsq}{\dyd[^2v]{x^2}}
+
+\newcommand{\del}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\Del}[3]{\frac{\partial^{#1} #2}{\partial^{#1} #3}}
+\newcommand{\deld}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\Deld}[3]{\dfrac{\partial^{#1} #2}{\partial^{#1} #3}}
+
+\newcommand{\argument}[2]{
+  \begin{array}{rll}
+    #1
+    \cline{2-2}
+    \therefore & #2 
+  \end{array}
+}

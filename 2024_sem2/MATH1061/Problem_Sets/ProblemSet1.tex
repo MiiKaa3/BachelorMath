@@ -1,0 +1,272 @@
+\documentclass[a4paper, 11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\title{\Huge{MATH1061}\\Discrete Mathematics I}
+\author{\huge{Problem Set 1}\\\huge{Michael Kasumagic, sID\#: 44302669}}
+\date{\huge{Due: 5pm, $16^\text{th}$ of Augsut, 2024}}
+
+\begin{document}
+
+\maketitle
+
+\qs{(\it10 marks)}{
+  Use a truth table to determine whether the following statement is a contradiction, a tautology or neither. If it is a contradiction or a tautology, verify your answer using logical equivalences.
+  $$
+    ((p\liff q)\land(p\lxor r)) \lthen (q\lor r)
+  $$
+}
+\sol Given the statement, we will construct a truth table.
+\begin{gather*}
+  \begin{array}{|ccc||cc||cc||c|}
+    \hline
+    $p$ & $q$ & $r$ & p\liff q & p\lxor r & (p\liff q) \land (p\lxor r) & q\lor r & ((p\liff q) \land (p\lxor r)) \lthen q\lor r \\ \hline 
+    $T$ & $T$ & $T$ & $T$ & $F$ & $F$ & $T$ & $T$ \\
+    $T$ & $T$ & $F$ & $T$ & $T$ & $T$ & $T$ & $T$ \\
+    $T$ & $F$ & $T$ & $F$ & $F$ & $F$ & $T$ & $T$ \\
+    $T$ & $F$ & $F$ & $F$ & $T$ & $F$ & $F$ & $T$ \\
+    $F$ & $T$ & $T$ & $F$ & $T$ & $F$ & $T$ & $T$ \\
+    $F$ & $T$ & $F$ & $F$ & $F$ & $F$ & $T$ & $T$ \\
+    $F$ & $F$ & $T$ & $T$ & $T$ & $T$ & $T$ & $T$ \\
+    $F$ & $F$ & $F$ & $T$ & $F$ & $F$ & $F$ & $T$ \\ \hline
+  \end{array}
+  \longintertext{Therefore, the given statement is a tautology.\\ Let's now verify this with a proof using logical equivalences. For the sake of brevity, we'll label the original statement $\rma$.}
+  \rma \equiv ((p\liff q)\land(p\lxor r)) \lthen (q\lor r) 
+  \intertext{First, we'll expand and simplify $p \liff q$.}
+  \begin{align*}
+    p\liff q &\equiv (p\lthen q) \land (q\lthen p) \tag*{(Logical Equivalence of $\liff$)} \\
+      &\equiv (\lnot p\lor q) \land (\lnot q\lor p) \tag*{(Logical Equivalence of $\lthen$)} \\
+      &\equiv (\lnot p\land\lnot q) \lor (\lnot p\land p) \lor (q\land\lnot q) \lor (q\land p) \tag*{(Distributivity)}\\
+      &\equiv (\lnot p\land\lnot q) \lor \bot \lor \bot \lor (q\land p) \tag*{(Negation Law)} \\
+      &\equiv (\lnot p\land\lnot q) \lor (q\land p) \tag*{(Identity Law)}\\
+    \tf \rma &\equiv ((\lnot p\land\lnot q) \lor (q\land p) \land (p\lxor r)) \lthen (q\lor r) \tag*{(Subsittute back into $\rma$)}
+  \end{align*}
+  \intertext{Next, we'll expand and simplify $p \lxor r$.}
+  \begin{align*}
+    p\lxor r &\equiv (p\lor r) \land \lnot (p \land r) \tag*{(Logical Equivalence of $\lxor$)} \\
+      &\equiv (p\lor r) \land (\lnot p \lor \lnot r) \tag*{(Apply De Morgan's Law)} \\
+      &\equiv (p\land\lnot p) \lor (p\land\lnot r) \lor (r\land\lnot p) \lor (r\land\lnot r) \tag*{(Distributivity)} \\
+      &\equiv \bot \lor (p\land\lnot r) \lor (r\land\lnot p) \lor \bot \tag*{(Negation Law)} \\
+      &\equiv (p\land\lnot r) \lor (r\land\lnot p) \tag*{(Identity Law)}\\
+    \tf\rma &\equiv (((\lnot p\land\lnot q) \lor (q\land p)) \land ((p\land\lnot r) \lor (r\land\lnot p))) \lthen (q\lor r) \tag*{(Subsittute back into $\rma$)}
+  \end{align*}
+  \intertext{Now, we'll attempt to distribute $p\liff q$ over $p\lxor r$.}
+  \begin{align*}
+    &\mathcolor{white}{\equiv} (p\liff q) \land (p\lxor r) \\
+      &\equiv ((\lnot p\land\lnot q) \lor (q\land p)) \land ((p\land\lnot r) \lor (r\land\lnot p)) \tag*{(Subsittute previous results)} \\
+      &\equiv ((\lnot p\land\lnot q) \land (p\land\lnot r)) \lor ((\lnot p\land\lnot q) \land (r\land\lnot p)) \\ &\mathcolor{white}{\equiv}\lor ((q\land p) \land (p\land\lnot r)) \lor ((q\land p) \land (r\land\lnot p)) \tag*{(Distributivity)} \\
+      &\equiv ((\lnot p\land p) \land (\lnot q\land\lnot r)) \lor ((\lnot p\land\lnot p) \land (r\land\lnot q)) \\ &\mathcolor{white}{\equiv}\lor ((p\land p) \land (q\land\lnot r)) \lor ((\lnot p\land p) \land (r\land q)) \tag*{(Associativity)} \\
+      &\equiv (\bot \land (\lnot q\land\lnot r)) \lor (\lnot p \land (r\land\lnot q)) \lor (p \land (q\land\lnot r)) \lor (\bot \land (r\land q)) \tag*{(Negation Law)} \\
+      &\equiv (\bot) \lor (\lnot p \land \lnot q \land r) \lor (p \land q\land\lnot r) \lor (\bot) \tag*{(Domination Law)}\\
+      &\equiv (\lnot p \land \lnot q \land r) \lor (p \land q\land\lnot r) \tag*{(Identity Law)} \\
+    \tf\rma &\equiv ((\lnot p \land \lnot q \land r) \lor (p \land q\land\lnot r)) \lthen (q\lor r) \tag*{(Subsittute back into $\rma$)}
+  \end{align*}
+  \longintertext{Holy hell.\\ Next, we'll expand this resultant $\alpha\lthen\beta$ into $\lnot\alpha\lor\beta$.}
+  \begin{align*}
+    \rma &= ((\lnot p \land \lnot q \land r) \lor (p \land q\land\lnot r)) \lthen (q\lor r) \tag*{(Previous Result)} \\
+      &= \lnot((\lnot p \land \lnot q \land r) \lor (p \land q\land\lnot r)) \lor (q\lor r) \tag*{(Logical Equivalence of $\lthen$)} \\
+      &= (\lnot(\lnot p \land \lnot q \land r) \land \lnot(p \land q\land\lnot r)) \lor (q\lor r) \tag*{(Apply De Morgan's Law)} \\
+      &= ((p \lor q \lor \lnot r) \land (\lnot p \lor \lnot q\lor r)) \lor (q\lor r) \tag*{(Apply De Morgan's Law)} \\
+      &= (q\lor r) \lor ((p \lor q \lor \lnot r) \land (\lnot p \lor \lnot q\lor r)) \tag*{(Commutativty)} 
+  \end{align*}
+  \intertext{Finally, we'll distribute $(q\lor r)$ over the rest of the statement.}
+  \begin{align*}
+    \rma &= (q\lor r) \lor ((p \lor q \lor \lnot r) \land (\lnot p \lor \lnot q\lor r)) \tag*{(Previous Result)} \\
+      &= ((q\lor r) \lor (p \lor q \lor \lnot r)) \land ((q\lor r)\lor (\lnot p \lor \lnot q\lor r)) \tag*{(Distributivity)} \\
+      &= (q\lor r \lor p \lor q \lor \lnot r) \land (q\lor r\lor\lnot p \lor \lnot q\lor r) \tag*{(Associativity)} 
+  \end{align*}
+  \longintertext{We're so close now!\\ To finish it off, we can use associativity to rearrange our statement, find the tautology, then expand it outward, until we show the whole statement evaluates to a tautology.}
+  \begin{align*}
+    \rma &= (q\lor r \lor p \lor q \lor \lnot r) \land (q\lor r\lor\lnot p \lor \lnot q\lor r) \\
+      &= (r \lor \lnot r \lor p\lor q \lor q) \land (q\lor \lnot q \lor p\lor r\lor r) \tag*{(Associativity)} \\
+      &= (\top \lor p\lor q) \land (\top \lor p\lor r) \tag*{(Nagation Law and Idempotent Law)} \\
+      &= (\top\lor q) \land (\top\lor r) \tag*{(Domination Law)} \\
+      &= \top\land\top \tag*{(Idempotent Law)} \\
+    \tf\rma&\equiv \top \tag*{(Conclusion)}
+  \end{align*}\\
+  \intertext{And we're done! Therefore, we've proven, by logical equivalence, that the statement}
+  ((p\liff q)\land(p\lxor r))\lthen (q\lor r)
+  \intertext{is logically equivalent to a tautology.$\QED$}
+\end{gather*}
+
+\pagebreak
+
+\qs{(\it10 marks)}{
+  Using the laws of logical equivalence, show that the following statement is a tautology:
+  $$
+    ((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b))\lthen r
+  $$
+}
+\sol Again, we'll label the statement $\rmb$ for the sake of brevity.
+\begin{gather*}
+  \rmb \equiv ((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b))\lthen r
+  \intertext{We'll start by expanding each $\lthen$ expression into its corresponding $\lnot\lor$ expression.}
+  \begin{align*}
+    (a\lthen r) &\equiv \lnot a\lor r \tag*{(Logical Equivalence of $\lthen$)} \\
+    (b\lthen r) &\equiv \lnot b\lor r \tag*{(Logical Equivalence of $\lthen$)} \\
+    (\lnot a\lthen b) &\equiv a\lor b \tag*{(Logical Equivalence of $\lthen$)} \\
+    \tf\rmb &\equiv ((\lnot a\lor r)\land(\lnot b\lor r)\land(a\lor b))\lthen r \tag*{(Subsittute back into $\rmb$)}  
+  \end{align*}
+  \intertext{We will now apply the distributivity law to undistribute $r$ from $(\lnot a\lor r)\land(\lnot b\lor r)$.}
+  \begin{align*}
+    (\lnot a\lor r)\land(\lnot b\lor r) &\equiv r \lor (\lnot a \land \lnot b) \tag*{(Distributivity)} \\
+    \tf\rmb &\equiv ((r \lor (\lnot a \land \lnot b))\land(a\lor b))\lthen r \tag*{(Subsittute back into $\rmb$)} \\
+      &\equiv ((a\lor b)\land(r \lor (\lnot a \land \lnot b)))\lthen r \tag*{(Associativity)}
+  \end{align*}
+  \longintertext{Next, we'll now distribute $(a\lor b)$ over $r\lor(\lnot a\land\lnot b)$.}
+  \begin{align*}
+    &\mathcolor{white}{\equiv} (a\lor b) \land (r\lor(\lnot a\land\lnot b)) \\
+      &\equiv ((a\lor b) \land r ) \lor ((a\lor b)\land(\lnot a\land\lnot b)) \tag*{(Distributivity)} \\
+      &\equiv ((a\land r) \lor (b\land r)) \lor (((a\lor b)\land\lnot a)\land((a\lor b)\land\lnot b)) \tag*{(Distributivity)} \\
+      &\equiv ((a\land r) \lor (b\land r)) \lor (((a\land\lnot a)\lor (b\land\lnot a))\land((a\land\lnot b)\lor(b\land\lnot b))) \tag*{(Distributivity)} \\
+      &\equiv ((a\land r) \lor (b\land r)) \lor ((\bot\lor (b\land\lnot a))\land((a\land\lnot b)\lor\bot)) \tag*{(Negation Law)}\\
+      &\equiv ((a\land r) \lor (b\land r)) \lor ((b\land\lnot a)\land(a\land\lnot b)) \tag*{(Identity)} \\
+      &\equiv ((a\land r) \lor (b\land r)) \lor ((b\land\lnot b)\land(a\land\lnot a)) \tag*{(\text{Associativity})}\\
+      &\equiv ((a\land r) \lor (b\land r)) \lor (\bot\land\bot) \tag*{(Negation Law)} \\
+      &\equiv ((a\land r) \lor (b\land r)) \lor \bot \tag*{(Identity Law)}\\
+      &\equiv ((a\land r) \lor (b\land r)) \tag*{(Identity Law)} \\
+      &\equiv r\land(a\lor b) \tag*{(Distributivity)} \\
+    \tf\rmb &\equiv (r\land(a\lor b))\lthen r \tag*{(Subsittute back into $\rmb$)}
+  \end{align*}
+  \intertext{Finally, let's expand the $\lthen$ into its logically equivalent $\lnot\lor$ form.}
+  \begin{align*}
+    \rmb &\equiv (r\land(a\lor b))\lthen r \\
+      &\equiv \lnot(r\land(a\lor b))\lor r \tag*{(Logical Equivalence of $\lthen$)} \\
+      &\equiv (\lnot r\lor\lnot(a\lor b))\lor r \tag*{(Applying De Morgan's Law)} \\
+      &\equiv (\lnot r\lor r)\lor\lnot(a\lor b) \tag*{(\text{Associativity})} \\
+      &\equiv \top\lor\lnot(a\lor b) \\
+    \tf\rmb &\equiv \top \\
+  \end{align*}
+  \intertext{Therefore, we've shown, by use of laws of logical equivalence, that the statement}
+  ((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b))\lthen r
+  \intertext{is a tautology.$\QED$}
+\end{gather*}
+
+\pagebreak
+
+\qs{(\it5 marks)}{
+  Show that the following argument is valid, by adding steps using the rules of inference and/or logical equivalences. Clearly label which rule you used in each step.
+  $$
+    \argument{
+      1. & a\land w \lthen p & \\
+      2. & \lnot a \lthen l & \\
+      3. & \lnot w \lthen m & \\
+      4. & \lnot p & \\
+      5. & e \lthen \lnot (l \lor m) & \\
+    }{\lnot e & }
+  $$
+}
+\sol 
+\begin{gather*}
+  \argument{
+    1.  & a\land w \lthen p & \\
+    2.  & \lnot a \lthen l & \\
+    3.  & \lnot w \lthen m & \\
+    4.  & \lnot p & \\
+    5.  & e \lthen \lnot (l \lor m) & \\
+    6.  & (l\lor m) \lthen \lnot e & (\text{Contrapositive of 5.}) \\
+    7.  & \lnot (a\land w) & (\text{Modus Tollens of 1. given 4.}) \\
+    8.  & \lnot a \lor \lnot w & (\text{De Morgan's Law on 7.}) \\
+    9.  & l \lor m & (\text{Constructive Dilemma, of 2., 3., given 8.}) \\
+    10. & \lnot e & (\text{Modus Ponens of 6. given 9.}) \\
+  }{\lnot e & }
+  \longintertext{This shows that the argument is valid. Applying rules of inference and logical equivalence to the same given premises, we've drawn the same conclusion.Therefore the argument is valid. \QED}
+\end{gather*}
+
+\pagebreak
+
+\qs{(\it10 marks)}{
+  Let $P(x), Q(x), R(x)$ and $S(x)$ denote the following predicates with domain $\bbz$:
+  $$
+    \begin{array}{rl}
+      P(x): & x^2 = 9, \\
+      Q(x): & x^2 = 6, \\
+      R(x): & x\geq 0, \\
+      S(x): & x \text{ is odd.}
+    \end{array}
+  $$
+  Determine whether each of the following statements is true or false, and give brief reasons.
+  \begin{enumerate}[label=(\alph*)]
+    \item $\forall x\in\bbz, P(x)\lthen S(x)$
+    \item $\forall x\in\bbz, P(x)\lthen R(x)$
+    \item $\exists x\in\bbz: P(x)\land R(x)$
+    \item $\forall x\in\bbz, Q(x)\lthen R(x)$
+    \item $\forall x\in\bbz, S(x)\lthen\lnot Q(x)$
+  \end{enumerate}
+}
+\sol (a)
+$$
+  \forall x\in\bbz,P(x)\lthen S(x) \equiv \forall x\in\bbz, x^2=9\lthen x\text{ is odd}
+$$
+is true, because if $x^2 = 9$ then $x$ is either $-\sqrt{9}=-3$ or $\sqrt{9}=3$, both of which are odd. \\
+An alternative view: the statement is true because if $x^2 = 9$, we can conclude that $|x||x| = 9$.\\ 9's prime factorsation is $3\cd3$, therefore $|x|=3$. If $|x|=3$, there are two cases which satisfy this: $x=3$ and $x=-3$, both of which are odd. \\
+
+\sol (b)
+$$
+  \forall x\in\bbz, P(x) \lthen R(x) \equiv \forall x\in\bbz, x^2=9\lthen x\geq 0
+$$
+is false, because I can provide a counter example, namely, $x=-3$. If $x=-3$, then $x^2=9$, but $x\not\geq0$. In fact, $x=-3 < 0$. \\
+
+\sol (c)
+$$
+  \exists x\in\bbz: P(x)\land R(x) \equiv \exists x\in\bbz: x^2 = 9 \land x\geq 0 
+$$
+is true, because I can provide an example $x\in\bbz$, namely, $x=3$. If $x=3$, then $x^2=3^2=9$, and $x=3\geq0$. \\
+
+\sol (d)
+$$
+  \forall x\in\bbz, Q(x)\lthen R(x) \equiv \forall x\in\bbz, x^2 = 6\lthen x\geq 0
+$$
+is true. $Q(x)$ is false $\forall x\in\bbz$, because $\nexists x\in\bbz:x^2 = 6$. No integer can satisfy this equation. You'd need to expand the domain of $x$ into the reals to solve this, namely $r=\sqrt{6}\in\bbr$. Since $Q(x)$ is false $\forall x\in\bbz$, it doesn't matter if $R(x)$ is true or false, because the statement, $Q(x)\lthen R(x)\equiv\bot\lthen R(x)\equiv\top\lor R(x)\equiv \top$, will evaluate to true always. The given statement is an example of a vacuous truth. \\
+
+\sol (e) 
+$$
+  \forall x\in\bbz, S(x)\lthen\lnot Q(x) \equiv \forall x\in\bbz, x \text{ is odd}\lthen x^2 \neq 6
+$$
+is true, because if $x$ is odd, or any element in the set of integers for that matter, then it will hold that $x^2\neq 6$. In fact, no integer can satisfy the equation $x^2=6$, you'd need to expand the domain of $x$ into the real numbers to find a solution, namely $r=\sqrt{6}\in\bbr$. So, Q(x) is false $\forall x\in\bbz$, which means $\forall x\in\bbz,\lnot Q(x)$ is true. So the whole statement, $S(x)\lthen\lnot Q(x)\equiv S(x)\lthen\top\equiv \lnot S(x)\lor \top\equiv\top$ is always true. Another example of a vacuous truth.
+
+\pagebreak
+
+\qs{(\it10 marks)}{
+  Find values of a, b and r that show that the following statement is not a tautology, and show your working.
+  $$
+    r \lthen ((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b))
+  $$
+}
+\sol We can do this with a truth table. \\ For the sake of brevity, let $\rmc = r \lthen ((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b))$
+\begin{gather*}
+  \begin{array}{|ccc||c||ccc||cc||c|}
+    \hline
+    a & b & r & \lnot a & a\lthen r & b\lthen r & \lnot a\lthen b & r & (a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b) & C \\  \hline
+    T & T & T & F & T & T & T & T & T & T \\
+    T & T & F & F & F & F & T & F & F & T \\
+    T & F & T & F & T & T & T & T & T & T \\
+    T & F & F & F & F & T & T & F & F & T \\
+    F & T & T & T & T & T & T & T & T & T \\
+    F & T & F & T & T & F & T & F & F & T \\ \hline
+    F & F & T & T & T & T & F & T & F & F \\ \hline
+    F & F & F & T & T & T & F & F & F & T \\ \hline
+  \end{array}\\
+  \longintertext{$\tf (a,b,r)=(\false,\false,\true)$ is an example configuration of variable truth values which causes the statement to evaluate to false. This, in turn, shows that the statement $\rmc$ is not a tautology.}
+  \longintertext{I'm paranoid that proving this by truth table is insufficent, so let's also work through this, just in case, and consider the statement}
+  r \lthen ((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b)) \equiv \lnot r \lor ((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b)) \\ \text{is true when $r$ is false, or the ands are true.}\\
+  \begin{array}{rrl}
+    1. & a\lthen r\equiv \lnot a\lor r: & \text{Is true if a is false or r is true.} \\
+    2. & b\lthen r\equiv \lnot b\lor r: & \text{Is true if b is false or r is true.} \\
+    3. & \lnot a\lthen b\equiv a\lor b: & \text{Is true if a is true or b is true.} \\
+  \end{array}
+  \intertext{By analysing this statement, we can see a weakness. 3. and (2. and 1.) will clash. They can't  both be true at the same time, if we select the right configuration of truth values. We will set $r$ to true, because this moves the ``responsibility'' of making the statement false, from $r$ to the ands, where we've identified a weakness.}
+  \text{Let } r \text{ be true.} \\
+  \text{Then } 1. \land 2. \land 3. \text{ must be true.} \\
+  \tf 1. \equiv\true, 2.\equiv\true, 3.\equiv\true \\
+  \true \equiv a\lthen r \equiv a\lthen\true \equiv \lnot a \lor\true \equiv \lnot a \\
+  \text{So let } a \text{ be false.} \\
+  \true \equiv b\lthen r \equiv b\lthen\true\equiv \lnot b\lor \true \equiv \lnot b \\
+  \text{So let } b \text{ be false.} \\
+  \true\equiv \lnot a \lthen b \equiv a\lor b \equiv \false\lor\false\equiv\false \tag*{\CONTRA} \\
+  \intertext{This is a contradiction! So our assumption that $1.\land2.\land3.$ is true must be wrong, and the statement ``$r\lthen((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b))$ is a tautology'' causes a contradiction. Therefore, we can conclude that $r\lthen((a\lthen r)\land(b\lthen r)\land(\lnot a\lthen b))$ is not a tautology, and can provide a counterexample, namely $(a,b,r)=(\false,\false,\true)$.\QED}
+\end{gather*}
+
+\end{document}
