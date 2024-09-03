@@ -241,6 +241,7 @@ $$
 	Generally, when proceeding with the linear algebra portion of this procedure, keep in mind the power of your desired dependent variable, and try to express all other powers in terms of it. For example, in the pendulum example, and in the Archimedes' law exmaple too, we expressed the other variables in terms of $a$, because this was the power of the desired dependent variables $\tau$ and $F$, respectively. 
 }
 
+\pagebreak
 \section{Lecture 3}
 \subsection*{Drag Force}
 Consider a sphere of radius $r$, moving through a viscous fluidd. We wish to model the drag force, $F$, dependent on the relevant variables $\eta$, the viscosity, $v$, the velocity, and $r$ the radius.
@@ -456,6 +457,7 @@ No matter what path of form $(r,\theta)$ we take, as that path approaches the po
 	$$
 }
 
+\pagebreak
 \section{Lecture 5}
 \subsection*{Multivariate Continuity}
 \dfn{Multivariate Continuity}{
@@ -491,6 +493,7 @@ Below, for ease of notation, $\lim$ denotes $\dps{\lim_{(x,y)\to(a,b)}}$. \\
 	\item $\dps{\lim\frac{f(x,y)}{g(x,y)} = \frac{\lim f(x,y)}{\lim g(x,y)}}$, if $\lim g(x,y)\neq 0$.
 \end{enumerate}
 
+\pagebreak
 \section{Lecture 6}
 \subsection*{Partial Derivatives}
 \subsubsection*{Slope in the x-direction}
@@ -735,7 +738,268 @@ A surface, $z = f(x,y)$ is smooth at a point $(a,b)$ if $f$, $f_x$ and $f_y$ are
 One way to observe this is looking at contours. As you zoom into a smooth function, the contours will straighten out. This means that, close to $(a,b)$, the surface can be approximated with a plane; in fact, approximated with the tangent plane.\\
 Examples of non-smooth functions include things like Brownian motion. No matter how much you zoom into Brownian motion, it always looks rough. In fact, Brownian motion is fractal.
 
+\pagebreak
 \section{Lecture 8}
+We first note, that the first order approximation of a single variable function, $f(x)$, around some point $(a, f(x))$, is a straight line tanget to that point.
+$$
+	f(a)\approx f(a) + f'(a)(x-a)
+$$
+\ex{}{
+	Given $f(x)=\exp(x)$, estimate $e^{0.1}$.
+	\begin{gather*}
+		f(x) = \exp(x) \implies f'(x) = \exp(x) \\
+		f(0) = \exp(0) = 1 \implies f'(0) = \exp(0) = 1 \\
+		\tf e^{0.1} \approx f(0) + f'(0)(x-0) \\
+		e^{0.1} \approx 1 + x \\
+		\tf e^{0.1} \approx 1.1
+	\end{gather*}
+}
+
+\subsection*{Linear Approximations for $f(x,y)$}
+The corresponding linear, or first order approximation for a function $f$, of two variables, near a known point $(a,b)$, is the tangent plane centred on that point, given that $f$ is a smooth. Therefore, the approximation of $f$ at $(a,b)$ is
+$$
+	f(x,y)\approx f(a,b) + f_x(x,y)(x-a) + f_y(x,y)(y-b)
+$$
+\ex{}{
+	The temperature in a region is given by $T(x) = 100 - x^2 - y^2$. Find the linear approximation to $T(x,y)$ near $(0,5)$.
+	\begin{gather*}
+		T(x,y) = 100 - x^2 - y^2 \implies T(0,5) = 75 \\
+		T_x(x,y) = -2x \implies T_x(0,5) = 0 \\
+		T_y(x,y) = -2y \implies T_y(0,5) = -10 \\
+		\tf T(x,y) \approx T(0,5) + T_x(0,5)(x-0) + T_y(0,5)(y-5) \\
+		T(x,y) \approx 75 + 0 + (-10)(y-5) \\
+		T(x,y) \approx 125 - 10y 
+	\end{gather*}
+}
+
+\ex{}{
+	Find the tangent plane to $z=\exp(-x^2)\sin y$ at $(1, \pi/2)$. Use it to approximate $e^{-(0.9)^2}\sin(1.5)$.
+	\begin{gather*}
+		\intertext{Note: 0.9 is close to 1, and 1.5 is close to $\pi/2$.}
+		f(x,y) = \exp(-x^2)\sin y \implies f(1, \pi/2) = \exp(-1) \\
+		f_x(x,y) = -2x\exp(-x^2)\sin y \implies f_x(1,\pi/2) = -2\exp(-1) \\
+		f_y(x,y) = \exp(-x^2)\cos y \implies f_y(1,\pi/2) = 0 \\
+		z \approx f(1,\pi/2) + f_x(1,\pi/2)(x-1) + f_y(1, \pi/2)(y-\pi/2) \\
+		\implies z \approx \exp(-1)(3-2x) \\
+		\tf e^{-0.9^2}\sin(1.5) \approx e^{-1}\bracks{3-2\cd 0.9} \approx 0.4415
+	\end{gather*}
+}
+
+\subsection*{Differentials}
+If we reduce small changes $\Delta x$ and $\Delta y$ down to an infinitesimal changes, $\d x$, $\d y$, the linear approximation as
+$$
+	\d z = \d f = f_x(a,b)dx + f_y(a,b)dy
+$$
+This infinitesimal change $dz$ is called the total differential, and is definied by this equation (note the ``='', instead of an ``$\approx$'').
+
+\begin{gather*}
+	\intertext{Consider the work done by a, $W=PV$, where $P$ is pressure and $V$ is volume.}
+	W(P,V) = PV \\
+	W(P+\D P, V+\D V) = (P+\D P)(V+\D V) = PV + P\D V + V\D V + \D P\D V \\
+	\tf \D W = P\D V + V\D V + \D P\D V \\
+	\Let \d P = \D P, \text{ as }\D P\to 0, \d V = \D V, \text{ as }\D V\to 0 \\
+	\tf \d W = P\d V + V\d V ( = W_P(P,V)\d P + W_V(P,V)\d V)
+	\text{Note: } \D P\D V = 0
+\end{gather*}
+
+\subsection*{Estimating Error}
+If the error in $x$ and $y$ is, at most$E_x$, and $E_y$, respectively, then a resaonable estimate for the worst-case error in the linear approximation of $f$ at $(a,b)$ is
+$$
+	|E| \approx |f_x(a,b)E_x| + |f_y(a,b)E_y|
+$$
+
+\ex{}{
+	Suppose when making a metal barrel of base radius 1m, and height 2m, we allow an error of 5\% in radius and height. Estimate the worst-case error in volume.
+	\begin{gather*}
+		V(r,h) = \pi rh^2 \implies V_r(r,h) = 2\pi rh, V_h(r,h) = \pi r^2 \\
+		\tf V(1,2) = 2\pi, V_r(1,2) = 4\pi, V_h(1,2) = \pi \\
+		E_r = \frac{5}{100}r = \frac{5}{100}(1) = 0.05 \\
+		E_h = \frac{5}{100}h = \frac{5}{100}(2) = 0.1 \\
+		\implies |E| = |V_r(1,2)E_r| + |V_h(1,2)E_h| = \abs{4\pi \cd \frac{5}{100}} + \abs{\pi \cd \frac{10}{100}} = \frac{3\pi}{10} \\
+		\implies\text{pct\% error: }\frac{|E|}{V(1,2)}\cd100 = \frac{3\pi}{10\cd2\pi}\cd100 = 15\%
+		\intertext{Therefore, an estimate for the worst-case error in volume is 15\%}
+	\end{gather*}
+}
+\nt{
+	$\d V = V_r(1,2)\d r + v_h(1,2)\d h$, and $\d r = \D r = E_r$, $\d h = \D h = E_h$. \\
+	$|E| = |V_r(1,2)E_r| + |V_h(1,2)E_h$. \\
+	So the error in $V$ is just the differential of $V$.
+}
+
+\pagebreak
+\section{Lecture 9}
+\subsection*{Differentiability}
+Recall that in single variable calculus, a function $f$ is differentiable at $x_0$ if there exists a number $f'(x_0)$ such that
+$$
+	f'(x_0) = \lim_{h\to0} \frac{f(x_0 + h) - f(x_0)}{h} 
+$$
+which can be rewritten as 
+$$
+	0 = \lim_{h\to0} \frac{f(x_0 + h) - f(x_0) - f'(x_0)h}{h}
+$$
+Informally, we say $f$ is differentiable at $x_0$ if, after enough zooming, we see a stright line $y(x) = f(x_0)+f'(x_0)(x-x_0)$, such that the difference $f(x_0+h) - y(x_0+h)$ goes to 0, faster then linearly in the limit as $h$ goes to 0. \\
+
+Extending to the multivariate case, let $V\subseteq \bbr^n$. We define a function $f:V\to\bbr$ to be differentiable at $\ut{a}$ if there exists $\grad f(\ut{a})\in\bbr^n$ such that 
+$$
+	\lim_{\ut{h}\to \ut{0}} \frac{f(\ut{a}+\ut{h}) - f(\ut{a}) - \grad f(\ut{a})\cd\ut{h}}{||\ut{h}||} = 0
+$$
+Informally, we say that $f$ is differentiable at $\ut{a}$, if there is a plane $z(\ut{a}+\ut{h}) = f(\ut{a}) + \grad f(\ut{a})\cd\ut{h}$ such that $f(\ut{a}+\ut{h}) - z(\ut{a}+\ut{h})$ goes to 0 faster then linearly as $\ut{h}$ goes to $\ut{0}$. \\
+
+As we shall see, if it is possible for a tangent plane, $z$ to exisit at the point $\ut{a}$, but for the function $f:V\to\bbr$ to not be differentiable at that point. \\
+
+The lecturer proceeded to give us a very nice geometric interpretation of this, but I'm not going to write everything he handwrote.
+
+\thm{}{
+	If a function is differentiable at a point, then it is continuous at that point. The contrapositive of this is, if a function is not continuous at a point, then it is not differentiable at that point.
+}
+
+\thm{}{
+	If all first-order partial derivatives of a function exist and are continuous at a point, then the function is differentiable at that point.
+}
+
+\chapter{Week 4}
+\section{Lecture 10}
+\subsection*{Gradients and Directional Derivatives}
+The partial derivative $f_x$ corresponds to the slope of $f(x,y)$ in the $x$-direction. We now turn out attention to the question of slopes in arbitrary directions, such as $\ihat + 2\jhat$ or $-\jhat$. \\
+
+Let $\ut{u}=\bracks{u_1,u_2,\dots,u_n} \in\bbr^n:||\ut{u}||=1$. The directional derivative of $f$ at the point $\ut{a}$ in the direction $\ut{u}$ be defined as:
+$$
+	f_{\ut{u}}(\ut{a})\equiv \lim_{t\to0} \frac{f(\ut{a} + t\ut{u}) - f(\ut{a})}{t}.
+$$
+It is also known as the slope of $f$ at the point $\ut{a}$ in the direction of $\ut{u}$. \\
+
+In practice, this is quite cumbersome though. Instead, if $f$ is differentiable, we can observe that
+\begin{gather*}
+	\lim_{h\to0}\frac{f(\ut{a}+\ut{h}) - f(\ut{a}) - \grad f(\ut{a})\cd\ut{h}}{||\ut{h}||} = \lim_{t\to0}\frac{f(\ut{a}+t\ut{u}) - f(\ut{a}) - \grad f(\ut{a})\cd t\ut{a}}{t} = 0 \\
+	\intertext{We can then write}
+	\begin{align*}
+		f_{\ut{u}} &= \lim_{t\to0}\frac{f(\ut{a}+t\ut{u}) - f(\ut{a})}{t} + \grad f(\ut{a})\cd \ut{u} - \grad f(\ut{a})\cd \ut{u} \\
+			&= \lim_{t\to0}\frac{f(\ut{a}+t\ut{u}) - f(\ut{a}) - \grad f(\ut{a})\cd t\ut{u}}{t} + \grad f(\ut{a})\cd \ut{u}  \\
+			&= \lim_{t\to0}\frac{f(\ut{a}+t\ut{u}) - f(\ut{a}) - \grad f(\ut{a})\cd t\ut{u}}{t} + \lim_{t\to0} \grad f(\ut{a})\cd \ut{u}  \\
+			&= 0 + \lim_{t\to0} \grad f(\ut{a})\cd \ut{u} \\
+			\Aboxed{f_{\ut{u}} &= \grad f(\ut{a})\cd \ut{u}}  
+	\end{align*}
+\end{gather*}
+We can drop our assumption that $\ut{u}$ is a unit vector, and instead write 
+$$
+	f_{\ut{u}} = \grad f(\ut{a}) \cd \frac{\ut{u}}{||\ut{u}||}
+$$
+
+\subsection*{The gradient vector $\grad f$}
+The gradient vector of $f$, or the gradient of $f$ is the simply the vector whose components are partial derivatives. \\
+
+If we let $\braces{\ut{b}_1, \ut{b}_2, \dots, \ut{b}_n}$ form the canonical basis of $\bbr^n$ then,
+$$
+	\grad \in\bbr^n: \grad = \sum_{i=1}^{n} \ut{b_i}\del{}{x_i},
+$$
+where $x_i$ is the $i$th Cartesian dimension, or $i$th component of a vector in $\bbr^n$. \\
+
+For example in two dimensions
+$$
+	\mathop{\text{grad}} f = \grad f = (f_x, f_y) = f_x\ihat + f_y\jhat.
+$$
+But this totally generalises into higher dimensions, for example, for a four variable function, $f(x,y,z,w)$,
+$$
+	\mathop{\text{grad}}f = \grad f = (f_x, f_y, f_z, f_w) = f_x\ihat + f_y\jhat + f_z\khat + f_w\hat{l}
+$$
+
+\ex{}{
+	If $f(x,y)=x^2 - 3y^2 + 6y$, find the slope at $(1,0)$ in the direction $\ihat - 4\jhat$.
+	\begin{gather*}
+		\grad f = \begin{pmatrix}
+			f_x \\ f_y
+		\end{pmatrix} = \begin{pmatrix}
+			2x \\ 6 - 6y 
+		\end{pmatrix} \implies 
+		\grad f(1,0) = \begin{pmatrix}
+			2 \\ 6
+		\end{pmatrix} \\
+		\ut{u} = \begin{pmatrix}
+			1 \\ -4
+		\end{pmatrix} \implies
+		\hat{\ut{u}} = \frac{1}{\sqrt{1^2 + 4^2}}\begin{pmatrix}
+			1 \\ -4
+		\end{pmatrix} = \begin{pmatrix}
+			1 / \sqrt{17} \\ -4 / \sqrt{17}
+		\end{pmatrix} \\
+		\implies f_{(1,-4)}(1,0) = \grad f(1,0) \cd \hat{\ut{u}} = \begin{pmatrix}
+			1 \\ -4
+		\end{pmatrix} \cd \begin{pmatrix}
+			1/\sqrt{17} \\ -4/\sqrt{17}
+		\end{pmatrix} = \frac{2}{\sqrt{17}} - \frac{24}{\sqrt{17}} = \frac{-22}{\sqrt{17}}
+	\end{gather*}
+}
+
+\ex{}{
+	Find $f_{(1,-1)}(0,1) \text{ for } f(x,y) = x - x^2y^2 + y$
+	\begin{gather*}
+		\grad f = \begin{pmatrix}
+			f_x \\ f_y
+		\end{pmatrix} = \begin{pmatrix}
+			1 - 2xy^2 \\ 1 - 2x^2y
+		\end{pmatrix} \implies \grad f(0,1) = \begin{pmatrix}
+			1 \\ 1
+		\end{pmatrix} \\
+		\ut{u} = \begin{pmatrix}
+			1 \\ -1
+		\end{pmatrix} \implies \hat{\ut{u}} = \frac{1}{\sqrt{1^2 + 1^2}} \begin{pmatrix}
+			1 \\ -1
+		\end{pmatrix}  = \begin{pmatrix}
+			1 / \sqrt{2} \\ -1/\sqrt{2}
+		\end{pmatrix} \\
+		\implies f_{(1,-1)}(0,1) = \grad f(0,1)\cd\hat{\ut{u}} = \begin{pmatrix}
+			1 \\ 1
+		\end{pmatrix} \cd \begin{pmatrix}
+			1/\sqrt{2} \\ -1/\sqrt{2}
+		\end{pmatrix} = \frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}} = 0
+	\end{gather*}
+}
+
+\subsection*{Properties of the gradient vector}
+Two important properties of the gradient vector are:\\
+
+The gradient $\grad f(a,b)$ is perpendicular to the contour line through (a,b) and points in the direction of the greatest increase of $f$. In fact, the direction and magnitude of the steepest slope at $(a,b)$ are given by $\grad f(a,b)$ and $||\grad f(a,b)||$.\\
+
+We can understand these two facts by considering the value of $\cos\theta$ in 
+$$
+	f_{\ut{u}} = \grad f \cd \frac{\ut{u}}{||\ut{u}||} = ||\grad f||\cos\theta
+$$
+Consider $\ut{A}\cd\ut{B} = ||\ut{A}||\ ||\ut{B}||\cos\theta$
+\begin{itemize}
+	\item Case 1. $\theta = 0$\\ $\grad f$ and $\ut{u}$ are in the same direction.\\ $f_{\ut{u}}$ is maximised, because $\cos0 = 1$.
+	\item Case 2. $\theta = \pi$\\ $\grad f$ and $\ut{u}$ are in opposite directions.\\ $f_{\ut{u}}$ is minimised, because $\cos\pi = -1$.
+	\item Case 3. $\theta = \frac{k\pi}{2}$\\ $\grad f$ and $\ut{u}$ are perpendicular to each other.\\ $f_{\ut{u}}$ is 0. We can conclude $f(x,y)=C$, the value of $f$ doesn't change, as we move along the contour.
+\end{itemize}
+
+\ex{}{
+	$T(x,y)=20 - 4x^2 - y^2$ describes the temperature on the surface of a metal plate. In which direction away from the point $(2,-3)$ does the temperature change most rapidly? In which directions away from the point $(2,-3)$ is the temperature not change? 
+
+	\begin{gather*}
+		T(2,-3) = 20 - 4(2)^2 - (-3)^2 = 20 - 16 - 9 = -5\\
+		\intertext{The point $(2,3)$ lies on a contour line, lets find that line,}
+		-5 = T(2, -3) = 20 - 4x^2 - y^2 \implies 4x^2 + y^2 = 25 \text{ an ellipses.} \\
+		\implies \grad T = \begin{pmatrix}
+			-8x \\ -2y
+		\end{pmatrix} \implies \grad T(2,-3) = \begin{pmatrix}
+			-16 \\ 6
+		\end{pmatrix}
+		\intertext{$\implies$At $(2,3)$, temperature is most rapidly increasing in the direction of $(-16,6)$.}
+		\text{Direction of no change} = \ut{u}: \grad T\cd\ut{u} = 0 \\
+		\grad T(2,-3)\cd\ut{u} = \begin{pmatrix}
+			-16 \\ 6
+		\end{pmatrix} \cd \begin{pmatrix}
+			u_1 \\ u_2
+		\end{pmatrix} = -16u_1 + 6u_2 = 0 \\
+		\tf \ut{u} \in \braces{\begin{pmatrix} 6 \\ 16 \end{pmatrix}, \begin{pmatrix} -6 \\ -16 \end{pmatrix}}
+	\end{gather*}
+}
+
+\section{Lecture 11}
+
+
+
+
+
 
 
 \end{document}

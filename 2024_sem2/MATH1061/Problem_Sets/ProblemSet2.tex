@@ -1,0 +1,337 @@
+\documentclass[a4paper, 11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\title{\Huge{MATH1061}\\Discrete Mathematics I}
+\author{\huge{Problem Set 2}\\\huge{Michael Kasumagic, sID\#: 44302669}}
+\date{\huge{Due: 5pm, $6^\text{th}$ of September, 2024}}
+
+\begin{document}
+
+\maketitle
+
+\qs{(\it10 marks)}{
+  Prove the following statements:
+  \begin{enumerate}[label=(\alph*)]
+    \item The sum of every five consecutive integers is always divisible by 5.
+    \item Suppose n is an odd integer. The sum of every n consecutive integers is always divisible by n.
+  \end{enumerate}
+}
+\sol (a) \proof We can express five consecutive integers as follows:
+\begin{gather*}
+  i_0, i_1, i_2, i_3, i_4,
+  \longintertext{where $i_0, a\in\bbz$ and $i_a = i_0 + a$.\\ Then, the sum of five consecutive integers can be expressed}
+  \begin{aligned}
+    i_0 + i_1 + i_2 + i_3 + i_4 &= i_0 + i_0 + 1 + i_0 + 2 + i_0 + 3 + i_0 + 4 \\
+      &= 5i_0 + 10 \\
+      &= 5(i_0 + 2) \\
+    \tf i_0 + i_1 + i_2 + i_3 + i_4 &= 5k,\quad k\in\bbz
+  \end{aligned}\\
+  \implies 5 \divs i_0 + i_1 + i_2 + i_3 + i_4
+\end{gather*}
+So, the sum of any 5 consecutive integers is always divisible by 5. $\QED$\\
+
+\sol (b) \proof We can express $n$ consecutive integers, where $n$ is an odd integer, as follows:
+\begin{gather*}
+  i_0, i_1, i_2, \dots, i_{n-2}, i_{n-1}, i_{n},
+  \longintertext{where $i_0, a, j\in\bbz,\ i_a = i_0 + a$, and $n=2j+1$}
+  \begin{aligned}
+    i_0 + i_1 + i_2 + \dots + i_{n-2} + i_{n-1} + i_{n} &= i_0 + i_0 + 1 + i_0 + 2 + \dots + i_0 + n-2 + i_0 + n-1 + i_0 + n \\
+      &= ni_0 + (1 + 2 + 3 \dots + n-2 + n-1 + n) \\
+      &= ni_0 + \sum_{a = 1}^{n} a
+    \intertext{We can apply Gau\ss's formula for the sum of consecutive natural numbers,}
+      &= ni_0 + \frac{n(n+1)}{2} \\
+      &= n\bracks{i_0 + \frac{n+1}{2}} \\
+    \tf i_0 + i_1 + i_2 + \dots + i_{n-2} + i_{n-1} + i_{n} &= nk,\quad k\in\bbz
+  \end{aligned} \\
+  \implies n \divs i_0 + i_1 + i_2 + \dots + i_{n-2} + i_{n-1} + i_{n}
+\end{gather*}
+So, the sum of any $n$ consecutive integers, where $n$ is odd, is always divisible by 5. $\QED$\\
+
+\newpage
+\qs{(\it5 marks)}{
+  \begin{enumerate}[label=(\alph*)]
+    \item Compute the following quantities 
+      $$ \floor{3.6},\qquad \ceil{\pi},\qquad \ceil{e},\qquad \ceil{e+0.5} $$
+    \item Prove or disprove the following statements: for all numbers $x$: 
+      $$ \ceil{x + 0.5} = \ceil{x} + 1$$
+  \end{enumerate}
+}
+\sol (a)
+\begin{gather*}
+  \floor{3.6} = 3 \\
+  \ceil{\pi} = \ceil{3.1415\dots} = 4 \\
+  \ceil{e} = \ceil{2.7182\dots} = 3 \\
+  \ceil{e+0.5} = \ceil{2.7182\dots+0.5} = \ceil{3.2182\dots} = 4 \\
+\end{gather*}
+
+\sol (b) 
+\proof Take $x=0.1$.
+\begin{gather*}
+  \ceil{0.1 + 0.5} = \ceil{0.6} = 1 \neq 2 = 1 + 1 = \ceil{0.1} + 1
+\end{gather*}
+Therefore, for all $x\in\bbr,\ \ceil{x+0.5} = \ceil{x} + 1$ is not true. $\QED$ \\
+\hrule 
+\proof In general, let's think of the number $x$ as being equal to $n + r$, where $n$ is an integer component, and $r$ is the real, decimal component. For example, $\pi = n + r$, where $n=3$ and $r=0.1415\dots$. By definition, $0 \leq r < 1$. With all this in mind, we can can consider
+\begin{gather*}
+  \ceil{x + 0.5} = \ceil{n + r + 0.5}
+  \longintertext{This allows us to consider two cases, \\ Case 1: $0 \leq r \leq 0.5$}
+  n < n + r + 0.5  \leq n + 1 \\
+  \tf \ceil{n + r + 0.5} = n + 1 \\
+  n \leq n + r \leq n + 1 \\
+  \tf\ceil{n + r} + 1 = n + 1 + 1 \tag*{(!!)} 
+  \intertext{Case 2: $0.5 < r < 1$}
+  n + 1 < n + r + 0.5 < n+1.5 \\
+  \tf \ceil{n + r + 0.5} = n + 2 \\
+  n < n + r < n + 1 \\
+  \tf \ceil{n + r} + 1 = n + 1 + 1 \\
+  \longintertext{Therefore, for $x\in\bbr: x = n + r,\ n\in\bbz, r\in\bbr$ if $0.5<r<1$ then $\ceil{x+0.5} = \ceil{x} + 1$. If $0 \leq r \leq 0.5$ then $\ceil{x+0.5} \neq \ceil{x} + 1$. \\ Which means the given statement, $\forall x\in\bbr, \ceil{x+0.5} = \ceil{x} + 1$ is false. $\QED$}
+\end{gather*}
+
+\newpage
+\qs{(\it10 marks)}{
+  \begin{enumerate}[label=(\alph*)]
+    \item Use the definition, prove or disprove
+      $$3 \equiv -4 \Mod 7$$
+    \item Use the definition, prove or disprove: for all integers x,
+      $$2x \equiv -14x \Mod 8$$
+    \item Prove or disprove the following statement: 
+      Suppose $a, b, c, d$ are positive integers, $ac \equiv bc \Mod d$, then
+      $$a \equiv b \Mod d$$
+    \item Prove or disprove the following statement: 
+      Suppose $a, b, c, d$ are positive integers, $ac \equiv bc \Mod d$ and $\gcd(c, d) = 1$, then
+      $$a \equiv b \Mod d$$
+      (Hint: you may use a fact we mentioned in Lecture 12.)
+  \end{enumerate}
+}
+% The definition of   a ≡ b mod d   is that   d | (a−b) => (a-b) = kd. d in N, a,b in Z
+\sol (a) \proof We'll use the definition,
+\begin{gather*}
+  3\equiv -4\Mod 7 
+    \implies 7\divs(3-(-4)) 
+    \implies 7\divs7
+    \equiv\true.
+  \intertext{Therefore, $3\equiv -4\Mod 7 \QED$}
+\end{gather*}
+
+\sol (b) \proof Using the definition, suppose $x\in\bbz$, 
+\begin{gather*}
+  2x \equiv -14x \Mod 8
+    \implies 8 \divs (2x - (-14x))
+    \implies 8 \divs 16x
+    \equiv 8 \divs 8(2x)
+    \equiv\true.
+  \intertext{Therefore, $2x \equiv -14x \Mod 8, \forall x\in\bbz \QED$}
+\end{gather*}
+
+\sol (c) \proof Suppose $a,b,c,d\in\bbn$ and $ac\equiv bc \Mod d$,
+\begin{gather*}
+  \implies d\divs (ac-bc)
+    \implies d\divs c(a-b)
+    \implies d\divs (a-b)
+    \implies a \equiv b \Mod d
+  \intertext{Therefore, given $a,b,c,d\in\bbz$ and $ac\equiv bc \Mod d$, $a\equiv b\Mod d \QED$}
+\end{gather*}
+
+\sol (d) \proof Suppose $a,b,c,d\in\bbn$, $ac\equiv bc \Mod d$ and $\gcd(c,d) = 1$ \\
+$\implies c$ and $d$ are co-prime, and share no common factors. 
+\begin{gather*}
+  \implies d\divs (ac-bc)
+    \implies d\divs c(a-b)
+    \implies d\divs (a-b)
+    \implies a \equiv b \Mod d
+  \intertext{Therefore, given $a,b,c,d\in\bbz$, $ac\equiv bc \Mod d$ and $\gcd(c,d)=1$, $a\equiv b\Mod d \QED$}
+\end{gather*}
+
+\newpage
+\qs{(\it5 marks)}{
+  Use the Euclidean algorithm to compute
+  $$
+    \gcd(101, 24)
+  $$
+}
+\sol
+\begin{gather*}
+  \begin{array}{lclcll}
+    \gcd(101,24)  & \implies & 101 = 24q + r  & \implies & q = \floor{\dfrac{101}{24}} = 4, & r = 101 - 24\cd4 = 5 \\ \\
+    \gcd(24, 5)   & \implies & 24 = 5q + r    & \implies & q = \floor{\dfrac{24}{5}} = 4,   & r = 24 - 5\cd4 = 4 \\ \\
+    \gcd(5, 4)    & \implies & 5 = 4q + r     & \implies & q = \floor{\dfrac{5}{4}} = 1,    & r = 5 - 4\cd1 = 1 \\ \\
+    \gcd(4, 1)    & \implies & 4 = 1q + r     & \implies & q = \floor{\dfrac{4}{1}} = 4,    & r = 4 - 1\cd4 = 0 \\ \\
+    \multicolumn{6}{c}{\gcd(1, 0) = 1} \\ \\
+    \multicolumn{6}{c}{\tf \gcd(101,24) = 1}
+  \end{array}
+\end{gather*}
+
+\newpage
+\qs{(\it10 marks)}{
+  The least common multiple of the integers a, b, denoted as lcm(a, b), is defined as the smallest positive integer which is divisible by both a and b.\\
+  Let $a = 2^7\cd3^2\cd5^1$ and $b = 2^3\cd3^3\cd7^1$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Compute $\gcd(a,b)$.
+    \item Compute $\lcm(a, b)$.
+    \item Verify that $\gcd(a, b)\cd\lcm(a, b) = ab$.
+    \item Can you prove the statement $\gcd(a, b)\cd\lcm(a, b) = ab$ for arbitrary positive integers $a$ and $b$? (Hint: use the prime factorisation.)
+  \end{enumerate}
+}
+\sol (a) \\
+The greatest common divisor of $a$ and $b$ is the largest $n\in\bbn$ such that $n\divs a$ and $n\divs b$. In other words, there exists $k,l\in\bbz$ such that
+$$
+  a = kn,\qquad b = ln
+$$
+Rearranging we can see that $n = a/k = b/l$. If we apply the Fundamental Theorem of Arthimentic, $a = 2^{x_1}\cd3^{x_2}\cd5^{x_3}\dots,\ b = 2^{y_1}\cd3^{y_2}\cd5^{y_3}\dots$, and consider that $k$ and $l$ must cancel these factors of $a$ and $b$, such that the results of those divisions is equal, we can see that 
+$$
+  n = 2^{\min\braces{x_1,y_1}}\cd3^{\min\braces{x_2,y_2}}\cd5^{\min\braces{x_3,y_3}}\cd\dots.
+$$
+We've seen this simply by considering the definition of $\gcd(a,b)$. In this specific example,
+\begin{gather*}
+  \gcd\bracks{2^7\cd3^2\cd5^1, b = 2^3\cd3^3\cd7^1} = n \\
+  n = \frac{2^7\cd3^2\cd5^1}{2^{k_1}\cd3^{k_2}\cd5^{k_3}\cd7^{k_4}} = \frac{2^3\cd3^3\cd7^1}{2^{l_1}\cd3^{l_2}\cd5^{l_3}\cd7^{l_4}} \\
+  \begin{array}{ll}
+    k_1 = 7 - 3 & l_1 = 0 \\
+    k_2 = 0     & l_2 = 3 - 2 \\
+    k_3 = 1     & l_3 = 0 \\
+    k_4 = 0     & l_4 = 1 \\
+  \end{array} \\
+  n = \frac{2^7\cd3^2\cd5^1}{2^{4}\cd3^{0}\cd5^{1}\cd7^{0}} = \frac{2^3\cd3^3\cd7^1}{2^{0}\cd3^{1}\cd5^{0}\cd7^{1}} \\
+  \tf n = 2^3\cd3^2\cd5^0 = 2^3\cd3^2\cd7^0 \\
+  \intertext{Therefore, given the prime factorisation of $a$ and $b$, $\gcd\bracks{a,b}=2^3\cd3^2=72$}.
+\end{gather*}
+
+\sol (b) \\
+The least common multiple of $a$ and $b$ is, effectively, the smallest number we can construct using all the prime factors of $a$ and $b$. In other words, $\lcm\bracks{a,b}=n$, where $n$ is the smallest natural number such that $n\divs a$ and $n\divs b$. From this we can can conclude that there exist $k,l\in\bbz$ such that
+$$
+  n = ka,\qquad n=lb,
+$$
+and $n$ is as minimised. We can see that $ka = lb$. If we apply the Fundamental Theorem of Arthimentic, $a = 2^{x_1}\cd3^{x_2}\cd5^{x_3}\dots,\ b = 2^{y_1}\cd3^{y_2}\cd5^{y_3}\dots$, and consider that $k$ and $l$ must eqaulise the equation, we can see that
+$$
+  n = 2^{\max\braces{x_1,y_1}}\cd3^{\max\braces{x_2,y_2}}\cd5^{\max\braces{x_3,y_3}}\cd\dots
+$$
+In this specific example,
+\begin{gather*}
+  \lcm\bracks{2^7\cd3^2\cd5^1, b = 2^3\cd3^3\cd7^1} = n \\
+  n = 2^7\cd3^2\cd5^1 \bracks{2^{k_1}\cd3^{k_2}\cd5^{k_3}\cd7^{k_4}} = 2^3\cd3^3\cd7^1\bracks{2^{l_1}\cd3^{l_2}\cd5^{l_3}\cd7^{l_4}} \\
+  \begin{array}{ll}
+    k_1 = 0     & l_1 = 7-3 \\
+    k_2 = 3-2   & l_2 = 0 \\
+    k_3 = 0     & l_3 = 1-0 \\
+    k_4 = 1-0   & l_4 = 0 \\
+  \end{array} \\
+  n = 2^7\cd3^2\cd5^1 \bracks{2^{0}\cd3^{1}\cd5^{0}\cd7^{1}} = 2^3\cd3^3\cd7^1\bracks{2^{4}\cd3^{0}\cd5^{1}\cd7^{0}} \\
+  \tf n = 2^7\cd3^3\cd5^1\cd7^1 = 2^7\cd3^3\cd5^1\cd7^1 
+  \intertext{Therefore, given the prime factorisation of $a$ and $b$, $\lcm\bracks{a,b} = 2^7\cd3^3\cd5^1\cd7^1 = 120\,960$.}
+\end{gather*}
+
+\sol (c) \\
+We've established that
+\begin{gather*}
+  a = 2^7\cd3^2\cd5^1,\qquad b = 2^3\cd3^3\cd7^1 \\
+  \gcd\bracks{a, b} = 2^3\cd3^2 \\
+  \lcm\bracks{a, b} = 2^7\cd3^3\cd5^1\cd7^1 \\
+  \longintertext{We seek to show that $\gcd\bracks{a,b}\cd\lcm\bracks{a,b}=a\cd b$.\\ Let's compute the LHS}
+  \begin{aligned}
+    \gcd\bracks{a,b}\cd\lcm\bracks{a,b}
+    &=
+    2^3\cd3^2 \cd 2^7\cd3^3\cd5^1\cd7^1 \\
+    &=
+    2^{3+7}\cd3^{2+3}\cd5^{0+1}\cd7^{0+1} \\
+    &=
+    2^{10}\cd3^{5}\cd5^{1}\cd7^{1} 
+  \end{aligned}
+  \intertext{Now let's compute the RHS.}
+  \begin{aligned}
+    2^7\cd3^2\cd5^1 \cd 2^3\cd3^3\cd7^1 
+    &= 
+    2^{7+3}\cd3^{2+3}\cd5^{1+0}\cd7^{0+1} \\
+    &=
+    2^{10}\cd3^{5}\cd5^{1}\cd7^{1}
+  \end{aligned}
+  \intertext{Therefore, LHS = RHS. Therefore, for $a=2^7\cd3^2\cd5^1$ and $b=2^3\cd3^3\cd7^1$, $\gcd\bracks{a,b}\cd\lcm\bracks{a,b} = a\cd b$.}
+\end{gather*}
+
+\sol (d) \proof As previously discussed, we can apply the Fundamental Theorem of Arthimentic to two natural numbers $a,b\in\bbn, a=p_{1}^{x_1}\cd p_{2}^{x_2}\cd p_{3}^{x_3}\dots,\ b=p_{1}^{y_1}\cd p_{2}^{y_2}\cd p_{3}^{y_3}\dots$, where $p_i$ is the $i$-th prime number. The greatest common divisor of $a$ and $b$ is
+$$
+  \gcd\bracks{a,b} 
+  =
+    p_{1}^{\min\braces{x_1,y_1}}\cd p_{2}^{\min\braces{x_2,y_2}}\cd p_{3}^{\min\braces{x_3,y_3}}\dots
+  =
+    \prod_{i=1}^{\infty} p_{i}^{\min\braces{x_i,y_i}}
+$$
+The least common multiple of $a$ and $b$ is
+$$
+  \lcm\bracks{a,b} 
+  =
+    p_{1}^{\max\braces{x_1,y_1}}\cd p_{2}^{\max\braces{x_2,y_2}}\cd p_{3}^{\max\braces{x_3,y_3}}\dots
+  =
+    \prod_{i=1}^{\infty} p_{i}^{\max\braces{x_i,y_i}}
+$$
+We seek to prove that $\gcd(a,b)\cd\lcm(a,b)=ab$.\\
+Let's compute the LHS, $\gcd\bracks{a,b}\cd\lcm\bracks{a,b}$,
+$$
+  \prod_{i=1}^{\infty} p_{i}^{\min\braces{x_i,y_i}} \cd \prod_{i=1}^{\infty} p_{i}^{\max\braces{x_i,y_i}}
+  =
+    \prod_{i=1}^{\infty} \bracks{p_{i}^{\min\braces{x_i,y_i}} \cd p_{i}^{\max\braces{x_i,y_i}}}
+  = 
+    \prod_{i=1}^{\infty} p_{i}^{\min\braces{x_i,y_i} + \max\braces{x_i,y_i}}
+$$
+\begin{gather*}
+  \longintertext{Let's consider $\min\braces{x_i,y_i} + \max\braces{x_i,y_i}$ \\
+  $\forall i$, there are 3 cases: $x_i < y_i,\ x_i = y_i$ and $x_i > y_i$. \\
+  Case 1, $x_i < y_i$:}
+  \min\braces{x_i, y_i} + \max\braces{x_i, y_i}  = x_i + y_i \\
+  \intertext{Case 2, $x_i > y_i$:}
+  \min\braces{x_i, y_i} + \max\braces{x_i, y_i}  = y_i + x_i = x_i + y_i \\
+  \intertext{Case 3, $x_i = y_i$:}
+  \min\braces{x_i, y_i} + \max\braces{x_i, y_i}  = y_i + x_i = x_i + x_i = y_i + y_i = x_i + y_i \\
+  \intertext{All three cases are equal, so we can conclude that $\forall i, \min\braces{x_i,y_i} + \max\braces{x_i, y_i} = x_i + y_i$.}
+  \tf LHS = \gcd\bracks{a,b}\cd\lcm\bracks{a,b} = \prod_{i=1}^{\infty} p_{i}^{x_i + y_i}
+  \intertext{Let's now compute the RHS, $ab$,}
+  p_{1}^{x_1}\cd p_{2}^{x_2}\cd p_{3}^{x_3}\dots \cd p_{1}^{y_1}\cd p_{2}^{y_2}\cd p_{3}^{y_3}\dots
+  =
+    \prod_{i=1}^\infty p_i^{x_i} \cd \prod_{i=1}^\infty p_i^{y_i}
+  =
+    \prod_{i=1}^\infty \bracks{p_i^{x_i} \cd p_i^{y_i}}
+  =
+    \prod_{i=1}^\infty p_i^{x_i + y_i}
+  \intertext{Therefore, LHS = RHS}
+  \intertext{Given two arbitrary integers, $a$ and $b$, we can apply the Fundamental Theorem of Arthimentic to them, and use their prime factorisations and the definitions of $\gcd(a,b)$ and $\lcm(a,b)$ to conclude that $\gcd(a,b)\cd\lcm(a,b) = ab \QED$}
+\end{gather*}
+
+\newpage
+\qs{(\it10 marks)}{
+  A sequence is defined recursively as:
+  \begin{gather*}
+    a_0 = 1,\qquad a_1 = 2, \\
+    a_n = 4a_{n-1} - 3a_{n-2},\qquad n\geq 2.
+  \end{gather*}
+  Prove the formula
+  $$
+    a_n = \frac{3^n + 1}{2}
+  $$
+}
+\sol
+\proof We will use the principle of strong mathematical induction to prove the formula. Let $P(n)$ be the predicate ``$a_n = \bracks{3^n + 1} / 2$.'' Let's consider the first 5 terms of the sequence
+$$
+  \begin{array}{c|rrrrr}
+    n                   & 0                   & 1                   & 2                   & 3                     & 4                     \\
+    a_n                 & 1                   & 2                   & 4(2) - 3(1) = 5     & 4(5) - 3(2) = 14      & 4(14) - 3(5) = 41     \\
+    \dfrac{3^n + 1}{2}  & \dfrac{3^0 + 1}{2}=1& \dfrac{3^1 + 1}{2}=2& \dfrac{3^2 + 1}{2}=5& \dfrac{3^2 + 1}{2}=14 & \dfrac{3^2 + 1}{2}=41 \\ 
+  \end{array}
+$$
+Basis Step: P(0), P(1), P(2), P(3), P(4) are True. We've proved this in the above table. \\
+Inductive Hypothesis: Suppose that, for some integer $k\geq4$, $P(0),\ P(1),\ P(2),\ \dots\ ,\ P(k)$ are true.
+\begin{gather*}
+  a_{n+1} = 4a_{n} - 3a_{n-1} 
+  \intertext{From the inductive step, $P(n)$ and $P(n-1)$ are true.}
+  \begin{aligned}
+    \tf a_{n+1} &= 4\frac{3^n + 1}{2} - 3\frac{3^{n-1} + 1}{2} \\
+      &= 4\frac{3^n + 1}{2} - \frac{3^{n} + 1}{2} \\
+      &= \frac{3^n + 1}{2}\bracks{4 - 1} \\
+      &= \frac{3^n + 1}{2}\bracks{3} \\
+      &= \frac{3^{n+1} + 1}{2} \\
+  \end{aligned}
+  \longintertext{$P(n+1)$ is true \\ Therefore, by the principle of strong mathematical induction, it follows that $P(n)$ is true for all integers, $n\geq 0$. \QED}
+\end{gather*}
+
+\end{document}

@@ -1,0 +1,519 @@
+\documentclass[a4paper, 11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\title{\Huge{MATH1072}\\Advanced Multivariate Calculus and Ordinary Differential Equations}
+\author{\huge{Problem Set 2}\\\huge{Michael Kasumagic, s4430266}}
+\date{\huge{Due: 1pm, $2^\text{nd}$ of September, 2024}}
+
+\begin{document}
+\begin{center}
+{\bf SCHOOL OF MATHEMATICS AND PHYSICS, UQ}
+\end{center}
+\centerline{\large\bf MATH1072}
+\vspace{.1cm}   
+\centerline{\large\bf Assignment 2}
+\vspace{.1cm}
+\centerline{\large\bf Semester Two 2024}
+
+\vspace{3mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\vspace{3mm}
+
+{\it Submit your answers by 1pm on Monday, 2nd September, using the
+Blackboard assignment submission system. Assignments must consist of a single PDF.
+}
+
+You may find some of these problems challenging. Attendance at weekly tutorials is assumed.
+
+\vspace{1cm}
+
+\begin{tabular}{rl}
+	Family name: & $\clk$asumagic \\
+	& \\
+	& \\
+	Given names: & $\calm$ichael $\cla$llan \\
+	& \\
+	& \\
+	Student number: & 44302669 \\
+	& \\
+	& \\
+\end{tabular}
+
+\hrule ${}^{}$ \\
+Marker's use only
+\\
+\hrule ${}^{}$ \\
+Each question marked out of 3.
+\begin{itemize}
+\item Mark of 0: You have not submitted a relevant answer, or you have no strategy present in your
+submission.\\
+\item Mark of 1: Your submission has some relevance, but does not demonstrate deep understanding or
+sound mathematical technique. \\ 
+\item Mark of 2: You have the right approach, but need to fine-tune some aspects of your
+calculations.\\
+\item Mark of 3: You have demonstrated a good understanding of the topic and techniques involved,
+with well-executed calculations. \\ 
+\end{itemize}
+\begin{tabular}{rrrrrrrrr}
+Q1(a): & \hspace{1cm} & Q2(a): & \hspace{1cm} & Q3: & \hspace{1cm} & Q4:  &\hspace{1cm} & Q5(a): \\[.5cm]
+Q1(b): &              & Q2(b): &              &     &              &      &             & Q5(b): \\[.5cm]
+       &              &        &              &     &              &      &             & Q5(c): \\[.5cm]
+       &              &        &              &     &              &      &             &       \\[.5cm]
+       &              &        &              &     &              &      &             &       \\
+Total (out of 27): &&&&&&&& \\
+\end{tabular}
+
+\vfill
+\newpage
+
+\qs{Solutions to the One-dimensional Heat Equation}
+{
+	The one-dimensional heat equation is an example of a {\em partial differential equation}, so named because of its utility in describing the change in distribution of heat in a rod over time. The equation is given by
+	$$
+		\frac{\partial u}{\partial t} = \alpha^2 \frac{\partial^2u}{\partial x^2},\ \ \alpha\in\mathbb{R}.
+	$$
+	A function $u(x,t)$ that satisfies this equation is said to be a {\em solution}. Verify that the following functions are solutions of the heat equation.
+	\begin{enumerate}[label=(\alph*)]
+		\item $\dps{u(x,t)=\frac{1}{2\alpha\sqrt{\pi t}} e^{-x^2/4\alpha^2t}}$
+		\item $\dps{u(x,t)= e^{-\alpha^2k^2t}\sin(kx),\ \ k\in\mathbb{R} }$
+	\end{enumerate}
+}
+\sol (a)
+\begin{align*}
+	\del{u}{t} &= \frac{a_tb - ab_t}{b^2} \\
+ 	a &= \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \\
+ 	\tf a_t &= \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \cd \del{}{t}\bracks{\frac{-x^2}{4\alpha^2 t}} 
+ 		 = \frac{x^2}{4\alpha^2 t^2} \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \\
+ 	b &= 2\alpha\sqrt{\pi t} 
+ 		 = 2\alpha\bracks{\pi t}^{1/2} \\
+ 	\tf b_t &= \frac{\pi}{2}2\alpha\bracks{\pi t}^{-1/2} 
+ 		 = \frac{\pi\alpha}{\sqrt{\pi t}} 
+ 		 = \alpha\sqrt{\frac{\pi}{t}} \\
+ 	b^2 &= \bracks{2\alpha\sqrt{\pi t}}^2 
+ 		 = 4\alpha^2\pi t \\
+	\tf\del{u}{t} &= \frac{\dfrac{x^2}{4\alpha^2 t^2} \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}2\alpha\sqrt{\pi t} - \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}\alpha\sqrt{\dfrac{\pi}{t}}}{4\alpha^2\pi t} \\
+		&= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \bracks{\dfrac{x^2}{4\alpha^2 t^2}2\alpha\sqrt{\pi t} - \alpha\sqrt{\dfrac{\pi}{t}}}}{4\alpha^2\pi t} \\
+		&= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \bracks{\dfrac{ x^2\sqrt{\pi}}{2\alpha \sqrt{t^3}} - \alpha\sqrt{\dfrac{\pi}{t}}}}{4\alpha^2\pi t} \\
+		&= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \bracks{\dfrac{ x^2}{2\alpha t}\sqrt{\dfrac{\pi}{t}} - \alpha\sqrt{\dfrac{\pi}{t}}}}{4\alpha^2\pi t} \\
+		&= \frac{\sqrt{\dfrac{\pi}{t}} \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \bracks{\dfrac{ x^2}{2\alpha t} - \alpha}}{4\alpha^2\pi t} \\
+		&= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \bracks{\dfrac{ x^2}{2\alpha t} - \dfrac{2\alpha^2 t}{2\alpha t}}}{4\alpha^2\sqrt{\pi t^3}} \\
+		&= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \bracks{\dfrac{x^2 - 2\alpha^2 t}{2\alpha t}}}{4\alpha^2\sqrt{\pi t^3}} \\
+	\tf\del{u}{t} &= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \bracks{x^2 - 2\alpha^2 t}}{8\alpha^3\sqrt{\pi t^5}} \\
+	\del{u}{x} &= \frac{a_xb - ab_x}{b^2} \\
+   a &= \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \\
+   \tf a_x &= \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \cd \del{}{x}\bracks{\frac{-x^2}{4\alpha^2 t}}
+    	= \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \cd \bracks{\frac{-x}{2\alpha^2 t}} 
+    	= \frac{-x}{2\alpha^2 t} \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \\
+   b &= 2\alpha\sqrt{\pi t} \\
+   \tf b_x &= 0 \\
+   b^2 &= 4\alpha^2\pi t \\
+   \tf\del{u}{x} &= \frac{\dfrac{-x}{2\alpha^2 t} \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}2\alpha\sqrt{\pi t} - 0}{4\alpha^2\pi t} \\
+     &= \frac{\dfrac{-x\sqrt{\pi}}{\alpha \sqrt{t}} \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}}{4\alpha^2\pi t} \\
+     &= \frac{-x\sqrt{\pi} \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}}{4\alpha^2\pi t \alpha \sqrt{t}} \\
+   \tf\del{u}{x} &= \frac{-x \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}}{4\alpha^3 \sqrt{\pi t^3}}
+    	= \frac{-1}{4\alpha^3 \sqrt{\pi t^3}} x \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \\ 
+   \del{^2 u}{x^2} &= a_xb + ab_x \\
+   a &= \frac{-1}{4\alpha^3 \sqrt{\pi t^3}} x \\
+   \tf a_x &= \frac{-1}{4\alpha^3 \sqrt{\pi t^3}} \\
+   b &= \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \\
+   \tf b_x &= \frac{-x}{2\alpha^2 t} \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \\
+   \tf\del{^2 u}{x^2} &= \frac{1}{4\alpha^3 \sqrt{\pi t^3}} \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \cd \frac{x^2}{2\alpha^2 t} - \frac{1}{4\alpha^3 \sqrt{\pi t^3}}\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}} \\  
+     &= \frac{1}{4\alpha^3 \sqrt{\pi t^3}} \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \bracks{\frac{x^2}{2\alpha^2 t} - 1} \\  
+     &= \frac{1}{4\alpha^3 \sqrt{\pi t^3}} \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \bracks{\frac{x^2 - 2\alpha^2 t}{2\alpha^2 t}} \\
+     &= \frac{x^2 - 2\alpha^2 t}{4\alpha^3 \sqrt{\pi t^3}\bracks{2\alpha^2 t}} \exp\bracks{\frac{-x^2}{4\alpha^2 t}} \\
+   \tf\del{^2 u}{x^2} &= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}\bracks{x^2 - 2\alpha^2 t}}{8\alpha^5 \sqrt{\pi t^5}} \\
+   \tf\alpha^2\del{^2 u}{x^2} &= \frac{\alpha^2 \exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}\bracks{x^2 - 2\alpha^2 t}}{8\alpha^5 \sqrt{\pi t^5}} 
+    	= \frac{\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}\bracks{x^2 - 2\alpha^2 t}}{8\alpha^3 \sqrt{\pi t^5}} 
+    	= \del{u}{t}
+\end{align*}
+Therefore, $u(x,t) = \dfrac{1}{2\alpha\sqrt{\pi t}}\exp\bracks{\dfrac{-x^2}{4\alpha^2 t}}$ is a solution to the one dimensional heat equation.
+
+\newpage
+\sol (b)
+\begin{align*}
+	\del{u}{t} &= a_tb + ab_t \\
+	a &= \exp\bracks{-\alpha^2k^2t} \\
+	\tf a_t &= \exp\bracks{-\alpha^2k^2t} \cd \del{}{t}\bracks{-\alpha^2k^2t} \\
+		&= -\alpha^2k^2 \exp\bracks{-\alpha^2k^2t} \\
+	b &= \sin kx \\
+	\tf b_t &= 0 \\
+	\tf\del{u}{t} &= -\alpha^2k^2 \exp\bracks{-\alpha^2k^2t}\sin kx + 0 \\
+		&= -\alpha^2k^2 \exp\bracks{-\alpha^2k^2t} \sin kx \\
+	\del{u}{x} &= a_xb + ab_x \\
+	a &= \exp\bracks{-\alpha^2k^2t} \\
+	a_x &= 0 \\
+	b &= \sin kx \\
+	b_x &= k\cos kx \\
+	\tf\del{u}{x} &= 0 + \exp\bracks{-\alpha^2k^2t} k\cos kx \\
+		&= k \exp\bracks{-\alpha^2k^2t} \cos kx \\
+	\del{^2u}{x^2} &= a_xb + ab_x \\
+	a &= \exp\bracks{-\alpha^2k^2t} \\
+	a_x &= 0 \\
+	b &= k\cos kx \\
+	b_x &= -k^2\sin kx \\
+	\tf\del{^2u}{x^2} &= 0 - k^2 \exp\bracks{-\alpha^2k^2t} \sin kx \\
+		&= -k^2 \exp\bracks{-\alpha^2k^2t} \sin kx \\
+	\alpha^2\del{^2u}{x^2} &= -\alpha^2 k^2 \exp\bracks{-\alpha^2k^2t} \sin kx \\
+		&= \del{u}{t}
+\end{align*}
+Therefore, $u(x,t) = \exp\bracks{-\alpha^2k^2t}\sin kx$ is a solution to the one dimensional heat equation. \\
+
+\newpage
+\qs{Tanget Plane Approximation}{
+	Consider the function
+	$$
+		f(x,y) = \frac{y-1}{x+1}.
+	$$
+	\begin{enumerate}[label=(\alph*)]
+		\item Give the equation of the tangent plane to the surface $z=f(x,y)$ at the point $(x,y)=(0,0)$.
+		\item Use a linear approximation to estimate $f(0.1,0.2)$. Give the error in the estimate.
+	\end{enumerate}
+}
+\sol (a)\\
+Let $T(x,y)$ denote the function of the surface plane tangent to $f(x,y)$ at the point $(0,0)$. 
+\begin{align*}
+	T(x,y) &= f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b) \\
+		&= f(0,0) + f_x(0,0)(x-0) + f_y(0,0)(y-0) \\
+		&= f(0,0) + f_x(0,0)(x) + f_y(0,0)(y) \\
+	f(a,b) = f(0,0) &= \frac{0-1}{0+1} = \frac{-1}{1} = -1 \\
+	f_x(x,y) &= \del{}{x}\bracks{\frac{y-1}{x+1}} \\
+		&= \frac{1-y}{(x+1)^2} \\
+	\tf f_x(a,b) = f_x(0,0) &= \frac{1-0}{(0+1)^2} = \frac{1}{1} = 1 \\
+	f_y(x,y) &= \del{}{y}\bracks{\frac{y-1}{x+1}} \\
+		&= \frac{1}{1+x} \\
+	\tf f_y(a,b) = f_y(0,0) &= \frac{1}{1+0} = \frac{1}{1} = 1 \\
+	\tf T(x,y) &= -1 + 1(x) + 1(y) \\
+		&= x + y - 1
+\end{align*}
+So, the equation of the plane, tangent to the surface $z=f(x,y)$ at the point $(x,y)=(0,0)$ is $T(x,y)= x + y - 1$. \\
+
+\sol (b)
+\begin{align*}
+  f(x,y) &\approx f(a,b) + f_x(a,b)(x-a) + f_y(a,b)(y-b), \text{ where $(a,b)=(0,0)$}
+  \intertext{But we notice that this RHS is the same as the tangent plane function we computed in the previous question, so we shall use that as a linear approximation to estimate $f(0.1,0.2)$.}
+  f(0.1,0.2) &\approx T(0.1,0.2) = 0.1 + 0.2 - 1 = -0.7 = \frac{-7}{10} \\
+  f(0.1, 0.2) &= \frac{0.2-1}{0.1+1} = \frac{-0.8}{1.1} = \frac{-8}{11} \approx -0.7273 \\
+  \tf |E| &= \abs{\frac{-7}{10} - \frac{-8}{11}} = \abs{\frac{-77}{110} - \frac{-80}{110}} = \abs{\frac{3}{110}} = \frac{3}{110} \approx 0.0273 \\
+  \text{pct\% error} &= \frac{|E|}{f(0.1,0.2)} = \frac{3}{110} \div \frac{-8}{11} = \frac{3}{110}\times\frac{11}{-8} = \frac{-33}{880} = \frac{-3}{80} = -0.0375 \\
+  \tf\text{abs. pct\% error} &= 3.75\%
+\end{align*}
+Therefore, $f(0.1, 0.2)\approx0.7273\pm0.0273\ (3.75\%)$.	
+
+
+
+\newpage
+\qs{Application of Differentials}{
+	Let $g$ denote acceleration due to gravity. The period $\tau$ of a pendulum of length $r$ with small oscillations is given by the formula
+	$$
+		\tau = 2\pi\sqrt{ \frac{r}{g} }.
+	$$
+	Suppose that experimental values of $r$ and $g$ have maximum errors of at most $0.5\%$ and $0.1\%$ respectively. Use differentials to approximate the maximum percentage error in the calculated value of $\tau$. 
+}
+\sol
+\begin{align*}
+	\tau = f(r,g) &= 2\pi\sqrt{ \frac{r}{g} } \\
+	\partial\tau = \partial f &\approx \del{f}{r}\d r + \del{f}{g}\d g \\
+	\del{f}{r} &= \del{}{r}\bracks{2\pi\sqrt{ \frac{r}{g} }} 
+		 = \del{}{r}\bracks{2\pi\bracks{rg^{-1}}^{1/2}} \\
+		&= \frac{1}{2g}\bracks{2\pi\bracks{rg^{-1}}^{-1/2}} 
+		 = \frac{\pi}{g}\bracks{r^{-1}g}^{1/2} \\
+		&= \frac{\pi g^{1/2}}{gr^{1/2}} \\
+		&= \frac{\pi}{\sqrt{gr}} \\
+	\del{f}{g} &= \del{}{g}\bracks{2\pi\sqrt{\frac{r}{g}}} 
+		 = \del{}{g}\bracks{2\pi\bracks{rg^{-1}}^{1/2}} \\
+		&= \frac{-r}{2g^2}\bracks{2\pi\bracks{rg^{-1}}^{-1/2}} 
+		 = \frac{-\pi r}{g^2}\bracks{r^{-1}g}^{1/2} \\
+		&= \frac{-\pi\sqrt{rg}}{g^2} \\
+		&= \frac{-\pi\sqrt{r}}{\sqrt{g^3}} \\
+	\d r &= 0.005 r \tag*{(Given)} \\
+	\d g &= 0.001 g \tag*{(Given)} \\
+	\tf \partial\tau = \partial f &\approx \frac{\pi}{\sqrt{gr}}0.005 r + \frac{-\pi\sqrt{r}}{\sqrt{g^3}}0.001 g \\
+		&\approx 0.005\pi \frac{r}{\sqrt{gr}} - 0.001\pi \frac{g\sqrt{r}}{\sqrt{g^3}} \\
+		&\approx 0.005\pi \frac{\sqrt{r}}{\sqrt{g}} - 0.001\pi \frac{\sqrt{r}}{\sqrt{g}} \\
+		&\approx \sqrt{\frac{r}{g}} \bracks{0.005\pi - 0.001\pi}  \\
+		&\approx 0.004\pi \sqrt{\frac{r}{g}} \\
+	\text{pct\% error in $\tau$} = \frac{\d \tau}{\tau} &\approx \frac{0.004\pi \sqrt{r/g}}{2\pi\sqrt{r/g}} \cd 100
+		 = 0.002\cd100 \\
+		&\approx 0.2\%
+\end{align*}
+Therefore, using differentials, we find that, given maximum errors of $0.5\%$ in $g$ and $0.1\%$ in $r$, the maximum percentage error in $\tau$ is approximately 0.2\%.
+
+\newpage
+\qs{Given Differentiability, Prove Continuity}{
+	Let $f(x,y)$ be differentiable at the point $(x_0,y_0)$. Prove that $f(x,y)$ is continuous at $(x_0,y_0)$. Hint: Consider the function
+	$$
+		\veps(\Delta x, \Delta y) = \frac{ f(x_0+\Delta x,y_0+\Delta y) - f(x_0,y_0)-\Delta xf_x(x_0,y_0) - \Delta y f_y(x_0,y_0) }{ \sqrt{(\Delta x)^2+(\Delta y)^2} }.
+	$$
+}
+\sol \\
+\textbf{Definition 4.1} (Differentiability). A function, $f:D\subseteq\bbr^2\to\bbr$, is differentiable at $(x_0, y_0)\in D$ if
+$$
+	\lim_{(\D x, \D y)\to(0,0)} 
+	\frac{f(x_0 + \D x, y_0 + \D y) - f(x_0, y_0) - \D xf_x(x_0, y_0) - \D y f_y(x_0, y_0)}
+		{\sqrt	{(\D x)^2 + (\D y)^2}}
+	= 0.
+$$
+\textit{Remark.} This definition arises rather naturally when we consider the general definition of differentiability for a function $f:V\subseteq\bbr^n\to\bbr$, given on page 47 of the course notes (section 3.3),
+$$
+	\lim_{\ut{h}\to\ut{0}}
+	\frac{f(\ut{a}+\ut{h})-f(\ut{a})-\grad f(\ut{a})\cd\ut{h}}
+		{||\ut{h}||}
+	= 0.
+$$
+In the two dimensional case, $\ut{a} = (x_0, y_0),\ \ut{h} = (\D x, \D y),\ ||\ut{h}|| = \sqrt{(\D x)^2 + (\D y)^2}$, and $\grad f(\ut{a}) = (f_x(\ut{a}), f_y(\ut{a}))$. Once you've made the neccesary substitutions and computed the dot product $\grad f(\ut{a})\cd\ut{h}$, you'll find the whole expression is the same as the given $\veps(\D x, \D y)$. This is left as an exercise for the reader. So, a 2 dimensional function is differentiable if $\lim_{(\D x, \D y)\to(0,0)}\veps(\D x, \D y)=0$.\\
+
+\textbf{Definition 4.2} (Continuity). A function, $f:D\subseteq \bbr^2\to\bbr$, is continuous at $(x_0, y_0)\in D$ if 
+$$
+	\lim_{(\D x, \D y)\to(0,0)}f(x_0 + \D x, y_0 + \D y) = f(x_0, y_0).
+$$
+\textit{Remark.} This definition is similarly a slight substitutional adjustment to the given definition on page 26 (section 2.1.3) of the course notes, which is
+$$
+	\lim_{(x,y)\to(0,0)}f(x,y) = f(x_0, y_0).
+$$
+The key reason we can adjust the definition is that $\D x = x - x_0$ and $\D y = y - y_0$. We can directly substitute the expression into the arguments of $f(x,y)$. We can think of $x = x_0 + \D x$ as being made of a ``fixed'' componenet ($x_0$) and a variable componenet ($\D x$). Only the componenet which is allowed to vary can approriately be placed in the $\lim$ argument, which is the substitution we make. \\
+
+Finally, for the sake of brevity, let 
+$$
+\text{\Large$\cll$}\ = \lim_{(\D x, \D y)\to(0,0)}.
+$$
+
+So, our goal is to show, that given differentiability of a function at a point, continuity of the function at that point. \\
+
+\textit{Proof.}
+\begin{gather*}
+	\begin{align*}
+		&\mathcolor{white}{=}
+			\frac{f(x_0 + \D x, y_0 + \D y) - f(x_0, y_0) - \D xf_x(x_0, y_0) - \D y f_y(x_0, y_0)}{\sqrt	{(\D x)^2 + (\D y)^2}} \\
+			&= \veps(\D x, \D y) \\ {}^{}\\
+		&\mathcolor{white}{=}
+			f(x_0 + \D x, y_0 + \D y) - f(x_0, y_0) - \D xf_x(x_0, y_0) - \D y f_y(x_0, y_0) \\
+			&= \veps(\D x, \D y)\sqrt	{(\D x)^2 + (\D y)^2} \\ {}^{}\\
+		&\mathcolor{white}{=}
+			\text{\Large$\cll$}\  f(x_0 + \D x, y_0 + \D y) - f(x_0, y_0) - \D xf_x(x_0, y_0) - \D y f_y(x_0, y_0) \\
+			&= \text{\Large$\cll$}\  \veps(\D x, \D y)\sqrt	{(\D x)^2 + (\D y)^2} \\ {}^{}\\
+		&\mathcolor{white}{=}
+			\text{\Large$\cll$}\  \bracks{f(x_0 + \D x, y_0 + \D y)} - \text{\Large$\cll$}\ \bracks{f(x_0, y_0)} - \text{\Large$\cll$}\ \bracks{\D xf_x(x_0, y_0) - \D y f_y(x_0, y_0)} \\
+			&= \text{\Large$\cll$}\  \veps(\D x, \D y)\sqrt	{(\D x)^2 + (\D y)^2} \\ {}^{}\\
+		&\mathcolor{white}{=}
+			\text{\Large$\cll$}\  \bracks{f(x_0 + \D x, y_0 + \D y)} - f(x_0, y_0) - \text{\Large$\cll$}\ \bracks{\cancelto{0}{\D x} f_x(x_0, y_0) - \cancelto{0}{\D y} f_y(x_0, y_0)} \\
+			&= \text{\Large$\cll$}\  \cancelto{0}{\veps(\D x, \D y)}\cancelto{0}{\sqrt	{(\D x)^2 + (\D y)^2}} \\ {}^{}\\
+		&\mathcolor{white}{=}
+			\text{\Large$\cll$}\  \bracks{f(x_0 + \D x, y_0 + \D y)} - f(x_0, y_0) - 0 \\
+			&= 0 \\
+	\end{align*} \\
+	\tf \lim_{(\D x, \D y)\to(0,0)} \bracks{f(x_0 + \D x, y_0 + \D y)} - f(x_0, y_0) = 0 \\ {}^{}\\
+	\tf \lim_{(\D x, \D y)\to(0,0)} f(x_0 + \D x, y_0 + \D y) = f(x_0, y_0)
+	\longintertext{So, when given differentiability of a function $f:D\subseteq\bbr^2\to\bbr$ at the point $(x_0,y_0)\in D$, we've proven that the function is also continuous at that point. $\QED$}
+\end{gather*}
+
+
+
+\newpage
+\qs{}{
+	Consider the function
+	$$
+		f(x,y) = xye^{-x-y}.
+	$$
+	\begin{enumerate}[label=(\alph*)]
+		\item Find and classify all critical points of $f(x,y)$.
+		\item Use the \texttt{meshgrid} and \texttt{surf} functions in MATLAB to plot $f(x,y)$ over a suitable domain that includes all critical points. Also use the \texttt{hold on} and \texttt{plot3} functions to plot the critical points on the same figure, making the markers filled, red circles of size 10. Make sure that the plot is oriented so that all critical points are visible.
+		\item For any maxima or minima found in your answer to part (a), demonstrate that \texttt{fminsearch} can identify these critical points.
+	\end{enumerate}
+	Make sure that you submit all MATLAB code used for this question.
+}
+\sol (a)
+\begin{gather*}
+	\intertext{We'll start by identifing the critical points. We must first find the first order partial derivatives.}
+	\begin{aligned}
+		\del{f}{x} &= \del{}{x}\bracks{xy} \exp(-x-y) + xy\del{}{x}\bracks{\exp(-x-y)} \\
+			&= y\exp(-x-y) + xy\exp\bracks{-x-y}\del{}{x}\bracks{-x-y} \\
+			&= y\exp(-x-y) - xy\exp\bracks{-x-y} \\
+		\tf f_x(x,y) &= y\bracks{1 - x}\exp(-x-y) \\ {}^{}\\
+		\del{f}{y} &= \del{}{y}\bracks{xy}\exp(-x-y) + xy\del{}{y}\exp(-x-y) \\
+			&= x\exp(-x-y) + xy\exp(-x-y)\del{}{y}\bracks{-x-y} \\
+			&= x\exp(-x-y) - xy\exp(-x-y) \\
+		\tf f_y(x,y) &= x(1-y)\exp(-x-y) \\ 
+		\intertext{Now let's analyse these partial derivatives}
+		\text{Set } f_x(x,y) &= 0 \\
+		0 &= y\bracks{1 - x}\exp(-x-y) \\
+		\exp(-x-y) &\geq 0, \forall x,y\in\bbr \\
+		\tf 0 &= y\bracks{1-x} \\
+		\text{Let } X = \braces{(x,y)\in\bbr^2\suchthat y(1-x) = 0} &= \braces{x,y\in\bbr\suchthat (1,y), (x,0)} \\ {}^{}\\
+		\text{Set } f_y(x,y) &= 0 \\
+		0 &= x(1-y)\exp(-x-y) \\
+		\tf 0 &= x(1-y) \\
+		\text{Let } Y = \braces{(x,y)\in\bbr^2\suchthat x(1-y) = 0} &= \braces{x,y\in\bbr\suchthat(0,y), (x,1)} \\ {}^{}\\
+		\tf \text{Critical Lines} = X \cup Y &= \braces{x,y\in\bbr\suchthat(1,y),(x,0),(0,y),(x,1)} \\
+		\text{Critical Points} &= \left\lbrace (x,y)\in \bbr^2 \suchthat \right. \\
+			&\mathcolor{white}{=\left\lbrace} (x,y) \text{ is an intersection point between critical lines}\right\rbrace \\
+		\tf\text{Critical Points} &= \braces{(0,0), (1,0), (0,1), (1,1)}
+	\end{aligned}
+	\intertext{Let's now classify the critical points. First, we'll need to find the second order partial derivatives.}
+	\begin{aligned}
+		\del{^2 f}{x^2} &= \del{}{x}\bracks{\del{f}{x}} \\
+			&= \del{}{x}\bracks{y (1 - x) \exp(-x - y)} \\
+			&= \del{}{x}\bracks{y-xy}\exp(-x-y) + y(1-x)\del{}{x}\bracks{\exp(-x-y)} \\
+			&= -y\exp(-x-y) + y(1-x)\exp(-x-y)\del{}{x}\bracks{-x-y} \\
+			&= -y\exp(-x-y) - y(1-x)\exp(-x-y) \\
+			&= -y\exp(-x-y)\bracks{1 + (1-x)} \\
+		\tf f_{xx}(x,y) &= y\bracks{x-2}\exp(-x-y) \\ {}^{}\\
+		\del{^2 f}{y^2} &= \del{}{y}\bracks{\del{f}{y}} \\
+			&= \del{}{y}\bracks{x(1-y)\exp(-x-y)} \\
+			&= \del{}{y}\bracks{x-xy}\exp(-x-y) + x(1-y)\del{}{y}\bracks{\exp(-x-y)} \\
+			&= -x\exp(-x-y) + x(1-y)\exp(-x-y) \del{}{y}\bracks{-x-y} \\
+			&= -x\exp(-x-y) - x(1-y)\exp(-x-y) \\
+			&= -x\exp(-x-y) \bracks{1 + (1-y)} \\
+		\tf f_{yy}(x,y) &= x\bracks{y-2}\exp(-x-y) \\ {}^{}\\
+		\del{^2 f}{x\partial y} &= \del{}{x}\bracks{\del{f}{y}} \\
+			&= \del{}{x}\bracks{x(1-y)\exp(-x-y)} \\
+			&= \del{}{x}\bracks{x-xy}\exp(-x-y) + x(1-y)\del{}{x}(\exp(-x-y)) \\
+			&= (1-y)\exp(-x-y) + x(1-y)\exp(-x-y)\del{}{x}\bracks{-x-y} \\
+			&= (1-y)\exp(-x-y) - x(1-y)\exp(-x-y) \\
+			&= (1-y)\exp(-x-y) (1 - x) \\
+		\tf f_{xy}(x,y) &= (1-x)(1-y)\exp(-x-y) \\ {}^{}\\
+		\del{^2 f}{y\partial x} &= \del{}{y}\bracks{\del{f}{x}} \\
+			&= \del{}{y}\bracks{y\bracks{1 - x}\exp(-x-y)} \\
+			&= \del{}{y}\bracks{y-xy}\exp(-x-y) + y(1-x)\del{}{y}\bracks{\exp(-x-y)} \\
+			&= \bracks{1-x}\exp(-x-y) + y(1-x)\exp(-x-y)\del{}{y}\bracks{-x-y} \\
+			&= \bracks{1-x}\exp(-x-y) - y(1-x)\exp(-x-y) \\
+			&= \exp(-x-y) \bracks{1 - x - y + xy} \\
+		\tf f_{yx}(x,y) &= (1-x)(1-y)\exp(-x-y)
+	\end{aligned}
+	\intertext{Let's now consider the critical point $(x,y)=(0,0)$:}
+	\begin{aligned}
+		D &= \begin{vmatrix}
+				f_{xx}(0,0) & f_{xy}(0,0) \\
+				f_{yx}(0,0) & f_{yy}(0,0)
+			\end{vmatrix} \\
+			&= \begin{vmatrix}
+				0\bracks{0-2}\exp(-0-0) & (1-0)(1-0)\exp(-0-0) \\
+				(1-0)(1-0)\exp(-0-0) 		& 0\bracks{0-2}\exp(-0-0) 
+			\end{vmatrix} \\
+			&= \begin{vmatrix}
+				0 & 1 \\
+				1 & 0
+			\end{vmatrix} \\
+			&= (0\cd0) - (1\cd1) \\
+			&= -1
+	\end{aligned}
+	\intertext{$D<0\implies$ that $(0,0)$ is a saddle point.}
+	\intertext{Next, we'll consider the critical point $(x,y)=(1,1)$:}
+	\begin{aligned}
+		D &= \begin{vmatrix}
+			f_{xx}(1,1) & f_{xy}(1,1) \\
+			f_{yx}(1,1) & f_{yy}(1,1)
+		\end{vmatrix} \\
+		&= \begin{vmatrix}
+			1\bracks{1-2}\exp(-1-1) & (1-1)(1-1)\exp(-1-1) \\
+			(1-1)(1-1)\exp(-1-1) 		& 1\bracks{1-2}\exp(-1-1) 
+		\end{vmatrix} \\
+		&= \begin{vmatrix}
+			-\exp(-2) & 0 \\
+			0 & -\exp(-2)
+		\end{vmatrix} \\
+		&= (-\exp(-2)\cd-\exp(-2)) - (0\cd0) \\
+		&= \exp(-4)
+	\end{aligned}
+	\intertext{$D=e^{-4}>0$ and $f_{xx}(0,0)=-e^{-2}<0\implies (1,1)$ is a local maxima.}
+	\intertext{Next, we'll consider the critical points $(x,y)=(1,0)$ and $(x,y)=(0,1)$:}
+	\begin{aligned}
+		D &= \begin{vmatrix}
+			f_{xx}(1,0) & f_{xy}(1,0) \\
+			f_{yx}(1,0) & f_{yy}(1,0)
+		\end{vmatrix} \\
+		&= \begin{vmatrix}
+			0\bracks{1-2}\exp(-1-0) & (1-1)(1-0)\exp(-1-0) \\
+			(1-1)(1-0)\exp(-1-0) 		& 1\bracks{0-2}\exp(-1-0) 
+		\end{vmatrix} \\
+		&= \begin{vmatrix}
+			0 & 0 \\
+			0 & 0
+		\end{vmatrix} \\
+		&= (0\cd0) - (0\cd0) \\
+		&= 0 \\
+		D &= \begin{vmatrix}
+			f_{xx}(0,1) & f_{xy}(0,1) \\
+			f_{yx}(0,1) & f_{yy}(0,1)
+		\end{vmatrix} \\
+		&= \begin{vmatrix}
+			1\bracks{0-2}\exp(-0-1) & (1-0)(1-1)\exp(-0-1) \\
+			(1-0)(1-1)\exp(-0-1) 		& 0\bracks{1-2}\exp(-0-1) 
+		\end{vmatrix} \\
+		&= \begin{vmatrix}
+			0 & 0 \\
+			0 & 0
+		\end{vmatrix} \\
+		&= (0\cd0) - (0\cd0) \\
+		&= 0
+	\end{aligned}
+	\intertext{Therefore, for both $(1,0)$ and $(0,1), D=0$ so the second-derivative test is inconclusive for these points.}
+\end{gather*}
+
+\pagebreak
+\sol (b)
+\verb|PS2_script1.m| \hrule
+\begin{lstlisting}{Matlab}
+f = @(x,y) x.*y.*exp(-x-y);
+[X, Y] = meshgrid(-1.5:0.01:1.5);
+Z = f(X,Y);
+% I do this to fix the coloring of the surface...
+% If I don't do this, the whole visible surface
+% is the same color!
+Z_normalised = min(max(Z, -1.51), 1.51);
+surf(X,Y,Z_normalised, "EdgeAlpha", 0);
+zlim([-1.5 1.5]);
+view([75, 20]);
+colormap("winter");
+
+CP_X = [0 1 0 1];
+CP_Y = [0 0 1 1];
+CP_Z = f(CP_X, CP_Y);
+hold on;
+plot3(CP_X, CP_Y, CP_Z, 'ro', ...
+	'MarkerSize', 10, 'MarkerFaceColor', 'r');
+
+set(gcf, 'Position', [100, 20, 600, 600])
+title("$f(x,y) = xye^{-x-y}$", ...
+	"Interpreter", "latex", "FontSize", 36);
+xlabel("$x$", "FontSize", 16, "Interpreter", "latex");
+ylabel("$y$", "FontSize", 16, "Interpreter", "latex");
+zlabel("$z$", "FontSize", 16, "Interpreter", "latex");
+saveas(gcf, "./PS2_fig1.png");
+\end{lstlisting}
+\verb|Output:|
+\begin{center}
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{./PS2_fig1.png}
+	}
+\end{center}
+
+\pagebreak
+\sol (c)\\
+We expect \verb|fminsearch| to identify the one local maxima we identified, namely $(1,1)$ \\
+\verb|PS2_script2.m| \hrule
+\begin{lstlisting}{Matlab}
+f = @(x,y) x.*y.*exp(-x-y);
+negf = @(v) -f(v(1),v(2));
+maxima = fminsearch(negf, [3, 3])
+% Since we're looking for a maxima, we should negate the 
+% function. This way, finding the minimum of negf, is 
+% the same as finding the maximum of f.
+% Also, since fminsearch expects to recieve a function 
+% pointer, to a one-argument function, we have to
+% make negf accept a vector as an argument, then extract
+% the approriate x and y components.
+
+fprintf('Local maxima found at (x, y) = (%.4f, %.4f)\n', ...
+	maxima(1), maxima(2));
+\end{lstlisting}
+\verb|Output:|\\
+
+\verb|Local maxima found at (x, y) = (1.0000, 1.0000)| \\
+
+Which is what we expected. Therefore, we've demonstrated that we can use \verb|fminsearch| to identify local maxima on the function's surface.
+
+\end{document}
