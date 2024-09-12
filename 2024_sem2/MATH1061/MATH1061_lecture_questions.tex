@@ -1,0 +1,551 @@
+\documentclass{report}
+
+\input{../../latex_template/preamble}
+\input{../../latex_template/macros}
+\input{../../latex_template/letterfonts}
+
+\title{\Huge{MATH1061}\\Discrete Mathematics I\\\huge{In-Lecture Questions}}
+\author{\huge{Michael Kasumagic, s4430266}}
+\date{\huge{Semester 2, 2024}}
+
+\begin{document}
+
+\maketitle
+\newpage% or \cleardoublepage
+% \pdfbookmark[<level>]{<title>}{<dest>}
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\pagebreak
+
+\chapter{Week 1}
+\section{Lecture 2}
+\subsection*{Questions}
+\qs{}{
+	Which of the following are statements?
+	\begin{enumerate}[label=(\alph*)]
+		\item "Is it going to rain tomobbrow?"
+		\item "She is happy."
+		\item "23 July 2024 is a Tuesday"
+		\item $x = 5y + 2$
+		\item $65 < 2$
+	\end{enumerate}
+}
+\sol (a) No, a question. (b) No, "she" undefined. (c) Yes. (d) No, $x$, $y$ undefined. (e) Yes.
+
+\qs{}{
+	Let $p$, $q$, $r$ be statements.
+	\begin{itemize}
+		\item $p$ = ``it is cold.''
+		\item $q$ = ``it is snowing.''
+		\item $r$ = ``it is sunny.''
+	\end{itemize}
+	Translate these to symbols:
+	\begin{enumerate}[label=(\alph*)]
+		\item ``It is not cold but it is snowing.''
+		\item ``It is neither snowing nor cold, but it is sunny.''
+	\end{enumerate}
+	Translate these to English:
+	\begin{enumerate}[label=(\alph*),start=3]
+		\item $\lnot p\land q$
+		\item $(p\land q)\lor r$
+	\end{enumerate}
+}
+\sol (a) $\lnot p\land q$ (b) $\lnot p \land \lnot q \land r$ (c) ``It is not cold but it is snowing'' (d) ``It is either snowing and cold, or sunny, or it's both.''
+
+\qs{}{Construct the truth table for $(p\land \lnot q)\lor (q\land r)$}
+\sol \begin{center}
+	\begin{tabular}{|ccc||c||cc||c|}
+		\hline
+		$p$ & $q$ & $r$ & $\lnot q$ & $p\land\lnot q$ & $q\land r$ & $(p\land\lnot q)\lor(q\land r)$ \\ \hline
+		T & T & T & F & F & T & T \\
+		T & T & F & F & F & F & F \\
+		T & F & T & T & T & F & T \\
+		T & F & F & T & T & F & T \\
+		F & T & T & F & F & T & T \\
+		F & T & F & F & F & F & F \\
+		F & F & T & T & F & F & F \\
+		F & F & F & T & F & F & F \\ \hline
+	\end{tabular}
+\end{center}
+
+\qs{}{Using De Morgan's Law, write down a statement which is logically equivalent to the negation of ``5 is even and 6 is even.''}
+\sol ``5 is even and 6 is even.'' $\equiv p \land q$. The solution we want is the negation, $\lnot(p\land q)$, which, by De Morgan's Law is the same as $\lnot p \lor \lnot q$ which in English is ``5 is odd or 6 is odd.''
+
+\qs{}{
+	Show that
+	$$\lnot((\lnot p\land q) \lor (\lnot p \land \lnot q)) \equiv p$$
+	using a truth table, and by laws of logical equivalence.
+}
+\begin{center}
+	\begin{tabular}{|cc||cc||cc||c||c|}
+		\hline
+		$p$ & $q$ & $\lnot p$ & $\lnot q$ & $\lnot p\land q$ & $\lnot p\land\lnot q$ & $(\lnot p\land q) \lor (\lnot p\land\lnot q)$ & $\lnot((\lnot p\land q) \lor (\lnot p\land\lnot q))$ \\ \hline
+		T & T & F & F & F & F & F & T \\
+		T & F & F & T & F & F & F & T \\
+		F & T & T & F & T & F & T & F \\
+		F & F & T & T & F & T & T & F \\ \hline
+	\end{tabular}
+\end{center}
+$\tf\lnot((\lnot p\land q) \lor (\lnot p \land \lnot q)) \equiv p$ by exhaustion.
+\begin{align*}
+	\lnot((\lnot p\land q) \lor (\lnot p \land \lnot q)) &\equiv \lnot(\lnot p\land q) \land \lnot(\lnot p \land \lnot q) \tag*{(\text{De Morgan's Law})}\\
+		&\equiv (p\lor \lnot q) \land (p \lor q) \tag*{(\text{De Morgan's Law})} \\
+		&\equiv p \lor (q \land\lnot q) \tag*{(Distributivity)} \\
+		&\equiv p \lor \top \tag*{(Negation Law)} \\
+		&\equiv p \tag*{(Identity)} \\
+		\tag*{\qed}
+\end{align*}
+$\tf\lnot((\lnot p\land q) \lor (\lnot p \land \lnot q)) \equiv p$ by logical equivalence.
+
+\newpage
+\section{Lecture 3}
+\subsection*{Questions}
+\qs{}{
+	Which of the following sentences have the same meaning as ``If I am worried then I did not sleep''?
+	\begin{enumerate}[label=(\alph*)]
+		\item if I am worried then I do not sleep.
+		\item if I am not worried then I do sleep.
+		\item If I do not sleep then I am worried.
+		\item I am worried and I do sleep.
+		\item If I do sleep then I am not worried.
+		\item I am worried or I do not sleep
+		\item I do not sleep or I am not worried.
+	\end{enumerate}
+}
+\sol 
+\begin{itemize}
+	\item Original: $p\lthen \lnot q$
+	\item (a): $p \lthen \lnot q$, equivalent.
+	\item (b): $\lnot p \lthen q$, not equivalent.
+	\item (c): $\lnot q \lthen p$, not equivalent.
+	\item (d): $p\land q$, not equivalent.
+	\item (e): $q \lthen\lnot p$, equivalent, the contrapositive.
+	\item (f): $p \lor \lnot q$, not equivalent.
+	\item (g): $\lnot q \lor \lnot p$, equivalent, logically equivalent.
+\end{itemize} 
+
+\qs{}{
+	Express the operations $\lor$, $\lthen$, and $\liff$ using only $\lnot$ and $\land$.
+}
+\sol
+\begin{align*}
+	p \lor q &\equiv \lnot(\lnot (p \lor q)) \\
+		&\equiv \lnot (\lnot p \land \lnot q) \\
+	p \lthen q &\equiv \lnot p\lor q \\
+		&\equiv \lnot (\lnot (\lnot p\lor q))\\
+		&\equiv \lnot (p\land \lnot q)\\
+	p \liff q &\equiv (p\lthen q) \land (q\lthen p) \\
+		&\equiv (\lnot p\lor q) \land (\lnot q\lor p) \\
+		&\equiv \lnot(\lnot(\lnot p\lor q)) \land \lnot(\lnot(\lnot q\lor p)) \\
+		&\equiv \lnot(p\land \lnot q) \land \lnot(q\land \lnot p)
+\end{align*}
+
+\qs{Challenge}{
+	Consider the NAND operation $p\lnand q \equiv \lnot(p\land q)$ can you express $\land$, $\lor$, $\lnot$, and $\lthen$ using only $\lnand$ operations? Can you express using only $\lnot$ and $\lxor$?
+}
+\sol Generating expressions using only NANDs:
+\begin{align*}
+	\lnot p &\equiv \lnot(p \land p) \\
+		&\equiv p\lnand p \\
+	p\land q &\equiv (p\land q)\land(p\land q) \\
+		&\equiv \lnot (\lnot(p\land q)\land\lnot(p\land q)) \\
+		&\equiv \lnot((p\lnand q)\land (p\lnand q)) \\
+		&\equiv (p\lnand q)\lnand (p\lnand q) \\
+	p\lor q &\equiv \lnot(\lnot(p\lor q)) \\
+		&\equiv \lnot(\lnot p\land \lnot q) \\
+		&\equiv \lnot p\lnand\lnot q \\
+		&\equiv (p\lnand p)\lnand(q\lnand q) \\
+	p \lthen q &\equiv \lnot p\lor q \\
+		&\equiv \lnot (\lnot (\lnot p\lor q)) \\
+		&\equiv \lnot (p\land \lnot q) \\
+		&\equiv p\lnand\lnot q \\
+		&\equiv p\lnand(q\lnand q)
+\end{align*}
+These sick fucks had me testing and observing truth tables for two hours. I was suspicious at times, but I assumed there must be a solution\dots\\
+There is not. No matter how many XOR and NOT operations you apply, ultimately, you will always have 2 Falses and 2 Trues, or 4 Falses, or 4 Trues. \textbf{AHHHHHHHH}.
+
+\qs{}{
+	Show that $\lnot(p\lthen q) \not\equiv \lnot p\lthen \lnot q$.
+}
+\sol By counterexample. Suppose $p=\true\And q=\true$
+\begin{align*}
+\lnot(p\lthen q) &\equiv \lnot(\true\lthen\true) \\
+	&\equiv \lnot(\true) \\
+	&\equiv \false \\
+\lnot p\lthen\lnot q &\equiv \lnot\true\lthen\lnot\true \\
+	&\equiv \false\lthen\false \\
+	&\equiv \true \not\equiv\lnot(p\lthen q) \tag*{\qed}
+\end{align*}
+
+\qs{}{
+	Which of the following sentences have the opposite truth valuse as ``If I am worried then I did not sleep''?
+	\begin{enumerate}[label=(\alph*)]
+		\item if I am worried then I do not sleep.
+		\item if I am not worried then I do sleep.
+		\item If I do not sleep then I am worried.
+		\item I am worried and I do sleep.
+		\item If I do sleep then I am not worried.
+		\item I am worried or I do not sleep
+		\item I do not sleep or I am not worried.
+	\end{enumerate}
+}
+\sol 
+\begin{itemize}
+	\item Original: $p\lthen \lnot q$
+	\item (a): $p \lthen \lnot q$, No, equivalent statement.
+	\item (b): $\lnot p \lthen q$, No, True 3/4 times, same as our statement. Not possible to be opposite.
+	\item (c): $\lnot q \lthen p$, No, True 3/4 times.
+	\item (d): $p\land q$, Yes! $p\lthen\lnot q \equiv \lnot p\lor \lnot q\equiv \lnot(p\land q)$, exactly the opposite.
+	\item (e): $q \lthen\lnot p$, No, equivalent statement.
+	\item (f): $p \lor \lnot q$, No, True 3/4 times.
+	\item (g): $\lnot q \lor \lnot p$, No, equivalent statement.
+\end{itemize} 
+
+\qs{}{
+	Show that $$p\lthen(q\lor r)\equiv (p\land\lnot q)\lthen r.$$
+}
+\sol
+\begin{align*}
+	p\lthen (q\lor r) &\equiv \lnot p \lor (q\lor r) \\
+		&\equiv (\lnot p \lor q)\lor r \\
+		&\equiv \lnot(\lnot(\lnot p \lor q))\lor r \\
+		&\equiv \lnot(p \land\lnot q)\lor r \\
+		&\equiv (p\land q)\lthen r
+\end{align*}
+
+\qs{}{
+	Let $n$ be a positive integer. Find conditions that are:
+	\begin{enumerate}[label=(\alph*)]
+		\item necessary, but not sufficent for $n$ to be a multiple of 10.
+		\item sufficient but not necessary for $n$ to be divisible by 10.
+		\item necessary and sufficient for $n$ to be divisible by 10.
+	\end{enumerate}
+}
+\sol\begin{enumerate}[label=(\alph*)]
+	\item $n$ is a multiple of 10 $\lthen$ $n$ is necessarily even.
+	\item $n$ is a multiple of 50 $\lthen$ sufficient to conclude that $n$ is divisible by 10.
+	\item $n$'s last digit is a 0 $\liff$ $n$ is divisible by 10.
+\end{enumerate}
+
+\chapter{Week 2}
+\section{Lecture 4}
+\subsection*{Questions}
+\qs{}{
+	Write the following arguments symbolically
+	\begin{itemize}
+		\item If wages are raised, then buying increases.
+		\item If there is a depression, then buying does not increase.
+		\item Therefore, there is not a depression, or wages are not raised.
+	\end{itemize}
+	Decide whether this argument is valid, using three methods:
+	\begin{enumerate}[label=(\alph*)]
+		\item a truth table
+		\item rules of inference
+		\item configuring truth values
+	\end{enumerate}
+}
+\sol 
+\begin{gather*}
+	\Let p = \text{``Wages are raised.''} \\
+	\Let q = \text{``There is a depression.''} \\
+	\Let r = \text{``Buying increases.''} \\
+	\argument{
+		1. & p\lthen r & \\ 
+		2. & q\lthen\lnot r & \\
+	}{\lnot p\lor\lnot q &}
+\end{gather*}
+
+\sol (a)
+\begin{center}
+	\begin{tabular}{|ccc||cc||c|}
+		\hline
+		\multicolumn{3}{|c||}{Variables} & \multicolumn{2}{c||}{Premises} & \multicolumn{1}{c|}{Conclusion} \\
+		$p$ & $q$ & $r$ & $p\lthen r$ & $q\lthen\lnot r$ & $\lnot p\lor\lnot q$ \\ \hline
+		T & T & T & T & F & F \\
+		T & T & F & F & T & F \\ \cline{4-6}
+		T & F & T & T & T & T \\ \cline{4-6}
+		T & F & F & F & T & T \\
+		F & T & T & T & F & T \\ \cline{4-6}
+		F & T & F & T & T & T \\ \cline{4-6}
+		F & F & T & T & T & T \\ \cline{4-6}
+		F & F & F & T & T & T \\ \cline{4-6} \hline
+	\end{tabular}
+\end{center}
+Consider rows 3, 6, 7, and 8. Whenever all the premises are true, the conclusion is true. Therefore the argument is valid. 
+\begin{flushright}$\qed$\\\end{flushright}
+
+\sol (b)
+\begin{gather*}
+	\argument{
+		1. & p\lthen r 			 			& \text{} \\
+		2. & q\lthen\lnot r 			& \text{} \\
+		3. & r \lthen\lnot q 			& (\text{Contrapositive of 2.}) \\
+		4. & p \lthen\lnot q 			& (\text{Transitivity of 1. and 3.}) \\ 
+		5. & \lnot p \lor\lnot q	& (\text{Expansion of }\lthen) \\
+	}{\lnot p\lor\lnot q & \text{}}				 
+\end{gather*}
+Therefore, by using laws of inference, we've proven that the conclusion follows from the premises. Therefore the argument is valid.
+\begin{flushright}$\qed$\\\end{flushright}
+
+\sol (c)
+\begin{gather*}
+	\longintertext{Suppose the argument is invalid\\
+		Then, the premises are all true, and the conclusion is false.\\
+		So, $\lnot p \lor \lnot q$ is False.}
+	\argument{
+		1. & p\lthen r 													& \text{} \\
+		2. & q\lthen\lnot r 										& \text{} \\		
+		3. & \lnot (p\land q) \text{ is False} 	& \text{(De Morgan's Law)} \\
+		4. & p\land q \text{ is True} 					& \text{(Follows from 3.)} \\							
+		5. & p \text{ is True} 									& \text{(Specalisation)} \\			
+		6. & q \text{ is True} 									& \text{(Specalisation)} \\			
+		7. & r \text{ is True} 									& \text{(Follows from 1., given 5.)} \\			
+		8. & r \text{ is False}\qquad \contra 	& \text{(Follows from 2., given 6.)} \\
+	}{\lnot p\lor\lnot q &}
+\end{gather*}
+We've identified a contradiction! If we assume invalidity, we see contradictions arise. Which means our original assumption was incorrect. Which means the argument is valid.
+\begin{flushright}$\qed$\\\end{flushright}
+
+\qs{}{
+	Is the following argument valid? Again, use all three methods.
+	$$
+		\argument{
+			1. & p\lthen q &\\
+			2. & p\lor r &\\
+			3. & p\lor\lnot r &\\
+		}{q &}
+	$$
+}
+\sol (a)
+\begin{center}
+	\begin{tabular}{|ccc||ccc||c|l}
+		\cline{1-7}
+		\multicolumn{3}{|c||}{Variables} & \multicolumn{3}{c||}{Premises} & \multicolumn{1}{c|}{Conclusion} & \\ 
+		$p$ & $q$ & $r$ & $p\lthen q$ & $p\lor r$ & $p\lor\lnot r$ & $q$ \\ \cline{1-7}
+		T & T & T & T & T & T & T & $\leftarrow$\\
+		T & T & F & T & T & T & T & $\leftarrow$\\
+		T & F & T & F & T & T & F & \\
+		T & F & F & F & T & T & F & \\
+		F & T & T & T & T & F & T & \\
+		F & T & F & T & F & T & T & \\
+		F & F & T & T & T & F & F & \\
+		F & F & F & T & F & T & F & \\ \cline{1-7} 
+	\end{tabular}
+\end{center}
+Observing rows 1, and 2, we can see that when all the premises are True, the conclusion is True. Therefore the argument is valid.
+\begin{flushright}$\qed$\end{flushright}
+
+\sol (b)
+$$
+\argument{
+	1. & p\lthen q &\\
+	2. & p\lor r &\\
+	3. & p\lor\lnot r &\\
+	4. & \lnot r\lor p & (\text{Commutativity of 3.}) \\
+	5. & r \lthen p	& (\text{Logical Equivalence of 4.}) \\
+	6. & r \lthen q & (\text{Transitivity of 5. and 1.}) \\
+	7. & q & (\text{Division of Cases of 2. by 1., 6.}) \\
+}{q &}
+$$
+Therefore, we've shown using rules of inference that the Argument is logically valid.
+\begin{flushright}$\qed$\end{flushright}
+
+\sol (c) \\
+Suppose the argument is invalid\\
+Then, the premises are all true, and the conclusion is false.\\
+So, $q$ is False.
+$$
+	\argument{
+		1. & p\lthen q &\\
+		2. & p\lor r &\\
+		3. & p\lor\lnot r &\\
+		4. & p \text{ is False } & (\text{We know from 1. given } q) \\
+		5. & r \text{ is True } & (\text{We know from 2. given } p) \\
+		6. & r \text{ is False }\qquad\contra & (\text{We know from 3. given } p) \\
+	}{q &}
+$$
+We've identified a contradiction! If we assume invalidity, we see contradictions arise. Which means our original assumption was incorrect. Which means the argument is valid.
+
+\qs{}{
+	Is the following argument valid?
+	$$
+		\argument{
+			1. & p\lthen q & \\
+			2. & q\lthen r & \\
+			3. & \lnot p\lor\lnot q & \\
+		}{r &}
+	$$
+}	
+\sol I'll use rules of inference, since it's my weakest solution method.
+\begin{gather*}
+	\argument{
+		1. & p\lthen q & \\
+		2. & q\lthen r & \\
+		3. & \lnot p\lor\lnot q & \\
+		4. & p\lthen \lnot q\qquad\contra & (\text{Collection of 1.}\lor\text{ to }\lthen) \\
+	}{r &}
+\end{gather*}
+This is a contradiction, because $p$ cannot similateously imply $q$ and $\lnot q$, no matter what truth value it takes. Therefore the argument is invalid.
+\begin{flushright}$\qed$\end{flushright}
+
+\qs{}{
+	Determine whether or not the following argument is valid, using all three methods.
+	\begin{itemize}
+		\item If new messages are queued, then the filesystem is locked.
+		\item The filesystem is not locked if and only if the system is functioning normally.
+		\item New messages will not be sent to the message buffer only if they are queued.
+		\item New messages will not be sent to the message buffer.
+		\item Therefore, the system is functioning normally.
+	\end{itemize}
+}
+\sol \begin{gather*}
+	\longintertext{Let $p$ be the statement ``New messages are queued.''\\
+	Let $q$ be the statement ``The filesystem is locked.''\\
+	Let $r$ be the statement ``New messages are sent to the message buffer.''\\
+	Let $s$ be the statement ``The system is functioning normally.''\\
+	Then the argument can be written symbolically}
+	\argument{
+		1. & p\lthen q &\\
+		2. & \lnot q\liff s &\\
+		3. & p \lthen \lnot r &\\
+		4. & \lnot r &\\
+	}{s&\\}
+	\longintertext{Let's check this arguments validity with a truth table.}
+	\begin{array}{|cccc||cccc||c|l}
+		\cline{1-9}
+		\multicolumn{4}{|c||}{\text{Variables}} & \multicolumn{4}{c||}{\text{Premises}} & \multicolumn{1}{c|}{\text{Conclusion}} \\
+		p & q & r & s & p\lthen q & \lnot q\liff s & p \lthen \lnot r & \lnot r & s \\ \cline{1-9}
+		T & T & T & T & T & F & F & F & T & \\
+		T & T & T & F & T & T & F & F & F & \\
+		T & T & F & T & T & F & T & T & T & \\
+		T & T & F & F & T & T & T & T & F & \leftarrow \\
+		T & F & T & T & F & T & F & F & T & \\
+		T & F & T & F & F & F & F & F & F & \\
+		T & F & F & T & F & T & T & T & T & \\
+		T & F & F & F & F & F & T & T & F & \\
+		F & T & T & T & T & F & T & F & T & \\
+		F & T & T & F & T & T & T & F & F & \\
+		F & T & F & T & T & F & T & T & T & \\
+		F & T & F & F & T & T & T & T & F & \leftarrow \\
+		F & F & T & T & T & T & T & F & T & \\
+		F & F & T & F & T & F & T & F & F & \\
+		F & F & F & T & T & T & T & T & T & \\
+		F & F & F & F & T & F & T & T & F & \\ \cline{1-9}
+	\end{array}
+	\longintertext{Observe rows 4 and 12, where in all the premises are true, but the conclusion is false. Therefore, the argument is invalid.\\
+	Now let's prove this invalidity using rules of inference.}
+	\argument{
+		1. & p\lthen q &\\
+		2. & \lnot q\liff s &\\
+		3. & p\lthen \lnot r &\\
+		4. & \lnot r &\\
+		5. & s\lthen\lnot q & (\text{Falls from biconditional 2.}) \\
+		6. & q\lthen\lnot s & (\text{Contrapositve of 5.}) \\
+		7. & p\lthen\lnot s & (\text{Transitivity of 1. to 6.})\\
+		8. & \lnot p\lor q & (\text{Expansion of 1.}\lthen)\\ 
+		9. & \lnot p\lor\lnot r & (\text{Expansion of 3.}\lthen)\\
+	}{s&\\}
+	\longintertext{Therefore, we can see that the argument is invalid.\\
+	Finally, lets check in validity by searching for values for the variables.\\
+	Let's assume the argument is valid. All the premises are true, and the conclusion is false.\\
+	$s$ is false.}
+	\argument{
+		1. & p\lthen q &\\
+		2. & \lnot q\liff s &\\
+		3. & p \lthen \lnot r &\\
+		4. & \lnot r &\\
+		5. & s\lthen \lnot q & (\text{Falls from biconditional 2.})\\
+		6. & \lnot q \text{ is False} & (\text{Follows from 5.})\\
+		7. & q \text{ is True} & (\text{Follows from 6.})\\
+		8. & p \text{ is True} & (\text{Follows from 1. given }q)\\
+		9. & r \text{ is False} & (\text{Negation of 4.})\\
+	}{s&\\}
+\end{gather*}
+
+\newpage
+\section{Lecture 5}
+\subsection*{Questions}
+\qs{}{example}
+
+\newpage
+\section{Lecture 6}
+\subsection*{Questions}
+\qs{}{example}
+
+\chapter{Week 3}
+\section{Lecture 7}
+\subsection*{Questions}
+\qs{}{example}
+
+\newpage
+\section{Lecture 8}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 9}
+\subsection*{Questions}
+\qs{}{}
+
+\chapter{Week 4}
+\section{Lecture 10}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 11}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 12}
+\subsection*{Questions}
+\qs{}{}
+
+\chapter{Week 5}
+\section{Lecture 13}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 14}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 15}
+\subsection*{Questions}
+\qs{}{}
+
+\chapter{Week 6}
+\section{Lecture 16}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 17}
+\section*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 18}
+\subsection*{Questions}
+\qs{}{}
+
+\chapter{Week 7}
+\section{Lecture 19}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 20}
+\subsection*{Questions}
+\qs{}{}
+
+\newpage
+\section{Lecture 21}
+\subsection*{Questions}
+\qs{}{}
+
+
+\end{document}

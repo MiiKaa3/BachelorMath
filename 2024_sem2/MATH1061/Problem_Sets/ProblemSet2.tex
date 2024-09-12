@@ -70,10 +70,11 @@ So, the sum of any $n$ consecutive integers, where $n$ is odd, is always divisib
 \sol (b) 
 \proof Take $x=0.1$.
 \begin{gather*}
-  \ceil{0.1 + 0.5} = \ceil{0.6} = 1 \neq 2 = 1 + 1 = \ceil{0.1} + 1
+  \ceil{x + 0.5 } = \ceil{0.1 + 0.5} = \ceil{0.6} = 1 \neq 2 = 1 + 1 = \ceil{0.1} + 1 = \ceil{x} + 1
 \end{gather*}
 Therefore, for all $x\in\bbr,\ \ceil{x+0.5} = \ceil{x} + 1$ is not true. $\QED$ \\
-\hrule 
+
+For the sake of interest, let's examine the expressions and see under what circumstances they are equal or not.
 \proof In general, let's think of the number $x$ as being equal to $n + r$, where $n$ is an integer component, and $r$ is the real, decimal component. For example, $\pi = n + r$, where $n=3$ and $r=0.1415\dots$. By definition, $0 \leq r < 1$. With all this in mind, we can can consider
 \begin{gather*}
   \ceil{x + 0.5} = \ceil{n + r + 0.5}
@@ -87,7 +88,7 @@ Therefore, for all $x\in\bbr,\ \ceil{x+0.5} = \ceil{x} + 1$ is not true. $\QED$ 
   \tf \ceil{n + r + 0.5} = n + 2 \\
   n < n + r < n + 1 \\
   \tf \ceil{n + r} + 1 = n + 1 + 1 \\
-  \longintertext{Therefore, for $x\in\bbr: x = n + r,\ n\in\bbz, r\in\bbr$ if $0.5<r<1$ then $\ceil{x+0.5} = \ceil{x} + 1$. If $0 \leq r \leq 0.5$ then $\ceil{x+0.5} \neq \ceil{x} + 1$. \\ Which means the given statement, $\forall x\in\bbr, \ceil{x+0.5} = \ceil{x} + 1$ is false. $\QED$}
+  \longintertext{Therefore, for $x\in\bbr: x = n + r,\ n\in\bbz, r\in\bbr$ if $0.5<r<1$ then $\ceil{x+0.5} = \ceil{x} + 1$. However, if $0 \leq r \leq 0.5$ then $\ceil{x+0.5} \neq \ceil{x} + 1$ (see the (!!) tag). \\ Which means the given statement, $\forall x\in\bbr, \ceil{x+0.5} = \ceil{x} + 1$ is false. $\QED$}
 \end{gather*}
 
 \newpage
@@ -106,43 +107,52 @@ Therefore, for all $x\in\bbr,\ \ceil{x+0.5} = \ceil{x} + 1$ is not true. $\QED$ 
       (Hint: you may use a fact we mentioned in Lecture 12.)
   \end{enumerate}
 }
-% The definition of   a ≡ b mod d   is that   d | (a−b) => (a-b) = kd. d in N, a,b in Z
 \sol (a) \proof We'll use the definition,
 \begin{gather*}
-  3\equiv -4\Mod 7 
-    \implies 7\divs(3-(-4)) 
-    \implies 7\divs7
-    \equiv\true.
-  \intertext{Therefore, $3\equiv -4\Mod 7 \QED$}
+  \begin{aligned}
+    3\equiv -4\Mod 7 
+      &\iff 7\divs(3-(-4)) \\
+      &\iff 7\divs7 \equiv \true \\
+  \end{aligned}
+  \intertext{Therefore, by biconditional logical, $3\equiv -4\Mod 7$ is also true. $\QED$}
 \end{gather*}
 
 \sol (b) \proof Using the definition, suppose $x\in\bbz$, 
 \begin{gather*}
-  2x \equiv -14x \Mod 8
-    \implies 8 \divs (2x - (-14x))
-    \implies 8 \divs 16x
-    \equiv 8 \divs 8(2x)
-    \equiv\true.
-  \intertext{Therefore, $2x \equiv -14x \Mod 8, \forall x\in\bbz \QED$}
+  \begin{aligned}
+    2x \equiv -14x \Mod 8
+      &\iff 8 \divs (2x - (-14x)) \\
+      &\iff 8 \divs 16x \\
+      &\iff 8 \divs 8(2x) \equiv\true.
+  \end{aligned} \\
+  \intertext{Therefore, by biconditional logical, $2x \equiv -14x \Mod 8, \forall x\in\bbz \QED$}
 \end{gather*}
 
-\sol (c) \proof Suppose $a,b,c,d\in\bbn$ and $ac\equiv bc \Mod d$,
-\begin{gather*}
-  \implies d\divs (ac-bc)
-    \implies d\divs c(a-b)
-    \implies d\divs (a-b)
-    \implies a \equiv b \Mod d
-  \intertext{Therefore, given $a,b,c,d\in\bbz$ and $ac\equiv bc \Mod d$, $a\equiv b\Mod d \QED$}
-\end{gather*}
+\sol (c) I will disprove this by giving a counter example.
+\proof Suppose $a=1,b=2,c=3,d=3$,
+\begin{align*}
+  ac \equiv bc \Mod d &\iff 3 \equiv 6 \Mod 3 \\
+    &\iff 3 \divs (3 - 6) \\
+    &\iff 3 \divs (-3) \\
+    &\iff 3 \divs 3(-1) \equiv \true.
+  \longintertext{Therefore, by biconditional logic, $ac \equiv bc \Mod d$. \\ We expect $a,b,c,d\in\bbn, ac\equiv bc\Mod d$ to imply that $a\equiv b\Mod d$, however,}
+  a\equiv b\Mod d &\iff 1 \equiv 2 \Mod 3 \\
+    &\iff 3 \divs (1-2) \\
+    &\iff 3 \divs (-1) \\
+    &\iff 3 \divs -1 \equiv \false \tag*{\contra}
+  \longintertext{This counter example gives rise to a contradiction, therefore the statement that, given $a,b,c,d\in\bbn, ac\equiv bc\Mod d$ then $a \equiv b \Mod d$ is false. $\QED$}
+\end{align*}
 
-\sol (d) \proof Suppose $a,b,c,d\in\bbn$, $ac\equiv bc \Mod d$ and $\gcd(c,d) = 1$ \\
-$\implies c$ and $d$ are co-prime, and share no common factors. 
+\sol (d) \proof Suppose $a,b,c,d\in\bbn$, $ac\equiv bc \Mod d$ and $\gcd(c,d) = 1 \implies c$ and $d$ are co-prime, sharing no common factors.
 \begin{gather*}
-  \implies d\divs (ac-bc)
-    \implies d\divs c(a-b)
-    \implies d\divs (a-b)
-    \implies a \equiv b \Mod d
-  \intertext{Therefore, given $a,b,c,d\in\bbz$, $ac\equiv bc \Mod d$ and $\gcd(c,d)=1$, $a\equiv b\Mod d \QED$}
+  \begin{aligned}
+    ac\equiv bc \Mod d 
+      &\iff d \divs (ac - bc) \\
+      &\iff d \divs c(a - b) \\    
+  \end{aligned}
+  \longintertext{Since $d$ and $c$ are co-prime, $d\ndivs c$. \\ Therefore, $d \divs (a-b)$} 
+  a \equiv b \Mod d \iff d \divs (a - b) \equiv \true.
+  \longintertext{Therefore, by biconditional logic, $a\equiv b\Mod d$. \\ Thus, we can conclude that, given $a,b,c,d\in\bbn, ac\equiv bc\Mod d, \gcd(c,d) = 1$ then $a\equiv b \Mod d. \QED$}
 \end{gather*}
 
 \newpage
@@ -154,13 +164,13 @@ $\implies c$ and $d$ are co-prime, and share no common factors.
 }
 \sol
 \begin{gather*}
-  \begin{array}{lclcll}
-    \gcd(101,24)  & \implies & 101 = 24q + r  & \implies & q = \floor{\dfrac{101}{24}} = 4, & r = 101 - 24\cd4 = 5 \\ \\
-    \gcd(24, 5)   & \implies & 24 = 5q + r    & \implies & q = \floor{\dfrac{24}{5}} = 4,   & r = 24 - 5\cd4 = 4 \\ \\
-    \gcd(5, 4)    & \implies & 5 = 4q + r     & \implies & q = \floor{\dfrac{5}{4}} = 1,    & r = 5 - 4\cd1 = 1 \\ \\
-    \gcd(4, 1)    & \implies & 4 = 1q + r     & \implies & q = \floor{\dfrac{4}{1}} = 4,    & r = 4 - 1\cd4 = 0 \\ \\
-    \multicolumn{6}{c}{\gcd(1, 0) = 1} \\ \\
-    \multicolumn{6}{c}{\tf \gcd(101,24) = 1}
+  \begin{array}{rlcrcr}
+      & \gcd(101,24)  & \implies & 101  & = & 24\cd4 + 5  \\
+    = & \gcd(24, 5)   & \implies & 24   & = & 5\cd4 + 4   \\
+    = & \gcd(5, 4)    & \implies & 5    & = & 4\cd1 + 1   \\
+    = & \gcd(4, 1)    & \implies & 4    & = & 1\cd4 + 0   \\
+    = & \multicolumn{5}{l}{\gcd(1, 0) = 1}                \\
+      & \multicolumn{5}{c}{\tf \gcd(101,24) = 1}
   \end{array}
 \end{gather*}
 
@@ -196,7 +206,7 @@ We've seen this simply by considering the definition of $\gcd(a,b)$. In this spe
   \end{array} \\
   n = \frac{2^7\cd3^2\cd5^1}{2^{4}\cd3^{0}\cd5^{1}\cd7^{0}} = \frac{2^3\cd3^3\cd7^1}{2^{0}\cd3^{1}\cd5^{0}\cd7^{1}} \\
   \tf n = 2^3\cd3^2\cd5^0 = 2^3\cd3^2\cd7^0 \\
-  \intertext{Therefore, given the prime factorisation of $a$ and $b$, $\gcd\bracks{a,b}=2^3\cd3^2=72$}.
+  \intertext{Therefore, given the prime factorisation of $a$ and $b$, $\gcd\bracks{a,b}=2^3\cd3^2$.}
 \end{gather*}
 
 \sol (b) \\
@@ -220,7 +230,7 @@ In this specific example,
   \end{array} \\
   n = 2^7\cd3^2\cd5^1 \bracks{2^{0}\cd3^{1}\cd5^{0}\cd7^{1}} = 2^3\cd3^3\cd7^1\bracks{2^{4}\cd3^{0}\cd5^{1}\cd7^{0}} \\
   \tf n = 2^7\cd3^3\cd5^1\cd7^1 = 2^7\cd3^3\cd5^1\cd7^1 
-  \intertext{Therefore, given the prime factorisation of $a$ and $b$, $\lcm\bracks{a,b} = 2^7\cd3^3\cd5^1\cd7^1 = 120\,960$.}
+  \intertext{Therefore, given the prime factorisation of $a$ and $b$, $\lcm\bracks{a,b} = 2^7\cd3^3\cd5^1\cd7^1$.}
 \end{gather*}
 
 \sol (c) \\
@@ -311,16 +321,17 @@ $$
   $$
 }
 \sol
-\proof We will use the principle of strong mathematical induction to prove the formula. Let $P(n)$ be the predicate ``$a_n = \bracks{3^n + 1} / 2$.'' Let's consider the first 5 terms of the sequence
+\proof We will use the principle of strong mathematical induction to prove the formula. Let $P(n)$ be the predicate ``$a_n = \bracks{3^n + 1} / 2$.'' Let's consider the first 2 terms of the sequence
 $$
-  \begin{array}{c|rrrrr}
-    n                   & 0                   & 1                   & 2                   & 3                     & 4                     \\
-    a_n                 & 1                   & 2                   & 4(2) - 3(1) = 5     & 4(5) - 3(2) = 14      & 4(14) - 3(5) = 41     \\
-    \dfrac{3^n + 1}{2}  & \dfrac{3^0 + 1}{2}=1& \dfrac{3^1 + 1}{2}=2& \dfrac{3^2 + 1}{2}=5& \dfrac{3^2 + 1}{2}=14 & \dfrac{3^2 + 1}{2}=41 \\ 
+  \begin{array}{|c|r|r|}
+    n                   & 0                   & 1                     \\ \hline
+    a_n                 & 1                   & 2                     \\
+    \dfrac{3^n + 1}{2}  & \dfrac{3^0 + 1}{2}=1& \dfrac{3^1 + 1}{2}=2  \\
   \end{array}
 $$
-Basis Step: P(0), P(1), P(2), P(3), P(4) are True. We've proved this in the above table. \\
-Inductive Hypothesis: Suppose that, for some integer $k\geq4$, $P(0),\ P(1),\ P(2),\ \dots\ ,\ P(k)$ are true.
+Basis Step: P(0) and P(1) are True. We've proved this in the above table. \\
+Inductive Hypothesis: Suppose that, for some integer $k: 1 \leq k \leq n$, $P(0),\ P(1),\ P(2),\ \dots\ ,\ P(k)$ are true. \\
+Inductive Step: We seek to prove $P(n+1)$.
 \begin{gather*}
   a_{n+1} = 4a_{n} - 3a_{n-1} 
   \intertext{From the inductive step, $P(n)$ and $P(n-1)$ are true.}
