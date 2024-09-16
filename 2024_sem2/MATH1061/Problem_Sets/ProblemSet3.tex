@@ -1,0 +1,106 @@
+\documentclass[a4paper]{gtart}
+
+\usepackage[inner=34mm,outer=34mm,textheight=235mm]{geometry}
+
+\usepackage{fancyheadings, amsmath, amssymb, latexsym, enumerate}
+
+\hoffset=-1.2cm
+%\voffset=.4cm
+\textwidth=16.4cm
+\textheight=23.5cm
+
+\pagestyle{fancy}
+\lhead[]{{\sc MATH1061\,/\,7861}}
+\chead[]{{\sc Assignment 3}}
+\rhead[]{{\sc Semester 2/2024}}
+\lfoot[]{}
+\cfoot[]{}
+\rfoot[]{}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\true}{\mathrm{T}}
+\newcommand{\false}{\mathrm{F}}
+\newcommand{\nto}{\not \to}
+
+\renewcommand\refname{}%{\normalsize{\bf{PUBLICATIONS}}}
+\pagenumbering{arabic}
+
+\begin{document}
+
+Due \textbf{Friday 4 October at 5pm} on blackboard.
+
+\medskip%
+
+Marks will be deducted for sloppy working. Clearly state your assumptions and conclusions, and justify all steps in your work. \textbf{You may use any fact we have proved in class, but please be sure to specify the lecture number and problem number, to indicate which result(s) you have cited.}
+
+\begin{enumerate}
+
+\item[Q1]
+
+Prove the following set identities
+
+(1)
+\begin{align*}
+(A \cup B ) \times C = (A\times C) \cup (B\times C)
+\end{align*} 
+(2)
+\begin{align*}
+(A^{\operatorname{c}} \cap B)^{\operatorname{c}} \cap D = (D-A^{\operatorname{c}}) \cup (D-B)
+\end{align*}
+
+\hfill  \emph{(10 marks)}
+
+\medskip 
+
+\item[Q2]
+ Suppose $f:A\to B$ and $g:B\to A$ are functions, and $\operatorname{id}_A$ is the identity function on $A$, $\operatorname{id}_B$ is the identity function on $B$. In particular,  $\operatorname{id}_A(x)=x$ for any $x\in A$ and similarly $\operatorname{id}_B(x)=x$ for any $x\in B$.
+
+(1) Suppose $f\circ g= \operatorname{id}_B$ and  $g\circ f= \operatorname{id}_A$. Prove that both $f$ and $g$ are bijections.
+
+
+(2) Suppose $g$ is onto and  $f\circ g= \operatorname{id}_B$. Prove that $g\circ f= \operatorname{id}_A$.
+
+\hfill \emph{(15 marks)}
+
+\medskip 
+
+\item[Q3]
+(1) Show that $\mathbb{Z}^+\times \mathbb{Z}^+$ is in bijection with $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}$. Deduce that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}$ is countable. 
+
+
+(2) Show that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^+$ is in bijection with $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}\times \mathbb{Z}^+$. Deduce that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}\times \mathbb{Z}^+$ is countable. 
+
+
+(3) Is the set $\mathbb{Z}^
++\times\dots\times \mathbb{Z}^+$ (Cartesian product $n$ times) countable? A yes or no would suffice.
+
+\hfill  (15 marks)
+
+\medskip
+
+\item[Q4] (MATH 1061 ONLY)
+ 
+Let $A$ be the set of all logical statements. Define a relation on $A$: for $p,q\in A$, $p$ is related to $q$ if and only if $p\wedge q$ and $p\vee q$ have the same truth value. 
+
+Determine if the above relation is (1) reflexive, (2) symmetric, (3) transitive. If your answer is yes for any of the three properties, please prove your answer;  if your answer is no, please find a counterexample.
+ 
+
+
+
+
+\hfill  (10 marks)
+
+\item[Q4] (MATH 7861 ONLY)
+
+
+Define a relation on $\mathcal{P}(\mathbb{Z}^+)$: for $A,B\subseteq \mathbb{Z}^+$, $A$ is related to $B$ if and only if there exists $C\subseteq \mathbb{Z}^{+}$ such that $\{A,B,C\}$ forms a partition of $\mathbb{Z}^+$.
+
+Determine if the above relation is (1) reflexive, (2) symmetric, (3) transitive. If your answer is yes for any of the three properties, please prove your answer;  if your answer is no, please find a counterexample.
+ 
+\hfill  (10 marks)
+
+
+\end{enumerate}
+
+\end{document}

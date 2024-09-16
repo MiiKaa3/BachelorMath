@@ -1,0 +1,140 @@
+\documentclass[a4paper, 11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\title{\Huge{MATH1072}\\Advanced Multivariate Calculus and Ordinary Differential Equations}
+\author{\huge{Problem Set 3}\\\huge{Michael Kasumagic, s4430266}}
+\date{\huge{Due: 1pm, $30^\text{th}$ of September, 2024}}
+
+\begin{document}
+\begin{center}
+{\bf SCHOOL OF MATHEMATICS AND PHYSICS}
+\end{center}
+\centerline{\large\bf MATH1072}
+\vspace{.1cm}   
+\centerline{\large\bf Assignment 3}
+\vspace{.1cm}
+\centerline{\large\bf Semester Two 2024}
+
+\vspace{3mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\vspace{3mm}
+
+{\it Submit your answers - along with this sheet - by 1pm on the 30th of September, using the blackboard assignment submission system. Assignments must consist of a single PDF.
+}
+
+You may find some of these problems challenging. Attendance at weekly tutorials is assumed.
+
+\vspace{1cm}
+
+\begin{tabular}{rl}
+	Family name: & $\clk$asumagic \\
+	& \\
+	& \\
+	Given names: & $\calm$ichael $\cla$llan \\
+	& \\
+	& \\
+	Student number: & 44302669 \\
+	& \\
+	& \\
+\end{tabular}
+
+\hrule ${}^{}$\\
+Marker's use only
+\\
+\hrule ${}^{}$\\
+Each question marked out of 3.
+\begin{itemize}
+\item Mark of 0: You have not submitted a relevant answer, or you have no strategy present in your submission.\\
+\item Mark of 1: Your submission has some relevance, but does not demonstrate deep understanding or sound mathematical technique. \\ %This topic needs more attention!\\
+\item Mark of 2: You have the right approach, but need to fine-tune some aspects of your calculations.\\
+\item Mark of 3: You have demonstrated a good understanding of the topic and techniques involved, with well-executed calculations. \\ %A mathematician in the making?\\
+\end{itemize}
+\begin{tabular}{rrrrrrrr}
+Q1a & \hspace{2cm} & Q1b: & \hspace{2cm} & Q1c: & \hspace{2cm} & Q1d:  & \\[.5cm]
+Q2a:& \hspace{2cm} & Q2b: & \hspace{2cm} & Q2c: & \hspace{2cm} & Q3a:  & \\[.5cm]
+Q3b:& \hspace{2cm} & Q3c: & \hspace{2cm} & Q3d: & \hspace{2cm} & Q4:  & \\[.5cm]
+& \hspace{2cm} &  & \hspace{2cm} & & \hspace{2cm} &  & \\[.5cm]
+&&&&&&& \\
+Total (out of 36): &&&&&&& \\
+\end{tabular}
+
+\vfill
+\newpage
+
+\qs{Inital Value Problem}{
+	A population of Christmas beetles in Brisbane grows at a rate proportional to their current population. In the absence of external factors, the population will double in one week's time. On any given day, there is a net migration into the area of 10 beetles, 11 beetles are eaten by a local Magpie population, and 2 die of natural causes.
+	
+	\begin{enumerate}[label=(\alph*)]
+	\item Write a initial value problem to describe the change in population at time $t$, given that the initial population of Christmas beetles is $P(0) = 100$. You \textbf{must} write all the parameters in your model \textbf{explicitly}.
+	\item Solve the initial value problem from part (a) to find the population $P(t)$, at any time $t$.
+	\item Use MATLAB to plot your solution from part (b) from time $t = 0$ to $t = 100$. Will the beetle population survive?
+	\item Use MATLAB to plot the solution to part (a) from time $t = 0$ to $t = 100$ for 30 different initial populations of Christmas beetles from $P(0) = 20$ to $P(0) = 50$. Recall that initial population sizes must be integer valued. What can you say about the stability of the population of Christmas beetles from this plot?
+	\end{enumerate}
+}
+
+\newpage
+\qs{Fluid Flow}{
+	In this question, we take the cartesian variables as $x\equiv x_1,$ $y\equiv x_2,$ and $z\equiv x_3.$ We also take the basis vectors as $\ihat\equiv\ut{e}_1$, $\jhat\equiv\ut{e}_2,$ and $\khat\equiv\ut{e}_3$. \\
+	
+	In fluid mechanics, fluids which are \textbf{incompressible} and \textbf{inviscid} are referred to as \textbf{ideal}.
+	
+	Let $\ut{u}=\ut{u}(x,y,z,t)=u_1\ut{e}_1+u_2\ut{e}_2+u_3\ut{e}_3$ be the velocity of an ideal fluid at an arbitrary point in space and time. Its motion is governed by the Euler equation,
+	$$
+		\del{\ut{u}}{t} + (\ut{u}\cd\nabla)\ut{u} =\ut{F} - \frac{\nabla P}{\rho}.
+	$$
+	Here $P$ is the fluid's pressure, $\rho$ its constant density, $\ut{F}$ is the external force on the fluid at any given point, and
+	$$
+		(\ut{u}\cd\nabla)\ut{u} \equiv \sum_{i=1}^3 u_i\del{\ut{u}}{x_i}.
+	$$
+	Suppose the system is simplified in three ways:
+	\begin{itemize}
+		\item The flow is \textbf{steady}. $\ut{u}=\ut{u}(x,y,z)$ is not changing with time.
+		\item $\ut{u}$ is a conservative vector field. This occurs when the fluid is \textbf{irrotational}, though we won't elaborate on that here.
+		\item The external force is also conservative, with $\ut{f}=-\nabla V$, for some scalar potential $V = V(x_1,x_2,x_3)$.  
+	\end{itemize}
+	
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that in this case, 
+		$$
+			(\ut{u}\cdot\nabla)\ut{u}=\frac{1}{2}\nabla ||\ut{u}||^2.
+		$$ (Hint, you can assume that Clairaut's theorem applies)
+		\item Hence show that the Euler equation simplifies to
+		$$
+			\frac{1}{2}||\ut{u}||^2+V+\frac{P}{\rho}=\text{constant}
+		$$
+		\item If $V$ is a constant, what can you say about the relationship between a fluid's speed and its pressure?
+	\end{enumerate}
+}
+
+\newpage
+\qs{First Order Differential Equation}{
+	Consider Newton's second law of motion which states that,
+	\[ 
+		F = ma \tag{1}\label{eq:newtonsecond}
+	\]
+	or: net force, $F$, is equal to mass $m$, times acceleration $a$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Use equation \eqref{eq:newtonsecond} to write out the equation of motion of a particle of mass $m$, subject to a frictional force proportional to the square of the velocity $v(t)$, completely in terms of the particle's velocity $v(t)$.
+		\item Solve the first-order differential equation from part (a) to find the particle's velocity $v(t)$ at time $t$, with initial velocity $v_0$.
+		\item Use your solution from part (b) to solve for the position of the particle $x(t)$ at time $t$, with initial position $x_0$.
+		\item Use Euler's method with step size 0.1 to estimate the particle's position $x(0.5)$ at time $t = 0.5$ of your solution in part (b). Take $m = 1$, $\beta = 2$, $x_0 = 0$, and $v_0 = 1$. Calculate the error in using Euler's method, rounded to the fourth decimal.
+	\end{enumerate}
+}
+
+
+
+\newpage
+\qs{Line Integral}{
+	Evaluate the line integral
+	$$
+		\int_C x e^y\ \d{s},
+	$$
+	where $C$ is the line segment from $(2,0)$ to $(5,4)$.
+}
+
+
+\end{document}
