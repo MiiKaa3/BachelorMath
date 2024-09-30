@@ -74,6 +74,140 @@ Total (out of 36): &&&&&&& \\
 	\item Use MATLAB to plot the solution to part (a) from time $t = 0$ to $t = 100$ for 30 different initial populations of Christmas beetles from $P(0) = 20$ to $P(0) = 50$. Recall that initial population sizes must be integer valued. What can you say about the stability of the population of Christmas beetles from this plot?
 	\end{enumerate}
 }
+\sol (a) We'll answer this by breaking down the given description, and making additions to the model explicitly on each step.
+\begin{center}
+	``A population of Christmas beetles in Brisbane grows\\ at a rate proportaional to their current population.''
+\end{center}
+So, the rate of change with resepct to time, $\dps{\dd{t}}$, of the population of Christmas beetles in Brisbane, $P$, is proportaional to itself. Let the constant of proportionality be $k\in\bbr$. We can then write
+$$
+	\dyd[P]{t} = kP
+$$
+\begin{center}
+	``In the absense of external factors,''
+\end{center}
+This doesn't add anything to the model, but it shows that the Malthusian model we've recorded so far will be sufficent for our purposes.
+\begin{center}
+	``the populaiton will double in one week's time''
+\end{center}
+This helps us establish a frame of reference for $t$. Let $t$ be the number of weeks that have passed since the start of recording. It also allows us to determine the value of the growth constant, $k$, since
+$$
+	2P(0) = P(1),\ P(1) = P(0)e^{k\cd1} \iff 2P(0) = P(0)e^k \iff 2 = e^k \iff k=\ln2
+$$
+So our model is now
+$$
+	\dyd[P]{t} = \ln2\cd P
+$$
+\begin{center}
+	``On any given day, there is a net migration in the area of 10 beetles.''
+\end{center}
+This means that every week 70 beetles migrate into the area. Regardless of $\ln2\cd P$, 70 beetles are added.
+$$
+	\dyd[P]{t} = \ln2\cd P + 70
+$$
+\begin{center}
+	``On any given day, \dots11 beetles are eaten by a local Magpie population,''
+\end{center}
+Similarly, this means that each week, 77 beetles will be lost from the population, which again affects the RHS of our model
+$$
+	\dyd[P]{t} = \ln2\cd P + 70 - 77
+$$
+\pagebreak
+\begin{center}
+	``On any given day, \dots2 die of natural causes.''
+\end{center}
+Finally, 14 beetles will be removed from the population each week,
+$$
+	\dyd[P]{t} = \ln2\cd P + 70 - 77 - 14
+$$
+Finally, this leaves us with a full expression of the IVP:
+$$
+	\left\lbrace \begin{array}{l}
+		\dps{\dyd[P]{t} = \ln2\cd P - 21} \\ \\ P(0) = 100
+	\end{array} \right.
+$$
+
+\sol (b) This is a linear first-order ODE, so we can rewrite it in the form $P' + a(t)P = b(t)$.
+\[
+	\Rightarrow \dyd[P]{t} - \ln2\cd P = -21 \tag*{(1)}
+\]
+where, $a(t) = -\ln2$ and $b(t) = -21$. We seek the intergrating factor, $I(t)$, and note that
+$$
+	I(t) = \exp\bracks{\int a(t)\d t} = \exp\bracks{-\int\ln2\ \d t} = \exp\bracks{-\ln2\cd t}
+$$
+Now, we can multiply through (1) by $I(x)$
+$$
+	\exp\bracks{-\ln2\cd t}\dyd[P]{t} - \ln2\cd P\exp\bracks{-\ln2\cd t} = -21\exp\bracks{-\ln2\cd t}
+$$
+We can apply the product rule, $fg' + f'g = (fg)'$, to the LHS, where $f=\exp\bracks{-\ln2\cd t}$, and $g=P$.
+$$
+	\dd{t}\bracks{P\exp\bracks{-\ln2\cd t}} = -21\exp\bracks{-\ln2\cd t}
+$$
+Finally, we can integrate both sides with respect to $t$.
+$$
+	\int\dd{t}\bracks{P\exp\bracks{-\ln2\cd t}}\d t = \int -21\exp\bracks{-\ln2\cd t}\d t \iff P\exp\bracks{-\ln2\cd t} + c_1 = \frac{21}{\ln2}\exp(-\ln2\cd t) + c_2
+$$
+Now we rearange for $P$
+$$
+	P = \frac{\dfrac{21}{\ln2}\exp(-\ln2\cd t) + \hat{c}}{\exp\bracks{-\ln2\cd t}},
+$$
+where $(\hat{c} = c_2-c_1)\in\bbr$, and simplify, finding our general solution,
+$$
+	P = \frac{21}{\ln2} + \hat{c}\exp\bracks{\ln2\cd t} = \frac{21}{\ln2}+\hat{c}2^t.
+$$
+Now, we'll include the inital conditions in the model, to finish this off.
+$$
+	P(0) = 100 = \frac{21}{\ln2}+\hat{c}2^0 = \frac{21}{\ln2}+\hat{c} \iff \hat{c} = 100 - \frac{21}{\ln2}
+$$
+Therefore, the solution to this IVP is
+$$
+	P(t) = \frac{21}{\ln2}+\bracks{100 - \frac{21}{\ln2}}2^t.
+$$
+
+\pagebreak
+\sol (c) We will plot our solution from part (b) from $t=0$ to $t=100$.\\
+\verb|PS3_script1.m| \hrule
+\begin{lstlisting}{Matlab}
+P = @(t) (21/log(2)) + (100 - (21/log(2)))*2.^t;
+t = 0:1:100;
+y = P(t);
+plot(t,y, 'bx',  "LineWidth", 4);
+title("$P(t) = \frac{21}{\ln2} + \left( 100 - \frac{21}{\ln2}) \right)2^t$"...
+		, "Interpreter", "latex", "FontSize", 48);
+xlabel("$t$", "FontSize", 24, "Interpreter", "latex");
+ylabel("$P$", "FontSize", 24, "Interpreter", "latex");
+\end{lstlisting}
+\verb|Output:|\\
+\begin{center}
+	\includegraphics[width=0.75\textwidth]{PS3_fig1.png}
+\end{center}
+It seems that the beatle population will survive. According to our model, $P(100)\approx 8.8\times10^{31}$. Which means, after 100 weeks, a little under 2 years, the Christmas beetle population in Brisbane is predicted to weigh $8.8\times10^{27}$kg, about 4.5 times heavier then the planet Jupiter.
+
+\pagebreak
+\sol (d) We will plot our solution, but with inital population ranging between from $P_0=20$ to $P_0=50$.\\
+\verb|PS3_script2.m| \hrule
+\begin{lstlisting}{Matlab}
+hold on;
+for inital_pop = 20:1:50
+	P = @(t) (21/log(2)) + (inital_pop - (21/log(2)))*2.^t;
+	t = 0:1:100;
+	y = P(t);
+	plot(t,y, 'r',  "LineWidth", 1);
+end
+
+title("$P(t) = \frac{21}{\ln2} + \left( P_0 - \frac{21}{\ln2}) \right)2^t$"...
+	, "Interpreter", "latex", "FontSize", 48);
+xlabel("$t$", "FontSize", 24, "Interpreter", "latex");
+ylabel("$P$", "FontSize", 24, "Interpreter", "latex");
+\end{lstlisting}
+\verb|Output:|\\
+\begin{center}
+	\includegraphics[width=0.75\textwidth]{PS3_fig2.png}
+\end{center}
+We can clearly see that there is an unstable equilibrium! In fact, upon analysis of the ODE, we can conclude that there is an equilibrium when $p_0=21/\ln2$, and confirm this:
+$$
+	P(t) = \frac{21}{\ln2} + \bracks{\frac{21}{\ln2} - \frac{21}{\ln2}}2^t = \frac{21}{\ln2} \implies \dyd[P]{t}=0,\ \forall t
+$$
+Of course, the inital population must be an integer, and so could never truly equal $21/\ln2$ initally, but the equilibrium is still there, theoretically.
 
 \newpage
 \qs{Fluid Flow}{
@@ -93,7 +227,7 @@ Total (out of 36): &&&&&&& \\
 	\begin{itemize}
 		\item The flow is \textbf{steady}. $\ut{u}=\ut{u}(x,y,z)$ is not changing with time.
 		\item $\ut{u}$ is a conservative vector field. This occurs when the fluid is \textbf{irrotational}, though we won't elaborate on that here.
-		\item The external force is also conservative, with $\ut{f}=-\nabla V$, for some scalar potential $V = V(x_1,x_2,x_3)$.  
+		\item The external force is also conservative, with $\ut{F}=-\nabla V$, for some scalar potential $V = V(x_1,x_2,x_3)$.  
 	\end{itemize}
 	
 	\begin{enumerate}[label=(\alph*)]
@@ -108,6 +242,48 @@ Total (out of 36): &&&&&&& \\
 		\item If $V$ is a constant, what can you say about the relationship between a fluid's speed and its pressure?
 	\end{enumerate}
 }
+\sol (a)
+We seek to show that $(\ut{u}\cd\grad)\ut{u} = \frac{1}{2}\grad\Mag{\ut{u}}^2$.
+\proof
+\begin{align*}
+	\ut{u} &= u_1\ut{e}_1 + u_2\ut{e}_2 + u_3\ut{e}_3 \\
+	\iff\Mag{\ut{u}} &= \sqrt{u_1^2 + u_2^2 + u_3^2} \\
+	\iff\Mag{\ut{u}}^2 &= u_1^2 + u_2^2 + u_3^2 \\
+	\iff\grad\Mag{\ut{u}}^2 &= \grad\bracks{u_1^2 + u_2^2 + u_3^2} \\
+		&= \bracks{\del{}{x_1}\ut{e_1} + \del{}{x_2}\ut{e_2} + \del{}{x_3}\ut{e_3}}\bracks{u_1^2 + u_2^2 + u_3^2} \\
+		&= \del{\bracks{u_1^2 + u_2^2 + u_3^2}}{x_1}\ut{e_1} + \del{\bracks{u_1^2 + u_2^2 + u_3^2}}{x_2}\ut{e_2} + \del{\bracks{u_1^2 + u_2^2 + u_3^2}}{x_3}\ut{e_3} \\
+	\intertext{We'll take the partial derivatives. $u_j$ is zeroed by $x_i$ if $i\neq j$. And since $u_i$ are functions of $x_i$, they are chain ruled}
+	\grad\Mag{\ut{u}}^2 &= 2u_1\del{u_1}{x_1}\ut{e_1} + 2u_2\del{u_2}{x_2}\ut{e_2} + 2u_3\del{u_3}{x_3}\ut{e_3} \\
+		&= 2\bracks{u_1\del{u_1}{x_1}\ut{e_1} + u_2\del{u_2}{x_2}\ut{e_2} + u_3\del{u_3}{x_3}\ut{e_3}} \\
+	\tf LHS=\frac{1}{2}\grad\Mag{\ut{u}}^2 &= u_1\del{u_1}{x_1}\ut{e_1} + u_2\del{u_2}{x_2}\ut{e_2} + u_3\del{u_3}{x_3}\ut{e_3} \\
+		&= \sum_{i=1}^{3} \bracks{u_i\del{u_i}{x_i}\ut{e_i}} \\
+		&= \sum_{i=1}^{3} \bracks{u_i\del{\ut{u}}{x_i}} \\
+		&= (\ut{u}\cd\grad)\ut{u} = RHS \tag*{\qed}
+\end{align*}
+
+\sol (b) We will start by taking the Euler equation, as in the question box above, and substituting the result we proved in (a)
+\begin{gather*}
+	\del{\ut{u}}{t} + (\ut{u}\cd\nabla)\ut{u} =\ut{F} - \frac{\nabla P}{\rho} \\
+	\iff \del{\ut{u}}{t} + \frac{1}{2}\grad\Mag{\ut{u}}^2 =\ut{F} - \frac{\nabla P}{\rho}
+	\intertext{Next, since the external force is conservative, we'll substitute $\ut{F}=-\grad V$, where $V$ is some scalar potential.}
+	\iff \del{\ut{u}}{t} + \frac{1}{2}\grad\Mag{\ut{u}}^2 =-\grad V - \frac{\nabla P}{\rho} \\
+	\iff \frac{1}{2}\grad\Mag{\ut{u}}^2 + \grad V + \frac{\nabla P}{\rho} =- \del{\ut{u}}{t}
+	\intertext{Now, since the flow is steady, $\dyd[\ut{u}]{t}=0$}
+	\iff \frac{1}{2}\grad\Mag{\ut{u}}^2 + \grad V + \frac{\grad P}{\rho} = 0
+	\intertext{Finally, we'll take out the $\grad$}
+	\iff \grad\bracks{\frac{1}{2}\Mag{\ut{u}}^2 + V + \frac{P}{\rho}} = 0
+	\intertext{The gradient of a function can only be $0$ if the function itself is equal to some constant. Thus we've shown that, under these conditions, the Euler equation simplies to}
+	\frac{1}{2}\Mag{\ut{u}}^2 + V + \frac{P}{\rho} = \text{constant}
+\end{gather*}
+
+\sol (c) If $V$ is constant, we can simplify the model.
+$$
+	\frac{1}{2}\Mag{\ut{u}}^2 + \frac{P}{\rho} = C
+$$
+where $C$ is some constant. \\
+
+The two remaining terms are related in a such a way that, if fluid speed, $\Mag{\ut{u}}$, were to increase, then the pressure, $P$, must decrease to compenstate, and keep the sum equal to the constant $C$; and vice versa. Thus, if $V$ is constant, there is an inverse relationship between the speed of an ideal fluid and its pressure.
+
 
 \newpage
 \qs{First Order Differential Equation}{
@@ -120,9 +296,123 @@ Total (out of 36): &&&&&&& \\
 		\item Use equation \eqref{eq:newtonsecond} to write out the equation of motion of a particle of mass $m$, subject to a frictional force proportional to the square of the velocity $v(t)$, completely in terms of the particle's velocity $v(t)$.
 		\item Solve the first-order differential equation from part (a) to find the particle's velocity $v(t)$ at time $t$, with initial velocity $v_0$.
 		\item Use your solution from part (b) to solve for the position of the particle $x(t)$ at time $t$, with initial position $x_0$.
-		\item Use Euler's method with step size 0.1 to estimate the particle's position $x(0.5)$ at time $t = 0.5$ of your solution in part (b). Take $m = 1$, $\beta = 2$, $x_0 = 0$, and $v_0 = 1$. Calculate the error in using Euler's method, rounded to the fourth decimal.
+		\item Use Euler's method with step size 0.1 to estimate the particle's position $x(0.5)$ at time $t = 0.5$ of your solution in part (b). Take $m = 1$, $k = 2$, $x_0 = 0$, and $v_0 = 1$. Calculate the error in using Euler's method, rounded to the fourth decimal.
 	\end{enumerate}
 }
+\sol (a) Suppose a particle has mass $m$ and velocity $v$, which is itself a funciton of time $t$. Acceleration is just the derivative of velocity with respect to time, thus, the net force acting on it, can be expressed
+$$
+	F = m\dyd[v]{t}
+$$
+Next, we consider the frictional force, $F_\text{f}$, which is proportaional to the velocity squared. Let $k$ be the constant of proportionality.
+$$
+	F_{\text{f}} = -kv^2
+$$
+The sign is negative because friction acts against the motion of the particle. The only force acting on the particle, which means, by Newton's Second Law, net forces cancel out.
+$$
+	F - F_{\text{f}} = 0 \iff F = F_{\text{f}}
+$$
+Subsituting the $F$'s in terms of $v$'s,
+$$
+	m\dyd[v]{t} = -kv^2
+$$
+Rearranging,
+$$
+	\dyd[v]{t} = -\frac{k}{m}v^2
+$$
+
+\sol(b) We can start by noting that the ODE has an equilibrium when
+$$
+	v=0 \implies \dyd[v]{t},\ \forall t
+$$
+$v=0$ is a singular solution to the ODE. \\
+We will now proceed with the restriction $v\neq 0$. \\
+This ODE is seperable, that is, it can be expressed
+$$
+	\dyd[v]{t} = f(t)g(v)
+$$
+In our case, 
+$$
+	f(t) = -\frac{k}{m},\qquad g(v) = v^2
+$$
+From this position, we can start to find the general solution.
+\begin{align*}
+	\dyd[v]{t} &= f(t)g(v) \\
+	\frac{1}{g}\dyd[v]{t} &= f(t) \\
+	\int\frac{1}{g}\dyd[v]{t}\d t &= \int f(t)\d t \\
+	\int v^{-2}\d v &= \int -\frac{k}{m} \d t \\
+	\frac{-1}{v} + c_1 &= -\frac{k}{m} \int \d t \\
+		&= -\frac{k}{m}t + c_2 \\
+	\frac{1}{v} &= \frac{k}{m}t + \hat{c},\ (\hat{c} = c_1 - c_2)\in\bbr \\
+	\tf v &= \frac{1}{\frac{k}{m}t + \hat{c}} \\
+		&= \frac{m}{kt + \hat{c}m}
+\end{align*}
+Now, we'll solve for $\hat{c}$, given our inital condition, $v(0)=v_0$
+\begin{align*}
+	v(0) = v_0 &= \frac{m}{k(0) + \hat{c}m} \\
+	\hat{c}m &= \frac{m}{v_0} \\
+	\hat{c} &= \frac{1}{v_0}
+\end{align*}
+Next, we'll subtitute this back into our general solution.
+$$
+	v(t) = \frac{m}{kt + \frac{1}{v_0}m}
+$$
+Finally, we'll simplify and present the particular solution to the ODE
+$$
+	v(t) = \frac{mv_0}{kv_0t + m}
+$$
+
+\sol (c) Position, $x(t)$ can be found by integrating velocity with respect to $t$.
+$$
+	x(t) = \int v(t)\d x = \int \frac{mv_0}{kv_0t + m}\d t = \frac{mv_0}{kv_0}\ln\abs{kv_0 t + m} + \hat{c} = \frac{m}{k}\ln\abs{kv_0 t + m} + \hat{c} 
+$$
+We'll use the inital condition $x(0)=x_0$ to solve for $c$,
+$$
+	x(0) = x_0 = \frac{m}{k}\ln\abs{kv_0(0) + m} + \hat{c} = \frac{m}{k}\ln\abs{m}+\hat{c} \iff \hat{c} = x_0 - \frac{m}{k}\ln\abs{m} 
+$$
+Substituting back in,
+$$
+	x(t) = \frac{m}{k}\ln\abs{kv_0 t + m} + x_0 - \frac{m}{k}\ln\abs{m} = \frac{m}{k}\bracks{\ln\abs{kv_0t + m} - \ln\abs{m}} + x_0
+$$
+Which means the final solution for position is
+$$
+	x(t) = x_0 + \frac{m}{k}\ln\abs{\frac{kv_0t + m}{m}}
+$$
+
+\sol (d) Euler's method states (with notation adapted for this specific problem)
+$$
+	x_{n+1} = x_{n} + f(t_{n}, v_{n})\D t
+$$
+Given $\D t =0.1$ and $x'(t) = f(t_n, v_n) = v(t)$, we can write
+$$
+	x_{n+1} = x_{n} + 0.1\frac{v_0m}{m+kv_0t_n}
+$$
+Taking $m=1$, $k=2$, $x_0=0$ and $v_0=1$, we can write our solution, and Euler method as
+$$
+	v(t) = \frac{1}{2t + 1},\qquad x_{n+1} = x_{n} + \frac{1}{10+20t_n}
+$$
+Now, given $\D t = 0.1$, the $t$ values we're interested in are 
+$$
+	t_0 = 0,\qquad t_1 = 0.1,\qquad t_2 = 0.2,\qquad t_3 = 0.3,\qquad t_4 = 0.4,\qquad t_5 = 0.5 
+$$
+We are no ready to make our Euler method itterations
+\begin{gather*}
+	t_0 = 0.0: x_0 = 0 \tag*{(\text{Given})} \\
+	t_1 = 0.1: x_1 = x_0 + \frac{1}{10+20t_0} = 0 + \frac{1}{10+20(0.0)} = \frac{1}{10} = 0.1 \\
+	t_2 = 0.2: x_2 = x_1 + \frac{1}{10+20t_1} = \frac{1}{10} + \frac{1}{10+20(0.1)} = \frac{11}{60} \approx 0.1833 \\
+	t_3 = 0.3: x_3 = x_2 + \frac{1}{10+20t_2} = \frac{11}{60} + \frac{1}{10+20(0.2)} = \frac{107}{420} \approx 0.2548 \\
+	t_4 = 0.4: x_4 = x_3 + \frac{1}{10+20t_3} = \frac{107}{420} + \frac{1}{10+20(0.3)} = \frac{533}{1680} \approx 0.3173 \\
+	t_5 = 0.5: x_5 = x_4 + \frac{1}{10+20t_4} = \frac{533}{1680} + \frac{1}{10+20(0.4)} = \frac{1879}{5040} \approx 0.3728 \\
+\end{gather*}
+Therefore, using Euler's Method, we find that $x(0.5)\approx 0.3728$. \\
+Let's now find the exact value of $x(0.5)$. We will use the $x(t)$ we found eariler, and substitute the fixed $m$, $k$, $x_0$, and $v_0$.
+$$
+	x(0.5) = \frac{1}{2}\ln\abs{2(0.5) + 1} = \frac{1}{2}\ln2 \approx 0.3466
+$$
+Finally, let's find the error. Let $\bar{x}$ be the value calcualted using Euler's method, and let $x$ be the true position of the particle. 
+$$
+	\veps = \abs{x(0.5) - \bar{x}(0.5)} = \abs{\frac{1}{2}\ln2 - \frac{1879}{5040}} \approx 0.0262
+$$
+
 
 \newpage
 \qs{Line Integral}{
@@ -132,5 +422,67 @@ Total (out of 36): &&&&&&& \\
 	$$
 	where $C$ is the line segment from $(2,0)$ to $(5,4)$.
 }
+\sol
+\begin{gather*}
+	\longintertext{Our first goal will be to find some $\ut{r}(t)$ which correctly expresses the path $C$. \\ First, we note that when $t=0,\ \ut{r}=(2,0)$. \\ Second, we note that at $t=1,\ \ut{r}=(5,4)$. \\ Since, this is path is a straight line, we can use a linear interpolation,}
+	\begin{aligned}
+		\ut{r}(t) &= \bracks{x(t), y(t)} \\
+			&= \bracks{x_0 + t\D x, y_0 + t\D y}	\\
+			&= \bracks{2 + t(5-2), 0 + t(4-0)} \\
+			&= \bracks{3t + 2, 4t}
+	\end{aligned}
+	\intertext{Next, we should find the derivative of $\ut{r}$ with respect for $t$.}
+	\begin{aligned}
+		\dyd[\ut{r}]{t} &= \bracks{\dd{t}\bracks{3t+2}, \dd{t}\bracks{4t}} \\
+			&= \bracks{3, 4}
+	\end{aligned}
+	\intertext{Finally, we'll find the magnitude of the derivative.}
+	\abs{\abs{\dyd[\ut{r}]{t}}}	= \sqrt{3^2 + 4^2} 
+		= \sqrt{9 + 16} 
+		= \sqrt{25} 
+		= 5
+	\intertext{We note that}
+	\d s = \abs{\abs{\dyd[\ut{r}]{t}}}\d t = 5\d t
+	\intertext{and proceed to make the subsitutions into the line integral we seek to evaluate}
+	\begin{aligned}
+		\int_C x\exp(y)\ \d s &= \int_{0}^{1} x(t)\exp(y(t))5\ \d t \\
+			&= \int_0^1 5(3t+2)\exp\bracks{4t}\ \d t \\
+			&= 5\int_0^1 (3t+2)\exp\bracks{4t}\ \d t \\
+			&= 5\bracks{2\int_0^1 \exp\bracks{4t} \d t + 3\int_0^1 t\exp\bracks{4t} \d t} \\
+			&= 5\bracks{2A + 3B}
+	\end{aligned}
+	\intertext{Let's first evaluate the integral $A$, we'll use a $u{-}$substitution and the identity $f'(x)=\exp(x)=f(x)$.}
+	\begin{aligned}
+		A &= \int_0^1 \exp(4t)\d t \\
+		\Let u &= 4t \\
+		\Then \dyd[u]{t} &= 4 \implies \d t = \frac{1}{4}\d u \\
+		\tf A &= \frac{1}{4}\int_{4\cd0}^{4\cd1} \exp(u)\d u \\
+			&= \left. \frac{1}{4}\cd \exp(u) \right|_{0}^{4} \\
+			&= \frac{1}{4}\bracks{\exp(4) - \exp(0)} \\
+		\tf A = \int_0^1 \exp(4t)\d t &= \frac{1}{4} \bracks{\exp(4) - 1}
+	\end{aligned}
+	\intertext{Next, let's evaluate the integral $B$, where we'll use integration by parts, and the previous result.}
+	\begin{align*}
+		B &= \int_0^1 t\exp(4t)\d t \\ 
+			&= \int_0^1 uv'\d t \\
+			&= \left. uv \right|_0^1 - \int_0^1 u'v\d t \\
+		u = t &\Rightarrow u' = 1 \\
+		v' = \exp(4t) &\Rightarrow v = \frac{1}{4}\exp(4t) \\
+		\left. uv \right|_0^1 - \int_0^1 u'v\d t &= \left. t\frac{1}{4}\exp(4t) \right|_0^1 - \int_0^1 1\cd\frac{1}{4}\exp(4t)\d t \\
+			&= \frac{1}{4}\bracks{1\exp(4\cd1) - 0\exp(4\cd0)} - \frac{1}{4}\int_0^1\exp(4t)\d t \\
+			&= \frac{1}{4}\exp(4) - \frac{1}{4}\bracks{\frac{1}{4}\bracks{\exp(4)-1}} \tag*{(\text{Previous Result})} \\
+			&= \frac{4}{16} \exp(4) - \frac{1}{16}\exp(4) + \frac{1}{16} \\
+		\tf B = \int_0^1 t\exp(4t)\d t &= \frac{3}{16}\exp(4) + \frac{1}{16}
+	\end{align*}
+	\intertext{Let's bring it all together now}
+	\begin{aligned}
+		\int_C x\exp(y)\ \d s &= 5(2A + 3B) \\
+			&= 5\bracks{2\bracks{\frac{1}{4} \bracks{\exp(4) - 1}} + 3\bracks{\frac{3}{16}\exp(4) + \frac{1}{16}}} \\
+			&= 5\bracks{\bracks{\frac{1}{2} \bracks{\exp(4) - 1}} + \frac{9}{16}\exp(4) + \frac{3}{16}} \\
+			&= 5\bracks{\frac{8}{16}\exp(4) + \frac{9}{16}\exp(4) + \frac{3}{16} - \frac{8}{16}} \\
+			&= 5\bracks{\frac{17}{16}\exp(4) - \frac{5}{16}} \\
+		\tf\int_C x\exp(y)\d s &= \frac{85}{16}\exp(4) - \frac{25}{16} \approx 288.4902
+	\end{aligned}
+\end{gather*}
 
 \end{document}
