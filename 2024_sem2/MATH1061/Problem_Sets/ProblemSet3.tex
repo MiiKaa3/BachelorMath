@@ -1,106 +1,300 @@
-\documentclass[a4paper]{gtart}
+\documentclass[a4paper, 11pt]{report}
 
-\usepackage[inner=34mm,outer=34mm,textheight=235mm]{geometry}
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
 
-\usepackage{fancyheadings, amsmath, amssymb, latexsym, enumerate}
+\newcommand{\bisig}{\mathbin{\sigma}}
 
-\hoffset=-1.2cm
-%\voffset=.4cm
-\textwidth=16.4cm
-\textheight=23.5cm
-
-\pagestyle{fancy}
-\lhead[]{{\sc MATH1061\,/\,7861}}
-\chead[]{{\sc Assignment 3}}
-\rhead[]{{\sc Semester 2/2024}}
-\lfoot[]{}
-\cfoot[]{}
-\rfoot[]{}
-
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\true}{\mathrm{T}}
-\newcommand{\false}{\mathrm{F}}
-\newcommand{\nto}{\not \to}
-
-\renewcommand\refname{}%{\normalsize{\bf{PUBLICATIONS}}}
-\pagenumbering{arabic}
+\title{\Huge{MATH1061}\\Discrete Mathematics I}
+\author{\huge{Problem Set 3}\\\huge{Michael Kasumagic, sID\#: 44302669}}
+\date{\huge{Due: 5pm, $4^\text{th}$ of October, 2024}}
 
 \begin{document}
+\maketitle
 
-Due \textbf{Friday 4 October at 5pm} on blackboard.
-
-\medskip%
-
-Marks will be deducted for sloppy working. Clearly state your assumptions and conclusions, and justify all steps in your work. \textbf{You may use any fact we have proved in class, but please be sure to specify the lecture number and problem number, to indicate which result(s) you have cited.}
-
-\begin{enumerate}
-
-\item[Q1]
-
-Prove the following set identities
-
-(1)
-\begin{align*}
-(A \cup B ) \times C = (A\times C) \cup (B\times C)
-\end{align*} 
-(2)
-\begin{align*}
-(A^{\operatorname{c}} \cap B)^{\operatorname{c}} \cap D = (D-A^{\operatorname{c}}) \cup (D-B)
+\qs{(\it10 marks)}{
+  Prove the following set identitiesa
+  \begin{enumerate}[label=(\arabic*)]
+    \item $(A \cup B ) \times C = (A\times C) \cup (B\times C)$
+    \item $(A' \cap B)' \cap D = (D\setminus A') \cup (D\setminus B)$
+  \end{enumerate}
+}
+\sol (a)
+\begin{align*} 
+  (A \cup B)\times C &= \braces{(x,c)\suchthat x\in A\cup B,\ c\in C} \tag*{(Definition of Cartesian Product)} \\
+    &= \braces{(x,c)\suchthat (x\in A \lor x\in B),\ c\in C} \tag*{(Definition of Union)} \\
+    &= \braces{(x,c)\suchthat (x\in A,\ c\in C) \lor (x\in B,\ c\in C)} \tag*{(\text{Distributivity of $\land$ over $\lor$})} \\
+    &= \braces{(a,c)\suchthat a\in A,\ c\in C} \cup \braces{(b,c)\suchthat b\in B,\ c\in C} \tag*{(\text{Definition of Union})} \\
+    &= (A\times C)\cup(B\times C) \tag*{(\text{Definition of Cartesian Product})}
+  \intertext{Which is what we wanted to show.}
 \end{align*}
 
-\hfill  \emph{(10 marks)}
+\sol (b)
+\begin{align*}
+  (A' \cap B)' \cap D &= (A\cup B')\cap D \tag*{(\text{De Morgan's})} \\
+    &= D\cap(A\cup B') \tag*{(\text{Commutativity})} \\
+    &= (D\cap A) \cup (D\cap B') \tag*{(\text{Distributivity})} \\
+    &= (D\setminus A') \cup (D\setminus B) \tag*{(\text{Set Difference Law})}
+  \intertext{Which is what we wanted to show.}
+\end{align*}
 
-\medskip 
+\newpage
+\qs{(\it15 marks)}{
+  Suppose $f:A\to B$ and $g:B\to A$ are functions, and $\iota_A$ is the identity function on $A$, $\iota_B$ is the identity function on $B$. In particular,  $\iota_A(x)=x,\ \forall x\in A$ and similarly $\iota_B(x)=x,\ \forall x\in B$.
 
-\item[Q2]
- Suppose $f:A\to B$ and $g:B\to A$ are functions, and $\operatorname{id}_A$ is the identity function on $A$, $\operatorname{id}_B$ is the identity function on $B$. In particular,  $\operatorname{id}_A(x)=x$ for any $x\in A$ and similarly $\operatorname{id}_B(x)=x$ for any $x\in B$.
+  \begin{enumerate}[label=(\arabic*)]
+    \item Suppose $f\circ g= \iota_B$ and $g\circ f=\iota_A$. Prove that $f$ and $g$ are bijections.
+    \item Suppose $g$ is surrjective and $f\circ g=\iota_B$. Prove that $g\circ f=\iota_A$.
+  \end{enumerate}
+}
+\sol (a) \\
+\Propo $f$ is a bijection
+\begin{proof}
+  Show that $f$ is injective.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Suppose $x,y\in A$, $f(x)=f(y)$. \\
+    We can apply $g$ to both sides, $g(f(x)) = g(f(y))$. \\
+    Which is the same as writing $(g\circ f)(x) = (g\circ f)(y)$. \\
+    Given that $g\circ f=\iota_A$, the previous expression can be rewritten $\iota_A(x)=\iota_A(y)$. \\
+    Evaluating the identity function, $x = y$.
 
-(1) Suppose $f\circ g= \operatorname{id}_B$ and  $g\circ f= \operatorname{id}_A$. Prove that both $f$ and $g$ are bijections.
+    Therefore, $f$ is injective.
+  \end{list}
 
+  Show that $f$ is surrjective
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Suppose $b\in B$. Take $a=g(b)\in A$, since $g:B\to A$. \\
+    Hence, $f(a)=f(g(b)) = (f\circ g)(b) = \iota_B(b) = b$. \\
+    Thus, $\forall b\in B, \exists a\in A: b=f(a)$.
 
-(2) Suppose $g$ is onto and  $f\circ g= \operatorname{id}_B$. Prove that $g\circ f= \operatorname{id}_A$.
+    Therefore, $f$ is surrjective. \\
+  \end{list}
+  
+  $f$ is surrjective and injective. \\
+  Therefore, $f$ is bijective.
+\end{proof}
 
-\hfill \emph{(15 marks)}
+\Propo $g$ is a bijection
+\begin{proof}
+  Show that $g$ is injective.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Suppose $x,y\in B$, $g(x)=g(y)$. \\
+    We can apply $f$ to both sides, $f(g(x)) = f(g(y))$. \\
+    Which is the same as writing $(f\circ g)(x) = (f\circ g)(y)$. \\
+    Given that $f\circ g=\iota_B$, the previous expression can be rewritten $\iota_B(x)=\iota_B(y)$. \\
+    Evaluating the identity function, $x = y$.
 
-\medskip 
+    Therefore, $g$ is injective.
+  \end{list}
 
-\item[Q3]
-(1) Show that $\mathbb{Z}^+\times \mathbb{Z}^+$ is in bijection with $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}$. Deduce that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}$ is countable. 
+  Show that $g$ is surrjective
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Suppose $a\in A$. Take $b=f(a)\in B$, since $f:A\to B$. \\
+    Hence, $g(b)=g(f(a)) = (g\circ f)(a) = \iota_A(a) = a$. \\
+    Thus, $\forall a\in A, \exists b\in B: a=g(b)$.
 
+    Therefore, $f$ is surrjective. \\
+  \end{list}
+  
+  $g$ is surrjective and injective. \\
+  Therefore, $g$ is bijective.
+\end{proof}
 
-(2) Show that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^+$ is in bijection with $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}\times \mathbb{Z}^+$. Deduce that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}\times \mathbb{Z}^+$ is countable. 
+\Corol $f$ is a bijection and $g$ is a bijection. \\
 
+\newpage
+\sol (b) \\
+\Propo $g\circ f = \iota_A$
+\begin{proof}
+  Suppose $g$ is surrjective and $f\circ g = \iota_B$.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{2pt}}\item 
+    $g$ is surrjective, which means $\forall a\in A, \exists b\in B: a=g(b)$. \\
+    Take any $\alpha\in A$. There is a $\beta\in B$ such that $\alpha=g(\beta)$. \\
+    Apply $f$ to both sides, $f(\alpha) = f(g(\beta))$. \\
+    Apply $g$ to both sides, $g(f(\alpha)) = g(f(g(\beta)))$. \\
+    Simplifying, $(g\circ f)(\alpha) = g((f\circ g)(\beta))$. \\
+    Simplify further, $(g\circ f)(\alpha) = g(\iota_B(\beta))$. \\
+    We see, $(g\circ f)(\alpha) = g(\beta)$. \\
+    Hence, $(g\circ f)(\alpha) = \alpha$, which is the definition of $\iota_A$.
+  \end{list}
+  Therefore $g\circ f = \iota_A$.
+\end{proof}
 
-(3) Is the set $\mathbb{Z}^
-+\times\dots\times \mathbb{Z}^+$ (Cartesian product $n$ times) countable? A yes or no would suffice.
+\newpage
+\qs{(\it15 marks)}{
+  \begin{enumerate}[label=(\arabic*)]
+    \item Show that $\mathbb{Z}^+\times \mathbb{Z}^+$ is in bijection with $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}$. Deduce that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}$ is countable.
+    \item Show that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^+$ is in bijection with $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}\times \mathbb{Z}^+$. Deduce that $\mathbb{Z}^+\times \mathbb{Z}^+\times \mathbb{Z}^{+}\times \mathbb{Z}^+$ is countable. 
+    \item Is the set $\mathbb{Z}^+\times\dots\times \mathbb{Z}^+$ (Cartesian product $n$ times) countable? A yes or no would suffice.
+  \end{enumerate}
+}
+\Remar In this this question, we'll use $\bbz^+ =: \bbn = \braces{1,2,3,4,\dots}$. We will denote the Cartesian product $n$ times, $\bbn\times\dots\times\bbn$, as $\bbn^n$. We'll also denote an injective function from set $A$ to $B$, $f:A\injto B$, and a bijective function $f:A\bijto B$. \\
 
-\hfill  (15 marks)
+\sol (a)
 
-\medskip
+\Propo $\bbn^2$ is in bijection with $\bbn^3$.
+\begin{proof}
+  We'll utilise the Schr\"oder-Bernstein theorem, which states (with notation adapted for our specific problem)
+  $$
+    f:\bbn^2\injto\bbn^3,\ g:\bbn^3\injto\bbn^2 \implies h:\bbn^2\bijto\bbn^3
+  $$
+  So, to prove that $\bbn^2$ is in bijection with $\bbn^3$, we'll find two functions which map from one set to the other, and show that those functions are injective. \\
 
-\item[Q4] (MATH 1061 ONLY)
- 
-Let $A$ be the set of all logical statements. Define a relation on $A$: for $p,q\in A$, $p$ is related to $q$ if and only if $p\wedge q$ and $p\vee q$ have the same truth value. 
+  Show that there exists an injective function $f:\bbn^2\injto\bbn^3$.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Let's propose the function $f:\bbn^2\to\bbn^3$, defined by $f((a,b)) := (a,b,0)$. \\
+    Suppose $(a_1,b_1), (a_2,b_2)\in\bbn^2$, and $f(a_1,b_1) = f(a_2,b_2)$. \\
+    Then $(a_1,b_1,0)=(a_2,b_2,0)$ \\
+    Hence $a_1=a_2,\ b_1=b_2,\ 0=0$.
 
-Determine if the above relation is (1) reflexive, (2) symmetric, (3) transitive. If your answer is yes for any of the three properties, please prove your answer;  if your answer is no, please find a counterexample.
- 
+    Therefore our proposed function $f:\bbn^2\injto\bbn^3$ is injective. \\
+  \end{list}
 
+  Show that there exists an injective function $g:\bbn^3\injto\bbn^2$.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Let's propose the function $g:\bbn^3\to\bbn^2$, defined by $g((a,b,c)) := \bracks{2^a3^b5^c,0}$. \\
+    Suppose $(a_1,b_1,c_1), (a_2,b_2,c_2)\in\bbn^3$ and $f((a_1,b_1,c_1)) = f((a_2,b_2,c_2))$. \\
+    Then $\bracks{2^{a_1}3^{b_1}5^{c_1},0} = \bracks{2^{a_2}3^{b_2}5^{c_2},0}$ \\
+    Hence, $2^{a_1}3^{b_1}5^{c_1}=2^{a_2}3^{b_2}5^{c_2}$. \\
+    Which implies that $2^{a_1}=2^{a_2}\iff a_1=a_2$, \\
+    $3^{b_1}=3^{b_2}\iff b_1=b_2$, \\
+    and $5^{c_1}=5^{c_2}\iff c_1=c_2$. 
 
+    Therefore our proposed function $g:\bbn^3\injto\bbn^2$ is injective. \\
+  \end{list}
 
+  There exists an injection $f:\bbn^2\injto\bbn^3$, namely $f((a,b)) = (a,b,0)$, and an injection $g:\bbn^3\injto\bbn^2$, namely $g((a,b,c)) = (2^a3^b5^c,0)$.
 
-\hfill  (10 marks)
+  Therefore, by Schr\"oder-Bernstein theorem, there exists a bijection, $h:\bbn^2\bijto\bbn^3$.
 
-\item[Q4] (MATH 7861 ONLY)
+  Therefore $\bbn^2$ is in bijection with $\bbn^3$.
+\end{proof} 
 
+\Corol $\bbn^3$ is countable.
+\begin{proof}
+  \begin{list}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    $\exists f:\bbn^2\bijto\bbn\iff\abs{\bbn^2}=\abs{\bbn}$. \\
+    $\exists g:\bbn^2\bijto\bbn^3\iff\abs{\bbn^2}=\abs{\bbn^3}$. \\
+    $\tf\abs{\bbn^3}=\abs{\bbn}$, by transitivity. This is the definition of countable. \\
+    Therefore $\bbn^3$ is countable.
+  \end{list}
+\end{proof}
 
-Define a relation on $\mathcal{P}(\mathbb{Z}^+)$: for $A,B\subseteq \mathbb{Z}^+$, $A$ is related to $B$ if and only if there exists $C\subseteq \mathbb{Z}^{+}$ such that $\{A,B,C\}$ forms a partition of $\mathbb{Z}^+$.
+\sol (b)
 
-Determine if the above relation is (1) reflexive, (2) symmetric, (3) transitive. If your answer is yes for any of the three properties, please prove your answer;  if your answer is no, please find a counterexample.
- 
-\hfill  (10 marks)
+\Propo $\bbn^3$ is in bijection with $\bbn^4$.
+\begin{proof}
+  We'll utilise the Schr\"oder-Bernstein theorem, which states (with notation adapted for our specific problem)
+  $$
+    f:\bbn^3\injto\bbn^4,\ g:\bbn^4\injto\bbn^3 \implies h:\bbn^3\bijto\bbn^4
+  $$
+  So, to prove that $\bbn^3$ is in bijection with $\bbn^4$, we'll find two functions which map from one set to the other, and show that those functions are injective. \\
 
+  Show that there exists an injective function $f:\bbn^3\injto\bbn^4$.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Let's propose the function $f:\bbn^3\to\bbn^4$, defined by $f((a,b,c)) := (a,b,c,0)$. \\
+    Suppose $(a_1,b_1,c_1), (a_2,b_2,c_1)\in\bbn^3$, and $f(a_1,b_1,c_1) = f(a_2,b_2,c_2)$. \\
+    Then $(a_1,b_1,c_1,0)=(a_2,b_2,c_2,0)$ \\
+    Hence $a_1=a_2,\ b_1=b_2,\ c_1=c_2,\ 0=0$.
 
-\end{enumerate}
+    Therefore our proposed function $f:\bbn^3\injto\bbn^4$ is injective. \\
+  \end{list}
+
+  Show that there exists an injective function $g:\bbn^4\injto\bbn^3$.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    Let's propose the function $g:\bbn^4\to\bbn^3$, defined by $g((a,b,c,d)) := \bracks{2^a3^b5^c7^d, 0, 0}$. \\
+    Suppose $(a_1,b_1,c_1,d_1), (a_2,b_2,c_2,d_2)\in\bbn^4$ and $f((a_1,b_1,c_1,d_1)) = f((a_2,b_2,c_2,d_2))$. \\
+    Then $\bracks{2^{a_1}3^{b_1}5^{c_1}7^{d_1}, 0, 0} = \bracks{2^{a_2}3^{b_2}5^{c_2}7^{d_2}, 0, 0}$ \\
+    Hence, $2^{a_1}3^{b_1}5^{c_1}7^{d_1}=2^{a_2}3^{b_2}5^{c_2}7^{d_2}$. \\
+    Which implies that $2^{a_1}=2^{a_2}\iff a_1=a_2$, \\
+    $3^{b_1}=3^{b_2}\iff b_1=b_2$, \\
+    $5^{c_1}=5^{c_2}\iff c_1=c_2$, \\
+    and $7^{d_1}=7^{d_2}\iff d_1=d_2$. 
+
+    Therefore our proposed function $g:\bbn^4\injto\bbn^3$ is injective. \\
+  \end{list}
+
+  There exists an injection $f:\bbn^3\injto\bbn^4$, namely $f((a,b,c)) = (a,b,c,0)$, and an injection $g:\bbn^4\injto\bbn^3$, namely $g((a,b,c,d)) = (2^a3^b5^c7^d, 0, 0)$.
+
+  Therefore, by Schr\"oder-Bernstein theorem, there exists a bijection, $h:\bbn^3\bijto\bbn^4$.
+
+  Therefore $\bbn^3$ is in bijection with $\bbn^4$.
+\end{proof} 
+
+\Corol $\bbn^4$ is countable.
+\begin{proof}
+  \begin{list}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+    $\exists f:\bbn^2\bijto\bbn\iff\abs{\bbn^2}=\abs{\bbn}$. \\
+    $\exists g:\bbn^2\bijto\bbn^3\iff\abs{\bbn^2}=\abs{\bbn^3}$. \\
+    $\exists h:\bbn^3\bijto\bbn^4\iff\abs{\bbn^3}=\abs{\bbn^4}$. \\
+    $\tf\abs{\bbn^4}=\abs{\bbn}$, by transitivity. This is the definition of countable. \\
+    Therefore $\bbn^4$ is countable.
+  \end{list}
+\end{proof}
+
+\sol (c) Yes. \\
+
+I can always construct an injective function $f:\bbn^{n-1}\injto\bbn^n,\ f((a_1,\dots,a_{n-1})) = (a_1,\dots,a_{n-1},0)$ and a second injective function $g:\bbn^n\injto\bbn^{n-1},\ g(a_1,\dots,a_n)=\bracks{\prod_{i=1}^n p_i^{a_i},0,\dots,0}$, which will inductively be in bijection with $\bbn$
+
+\newpage
+\qs{(\it10 marks)}{
+  Let $A$ be the set of all logical statements. Define a relation on $A$: for $p,q\in A$, $p$ is related to $q$ if and only if $p\wedge q$ and $p\vee q$ have the same truth value. \\
+
+  Determine if the above relation is reflexive, symmetric, transitive. If your answer is yes for any of the three properties, please prove your answer;  if your answer is no, please find a counterexample.
+}
+\sol
+
+Let $\bisig:A\to A$ be defined By
+\begin{align*}
+  \forall p,q\in A,\ p\bisig q &\iff p \land q \liff p\lor q \tag*{\text{(Given)}} \\
+    &\iff ((p\land q)\lthen(p\lor q))\land((p\lor q)\lthen(p\land q)) \tag*{\text{(Definition of $\liff$)}} \\
+    &\iff (\lnot(p\land q)\lor(p\lor q))\land(\lnot(p\lor q)\lor(p\land q)) \tag*{\text{(Definition of $\lthen$)}} \\
+    &\iff ((\lnot p\lor\lnot q)\lor(p\lor q))\land((\lnot p\land\lnot q)\lor(p\land q)) \tag*{\text{(De Morgan's)}} \\
+    &\iff ((\lnot p\lor p)\lor(\lnot q\lor q))\land((\lnot p\land\lnot q)\lor(p\land q)) \tag*{\text{(Associativity)}} \\
+    &\iff (\top\lor\top)\land((\lnot p\land\lnot q)\lor(p\land q)) \tag*{\text{(Negation Law)}} \\
+    &\iff \top\land((\lnot p\land\lnot q)\lor(p\land q)) \tag*{\text{(Tautology)}} \\
+    &\iff (\lnot p\land\lnot q)\lor(p\land q) \tag*{\text{(Identity)}} \\
+    &\iff ((\lnot p \lor p)\land(\lnot q\lor p))\land((\lnot p\lor q) \land (\lnot q\lor q)) \tag*{\text{(Distributivity, twice)}} \\
+    &\iff (\top\land(\lnot q\lor p))\land((\lnot p\lor q) \land\top) \tag*{\text{(Negation Laws)}} \\
+    &\iff (\lnot q\lor p)\land(\lnot p\lor q) \tag*{\text{(Identity)}} \\
+    &\iff (q\lthen p)\land(p\lthen q) \tag*{\text{(Definition of $\lthen$)}} \\
+    &\iff p\liff q \tag*{\text{(Definition of $\liff$)}}
+\end{align*}
+Is $\bisig$ reflexive?
+\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{2pt}}\item\relax
+  Suppose $p\in A$. \\
+  Then $p\equiv\true$ or $p\equiv\false$. \\
+  In either case, $p\liff p$. \\
+  So $\forall p\in A,\ p\bisig p$
+
+  Therefore $\bisig$ on $A$ is reflexive.
+\end{list}
+
+Is $\bisig$ symmetric?
+\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{2pt}}\item\relax
+  Suppose $p,q\in A$. \\
+  Then $p\equiv\true$ or $p\equiv\false$. And $q\equiv\true$ or $q\equiv\false$. \\
+  Without any loss of generality, assume $p\equiv q$. \\
+  (if $p\not\equiv q$, then $p\notliff q$ hence $p\bisig q$ does not hold, and doesn't need to be considered.) \\
+  Suppose $p\bisig q$. \\
+  Then $p\liff q$. Hence, $q\liff p$, by commutativity of $\liff$. Therefore, $q\bisig p$.
+
+  Therefore $\bisig$ on $A$ is symmetric.
+\end{list}
+
+Is $\bisig$ transitive?
+\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{2pt}}\item\relax
+  Suppose $p,q,r\in A$. \\
+  Then $p\equiv\true$ or $p\equiv\false$. $q\equiv\true$ or $q\equiv\false$. And $r\equiv\true$ or $r\equiv\false$. \\
+  Without any loss of generality assume $p\equiv q$ and $q\equiv r$ \\
+  (If $p\not\equiv q$ then $p\bisig q$ does not hold and need not be considered. If $q\not\equiv r$ then $q\bisig r$ does not hold and need not be considered.) \\
+  Suppose $p\bisig q$ and $q\bisig r$. \\
+  Then $p\liff q$ and $q\liff r$. Therefore $p\liff r$, by transitivity of $\liff$. Hence $p\bisig r$.
+
+  Therefore $\bisig$ on $A$ is transitive.
+\end{list}
+
+Therefore, $\bisig$ is an equivilence relation on $A$.
 
 \end{document}
