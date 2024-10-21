@@ -1,0 +1,413 @@
+\documentclass[a4paper, 11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+\usetikzlibrary{patterns,decorations.pathmorphing,positioning}
+
+\begin{document}
+\begin{center}
+{\bf SCHOOL OF MATHEMATICS AND PHYSICS}
+\end{center}
+\centerline{\large\bf MATH1072}
+\vspace{.1cm}   
+\centerline{\large\bf Assignment 4}
+\vspace{.1cm}
+\centerline{\large\bf Semester Two 2024}
+
+\vspace{3mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrule
+\vspace{3mm}
+
+{\it Submit your answers - along with this sheet - by 1pm on the 21st of October, using the blackboard assignment submission system. Assignments must consist of a single PDF.
+}
+
+You may find some of these problems challenging. Attendance at weekly tutorials is assumed.
+
+\vspace{1cm}
+
+\begin{tabular}{rl}
+Family name: & $\clk$asumagic\\
+& \\
+& \\
+Given names: & $\calm$ichael $\cla$llan\\
+& \\
+& \\
+Student number: & 44302669 \\
+& \\
+& \\
+\end{tabular}
+
+\hrule ${}^{}$\\
+Marker's use only
+\\
+\hrule ${}^{}$\\
+Each question marked out of 3.
+\begin{itemize}
+\item Mark of 0: You have not submitted a relevant answer, or you have no strategy present in your submission.\\
+\item Mark of 1: Your submission has some relevance, but does not demonstrate deep understanding or sound mathematical technique. \\
+\item Mark of 2: You have the right approach, but need to fine-tune some aspects of your calculations.\\
+\item Mark of 3: You have demonstrated a good understanding of the topic and techniques involved, with well-executed calculations. \\ 
+
+\end{itemize}
+\begin{tabular}{rrrrrrrr}
+Q1a& \hspace{2cm} & Q1b: & \hspace{2cm} & Q1c: & \hspace{2cm} & Q2a:  & \\[.5cm]
+Q2b:& \hspace{2cm} & Q2c: & \hspace{2cm} & Q2d: & \hspace{2cm} & Q2e:  & \\[.5cm]
+Q3: & \hspace{2cm} &  & \hspace{2cm} & & \hspace{2cm} &  & \\[.5cm]
+&&&&&&& \\
+Total (out of 27): &&&&&&& \\
+\end{tabular}
+
+\vfill
+\newpage
+\qs{Spring-Mass System}{
+  Consider the spring-mass system described by the following image. \\
+
+  \centering
+  \begin{tikzpicture}[every node/.style={outer sep=0pt},thick,
+    mass/.style={draw,thick},
+    spring/.style={thick,decorate,decoration={zigzag,pre length=0.3cm,post
+    length=0.3cm,segment length=6}},
+    ground/.style={fill,pattern=north east lines,draw=none,minimum
+    width=0.75cm,minimum height=0.3cm},
+    dampic/.pic={\fill[white] (-0.1,-0.3) rectangle (0.3,0.3);
+    \draw (-0.3,0.3) -| (0.3,-0.3) -- (-0.3,-0.3);
+    \draw[line width=1mm] (-0.1,-0.3) -- (-0.1,0.3);}]
+
+    \node[mass,minimum width=3.5cm,minimum height=2cm] (m1) {$m_1$};
+    \node[mass,minimum width=3.5cm,minimum height=2cm,right=1.5cm of m1] (m2) {$m_2$};
+    \node[left=2cm of m1,ground,minimum width=3mm,minimum height=2.5cm] (g1){};
+    \draw (g1.north east) -- (g1.south east);
+      \node[right=2cm of m2,ground,minimum width=3mm,minimum height=2.5cm] (g2){};
+    \draw (g2.north west) -- (g2.south west);
+
+
+    \draw[spring] ([yshift=3mm]g1.east) coordinate(aux) -- (m1.west|-aux) node[midway,above=1mm]{$k_1$};
+    \draw[spring]  (m1.east|-aux) -- (m2.west|-aux) node[midway,above=1mm]{$k_2$};
+    \draw[spring]  (m2.east) -- (g2.west) node[midway,above=1mm]{$k_2$};
+
+    \foreach \X in {1,2}  
+    {
+      \draw[thin] (m\X.north) -- ++ (0,1) coordinate[midway](aux\X);
+      \draw[latex-] (aux\X) -- ++ (-0.5,0) node[above]{$F_\X(t)$}; 
+      \draw[thin,dashed] (m\X.south) -- ++ (0,-1) coordinate[pos=0.85](aux'\X);
+      \draw[latex-] (aux'\X) -- ++ (-1,0) node[midway,above]{$x_\X$}
+      node[left,ground,minimum height=7mm,minimum width=1mm] (g'\X){};
+      \draw[thick] (g'\X.north east) -- (g'\X.south east);
+    }
+  \end{tikzpicture}
+  \begin{enumerate}[label=(\alph*)]
+    \item Derive the system of second order ordinary differential equations that describes the spring-mass system. 
+    \item Write out the reduced system of ordinary differential equations in \textbf{vector form} that can be used to solve your system from part (a).
+    \item Use the MATLAB function \texttt{ode45()} to solve your system from part (b) over time $[0, 200]$, with the following parameters:
+    \begin{gather*}
+      F_1(t) = \sin(t),~F_2(t) = e^{-t}\\
+      k_1 = 2,~k_2 = 0.5\\
+      m_1 = 3,~m_2 = 1
+    \end{gather*}
+  \end{enumerate}
+}
+\sol (a) \\
+We have here 2 masses, $m_1$ and $m_2$, which are joined by 3 springs . The spring connected a fixed support to $m_1$ has spring constant $k_1$. The spring connecting $m_1$ to $m_2$ and $m_2$ to a fixed support, has spring constant $k_2$. An arbitrary push force $F_1$, itself a function of time, is applied to $m_1$. Another push force, $F_2$, also a function of time, is applied to $m_2$. These forces will cause $m_1$ and $m_2$ to be displaced from their equilibria, and these displacements are given by $x_1(t)$ and $x_2(t)$, respectively. \\
+
+Newton's second law of motion states that the sum of all forces applied to an object is equal to the object's acceleration times its mass,
+$$
+  F = ma.
+$$
+Hooke's law states that the spring force is given by the spring's $k$-constant multipled by the distance from equilibrium,
+$$
+  F_s = kx
+$$ 
+Each mass has 2 springs acting on it, so each mass's net force is comprised of 3 forces: 2 spring forces, and 1 arbitrary push force. So, we can write
+\begin{gather*}
+  m_1a_1 = F_1 + F_{s1} + F_{s2} \\ 
+  m_2a_2 = F_2 + F_{s3} + F_{s4}
+\end{gather*}
+\newpage
+The spring force between the fixed surface and $m_1$ is acting against the displacing force. The spring between $m_1$ and $m_2$, in contrast, is contributing to the displacing force, relative to the displacement between the two masses. Therefore,
+\begin{align*}
+  F_{s1}(t) &= -k_1x_1(t) \\
+  F_{s2}(t) &= k_2(x_2(t) - x_1(t)).
+\end{align*}
+The spring force between the $m_2$ and $m_1$ is acting against the displacing force, while the spring force between $m_2$ and the fixed surface acts along the displacement. Therefore,
+\begin{align*}
+  F_{s3}(t) &= k_2(x_1(t) - x_2(t)) \\
+  F_{s4}(t) &= -k_2x_2(t)
+\end{align*}
+Finally, we note that acceleration, $a$, is the second derivative of position, $x$, with respect to time, $\ddot{x}$. Bringing this all together, we can describe the spring-mass system witth the following system of second-order differential equations,
+\begin{align*}
+  m_1\ddot{x}_1 &= F_1 - k_1x_1 + k_2(x_2 - x_1) \\ 
+  m_2\ddot{x}_2 &= F_2 + k_2(x_1 - x_2) - k_2x_2
+\end{align*}
+Which we can simplify to
+\begin{align*}
+  m_1\ddot{x}_1 &= F_1 + (k_2 - k_1)x_1 + k_2x_2 \\ 
+  m_2\ddot{x}_2 &= F_2 + k_2x_1 - 2k_2x_2
+\end{align*}
+
+\sol (b) \\
+Let $v_1 = \dot{x}_1$ and $v_2 = \dot{x}_2$, and express the system we've derived in terms of these,
+\begin{align*}
+  m_1\dot{v}_1 &= F_1 + (k_2 - k_1)x_1 + k_2x_2 \\ 
+  m_2\dot{v}_2 &= F_2 + k_2x_1 - 2k_2x_2
+\end{align*}
+Let $\ut{y}(t)$ be the state vector of the system,
+$$
+  \ut{y}(t) = \begin{pmatrix} x_1(t) \\ v_1(t) \\ x_2(t) \\ v_2(t) \end{pmatrix}.
+$$
+Taking the derivative,
+$$
+  \dd{t}\ut{y}(t) = \dd{t}\begin{pmatrix} x_1(t) \\ v_1(t) \\ x_2(t) \\ v_2(t) \end{pmatrix} = \begin{pmatrix} v_1(t) \\ \frac{1}{m_1}\bracks{F_1 + (k_2 - k_1)x_1 + k_2x_2} \\ v_2(t) \\ \frac{1}{m_2}\bracks{F_2 + k_2x_1 - 2k_2x_2} \end{pmatrix},
+$$
+which is the reduced vector form of the system we sought. \\
+
+\sol(c) \\
+\verb|PS4_script1.m| \hrule
+\begin{lstlisting}{Matlab}
+% Defining our given parameters
+k1 = 2;
+k2 = 0.5;
+m1 = 3;
+m2 = 1;
+t_range = [0 200];
+% The inital conditions
+% Inital position and velocity are both 0
+% i.e. The system starts at equilibrium
+y0 = [0; 0; 0; 0];
+
+% Defining the system, according to what we derived in the
+% previous question. Note that y(1) = x_1(t), y(3) = x_2(t)
+% and y(2) = v_1(t) = \dot{x}_1(t), y(4) = v_2(t) = \dot{x}_2(t). 
+system = @(t, y) [
+  y(2);
+  (sin(t) + k2 * (y(3) - y(1)) - k1 * y(1)) / m1;
+  y(4);
+  (exp(-t) + k2 * (y(1) - y(3)) - 2 * k2 * y(3)) / m2;
+];
+
+[t, y] = ode45(system, t_range, y0);
+
+% Plot the results. The displacement results are stored in
+% y(:, 1 and 3). Whereas the velocity results are stored
+% in y(:, 2 and 4). We'll plot and present the displacements
+% of m_1 and m_2 over time. The question was a little vauge
+plot(t, y(:, 1), 'b--', 'LineWidth', 1.5); hold on;
+plot(t, y(:, 3), 'r-', 'LineWidth', 1.5);
+set(gca, 'FontSize', 14);
+box off;
+title('Displacements of $m_1$ and $m_2$ for $t\in[0,200]$', ...
+  'FontSize', 36, 'Interpreter', 'latex');
+xlabel('Time $(t)$', 'FontSize', 36, 'Interpreter', 'latex');
+ylabel('Displacement $(x_1, x_2)$', 'FontSize', 36, ...
+  'Interpreter', 'latex');
+legend('$x_1(t)$', '$x_2(t)$', 'FontSize', 36, ...
+  'Interpreter', 'latex');
+\end{lstlisting}
+\verb|Output:|\\
+\includegraphics[width=\textwidth]{./PS4_fig1.png}
+
+\newpage
+\qs{}{
+  We will explore what it means for the linear combination of solutions to a second-order differential equation, resulting from an application of the \textit{superposition principle}, to be a general solution to the corresponding initial value problem. That is, we will explore what it means for a set of solutions to form a \textbf{fundamental set of solutions}.
+  \begin{enumerate}[label=(\alph*)]
+    \item Suppose $y_1(t)$ and $y_2(t)$ are solutions to the second-order differential equation,
+      $$
+        p(t)y''+q(t)y'+r(t)y = 0.
+      $$
+      Use the superposition principle to find a general solution in terms of constant coefficients $c_1$ and $c_2$.
+    \item Consider the initial conditions for the second-order differential equation given by,
+      $$
+        y(t_0) = y_0,~~~ y'(t_0) = y'_0.
+      $$
+      Apply these initial conditions to your solution from (a) and solve for the constants $c_1$ and $c_2$ using Cramer's rule: \\
+      Given the system of linear equations, $\begin{bmatrix} a_1 & b_1\\ a_2 & b_2\end{bmatrix} \begin{bmatrix} c_1\\ c_2 \end{bmatrix} = \begin{bmatrix} y_0\\ y'_0 \end{bmatrix}$, then 
+      $$
+        c_1 = \frac{\begin{array}{|cc|} y_0 & b_1 \\ y'_0 & b_2 \end{array}}{\begin{array}{|cc|} a_1 & b_1 \\ a_2 & b_2\end{array}}\qquad 
+        c_2 = \frac{\begin{array}{|cc|} a_1 & y_0\\ a_2 & y'_0 \end{array}}{\begin{array}{|cc|} a_1 & b_1 \\ a_2 & b_2\end{array}}
+      $$
+      where $|\cdot|$ denotes the determinant of the matrix. The quantity in the denominator is called the \textbf{Wronskian}.
+    \item Use the Wronskian for $c_1$ and $c_2$ to develop a condition required for this initial value problem to be solvable. The set of solutions that satisfy this condition are called a \textbf{fundamental set of solutions}.
+    \item Consider the second-order differential equation given by,
+      $$
+        2t^2 y''+ty'-3y = 0,~t>0.
+      $$
+      Given that $y_1(t) = t^{-1}$ is a solution to the second-order differential equation, find another solution $y_2(t)$ using the reduction of order method by assuming $y_2(t) = u(t)y_1(t)$. For ease of exposition, require that $u(1) = 0$ and $u'(1) = \frac{5}{2}$.
+    \item Show that the solutions $y_1(t)$ and $y_2(t)$ form a fundamental set of solutions.
+  \end{enumerate}
+}
+\sol (a) \\
+By the superposition principle, the general solution to a homogenous second order differential equation, such as $y'' + p(t)y' + q(t) y = 0$, $y(t)$, is the sum of two linearly independent solutions, $y_1(t)$ and $y_2(t)$. The general solution is
+\begin{gather*}
+  y(t) = c_1y_1(t) + c_2y_2(t). \tag*{(1)}
+\end{gather*}
+So, transform the equation by dividing across by $p(t)$.
+\begin{gather*}
+  p(t)y'' + q(t)y' + r(t)y = 0 \\
+  y'' + \frac{q(t)}{p(t)}y' + \frac{r(t)}{p(t)} y = 0
+\end{gather*}
+Now, because these are arbitrary functions of $t$, let 
+\begin{align*}
+  P(t) &= \frac{q(t)}{p(t)} & Q(t) &= \frac{r(t)}{p(t)}
+\end{align*}
+$$
+\therefore y'' + P(t)y' + Q(t)y = 0
+$$
+
+This is now in a form where we can apply the superposition principle, and therefore the solution is the same as (1). \\
+
+\sol (b) \\
+Let's substitute the inital condition $y(t_0) = y_0$ into (1).
+$$
+  y(t_0) = c_1y_1(t_0) + c_2y_2(t_0) = y_0.
+$$
+Now, let's substitute the inital condition $y'(t_0) = y_0'$ into the derivative of (1).
+$$
+  y'(t_0) = c_1y_1'(t) + c_2y_2'(t) = y_0'.
+$$
+$$
+  \text{Let}\left\lbrace \begin{array}{l} a_1 = y_1(t_0) \\ b_1 = y_2(t_0) \\ a_2 = y_1'(t_0) \\ b_2 = y_2'(t_0) \end{array} \right.\qquad\Then\left\lbrace \begin{array}{l} a_1c_1 + b_1c_2 = y_0 \\ a_2c_1 + b_2c_2 = y_0' \end{array} \right.
+$$
+which can be expressed as the linear system
+$$
+  \begin{pmatrix} a_1 & b_1 \\ a_2 & b_2 \end{pmatrix} \begin{pmatrix} c_1 \\ c_2 \end{pmatrix} = \begin{pmatrix} y_0 \\ y_0' \end{pmatrix}
+$$
+Applying Cramer's rule, and making back substitutions,
+\begin{gather*}
+  c_1 = \frac{\begin{array}{|cc|} y_0 & b_1 \\ y'_0 & b_2 \end{array}}{\begin{array}{|cc|} a_1 & b_1 \\ a_2 & b_2\end{array}} 
+    = \frac{y_0b_2 - y_0'b_1}{a_1b_2 - a_2b_1} 
+    = \frac{y_0y_2'(t_0) - y_0'y_2(t_0)}{y_1(t_0)y_2'(t_0) - y_1'(t_0)y_2(t_0)} \\
+  c_2 = \frac{\begin{array}{|cc|} a_1 & y_0\\ a_2 & y'_0 \end{array}}{\begin{array}{|cc|} a_1 & b_1 \\ a_2 & b_2\end{array}}
+    = \frac{a_1y_0' - a_2y_0}{a_1b_2 - a_2b_1}
+    = \frac{y_0'y_1(t_0) - y_0y_1'(t_0)}{y_1(t_0)y_2'(t_0) - y_1'(t_0)y_2(t_0)}
+\end{gather*}
+
+\sol (c) \\
+The second-order homogenous system is solvable if and only if the Wronskian of this system,
+$$
+  \begin{array}{|cc|} a_1 & b_1 \\ a_2 & b_2 \end{array} = y_1(t_0)y_2'(t_0) - y_1'(t_0)y_2(t_0) \neq 0.
+$$
+This condition is required, because if it isn't met, $c_1$ and $c_2$ are not defined, and hence there is no general solution to the homogenous second-order system of ODEs. \\
+
+\sol (d) \\
+Given that $y_1(t) = t^{-1}$ and $y_2(t) = u(t)y_1(t)$, we can see that
+\begin{align*}
+  y_2(t) &= u(t)t^{-1} \\
+  \implies y_2'(t) &= u'(t)t^{-1} - u(t)t^{-2} \\
+  \implies y_2''(t) &= u''(t)t^{-1} - 2u'(t)t^{-2} + 2u(t)t^{-3}
+\end{align*}
+We can substitute this solution back into the ODE, $2t^2y''+  ty' - 3y = 0,\ t>0$.
+\begin{align*}
+  2t^2y_2'' &= 2t^2\bracks{u''(t)t^{-1} - 2u'(t)t^{-2} + 2u(t)t^{-3}} = 2tu''(t) - 4u'(t) + 4u(t)t^{-1} \\
+  ty_2' &= t\bracks{u'(t)t^{-1} - u(t)t^{-2}} = u'(t) - u(t)t^{-1} \\
+  -3y_2 &= -3\bracks{u(t)t^{-1}} = -3u(t)t^{-1}
+  \intertext{Now, we can express the system in terms of $u$ and its derivatives,}
+  0 &= 2tu''(t) - 4u'(t) + 4u(t)t^{-1} +  u'(t) - u(t)t^{-1} - 3u(t)t^{-1} \\
+    &= 2tu''(t) - 3u'(t)
+  \end{align*}
+If we let $v(t) = u'(t)$, we can rewrite this
+$$
+  2tv'(t) = 3v(t) \implies \frac{v'(t)}{v(t)} = \frac{3}{2t}
+$$
+Integrating both sides, we find that
+$$
+  \ln\abs{v(t)} = \frac{3}{2}\ln\abs{t} + C 
+$$
+Therefore
+$$
+  u'(t) = v(t) = C_1t^{3/2}
+$$
+Integrating again, we can find $u(t)$.
+$$
+  u(t) = \int C_1t^{3/2}\d{x} = \frac{2C_1}{5}t^{5/2} + C_2
+$$
+We can finally apply the given inital conditions and solve for the general solution of $u(t)$,
+\begin{gather*}
+  u(1) = 0 \implies 0 = \frac{2C_1}{5}(1)^{5/2} + C_2 = \frac{2C_1}{5} + C_2 \implies C_2 = -\frac{2}{5}C_1 \\
+  u'(1) = \frac{5}{2} \implies \frac{5}{2} = C_1(1)^{3/2} = C_1 \implies C_1 = \frac{5}{2} \implies C_2 = -1 \\
+  u(t) = \frac{2}{5}\cd\frac{5}{2}t^{5/2} - 1 = t^{5/2} - 1
+\end{gather*}
+Now, we can substitute this $u(t)$ back into our solution for $y_2(t)$,
+$$
+  y_2(t) = u(t)t^{-1} = \bracks{t^{5/2} - 1}t^{-1} = t^{3/2} - t^{-1}.
+$$
+
+\sol (e) \\
+This $y_1$ and $y_2$ form a fundamental set of solutions if and only if they are linearly independent, if and only if their Wronskian is greater then 0 for all $t$.
+$$
+  \begin{array}{|cc|} y_1(t) & y_2(t) \\ y_1'(t) & y_2'(t) \end{array}
+    = \begin{array}{|cc|} t^{-1} & t^{3/2} - t^{-1} \\ -t^{-2} & \frac{3}{2}t^{1/2} + t^{-2} \end{array} 
+    = \frac{3}{2}t^{-1/2} + t^{-3} + t^{-1/2} - t^{-3}
+    = \frac{5}{2}t^{-1/2}
+    = \frac{5}{2\sqrt{t}}
+$$
+For all $t>0$, $\frac{5}{2}t^{-1/2}\neq0$. We know this is true, because as $t$ approaches 0 from the right side (the only side from which it could approach, by definition) $\frac{5}{2}t^{-1/2}$ goes to infinity. As $t$ goes to infinity, $\frac{5}{2}t^{-1/2}$ asymptotically approaches $0$, but never gets there. Therefore, this $y_1$ and $y_2$ form a fundamental set of solutions.
+
+\clearpage
+\qs{Second-Order Inhomogeneous DE}{
+  Solve the following initial value problem for the second-order inhomogeneous differential equation,
+  $$
+    y''-4y'-12y = 2e^{5t},\ y(0) = \frac{8}{7},\ y'(0) = -\frac{1}{7}.
+  $$
+}
+\sol The general solution for this IVP will take the form
+$$
+  y(t) = y_h(t) + y_p(t),
+$$
+where $y_h$ and $y_p$ are solutions to some homogenous and particular equation, respectively.
+\begin{gather*}
+  y_h(t) = \e{\lm t},\quad \text{for some}\ \lm\in\bbr. \\
+  \Then {y_h}'(t) = \lm\e{\lm t}\quad \text{and}\quad {y_h}''(t) = \lm^2\e{\lm t}. \\
+  \So \lm^2\e{\lm t} - 4\lm\e{\lm t} - 12\e{\lm t} = 0\ \text{is a homogenous equation we can solve.} \\
+  \begin{align*}
+    \bracks{\lm^2 - 4\lm - 12}\e{\lm t} &= 0.
+    \intertext{Since $\forall x\in\bbr,\ \e{x} > 0$, and $\lm t\in\bbr$, we can safely through divide by $\e{\lm t}$.}
+    \Hence \lm^2 - 4\lm - 12 &= 0, \\
+    \Rightarrow (\lm-6)(\lm+2) &= 0. \\
+    \tf \lm &\in \braces{-2, 6}.
+  \end{align*}
+  \intertext{Therefore the solution to the homogenous equation, by the superposition principle, is the sum of these two solutions,}
+  \Rightarrow y_h(t) = \alpha\e{-2t} + \beta\e{6t}.
+  \longintertext{Since, $y'' - 4y' - 12y = 2\e{5t}$, we can safely assume a particular solution $y_p(t)=A\e{5t}$.}
+  \Rightarrow y_p'(t) = 5A\e{5t} \quad\text{and}\quad y_p''(t) = 25A\e{5t}.
+  \intertext{Let's now substitute $y_p(t)$ and its derivatives back into the original inhomogeneous equation.}
+  \begin{aligned}
+    \bracks{25A\e{5t}} - 4\bracks{5A\e{5t}} - 12\bracks{A\e{5t}} &= 2\e{5t} \\
+    25A\e{5t} - 20A\e{5t} - 12A\e{5t} &= 2\e{5t} \\
+    \bracks{25A - 20A - 12A}\e{5t} &= 2\e{5t} \\
+    -7A\e{5t} &= 2\e{5t} \\
+    -7A &= 2 \\
+    A &= -\frac{2}{7} \\
+    \tf y_p(t) &= -\frac{2}{7}\e{5t}
+  \end{aligned}
+  \intertext{Substituting the $y_p$ and $y_h$ we've found back into the general solution $y(t)$,}
+  \begin{align*}
+    y(t) &= y_h(t) + y_p(t) \\
+      &= \alpha\e{-2t} + \beta\e{6t} - \frac{2}{7}\e{5t}.
+    \intertext{Into the general solution now, substitute the inital condition, $y(0)=\frac{8}{7}$.}
+    \frac{8}{7} &= \alpha\e{-2\cd0} + \beta\e{6\cd0} - \frac{2}{7}\e{5\cd0} \\
+      &= \alpha\e{0} + \beta\e{0} - \frac{2}{7}\e{0} \\
+      &= \alpha + \beta - \frac{2}{7} \\
+    \tf\alpha + \beta &= \frac{8}{7} + \frac{2}{7} = \frac{10}{7} \tag*{(1)} \\
+    \intertext{Take the derivative of the general solution,}
+    y'(t) &= \dd{t}\bracks{\alpha\e{-2t} + \beta\e{6t} - \frac{2}{7}\e{5t}} \\
+      &= -2\alpha\e{-2t} + 6\beta\e{6t} - \frac{10}{7}\e{5t}.
+    \intertext{Now substituting the inital condition, $y'(0)=-\dfrac{1}{7}$,}
+    -\frac{1}{7} &= -2\alpha\e{-2\cd0} + 6\beta\e{6\cd0} - \frac{10}{7}\e{5\cd0} \\
+      &= -2\alpha\e{0} + 6\beta\e{0} - \frac{10}{7}\e{0} \\
+      &= -2\alpha + 6\beta - \frac{10}{7}. \\
+    \tf -2\alpha + 6\beta &= -\frac{1}{7} + \frac{10}{7} = \frac{9}{7} \tag*{(2)}
+  \end{align*}
+  \intertext{We will now solve the linear system, $A\ut{x}=\ut{b}$, formed by (1) and (2),}
+  A\ut{x}=\ut{b} := \begin{pmatrix} 1 & 1 \\ -2 & 6 \end{pmatrix}\begin{pmatrix} \alpha \\ \beta \end{pmatrix} = \begin{pmatrix} 10/7 \\ 9/7 \end{pmatrix}. \\
+  \rightsquigarrow \left( \begin{array}{cc|c} 1 & 1 & 10/7 \\ -2 & 6 & 9/7 \end{array}\right)
+  \rightsquigarrow \left( \begin{array}{cc|c} 1 & 1 & 10/7 \\ 1 & -3 & -9/14 \end{array}\right)
+  \rightsquigarrow \left( \begin{array}{cc|c} 1 & 1 & 10/7 \\ 0 & -4 & -29/14 \end{array}\right)\\
+  \rightsquigarrow \left( \begin{array}{cc|c} 1 & 1 & 10/7 \\ 0 & 1 & 29/56 \end{array}\right)
+  \rightsquigarrow \left( \begin{array}{cc|c} 1 & 0 & 51/56 \\ 0 & 1 & 29/56 \end{array}\right)
+  \implies \bracks{\alpha,\beta} = \bracks{\frac{51}{56}, \frac{29}{56}}.
+  \intertext{Finally, let's substitute $\alpha$ and $\beta$ back into the gernal solution, and present our final solution.}
+  y(t) = \frac{51}{56}\e{-2t} + \frac{29}{56}\e{6t} - \frac{2}{7}\e{5t}.
+\end{gather*}
+
+\end{document}
