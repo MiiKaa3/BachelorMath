@@ -1,0 +1,348 @@
+\documentclass[a4paper, 11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\title{\Huge{MATH1061}\\Discrete Mathematics I}
+\author{\huge{Problem Set 4}\\\huge{Michael Kasumagic, sID\#: 44302669}}
+\date{\huge{Due: 5pm, $25^\text{th}$ of October, 2024}}
+
+\begin{document}
+\maketitle
+
+\qs{(\it15 marks)}{
+  Let $T$ and $F$ denote logical ``true'' and ``false.'' Prove your answers to the following:
+  \begin{enumerate}[label=(\alph*)]
+    \item Is $(\braces{T,F}, \land)$ a group?
+    \item Is $(\braces{T,F}, \lxor)$ a group?
+    \item Is $(\braces{T,F}, \lxor, \land)$ a field?
+  \end{enumerate}
+}
+\sol (a) \\
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{c|cc}
+      $\land$ & T & F \\ \hline
+      T       & T & F \\
+      F       & F & F \\   
+    \end{tabular}
+    \caption{The Cayley Table of $(\braces{T,F},\land)$}  
+  \end{center}
+\end{table}
+
+\Claim $(\braces{T,F},\land)$ is not a group. \\
+\proof To be a group, the given algebraic structure must be closed, associative, contain an identity element, and each element must have an inverse element. We'll test each of these conditions. \\ 
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item 
+  \textbf{Closure:} The logical and takes two logical statements (which themselves evaluate to either $T$ or $F$) and returns a $T$ or a $F$. Further proof of closure lies in Table 1, the Cayley table for this algebraic structure. Therefore the set $\braces{T,F}$ is closed under $\land$. \\
+  \textbf{Associativity:} $\forall a,b,c\in\braces{T,F},\ a\land(b\land c) = (a\land b)\land c$. This is law of logical equivilance, namely the law of associativity. Therefore $\braces{T,F}$ is associative under $\land$. \\
+  \textbf{Existence of an Identity:} Take $\iota:=\true$. Then, $\forall a\in\braces{T,F},\ \iota\land a = a\land \iota = a$. Therefore, for the set $\braces{T,F}$ under $\land$, there exists an identity element. \\
+  \textbf{Existence of an Inverse:} $\nexists a\in\braces{T,F}: a\land F = \iota$. Therefore, for the set $\braces{T,F}$ under $\land$, there is at least one element without an inverse. \\
+\end{list}
+Therefore, $(\braces{T,F}, \land)$ is not a group. $\QED$ \\
+\Corol $(\braces{T,F}, \land)$ is a monoid. \\
+
+\sol (b) \\
+\begin{table}[h]
+  \begin{center}
+    \begin{tabular}{c|cc}
+      $\lxor$ & T & F \\ \hline
+      T       & F & T \\
+      F       & T & F \\   
+    \end{tabular}
+    \caption{The Cayley Table of $(\braces{T,F},\lxor.)$} 
+  \end{center}
+\end{table}
+
+\Claim $(\braces{T,F},\lxor)$ is a group. \\
+\proof To be a group, the given algebraic structure must be closed, associative, contain an identity element, and each element must have an inverse element. We'll test each of these conditions. \\ 
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item 
+  \textbf{Closure:} The logical exclusive-or takes two logical statements (which themselves evaluate to either $T$ or $F$) and returns a $T$ or a $F$. Further proof of closure lies in Table 2, the Cayley table for this algebraic structure. Therefore the set $\braces{T,F}$ is closed under $\lxor$. \\
+  \textbf{Associativity:} $\Let a,b,c\in\braces{T,F}$. \\
+  Case 1: $c=F$. \vspace{-11pt}
+  \begin{align*}
+    a\lxor(b\lxor c) &= a\lxor(b\lxor F) \\
+      &= a\lxor b \\
+      &= (a\lxor b)\lxor F \\
+      &= (a\lxor b)\lxor c
+  \end{align*}
+  Case 2: $c=T$. \vspace*{-11pt}
+  \begin{align*}
+    a\lxor(b\lxor c) &= a\lxor(b\lxor T) \\
+      &= a\lxor\lnot b \\
+      &= \lnot(a\lxor b) \\
+      &= (a\lxor b)\lxor T \\
+      &= (a\lxor b)\lxor c
+  \end{align*}
+  Therefore, $\braces{T,F}$ is associative under $\lxor$. \\
+  \textbf{Existence of an Identity:} Take $\iota = F$. Then $\forall a\in\braces{T,F},\ \iota\lxor a = F\lxor a = a$. Therefore, the algebraic structure $(\braces{T,F},\lxor)$ does possesses an identity element. \\
+  \textbf{Existence of an Inverse:} $\forall a\in\braces{T,F},$ take $a\inv=a$. Then $a\lxor a\inv = a\lxor a = F = \iota$. Therefore, every element of $(\braces{T,F},\lxor)$ possesses a corresponding inverse. \\
+\end{list}
+Therefore, $(\braces{T,F}, \lxor)$ is a group. $\QED$ \\
+
+\sol (c) \\
+For the algebraic structure $(\braces{T,F},\lxor,\land)$ to form a field, $(\braces{T,F},\lxor)$ must be an Abelian group, $(\braces{T,F}\setminus\braces{\iota},\land))$ must be an Abelian group, and the distributive property of $\land$ over $\lxor$ must hold. \\ 
+
+\Lemma $(\braces{T,F},\lxor)$ is an Abelian group. 
+\proof In question 1c, we proved that $(\braces{T,F},\lxor)$ is a group. To be Abelian, $(\braces{T,F}, \lxor)$ must additionally satisfy commutativity. \\
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item 
+  \textbf{Commutativity:} $\forall a,b\in\braces{T,F},\ a\lxor b = b\lxor a$. Therefore the algebraic structure $(\braces{T,F}, \lxor)$ is commutative. \\
+\end{list}
+Therefore, $(\braces{T,F},\lxor)$ is an Abelian group. $\QED$ \\
+
+\Lemma $(\braces{T,F}\setminus\braces{\iota}, \land)$ is an Abelian group.
+\proof Since, $\iota=F$, the set $\braces{T,F}\setminus\braces{\iota}=\braces{T}$. \\
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item 
+  \textbf{Closure:} $\forall a\in\braces{T},\ a\land a = T\in\braces{T}$ Therefore, $\braces{T}$ is closed under $\land$. \\
+  \textbf{Associativity:} $\forall a,b,c\in\braces{T},\ a\land (b\land c)= T\land (T\land T) = T\land T = (T\land T) \land T = (a\land b)\land c$. Therefore $\braces{T}$ is associative under $\land$. \\
+  \textbf{Existence of an Identity:} Take $i=T$. Then $\forall a\in\braces{T},\ a\land i = a\land T = T = i$. Therefore, under the multiplicative operation $\land$, $\braces{T}$, has a multiplicative identity. \\
+  \textbf{Existence of an Inverse:} $\forall a\in\braces{T},$ take $a\inv=T$. Then $a\land a\inv = a\land T = T = i$. Therefore, for each element of the set $\braces{T}$ under $\land$ has a corresponding inverse. \\
+  \textbf{Commutativity:} $\forall a,b\in\braces{T},\ a\land b = T\land T = b\land a$. Therefore this structure is commutative. \\
+\end{list}
+Therefore, $(\braces{T,F}\setminus\braces{\iota},\land)$ is an Abelian group. $\QED$ \\
+
+\Theom $(\braces{T,F}, \lxor, \land)$ is a field.
+\proof We've proven that the additive and multiplicative structures of this algebraic structure are Abelian groups. Finally, we must prove that the multiplicative operation, $\land$ distributes over the additive operation $\lxor$. \\
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item 
+  The additive structure, $(\braces{T,F}, \lxor)$ is an Abelian group. \\
+  The multiplicative structure, $(\braces{T,F}\setminus\braces{\iota}, \lxor)$, where $\iota$ is the additive identity, taking the value $F$, is an Abelian group. \\
+  \textbf{Distributivity:} $\forall a,b,c\in\braces{T,F},$ \\
+  \begin{tabular}{ccc|ccc|cc}
+    $a$ & $b$ & $c$ & $a\land b$ & $a\land c$ & $b\lxor c$ & $a\land(b\lxor c)$ & $(a\land b)\lxor(a\land c)$ \\ \hline
+    T & T & T & T & T & F & F & F \\
+    T & T & F & T & F & T & T & T \\
+    T & F & T & F & T & T & T & T \\
+    T & F & F & F & F & F & F & F \\
+    F & T & T & F & F & T & F & F \\
+    F & T & F & F & F & T & F & F \\
+    F & F & T & F & F & T & F & F \\
+    F & F & F & F & F & F & F & F \\
+  \end{tabular} \\
+  The leftmost columns are identical, which proves that $a\land(b\lxor c)$ is logically equivalent   to $(a\land b)\lxor(a\land c)$. \\
+  Therefore, for the algebraic structure $(\braces{T,F},\lxor,\land)$, distributivity holds. \\
+\end{list}
+Therefore, the algebraic structure $(\braces{T,F},\lxor,\land)$ is a field. $\QED$
+
+\newpage
+\qs{(\it10 marks)}{
+  \begin{enumerate}[label=(\alph*)]
+    \item Prove that the group $(\bbr,+)$ is isomorphic to the group $(\bbr_+,\times)$.
+    \item Prove that the group $(\bbz\times\bbz,+)$ is not isomorphic to the group $(\bbz,+)$.
+  \end{enumerate}
+}
+\sol (a)
+$(\bbr,+)\cong(\bbr_+,\times)\iff\exists f:\bbr\to\bbr_+$ such that $f$ is isomorphic (bijective [injective and surjective] and homomorphic [satisfies $f(g_1+g_2) = f(g_1)\times f(g_2),\ \forall g_1,g_2\in\bbr$]). We'll prove this by proposing an $f$, and proving that it is isomorphic. \\
+
+\Claim $(\bbr,+)$ is isomorphic to $(\bbr_+,\times)$.
+\proof Take $f: \bbr\to\bbr_+,\ x\mapsto\exp(x)$ \\
+
+\textbf{Bijective:}
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item
+  \textbf{Injective:} \\
+  $f$ is injective $\iff \forall a,b\in\bbr,\ f(a)=f(b)\implies a=b$. \\
+  Let $a,b\in\bbr$ and $f(a)=f(b)$. Take the natural logarithm of both sides, \\
+  $\ln(f(a)) = \ln(f(b))$,\\
+  $\ln(\exp(a)) = \ln(\exp(b))$. This cancels out the $\exp$ on both sides, and simplifies to \\
+  $a=b$. \\
+  $\tf f$ is injective.
+
+  \textbf{Surjective:} \\
+  $f$ is surjective $\iff \forall y\in\bbr_+,\ \exists x\in\bbr: y=f(x)$. \\
+  Given $y\in\bbr_+$, we take $x=\ln(y)$. \\
+  Then, $f(x) = f(\ln(y)) = \exp(\ln(y)) = y$. \\
+  $\tf f$ is surjective.
+\end{list}
+$\tf f$ is bijective. \\
+
+\textbf{Homomorphic}
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item
+  $f$ is homomorphic $\iff \forall a,b\in\bbr,\ f(a+b) = f(a)\times f(b)$. \\
+  Let $a,b\in\bbr$. \\
+  Then $f(a+b) = \exp(a+b) = \exp(a)\times\exp(b) = f(a)\times f(b)$. \\
+  $\tf f$ is homomorphic. \\
+\end{list}
+
+$\tf f$ is an isomorphism between $(\bbr,+)$ and $(\bbr_+,\times)$. \\
+$\tf (\bbr,+)$ is isomorphic to $(\bbr_+,\times)$. $\QED$ \\
+
+\newpage
+\sol (b) \\
+A group $(G,\cd)$ is cyclic if there exists an element, called the generator, $g\in G$ such that every element of $G$ can be expressed as $\bbn\ni n$ applications of $\cd$ on $g$, denoted $g^n$. To show that $(\bbz\times\bbz,+)$ is not isomorphic to the group $(\bbz,+)$, we can demonstrate that one group is cyclic, and one is not, thus there fundamental structure is incompatible, and isomorphism is impossible. \\
+
+\Claim $(\bbz\times\bbz,+)$ is not isomorphic to $(\bbz,+)$ 
+\proof ${}^{}$\\
+Is $(\bbz,+)$ cyclic
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item
+  Suppose $n\in\bbz$. If $n\geq0$, take the generator $g=1$. If $n<0$, take $g=-1$. \\
+  Case 1: $n\geq0$ \\
+  $\phantom{\sum}\phantom{\sum}n = 1 + 1 + \dots + 1\ (n\ \text{times})$ \\
+  $\phantom{\sum}\phantom{\sum}\phantom{n} = g + g + \dots + g\ (n\ \text{times})$ \\
+  $\phantom{\sum}\phantom{\sum}\phantom{n} = g^n$ \\
+  Case 2: $n<0$ \\
+  $\phantom{\sum}\phantom{\sum}n = -1 - 1 - \dots - 1\ (n\ \text{times})$ \\
+  $\phantom{\sum}\phantom{\sum}\phantom{n} = g + g + \dots + g\ (n\ \text{times})$ \\
+  $\phantom{\sum}\phantom{\sum}\phantom{n} = g^n$ \\
+  $\tf$ all elements in $\bbz$ can be expressed as $g^n$.
+\end{list}
+Therefore, $(\bbz,+)$ is cyclic \\
+
+Is $(\bbz\times\bbz,+)$ cyclic
+\begin{list}{}{\setlength{\leftmargin}{0.5in}\setlength{\topsep}{0pt}}\item
+  Suppose $(\bbz\times\bbz,+)$ is cyclic. \\
+  Then, $\exists(g_1,g_2)\in\bbz\times\bbz:\forall (a,b)\in\bbz\times\bbz,$\\
+  $(a,b)=(g_1,g_2)^n=(g_1^n, g_2^n)=(g_1+\dots+g_1, g_2+\dots+g_2)\ (n\ \text{times})=(ng_1, ng_2)$. \\
+  Take $(a,b)=(1,0)$. \\
+  Then, $a=1=ng_1$ and $b=0=ng_2$. \\
+  This forces us to fix $g_1=1$ and $g_2=0$. \\
+  Now take $(a,b)=(0,1)$. \\
+  There does not exist an $n$ such that $b=0n$. $\CONTRA$ \\
+  $\tf$ there does not exist a generator $(g_1,g_2)$\\
+  which can generate all the other elements of $\bbz\times\bbz$.
+\end{list}
+Therefore, $(\bbz\times\bbz,+)$ is not cyclic. \\
+
+Therefore, $(\bbz,+)$ is cyclic but $(\bbz\times\bbz,+)$ is not.\\
+Therefore, $(\bbz\times\bbz,+)$ is not isomorphic to $(\bbz,+)$. $\QED$
+
+\newpage
+\qs{(\it5 marks)}{
+  Your MATH1061 tutorial class contains 20 people, and together you have all decided to form a party for the coming election.
+  \begin{enumerate}[label=(\alph*)]
+    \item How many ways could you choose five spokespeople for your party?
+    \item How many ways could you choose people for the three leadership roles of president, vice-president, and treasurer?
+  \end{enumerate}
+  \textit{Note}: Give your answer as a single integer. (a) and (b) are independent questions.
+}
+\sol (a) \\
+We're choosing 5 subjects ($r=5$), from a pool of 20 ($n=20$). Order does not matter, so we can use $nCr$ to solve this:
+\begin{align*}
+  \comb{n}{r} &= \comb{20}{5} \\
+    &= \frac{20!}{5!(20-5)!} \\
+    &= \frac{20!}{5!15!} \\
+    &= \frac{20\cd19\cd18\cd17\cd16}{5\cd4\cd3\cd2\cd1} \\
+    &= \frac{1.860.480}{120} \\
+    &= 15.504
+\end{align*}
+Therefore, there are 15.504 ways to choose 5 spokespeople for our political party. \\
+
+\sol (b) \\
+We're choosing 1 subjects for 3 distinct roles ($r=3$), from a pool of 20, without replacement ($n=20$). The order matters, since a person could be either a president, a vice-president, or a treasurer, so we can use $nPr$ here:
+\begin{align*}
+  \perm{n}{r} &= \perm{20}{3} \\
+    &= \frac{n!}{(n-r)!} \\
+    &= \frac{20!}{(20-3)!} \\
+    &= \frac{20!}{(17)!} \\
+    &= \frac{20\cd19\cd18}{1} \\
+    &= 6.840 
+\end{align*}
+Therefore, there are 6.840 ways we could arrange the party leadership.
+
+\newpage
+\qs{(\it10 marks)}{
+  Your MATH1061 tutorial class contains 20 people, and together you have all decided to form a party for the coming election. These 20 students consist of 8 from the Science faculty, 9 from the ITEE faculty, and 3 from the Arts faculty (each student belongs to one faculty).
+  \begin{enumerate}[label=(\alph*)]
+    \item How many ways could you choose people for the three leadership roles of president, vice-president, and treasurer, insisting that these three people come from three different faculties?
+    \item How many ways could you choose 5 spokespeople for the party, insisting that there must be at least one spokesperson from each faculty.
+  \end{enumerate}
+  \textit{Note}: Give your answer as a single integer. (a) and (b) are independent questions.
+}
+\sol (a) \\
+We need to arrange 3 faculties into 3 leadership roles. Since the leadership roles are unique, order matters, hence, we'll use $nPr$ for this. \\
+We need to choose 1 student from each of the 3 faculties. Order doesn't matter, so we'll use $nCr$, but  we'll need to do it three times, one of each faculty. \\
+The faculty/leadership arrangements need to be multiiplied by the student/faculty choices. Then we'll arrive at the total number we seek.
+\begin{align*}
+  \perm{3}{3}\cd\comb{8}{1}\cd\comb{9}{1}\cd\comb{3}{1} &= \frac{3!}{(3-3)!} \cd \frac{8!}{1!(8-1)!} \cd \frac{9!}{1!(9-1)!} \cd \frac{3!}{1!(3-1)!} \\
+    &= \frac{3!}{0!} \cd \frac{8!}{1!7!} \cd \frac{9!}{1!8!} \cd \frac{3!}{1!2!} \\
+    &= \frac{3!}{1} \cd \frac{8!}{7!} \cd \frac{9!}{8!} \cd \frac{3!}{2!} \\
+    &= 3! \cd 8 \cd 9 \cd 3 \\
+    &= 3 \cd 2 \cd 8 \cd 9 \cd 3 \\
+    &= 1.296
+\end{align*} 
+Therefore, there are 1.296 ways to select the party leadership, assuring that each of the 3 faculties are represented. \\
+
+\newpage
+\sol (b) \\
+We'll start by calculating the total number of ways to choose 5 spokespeople from a pool of 20 party members. Since order doesn't matter,
+$$
+  \comb{20}{5} = \frac{20!}{5!(20-5!)} = \frac{20!}{5!15!} = \frac{20\cd19\cd18\cd17\cd16}{5\cd4\cd3\cd2} = \frac{1.860.480}{120} = 15.504
+$$
+We'll calculate the number of combinations where a whole faculty is completely missing. Science,
+$$
+  \comb{9+3=12}{5} = \frac{12!}{5!(12-5)!} = \frac{12!}{5!7!} = \frac{12\cd11\cd10\cd9\cd8}{5\cd4\cd3\cd2} = \frac{95.040}{120} = 792
+$$
+ITEE,
+$$
+  \comb{8+3=11}{5} = \frac{11!}{5!(11-5)!} = \frac{11!}{5!6!} = \frac{11\cd10\cd9\cd8\cd7}{5\cd4\cd3\cd2} = \frac{55.440}{120} = 462
+$$
+Arts,
+$$
+  \comb{9+8=17}{5} = \frac{17!}{5!(17-5)!} = \frac{17!}{5!12!} = \frac{17\cd16\cd15\cd14\cd13}{5\cd4\cd3\cd2} = \frac{742.560}{120} = 6.188
+$$
+Next, we'll calculate the number of cominations where only a single faculty is represented among spokespeople. Science,
+$$
+  \comb{8}{5} = \frac{8!}{5!(8-5)!} = \frac{8!}{5!3!} = \frac{8\cd7\cd6}{3\cd2} = \frac{336}{6} = 56
+$$
+ITEE,
+$$
+  \comb{9}{5} = \frac{9!}{5!(9-5)!} = \frac{9!}{5!4!} = \frac{9\cd8\cd7\cd6}{4\cd3\cd2} = \frac{3024}{24} = 126
+$$
+Arts,
+$$
+  \comb{3}{5} = 0,\ \text{We can't choose 5 from a pool of 3.}
+$$
+We're applying the Inclusion-Exclusion principle here. We take the total number of combinations, remove from that total the combinations for which particular faculties are not chosen, and we add back combinations the number of combinations for which single faculties are represented, which undoes the double removal of some combinations originally removed.
+$$
+15.504 - 792 - 462 - 6.188 + 56 + 126 + 0 = 8.244
+$$
+Therefore, our final answer, the number of ways we can choose 5 spokespeople from a pool of 20 party members, assuring that each of 3 faculties is represented.
+
+\newpage
+\qs{(\it10 marks)}{
+  Consider points $(x,y)$ on the 2-D plan $\bbr\times\bbr$. Let $S=\braces{(x,y)\suchthat 0\leq x, y\leq 1}$. That is, $S$ represents a unit square including its boundary. Prove that $S$ has the same cardinality as the entire $\bbr\times\bbr$ plane.
+}
+\sol To prove that two sets have the same cardinality, we must prove that there exists a bijection between the two sets. This may be tricky, which is why we'll apply the Schr\"oder-Bernstein theorem, which states that
+$$
+  \exists f:A\to B, g:B\to A \text{ such that } f \text{ and } g \text{ are injective} \implies \exists h:A\to B \text{ such that } h \text{ is bijective.}
+$$
+This simplifies our problem because instead of needing to find a bijection, we can find two injections. \\
+
+\Claim $\abs{S} = \abs{\bbr\times\bbr}$
+\proof ${}^{}$\\
+An injection from $S$ to $\bbr\times\bbr$
+\begin{list}{}{\setlength{\topsep}{0pt}\setlength{\leftmargin}{0.5in}}\item
+  Take $f:S\to\bbr\times\bbr,\ (s_1,s_2)\mapsto (s_1,s_2)$. \\
+  Then, suppose $(a_1,a_1),(b_1,b_2)\in S$ and $f(a_1,a_2)=f(b_1,b_2)$. \\
+  Hence, $f(a_1,a_2) = (a_1,a_2) = (b_1,b_2) = f(b_1,b_2)$. \\
+  Therefore $(a_1,a_2) = (b_1,b_2)$ 
+\end{list}
+Therefore, the proposed $f:S\to\bbr\times\bbr$ is injective. \\
+
+An injection from $\bbr\times\bbr\to S$
+\begin{list}{}{\setlength{\topsep}{0pt}\setlength{\leftmargin}{0.5in}}\item
+  Take $g:\bbr\times\bbr\to S,\ (x,y)\mapsto\bracks{\frac{1}{2}+\frac{1}{\pi}\arctan(x),\ \frac{1}{2}+\frac{1}{\pi}\arctan(y)}$ \\
+  The domain of $\arctan x$ is $\bbr$. \\
+  The codomain of $\arctan x$ is the open interval $\bracks{-\frac{\pi}{2},\ \frac{\pi}{2}}$. \\
+  So, the codomain of $\frac{1}{\pi}\arctan x$ is the open interval $\bracks{-\frac{1}{2}, \frac{1}{2}}$. \\
+  Finally, the codomain of $\frac{1}{2}+\frac{2}{\pi}\arctan x$ is the open interval $\bracks{0,1}$. \\
+  Therefore the codomain of our proposed injective function $g$ is \\
+  $\braces{(x,y)\suchthat x\in\bracks{0,1},y\in\bracks{0,1}}\subseteq S$. 
+
+  Suppose $(x_1,y_1),(x_2,y_2)\in\bbr\times\bbr$, and $f(x_1,y_1)=f(x_2,y_2)$. \\
+  Then $\frac{1}{2}+\frac{1}{\pi}\arctan(x_1)=\frac{1}{2}+\frac{1}{\pi}\arctan(x_2)$. Taking $\frac{1}{2}$ from both sides, \\
+  leaves $\frac{1}{\pi}\arctan(x_1)=\frac{1}{\pi}\arctan(x_2)$. Multiplying both sides by $\pi$, \\
+  leaves $\arctan(x_1)=\arctan(x_2)$. Finally, taking the $\tan$ of both sides, \\
+  leaves $\tan\bracks{\arctan(x_1)} = \tan\bracks{\arctan(x_1)}$. \\
+  Since $\arctan$ is the inverse of $\tan$, they cancel out one another, leading to the conclusion that \\
+  $x_1=x_2$.
+
+  We use the same argument and procedure to show that $y_1 = y_2$. 
+
+  Therefore $(x_1,y_1)=(x_2,y_2)$.
+\end{list}
+Therefore the proposed function $g:\bbr\times\bbr\to S$ is injective. \\
+
+Therefore, there exist injections from $S\to\bbr\times\bbr$ and $\bbr\times\bbr\to S$. \\
+Therefore, by the Schr\"oder-Bernstein theorem, there exists a bijection from $S\to\bbr\times\bbr$ to $\bbr\times\bbr\to S$ \\
+Therefore, because there exists a bijective function between the two sets, $\abs{S} = \abs{\bbr\times\bbr}$. $\QED$
+
+\end{document}
