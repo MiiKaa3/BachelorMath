@@ -2148,5 +2148,1631 @@ Hence $f(x) = 2x = y$. \\
 Thus, $f$ is surrjective. \\
 Therefore, $f$ is injective and surrjective. Therefore, $f$ is a bijection. \\
 Therefore, $\abs{\bbz} = \abs{\braces{n\in\bbz\suchthat n=2k,\ k\in\bbz}}. \QED$
+
+\chapter{Week 8}
+\section{Lecture 22}
+\subsection*{Countable and Uncoutnable Sets}
+\dfn{Countably Infinite}{
+	A set, $S$, is called countably infinite if and only if it has the same cardinality as the set of positive integers, $\bbn$.
+	$$
+		\abs{S} = \abs{\bbn}
+	$$
+}
+
+\dfn{Countable}{
+	A set, is called countable if and only if it is finite or countably infinite. A set that is not countable is called uncountable.
+}
+
+\thm{}{Any subset of any countable set is countable}
+\cor{}{Any set with an uncountable subset, is uncountable}
+\nt{The corollary is just the contrapositive of the theorem}
+
+\thm{Reals are Uncountable}{
+	The set $I = \braces{x\in\bbr\suchthat 0<x<1}$ is uncoutnable.
+}
+\begin{proof}
+	Suppose the theomrem is false. \\
+	Then the set $I$ is coutnable, so the decimal expansion of these numbers can be written in a list. Let's write every number now:
+	$$
+		\begin{array}{l}
+			0.a_{11}a_{12}a_{13}a_{14}\dots a_{1n} \dots \\
+			0.a_{21}a_{22}a_{23}a_{24}\dots a_{2n} \dots \\
+			0.a_{31}a_{32}a_{33}a_{34}\dots a_{3n} \dots \\
+			\vdots
+		\end{array}
+	$$
+	We can construct a new number, $d$, whose decimal expansion is 
+	$$
+		d = 0.d_1d_2d_3d_4\dots d_n \dots
+	$$
+	according to the rule
+	$$
+		d_i = \left\lbrace \begin{array}{l} 1 \text{ if } a_{nn} \neq 1 \\ 2 \text{ if } a_{nn} = 1			
+		\end{array} \right.
+	$$
+	For each natural number, $d$ differs from the $n$th real number in the list because it differs in the $n$th decimal place. \\
+	Hence, we've constructed a number $d\in I$, but which we didn't write down originally, or $d\notin I$. $\CONTRA$ \\
+	This is a contradiction. \\
+	Therefore, the theorem is true.
+\end{proof}
+Now, since the theomre is true, the corollary is true. So it follows that, since $I\subseteq\bbr$, and $I$ is uncoutnable, then $\bbr$ is uncountable. \\
+
+In fact, 
+$$
+	\abs{I} = \abs{\bbr}
+$$
+since there exists a bijection $f: \bbr \to I$, namely
+\begin{center}
+	\begin{tikzpicture}
+		\begin{axis}[
+				title={$\dps{f(x) = \frac{1}{1 + \exp(x)}}$},
+				xlabel={$x$},
+				ylabel={$y$},
+				xmin=-10, xmax=10,
+				ymin=-0.1, ymax=1.1,
+			]
+			\addplot[color=red, thick, domain=-10:10] {1 / (1+exp(x))};
+			\addplot[color=blue, dashed, domain=-10:10] {1};
+			\addplot[color=blue, dashed, domain=-10:10] {0};
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+\subsection*{Comparing Cardinalities}
+For two sets, $X$ and $Y$ 
+\begin{itemize}
+	\item $\abs{X}\leq\abs{Y}\iff \exists\ \text{injective}\ f:X\to Y$
+	\item $\abs{X}\geq\abs{Y}\iff \exists\ \text{surrjective}\ f:X\to Y$
+	\item $\abs{X}<\abs{Y}\iff \exists\ \text{injective and not surrjective}\ f:X\to Y$
+	\item $\abs{X}>\abs{Y}\iff \exists\ \text{surrjective and not injective}\ f:X\to Y$
+	\item $\abs{\emp} < \abs{X}$ and $\abs{X} > \abs{\emp}$ $\forall X\neq\emp$
+\end{itemize}
+
+\thm{Schr\"oder-Bernstein Theorem}{
+	For two sets, $X,\ Y$,
+	$$
+		\abs{X}\leq\abs{Y},\ \abs{X}\geq\abs{Y}\implies \abs{X}=\abs{Y}
+	$$
+}
+Therefore, to show that two sets have equal cardinality, it is enough to find
+\begin{enumerate}
+	\item an injective function, $f:X\to Y$ and
+	\item a surrjective function, $f:X\to Y$
+\end{enumerate}
+Or
+\begin{enumerate}
+	\item an injective function, $f:X\to Y$ and
+	\item an injective function, $f:Y\to X$ 
+\end{enumerate}
+Or
+\begin{enumerate}
+	\item a surrjective function, $f:X\to Y$ and
+	\item a surrjective function, $f:Y\to X$ 
+\end{enumerate}
+This can be easier then finding a bijection between the two sets.
+
+\section{Lecture 23}
+\subsection*{Relations on Sets}
+\dfn{Relation}{
+	Given sets $A$ and $B$, a binary relation $\alpha$ from $A$ to $B$ is a subset of the Cartesian product of $A$ and $B$. If $(x,y)\in\alpha$ we can also write $x\mathbin{\alpha}y$, and we say $x$ is related to $y$.
+}
+
+\ex{}{
+	Let $A=\braces{1,2,5}$ and $B=\braces{5,6}$, define a binary relation $\sigma$ by
+	$$
+		\forall a\in A,\ b\in B,\ a\mathbin{\sigma}b \iff a<b
+	$$
+	Then
+	$$
+		A\times B \supseteq \sigma = \braces{(1,5), (1,6), (2,5), (2,6), (5,6)}
+	$$
+}	
+We can represent this with a diagram, drawing arrows from the elements in set $A$ to elements in set $B$. We draw an error if and only if the element in $A$ is related to the element in $B$. \\
+
+We can thereby observe that a relation is a generalisation of a function.
+
+\dfn{Inverse Relation}{
+	If $\rho$ is a relation from sets $A$ to $B$, then the inverse relation $\rho\inv$ is defined by
+	$$
+		\rho\inv = \braces{(b,a)\in B\times A \suchthat (a,b) \in\rho}
+	$$
+}
+
+\ex{}{
+	Let $A=\braces{2,3}$ and $B=\braces{2,6,9}$ and $\rho\subseteq(A,B)$ such that
+	$$
+		\forall a\in A,\ b\in B,\ a \mathbin{\rho} b \iff a\divs b
+	$$
+	Then
+	$$
+		\rho = \braces{(2,2), (2,6), (3,6), (3,9)}
+	$$
+	and
+	$$
+		\rho\inv = \braces{(2,2), (6,2), (6,3), (9,3)}
+	$$
+}
+
+\dfn{}{
+	A relation on a set, is a realtion from a set $A$ to itself.
+}
+
+\ex{}{
+	Let $\rho$ be a relation on set $A=\braces{2,3,6}$:
+	$$
+		\forall x,y\in A,\ x\mathbin{\rho}y \iff x \divs y
+	$$
+	Then
+	$$
+		A\times A \supseteq \rho = \braces{(2,2), (3,3), (6,6), (2,6), (3,6)}
+	$$
+}
+
+\dfn{}{
+	Let $\rho$ be a relation on a set $A$.
+	\begin{itemize}
+		\item $\rho$ is reflexive $\iff \forall x\in A,\ x\mathbin{\rho}x$
+		\item $\rho$ is symmetric $\iff \forall x,y\in A,\ x\mathbin{\rho}y \implies y\mathbin{\rho}x$
+		\item $\rho$ is transitive $\iff \forall x,y,z\in A,\ x\mathbin{\rho}y,\ y\mathbin{\rho}z \implies x\mathbin{\rho} z$	
+	\end{itemize}
+}
+
+On an arrow diagram, a relation is
+\begin{itemize}
+	\item reflexive if and only if every element has an arrow pointing to itself.
+	\item symmetric if and only if for every arrow from one element to another, there is a second arrow travelling in the opposite direction.
+	\item transitive if and only if for every two consecutive arrows, there is a third arrow connecting the ultimate start element with the ultimate end location (think about how the opposite and adjacent lengths of a triangle connect points $P$ to $Q$ and $Q$ to $R$, but the hypotenuse ultimately connects $P$ to $R$.)
+\end{itemize}
+
+\ex{}{
+	Let $d\in\bbn$ be fixed. The relation $\rho$ on $\bbz$, defined by
+	$$
+		\forall a,b\in\bbz,\ a\mathbin\rho b\iff a\equiv b\Mod d 
+	$$
+	\begin{gather*}
+		\intertext{Is reflexive}
+		\Suppose a\in\bbz \\ \Then a-a = 0 \\ d \divs 0 \iff a\equiv a\Mod d \\
+		\tf a\mathbin\rho a
+		\intertext{Is symmetric}
+		\Suppose a,b\in\bbz,\ a\mathbin\rho b \\ \Then a\equiv b\Mod d,\ d\divs(a-b),\ d\divs -(b-a),\ d\divs(b-a) \iff b\equiv a\Mod d \\
+		\tf b\mathbin\rho a
+		\intertext{Is transitive}
+		\Suppose a,b,c\in\bbz,\ a\mathbin\rho b,\ b\mathbin\rho c \\
+		\Then a\equiv b\Mod d,\ b\equiv c\Mod d \\
+		d \divs(a-b),\ d\divs(b-c) \iff d\divs(a-b)+(b-c) \iff d\divs(a-c) \iff a\equiv c\Mod d \\
+		\tf a\mathbin\rho c
+	\end{gather*}
+}
+
+\pagebreak
+\Lemma A relation $\rho$ on set $A$ is symmetric if and only if $\rho=\rho\inv$.
+\begin{proof}
+	Let $\rho$ be a relation on set $A$. \\
+	Show that $\rho$ is symmetric $\implies \rho=\rho\inv$
+	\begin{list}{}{\rightmargin\leftmargin\topsep=4pt}\item
+		Suppose $\rho$ is symmetric. 
+
+		Let $(x,y)\in\rho$. Then $(y,x)\in\rho\inv$, because $\rho$ is symmetric. \\
+		Hence, $(x,y)\in\rho\inv$. \\
+		So, $\rho\subseteq\rho\inv$. 
+
+		Now, let $(x,y)\in\rho\inv$. Then $(y,x)\in\rho$ by defintion. \\
+		Hence $(x,y)\in\rho$, since $\rho\inv$ is symmetric. \\
+		So, $\rho\inv\subseteqq\rho$.
+
+		Therefore, $\rho=\rho\inv$
+	\end{list}
+	Show that $\rho=\rho\inv\implies\rho$ is symmetric.
+	\begin{list}{}{\rightmargin\leftmargin\topsep=4pt}\item 
+		Suppose $\rho=\rho\inv$
+
+		Let $(x,y)\in\rho$. Then $(y,x)\in\rho\inv$. \\
+		But, $\rho=\rho\inv$, therefore $(y,x)\in\rho$.
+
+		Therefore, $\rho$ is symmetric.
+	\end{list}
+	Therefore, $\rho$ is symmetric $\iff\rho=\rho\inv$
+\end{proof}
+
+\chapter{Week 9}
+\section{Lecture 24}
+\subsection*{Equivalence Relations}
+\dfn{Equivalence Relation}{
+	Let $\rho$ be a relation on the set $A$. Then $\rho$ is an equivalence relation if and only if $\rho$ is symmetric, reflexive, and transitive.
+}
+\ex{}{
+	The relation $\rho$ on $\bbz$ from example 8.2.4 is reflexive, symmetric and transitive.\\
+
+	Therefore, $\rho$ is an equivalence relation.
+}
+
+\dfn{Equivalence Class}{
+	Let $\rho$ be an equivalence relation on the set $A$, and let $a\in A$. \\
+
+	The equivalence class of $a$ is 
+	$$
+		\sqbracks{a} = \braces{x\in A \suchthat x \rho a}
+	$$
+	So, $\forall x\in A,\ x\in\sqbracks{a}\iff x\mathbin{\rho} a$
+}
+
+\ex{}{
+	Let $\rho$ be the relation on $\bbz$ defined by $a\mathbin{\rho} b \iff a\equiv b\Mod 3 \iff 3\divs(a-b)$. \\
+
+	Then $\rho$ is an equivalence relation with equivalence classes
+	$$
+		\begin{array}{c}
+			\sqbracks{0} = \braces{\dots,-6,-3,0,3,6,\dots} \\
+			\sqbracks{1} = \braces{\dots,-5,-2,1,4,7,\dots} \\
+			\sqbracks{2} = \braces{\dots,-4,-1,2,5,8,\dots} \\
+		\end{array}
+	$$
+	Notice that $[0]=[3]=[-6]$, etc. \\
+	Also notice that every element of the set has been put into one of these classes. A partition
+}
+\Lemma Let $\rho$ be an equivalence relation on $S$ and $a,b\in S: a\mathbin{\rho}b$, then $\sqbracks{a}=\sqbracks{b}$.
+\begin{proof}
+	Let $\rho$ be an equivalence relation on the set $A$, $a,b\in A$, and $a\mathbin\rho b$. \\
+	Show $\sqbracks{a}\subseteq\sqbracks{b}$
+	\begin{list}{}{\rightmargin\leftmargin\topsep=4pt}\item
+		Let $x\in\sqbracks{a}$. Then $x\mathbin\rho a$, by defintion. \\
+		Now, since $x\mathbin\rho a$ and $a\mathbin\rho b$, then $x\mathbin\rho b$, by the transitive property. \\
+		Thus, $x\in\sqbracks{b}$
+
+		$\tf\sqbracks{a}\subseteq\sqbracks{b}$
+	\end{list}
+	Show $\sqbracks{b}\subseteq\sqbracks{a}$
+	\begin{list}{}{\rightmargin\leftmargin\topsep=4pt}\item
+		Let $x\in\sqbracks{b}$. Then $x\mathbin\rho b$, by defintion. \\
+		Now, since $x\mathbin\rho b$ and $b\mathbin\rho a$, then $x\mathbin\rho a$, by the transitive property. \\
+		Thus, $x\in\sqbracks{a}$
+
+		$\tf\sqbracks{b}\subseteq\sqbracks{a}$
+	\end{list}
+	$\tf \sqbracks{a}=\sqbracks{b}$
+\end{proof}
+
+\Lemma If $\rho$ is an equivalence relation on the set $A$, and $a,b\in A$ and $\sqbracks{A}\cap\sqbracks{B}\neq\emp$, then $\sqbracks{A}=\sqbracks{B}$.
+
+Or, equivalently
+
+If $\rho$ is an equivalence relation on the set $A$, and $a,b\in A$, then either $\sqbracks{A}\cap\sqbracks{B}\cap\emp$ or $\sqbracks{A}=\sqbracks{B}$.
+
+\thm{}{
+	If $\rho$ is an equivalence relation on $A$, then the set of equivalence classes of $\rho$ form a partition of $A$.
+
+	$$
+		\bigcup_{\forall a\in A} \sqbracks{a} = A
+	$$
+}
+
+This can work in the opposite direction too, \\
+
+\Theom Given a partition of $A$, and a binary relation $\rho$, induced by the parition, it follows that $\rho$ is reflexive, symmetric, and transitive.
+
+\section{Lecture 25}
+\subsection*{Partial Order Relations}
+\dfn{Antisymmetric}{
+	A relation $\rho$ on a set $A$ is antisymmetric if and only if
+	$$
+		\forall a,b\in A,\ a\mathbin\rho b,\ b\mathbin\rho a \implies a=b
+	$$
+}
+
+\dfn{Partial Order Relation}{
+	A relation $\rho$ on the set $A$ is a partial order relation on $A$ if an only if $\rho$ is reflexive, antisymmetric, and transitive.	
+}
+
+\ex{}{
+	Consider the relation ``less than or equal to'' on $\bbr$
+	\begin{itemize}
+		\item Reflexive: $\forall x\in\bbr,\ x\leq x$.
+		\item Antisymmetric: $\forall x,y\in\bbr,\ x\leq y,\ y\leq x\implies x=y$.
+		\item Transitive: $\forall x,y,z\in\bbr,\ x\leq y,\ y\leq z\implies x\leq z$.
+	\end{itemize}
+	Therefore, $\leq$ is a partial order relation on $\bbr$
+}
+
+\dfn{Comparable Elements}{
+	Let $\rho$ be a relation on a set $A$. Elements $a,b\in A$ are comparable if and only if $a\mathbin\rho b$ or $b\mathbin\rho a$. Otherwise, $a$ and $b$ are uncomparable.
+}
+
+\dfn{Total Order Relation}{
+	Let $\rho$ be a relation on a set $A$. Then $\rho$ is a total order relation if and only if $\rho$ is a partial order relation such that all elements are comparable. \\
+
+	That is, $\rho$ is a total order relation if and only if
+	\begin{itemize}
+		\item $\rho$ is reflexive,
+		\item $\rho$ is antisymmetric,
+		\item $\rho$ is transitive,
+		\item $\forall a,b\in A,\ a\mathbin\rho b \lor b\mathbin\rho a$.
+	\end{itemize}
+}
+
+\ex{}{
+	Show that the relation $\rho$ be defined by $a\mathbin\rho b\iff a\divs b$ on the set $A=\braces{1,2,4,8,16}$. Show that this relation is a total order relation on the set $A$. \\
+
+	\begin{list}{}{\rightmargin\leftmargin\topsep=0pt}\item
+		$\forall a\in A, a\divs a$. \\
+		Therefore $\rho$ is reflexive on $A$.
+
+		Suppose $a,b\in A$ and $a\divs b$ and $b\divs a$. \\
+		Then $b=ka$ and $a=lb$, for some $k,l\in\bbn$. \\
+		Thus $b=klb \iff 1 = lb$. Therefore $a=b$. \\
+		Therefore, $\rho$ is antisymmetric
+
+		Suppose $a,b,c\in A$ and $a\divs b$ and $b\divs c$. \\
+		Then $b = ka$ and $c = lb$, for some $k,l\in\bbn$. \\
+		Thus $c = kla$ Therfore $a\divs c$. \\
+		Therefore, $\rho$ is transitive.
+
+		Therefore, $\rho$ is a partial order relation.
+
+		Let $a,b\in A$. \\
+		Then, $a=2^k,\ b=2^l$, for some $k,l\in\braces{0,1,2,3,4}$. \\
+		Without loss of generality, assume $k\leq l$. \\
+		Then $b=2^l = 2^{l-k}2^k$. \\
+		Since $2^k\in\bbz$, we have $2^k\divs b$, hence $a\divs a$. \\
+		Therefore, all the elements of $A$ are comparable. \\
+
+		Therefore $\rho$ is a total order relation on $A$.
+	\end{list}
+}
+
+\section{Lecture 26}
+\subsection*{Groups}
+\dfn{Group}{
+	Let $G$ be a set, and let $*$ be a binary operation, $*:G\times G\to G$. We call $(G,*)$ group if and only if it has the following properties:
+	\begin{itemize}
+		\item \textbf{Closure}: $\forall g,h\in G,\ g*h\in G$.
+		\item \textbf{Associative}: $\forall g,h,k\in G,\ (g*h)*k = g*(h*k)$.
+		\item \textbf{Identity}: $\exists i\in G: \forall i\in G,\ i*g=g*i=e$.
+		\item \textbf{Inverse}: $\forall g\in G,\ \exists g\inv\in G: g*g\inv=g\inv*g=i$.
+	\end{itemize}
+}
+
+\ex{}{
+	$(\bbz, +)$ is a group.
+	\begin{gather*}
+		+:\bbz\times\bbz\to\bbz,\ +:(a,b)\mapsto a+b,\ a+b\in\bbz,\ \forall a,b\in\bbz. \text{ Hence, $(\bbz,+)$ is closed since } \\
+		(a+b)+c = a+(b+c),\ \forall a,b,c\in\bbz, \text{ hence, $(\bbz,+)$ is associative} \\
+		0\in\bbz: \forall n\in\bbz,\ 0+a = a+0 = a. \text{ Hence, 0 is the identity.} \\
+		\forall a\in\bbz,\ -a\in\bbz,\ a+(-a) = (-a)+a = 0. \text{ Hence, every element has an inverse.}
+	\end{gather*}
+	Therefore, $(\bbz,+)$ is a group.
+}
+
+\ex{}{
+	Is $(\bbr,\cd)$ a group?
+	\begin{gather*}
+		\text{Closure?}\ \forall x,y\in\bbr, x\cd y\in\bbr.\ \text{YES} \\
+		\text{Associative?}\ \forall x,y,z\in\bbr, (x\cd y)\cd z = x\cd(y\cd z).\ \text{YES} \\
+		\text{Identity?}\ 1\in\bbr,\ \forall x\in\bbr,\ 1\cd x= x\cd1 = x.\ \text{YES} \\
+		\text{Inverse?}\ \forall x\in\bbr,\ \text{take}\ y=\frac{1}{x}\in\bbr,\ x\cd y = y\cd x = 1.\ \text{yes..?}\ 
+		\text{EXCEPT}\ 0\in\bbr,\ \frac{1}{0}\notin\bbr.\ \text{NO!}
+	\end{gather*}
+	Therefore $(\bbr,\cd)$ is not a group. However, it's interesting to note that $(\bbr\setminus\braces{0},\cd)$ IS a group!
+}
+
+These are examples of an infinite groups, since the sets $\bbz$ and $\bbr$ are infinite sets. \\
+
+Let's consider the set $\bbz_n$ where $\bbz_n$ denotes the set of equivalence classes of the integers modulo $n$,
+$$
+	\bbz_n = \braces{[0],[1],[2],\dots,[n-1]}
+$$
+Next we'll define
+$$
+	\begin{array}{c}
+		+:\bbz_n\times\bbz_n\to\bbz_n,\ [a]+[b]=[a+b] \\
+		\cd:\bbz_n\times\bbz_n\to\bbz_n,\ [a]\cd[b]=[a\cd b]
+	\end{array}
+$$
+
+\ex{}{
+	Consider $(\bbz_3, +)$ \\
+
+	We can make an ``addition table'' to represent this
+	$$
+		\begin{array}{c|ccc}
+			+			& [0] & [1] & [2] \\ \hline
+			{[0]} & [0] & [1] & [2] \\
+			{[1]} & [1] & [2] & [0] \\
+			{[2]} & [2] & [0] & [1] \\
+		\end{array}
+	$$
+	\begin{itemize}
+		\item Closure: YES. Every element inside the table is in the set $\bbz_3$
+		\item Associative: YES. 
+		\item Identity: YES, namely $[0]$.
+		\item Inverse: YES, namely $[0]\inv=[0],\ [1]\inv=[2],\ [2]\inv=[1]$.
+	\end{itemize}
+	Therefore, $(\bbz_3,+)$ is a group. \\
+}
+
+\nt{
+	Note that the above table is called a Cayley Table, an $n\times n$ array with rows and columns labeled by the $n$ elements. The entry in column $x$, row $y$ is $x*y$, where $*$ is the group opperation.
+}
+
+\dfn{Abelian}{
+	A group $(G,*)$ is called Abelian if the operation $*$ is commutative, that is 
+	$$
+		\forall g,h\in G,\ g*h = h*g
+	$$
+	Otherwise, we call the group non-Abelian.
+}
+
+For $n\in\bbn$, the symmetric group $S_n$ consists of all bijections
+$$
+	f:X\to X\ \text{where}\ X = \braces{a\in\bbn\suchthat a\leq n}
+$$
+under the operation $\circ$, the composition of functions. \\
+
+We should note that $S_n$ is non-Abelian for $n\geq3$.
+
+\chapter{Week 10}
+\section{Lecture 27}
+\subsection*{Elementary Properties of Groups}
+\thm{	Uniquie Identity Element}{
+	Suppose $(G,*)$ has two unique identity elements, $e_1$ and $e_2$. We can now evaluate $e_1*e_2$ in two ways. \\
+
+	Since $e_1$ is the identity, and $e_2\in G$, $e_1 * e_2 = e_1$.
+
+	Since $e_2$ is the identity, and $e_1\in G$, $e_1 * e_2 = e_2$.
+
+	Hence, $e_1 = e_2$, but this is a contradiction, since $e_1$ and $e_2$ are defined to be unique identity elements. \\
+
+	Hence, $(G,*)$ has only one unique identity element. $\QED$
+}
+
+\thm{Every Element has an Inverse}{
+	Suppose $(G,*)$ is a group and $g\in G$ has an two unique inverses $h_1,\ h_2\in G$. Let $e$ be the identity of $(G,*)$. \\
+
+	Then, $(h_1*g)*h_2	= e*h_2 = h_2$.
+
+	And, $h_1*(g*h_2) = h_1 * e = h_1$. 
+
+	So, $h_1 = h_2$, but this is a contradiction, since $h_1$ and $h_2$ is defined to be unique inverses of $g$. \\
+
+	Therefore, for the group $(G,*)$ every element $g\in G$ has one unique inverse. $\QED$
+}
+
+\dfn{Subgroup}{
+	Let $(G,*)$ be a group, and let $H\subseteq G$. We say that $H$ is a subgroup of $G$ if $(H,*)$ itself is a group. \\
+
+	That is, H is a subgroup of G if:
+	\begin{itemize}
+		\item Closure: $\forall g,h\in H$, we have $g*h\in H$.
+		\item Identity: $e$ is the identity of $(G,*)$, then $e\in H$.
+		\item Inverses: $\forall h \in H,\ \exists h\inv: h*h\inv = e$.
+	\end{itemize} 
+	We write $H\leq G$ to denote ``$H$ is a subgroup of $G$'', when the group context is clear. \\
+
+	If $H\leq G$ and $H\neq G$, then $H$ is a proper subgroup of $G$. \\
+
+	If $e$ is the identity element of group $G$, then $(\braces{e},*)$ is a trivial subgroup.
+}
+
+\dfn{Element Powers}{
+	Let $(G,*)$ be a group. By associativity we have $(a*b)*c = a*(b*c),\ \forall a,b,c\in G$. Thus, we can write $a*b*c$ without ambiguity. \\
+
+	Given this group, and element $g\in G$, we can define powers as follows:
+	\begin{itemize}
+		\item $g^k = g*g*\dots*g\ (k\ \text{times}),\ k\in\bbz_+$.
+		\item $g^{-k} = g\inv * g\inv * \dots * g\inv,\ (k\ \text{times}),\ k\in\bbz_+$.
+		\item $g^0 = e$.
+	\end{itemize}
+}
+
+\dfn{Cyclic Subgroups}{
+	Let $a\in G$ be an element of the group $(G,*)$. We let $\brangle{a}$ denote ``the set generated by $a$,''
+	$$
+		\brangle{a} = \braces{a^k\suchthat k\in\bbz} = \braces{\dots, a^{-2}, a^{-1}, a^0, a^1, a^2, \dots}
+	$$
+	For any $a\in G$ where $(G,*)$ is a group, $\brangle{a}$ is a subgroup of $G$:
+	\begin{itemize}
+		\item Closure: $x,y\in\brangle{a},\ x=a^i,\ y=a^j,\ i,g\in\bbz$. Then, $x*y = a^i * a^j = a*(i+j)\in\brangle{a}$.
+		\item Identity: $e = a^0\in\brangle{a}$. 
+		\item Inverses: $x\inv = \braces{a^i}\inv = a^{-i} \in \brangle{a}$.
+	\end{itemize}
+	$\brangle{a}$ is called the cyclic subgroup of $G$ generated by $a$. \\
+
+	If $G=\brangle{a}$ for some $a\in G$, we say $G$ is cyclic and $a$ is a generator of $G$.
+}
+
+\section{Lecture 28}
+\subsection*{Group Isomorphisms}
+\dfn{Isomorphic Groups}{
+	Two groups, $(G,*)$ and $(H,\circ)$ are iosmorphic if and only if there exists a bijection $f:G\to H$ such that for all $x,y\in G$, $f(x*y) = f(x)\circ f(y)$. Such a bijection is called an isomorphism. \\
+
+	If $f$ is an isomorphism from group $G$ to group $H$ and $e\in G$ and $\iota\in H$ are the identitiy elements of $G$ and $H$, respectively, then $f(e)=\iota$. \\
+
+	If $G$ and $H$ are Isomorphic, they they share the same properties, like number of elements, abelian-ness, number of sub-groups, fundamental structure, etc.
+}
+
+\thm{}{
+	For any prime $p$, the group $(\bbz_{p}\setminus\braces{0},\cd)$ is Isomorphic to $(\bbz_{p-1}, +)$, where $\bbz_n$ denotes the natural numbers modulo $n$.
+}
+
+\thm{}{
+	Suppose $n,m\in\bbz_+$. Then $(\bbz_n\times\bbz_m,+)$ is Isomorphic to $(\bbz_{nm},+)$ if and only if $\gcd(n,m)=1$, (i.e. $n$ and $m$ are coprimee). \\
+
+	This means that modular arithmetic for large numbers,
+	$$
+		n = p_1^{e_1}p_2^{e_2}p_3^{e_3}\dots p_n^{e_n}
+	$$
+	can be done with as arithmetic modulo the prime powers $p_i^{e_i}$.
+}
+Group isomorphism is important, because what we know about a groups, we also know about its Isomorphic groups.
+
+\section{Lecture 29}
+\subsection*{Fields}
+\dfn{Field}{
+	A field, $(F,+,\cd)$ consists of a set $F$, and two binary operators:
+	\begin{itemize}
+		\item $+:F\times F\to F$
+		\item $\cd:F\times F\to F$
+	\end{itemize}
+	such that
+	\begin{enumerate}
+		\item $(F,+)$ is an Abelian group, with identity, $e$.
+		\item $(F\setminus\braces{e}, \cd)$ is an Abelian group.
+		\item $\forall f,g,h \in F,\ f\cd(g+h) = (f\cd g) + (f\cd h)$
+		\item $\forall f,g,h \in F,\ (f+g)\cd h = (f\cd h) + (g\cd h)$
+	\end{enumerate}
+}
+Consequently, a field will have two identities, an addative identity and a multiplicative identity. We will also have two types of inverses, addative inverses and multiplicative inverses. \\
+
+Fields are used when defining structures in linear algebra, for example, the components of a vector or matricies can be elements of a field $(F,+,\cd)$. \\
+
+Finite groups like $(\bbz_p, +, \cd)$ are important in computer science, because they can can ``behave'' like real numbers, but are small enough to describe precisely using finite bits.
+
+\chapter{Week 11}
+\section{Lecture 30}
+\subsection*{Introduction to Counting}
+\ex{}{
+	Suppose a resturant has 5 types of cake and 2 types of ice cream. \\
+
+	How many choices for dessert are there, if we select one cake, and one ice cream?
+	$$
+		5 \text{ cakes} \cd 2\text{ ice creams} = 10 \text{ choices}
+	$$
+
+	How many choices for dessert are there if we select either one cake or one ice cream?
+	$$
+		5 \text{ cakes} + 2 \text{ ice creams} = 7\text{ choices}
+	$$
+
+	In one example, we had a sequence of two separate \textbf{tasks}, and therefore, used a multiplication to find the answer. In the second, we only had one task, but were choosing from 2 types of options, and therefore addition was used to find the total.
+}
+
+\ex{}{
+	Consier the set of all passwords consisting of 3 letters from the set $\braces{A, B, C, \dots, X, Y, Z}. $ \\
+
+	How many passwords are possible?\\
+	There are 26 choices for the first, second, and third letters.
+	$$
+		26\cd26\cd26 = 26^3 = 17.576\text{ passwords}
+	$$
+
+	How many passwords contain no repeated letters?
+	There are 26 choices for the first letter, 25 for the second, and 24 for the third.
+	$$
+		26\cd25\cd24 = 15.600\text{ passwords with no repeated letters}
+	$$
+
+	How many passwords contain only vowels or only consonants? \\
+	Here we need to consider and compute two options, then add them together. \\
+	Option 1: only vowels
+	$$
+		5\cd5\cd5 = 5^3 = 125
+	$$
+	Option 2: only consonants
+	$$
+		21\cd21\cd21 = 21^3 = 9.261
+	$$
+	Total = option 1 + option 2
+	$$
+		5^3 + 21^3 = 9.386
+	$$
+}
+
+\dfn{Permutation}{
+	A permutation of a set of objects is an arrangement of the objects into an order. \\
+
+	\Theom A set with cardinality $n$ elements will have $n!$ permutations.
+}
+
+\ex{}{
+	Consider the permutations of the letters of the word OBJECTS. \\
+
+	How many start with a vowel? \\
+	Option 1: words starting with O
+	$$
+		1\text{ choice for first letter (O)}\cd 6\cd5\cd4\cd3\cd2\cd1 \text{ choices for proceeding letters} = 6! = 720
+	$$
+	Option 2: words starting with E
+	$$
+		1\text{ choice for first letter (E)}\cd 6\cd5\cd4\cd3\cd2\cd1 \text{ choices for proceeding letters} = 6! = 720
+	$$
+	Total = option 1 + option 2
+	$$
+		6! + 6! = 720+720 = 1440
+	$$
+
+	\textbf{Alternatively} (and more elegantly) we can calculate it in one go, by noting that we have two choices for the first letter,
+	$$
+		1\text{ choices for first letter (O/E)}\cd 6\cd5\cd4\cd3\cd2\cd1 \text{ choices for proceeding letters} = 2\cd 6! = 1440
+	$$
+}
+
+\ex{}{
+	Consider all license plates consisting of 3 letters from the set $\braces{A,B,\dots,Y,Z}$ followed by 3 digits from the set $\braces{0,1,\dots,8,9}$. \\
 	
+	How many plates are possible?
+	$$
+		10\cd10\cd10\cd26\cd26\cd26 = 10^3\cd26^3 = 17.576.000
+	$$
+	How many plates have no repeated symbols (digits or letters)?
+	$$
+		10\cd9\cd8\cd26\cd25\cd24 = 11.232.000
+	$$
+	How many plates have at least one repeated symbol?\\
+	We note that we've already calcualted the total number of plates, and the number of plates with no repeated digits. Therefore the number of plates with at least one repeated digit will be the total minus the number without repeated digits
+	$$
+		17.576.000 - 11.232.000 = 6.344.000
+	$$
+}
+
+\section{Lecture 31}
+\subsection*{Counting Selections}
+Let $n$ and $r$ be nonnegative integers. \\
+
+\textbf{Problem}:\\
+Select $r$ elements from a set of $n$ elements. How many ways are there to make the selections? \\
+
+Considerations:
+\begin{itemize}
+	\item Does order matter?
+	\item Is repition of element selections allowed?
+\end{itemize}
+
+\subsubsection*{Order matters, Repititions allowed}
+\ex{}{
+	Suppose we need to choose a PIN number, and we may do so from the set
+	$$
+		S = \braces{0,1,2,3,4,5,6,7,8,9}
+	$$
+	Order matters, and we may choose the same digit multiple times. How many PINs are there? \\
+
+	In each of 4 selections, we have 10 choices, hence
+	$$
+		\text{total} = 10\cd10\cd10\cd10 = 10^4 = 10.000\text{ possibilities}
+	$$
+}
+\Theom In general, the number of selections of $r$ elements from a set containing $n$ elements, where order matters and repition is allowed is
+$$
+	T(n,r) = n^r
+$$
+	
+\subsubsection*{Order matter, Repitions disallowed}
+\ex{}{
+	If there are 7 runners in race, in how many ways can First, Second, and Third place be awarded? \\
+	There are 7 runners which can possibly come first. This runner is removed form the pool, hence there are 6 possible runners who can come second. That runner is removed from the pool, and finally, there are 5 possible runners who can come third.
+	$$
+		\text{total} = 7\cd6\cd5 = 210 \text{ possible podiums}
+	$$
+}
+\Defin{$r$-permutation} Let $n$ and $r$ be nonnegative integers, with $r\leq n$. An $r$-permutation of a set is an ordered selection of $r$ elements taken from the set of $n$ elements. The total number of possible $r$-permutations is denoted $\perm{n}{r}$. \\
+
+So, in the previous example, we calcualted $\perm{7}{3}$. 
+
+\thm{$\perm{n}{r}$}{
+	If $n,r\in\bbz$ and $1\leq r \leq n$, then
+	$$
+		\perm{n}{r} = n(n-1)(n-2)\dots(n-r+1) = \frac{n!}{(n-r)!}
+	$$
+}
+
+\subsubsection*{Order does not matter, Repitions disallowed}
+\ex{}{
+	In how many ways can we select a 5 student commitee from a class of 15 students? \\
+	If order mattered, we would count
+	$$
+		\perm{15}{5} = \frac{15!}{10!} = 15\cd14\cd13\cd12\cd11 = 360.360
+	$$
+	However, order does matter, and we've overcounted. Because commitee $ABCDE$ is the same as commitee $ECDBA$. In fact each set of 5 students has been overcounted $5!=120$ times, one for each ordering. So the actual number of commitees we could form is
+	$$
+		\frac{\perm{15}{5}}{5!} = \frac{15!}{5!10!} = \frac{360.360}{120} = 3.003
+	$$
+	Overcounting is generally fine, as long as we keep track by how much we've overcounted, to find the true answer in the end.
+}	
+
+\Defin{$r$-combination} Let $n,r$ be nonnegative integers, with $r\leq n$. An $r$-combination of a set of $n$ elements is a subset of $r$ of the $n$ elements. The total number of $r$-combinations of a set can be denoted $\mathrm{C}(n,r)$, which is consistent with the permutation's notation, however $\comb{n}{r}$ is more common and is read ``$n$ choose $r$.''
+
+\thm{$\comb{n}{r}$}{
+	If $n,r\in\bbz$ with $0\leq r\leq n$ then
+	$$
+		\comb{n}{r} = \frac{\perm{n}{r}}{r!} = \frac{n!}{r!(n-r)!}
+	$$
+}
+
+\subsubsection*{Order does not matter, Repition is allowed}
+\ex{}{
+	Suppose a store has 4 large buckets of each with a different type of candy: red, yellow, blue, and pink. If you select a total of 7 candies, how many different choices are possible? \\
+
+	Select 7 elements from $\braces{r,b,y,p}$ (repition is allowed) and order doesn't matter, for example $rrbbypp$ is the same as $rbrbpyp$. \\
+
+	The answer is 120
+}
+
+We will not give a generalised solution to this problem in this class. \\
+
+I however did some research, and found that this is known in combinatorics as ``combinations with repitions'' or multisets. The formula is 
+$$
+	\multiset{n}{r} = \comb{n+r-1}{r} = \frac{(n+r-1)!}{r!(n-1)!}
+$$
+and can be read ``$n$ multichoose $r$.'' This type of problem typically requires a bit more background in combinatorial reasoning. A further combinatorics course will certainly cover this topic.
+
+\subsubsection*{Permutations of Typed objects}
+\ex{}{
+	How many permutations of the letters ``$AAAFFLL$'' are there? \\
+
+	Method 1: There are 7 possible positions. We can place the $A$s in 3 of the 7 positions, the $F$s in 2 of the \underline{remaining} 4 positions, and the 2 $L$s in the remaining 2 positions.
+	$$
+		\comb{7}{3} \cd \comb{4}{2} \cd \comb{2}{2} = \frac{7!}{3!4!} \cd \frac{4!}{2!2!} \cd \frac{2!}{2!0!} = 35\cd 6\cd 1 = 210
+	$$
+	Note that, we could have also placed the $L$s then the $F$s then the $A$s, or any other order. The total comes out the same. Showing this is left as an exercise to the reader. \\
+
+	Method 2: We could treat the letters as distinguishable, for example, $A_1A_2A_3F_1F_2L_1L_2$. Then the total number of orderings is simply
+	$$
+		\perm{7}{7} = \frac{7!}{0!} = 7! = 5.040
+	$$
+	However, we've now overcounted by some factor. $A_1A_2A_3F_1F_2L_1L_2$ is counted as a different solutions as $A_3A_2A_1F_2F_1L_2L_1$. In fact, the $A$s have been overcounted by a factor of $3!$ (one for each ordering of $A$s). Similarly, the $F$s and $L$s have been overcounted by factors of $2!$. Therfore, we need to divide through by these overcounting factors.
+	$$
+		\frac{5.040}{3!2!2!} = \frac{5.040}{6\cd2\cd2} = 210
+	$$
+}
+\thm{Numbr Permutations of Typed Elements}{
+	Suppose we have $n$ objects of which $n_1$ is type 1, $n_2$ is type 2\dots $n_k$ is type $k$. The number of distinct permutations of the $n$ objects is
+	$$
+		\comb{n}{n_1}\cd\comb{n-n_1}{n_2}\cd\dots\cd\comb{n-n_1-n_2-\dots-n_k}{k} = \frac{n!}{n_1!n_2!\dots n_k!}
+	$$
+}
+
+Note that, the LHS of Theorem 11.2.3 corresponds to method 1 Example 11.2.5, whereas the RHS corresponds to method 2.
+
+\chapter{Week 12}
+\section{Lecture 32}
+\subsection*{Probability}
+\ex{}{
+	Let's flip 2 fair coins. \\
+	
+	What is the probability that both coins land heads up? \\
+	There are 4 possabilities:
+	$$
+		HH \qquad HT \qquad TH \qquad TT
+	$$
+	and each outcome is equally likely. Therefore, the probability of $HH$ occuring is 1 in 4, or 25\%. \\
+
+	What is the probability of at least one coin landing face up? \\
+	The outcomes with at least one $T$ are $HT$, $TH$, $TT$, which is 3 in 4, or 75\%.
+}
+
+\Defin{Random Procees} A process is said to be random if, when it takes place, one outcome from some set of possible outcomes occurs, but it is impossible to predict with certianty which outcome it will be. \\
+
+\Defin{Sample Space} A sample space is the set of all possible outcomes of a random process of an experiment. \\
+
+For example, in our example above, the sample space was
+$$
+	S = \braces{HH, HT, TH, TT}.
+$$
+
+\Defin{Event} An event is a subset of the sample space. \\
+
+In the above example, we examined two events,
+$$
+	E_1 = {HH},\qquad E_2 = {HT, TH, TT}.
+$$
+
+\dfn{Finite Probability with Uniform Likelihood}{
+	If $S$ is a finite sample space in which all outcomes are equally likely to occur, and $E$ is an event in $S$, then the probability of $E$, denoted $\prob{E}$ is
+	$$
+		\prob{E} = \frac{\abs{E}}{\abs{S}}
+	$$
+}
+
+\thm{Value of $\prob{E}$}{
+	For any event $E$ in a finite sample sapce $S$, with uniform likelyhood across all elements of $S$ is
+	$$
+		0 \leq \prob{E} \leq 1
+	$$
+}
+
+\ex{}{
+	A fair coin is tossed 7 times. The sample space $S$ is the set of all sequences $H/T$ of length 7. $\tf \abs{S} = 2^7$. \\
+
+	What is the probability that we get exactly 5 heads? \\
+	$$
+		\abs{E} = \comb{7}{5} \cd \comb{2}{2} = 21\qquad \tf\prob{E} = \frac{\abs{E}}{\abs{S}} = \frac{2^7}{21} \approx 0.1641
+	$$
+
+	What is the probability that we get at least 5 heads? \\
+	The probability of getting at least 5 heads is equal to the probability of getting exactly 7 heads, plus exactly 6 heads plus exactly 5 heads.
+	$$
+		\abs{E} = \comb{7}{5}{\cd}\comb{2}{2} + \comb{7}{6}{\cd}\comb{1}{1} + \comb{7}{7}{\cd}\comb{0}{0} = 29\qquad \tf\prob{E} = \frac{29}{2^7} \approx 0.2266
+	$$
+}
+
+\ex{}{
+	A standard deck of cards consists of 52 cards, divided among 4 suits (spades, hearts, clubs, diamonds), with 13 cards each (2,3,4,5,6,7,8,9,10,J,Q,K,A). \\
+
+	Suppose 3 cards are drawn at random from a deck. What is the probability that all 3 cards have the same suit?\\
+	The sample space is the set of all possible selections of 3 cards from the deck of 52. Order does not matter, but repitition is not allowed.
+	$$
+		\abs{S} = \comb{52}{3} = 22.100
+	$$
+	Let $E$ be the set of 3 card selections that are all the same suit. This will consist of 2 tasks: (1) select a suit, (2) select 3 cards from it.
+	$$
+		\abs{E} = \comb{4}{1}\text{suits}\cd \comb{13}{3}\text{cards} = 4\cd286 = 1.144
+	$$
+	Therfore the probability of drawing 3 cards of the same suit is
+	$$
+		\prob{E} = \frac{\abs{E}}{\abs{S}} = \frac{1.114}{22.100} \approx 0.0504
+	$$
+}
+
+\ex{}{
+	Suppose there are 23 people in a room. What is the probability that there are at least two people who share a birthday? (Assuming 365 days a year, ignoring leap years.) \\
+
+	The sample space is the set of all possible ordered lists of birthdays for the 23 people.
+	$$
+		\abs{S} = 365^23
+	$$
+	Let $E$ be the event that at least two people share a birthday. Let $E'$ be the event that all 23 people have different birthdays
+	\begin{gather*}
+		\abs{E'} = \perm{365}{23} = \frac{365!}{23!} \\
+		\abs{E} = \abs{S} - \abs{E'}
+	\end{gather*}
+	So the probability of $E$ is
+	$$
+		\prob{E} = \frac{\abs{S} - \abs{E'}}{\abs{S}} = 1 - \frac{\abs{E'}}{\abs{S}} \approx 0.5073
+	$$
+	This is cool! The probability that two people share a birthday in only 23 people is greater then 50\%. 
+}
+
+\subsection*{Binomial Coefficients}
+Let $n,r\in\bbz$ and $0\leq r \leq n$. Let $S$ be a set with with $\abs{S}=n$.
+$$
+	\comb{n}{r} = \genfrac{}{}{0pt}{}{\text{\# of subsets of with } S}{\text{exatly } r \text{ elements}} = \frac{n!}{r!(n-r)!}
+$$
+The result is called a binomial coefficient. \\
+
+\Claim $\comb{n}{r} = \comb{n}{n-r}$ \\
+\Proof
+$$
+	\comb{n}{n-r} = \frac{n!}{(n-r)!(n-(n-r)!)} = \frac{n!}{(n-r!)(r!)} = \frac{n!}{r!(n-r)!} = \comb{n}{r}
+$$
+$\QED$ \\
+
+\thm{Pascal's Formula}{
+	Let $n,r\in\bbz$ and $l\leq r\leq n$. Then
+	$$
+		\comb{n+1}{r} = \comb{n}{r-1} + \comb{n}{r}
+	$$
+	
+	\proof By algebra.
+	\begin{align*}
+		\comb{n}{r-1} + \comb{n}{r} &= \frac{n!}{(r-1)!(n-r+1)!} + \frac{n!}{r!(n-r)!} \\
+			&= \frac{n!}{(r-1)!(n-r+1)!}\cd\frac{r}{r} + \frac{n!}{r!(n-r)!}\frac{n-r+1}{n-r+1} \\
+			&= \frac{r\cd n!}{r!(n-r+1)!} + \frac{n!(n-r+1)}{r!(n-r+1)!} \\
+			&= \frac{r\cd n! + n!(n-r+1)}{r!(n-r+1)!} \\
+			&= \frac{r\cd n! + n\cd n! - r\cd n! + n!}{r!(n-r+1)!} \\
+			&= \frac{n!(n+1)}{r!(n-r+1)!} \\
+			&= \frac{(n+1)!}{r!(n+1-r)!} \\
+			&= \comb{n+1}{r} \tag*{\qed}
+	\end{align*}
+
+	\proof By combinatorics. \\
+	Let $S$ be a set with cardinality $\abs{S} = n+1$. Then $\comb{n+1}{r}$ is the number of ways of choosing $A\subseteq S$ with $\abs{A} = r$. \\
+	
+	Fix a particular $x\in S$. The number of $r$-subsets of $S$ is the number of that contain $x$ plus the number that do not contain $x$.
+	\begin{enumerate}
+		\item The number of subsets $A\subseteq S$ with $\abs{A}=r$ and $x\in A$ is $\comb{n}{r-1}$.
+		\item The number of subsets $A\subseteq S$ with $\abs{A}=r$ and $x\notin A$ is $\comb{n}{r}$.
+	\end{enumerate}
+	Therefore,
+	\begin{equation*}
+		\comb{n+1}{r} = \comb{n}{r-1} + \comb{n}{r} \tag*{\qed}
+	\end{equation*}
+}
+
+\thm{Binomial Theorem}{
+	Given any real numbers $a,b$ and any nonnegative integer $n$,
+	\begin{align*}
+		(a+b)^n	&= \sum_{k=0}^{n} \comb{n}{k}a^{n-k}b^k \\
+			&= a^n + \comb{n}{1}a^{n-1}b^1 + \comb{n}{2}a^{n-2}b^2 + \dots + \comb{n}{n-2} a^{2}b^{n-2} + \comb{n}{n-1}a^1b^{n-1} + b^n		
+	\end{align*}
+
+	\begin{proof}
+		If $n=0$, we have $(a+b)^0=1$ and 
+		$$
+			\sum_{k=0}^{0} \comb{0}{k}a^{0-k}b^k = \comb{0}{0}a^0b^0 = \comb{0}{0} = \frac{0!}{0!(0-0)!} = 1.
+		$$
+		So the theorem holds for $n=0$. \\
+
+		For $n\geq 1$ we present a combinatorial proof. Let's consider small $n$s,
+		\begin{gather*}
+			(a+b)^2 = (a+b)(a+b) = a^2 + 2ab + b^2 \\
+			(a+b)^3 = (a+b)(a+b)(a+b) = a^3 + 3a^2b + 3ab^2 + b^3
+		\end{gather*}
+		Expanding $(a+b)^k$ gives us the sum of all ordered combinations of $n$ symbols, each of which is $a$ or $b$. \\
+		For each $k=0,1,2\dots n,$ 
+		$$
+			a^{n-k}b^k = \underbrace{a\cd a\cd a\cd \dots\cd a}_{n-k}\cd\underbrace{b\cd b\cd b\cd \dots \cd b}_{k}
+		$$
+		occurs exactly $\comb{n}{k}$ times in the expansion of $(a+b)^n$ since there are $\comb{n}{k}$ ways to choose the position of the $b$s and the $a$s fill the remaining posisions.\\
+		$$
+			\tf (a+b)^k = \sum_{k=0}^{n}\comb{n}{k}a^{n-k}b^k
+		$$
+	\end{proof}
+}
+
+\ex{}{
+	Expand $(x+y)^4$ using the binomial theorem.
+	\begin{align*}
+		(x+y)^4 &= \sum_{k=0}^{4}\comb{4}{k}a^{4-k}b^k \\
+			&= \comb{4}{0}a^{4-0}b^{0} + \comb{4}{1}a^{4-1}b^{1} + \comb{4}{2}a^{4-2}b^{2} + \comb{4}{3}a^{4-3}b^{3} + \comb{4}{4}a^{4-4}b^{4} \\
+			&= 1a^4b^0 + 4a^3b^1 + 6a^2b^2 + 4a^1b^3 + 1a^0b^4 \\
+			&= a^4 + 4a^3b + 6a^2b^2 + 4a^1b^3 + b^4 
+	\end{align*}
+
+	What is the coefficient of $x^5$ in the expanded form of $(x-1)^8$? \\
+	$$
+		(x-1)^8 = \sum_{k=0}^{8}\comb{8}{k} x^{n-k}(-1)^k
+	$$
+	$x^5$ occurs when $k=8-5=3$, so the binomial coefficient is
+	$$
+		\comb{8}{3}(-1)^{3} = 56\cd-1 = -56
+	$$
+}
+
+\section{Lecture 33}
+\subsection*{The Inclusion-Exclusion Principle}
+\ex{}{
+	Suppose in a fishtank there are 14 blue fish, 7 striped fish, and 4 fish which are blue \textit{and} striped. How many fish are blue \textit{and} striped? \\
+
+	If we add the blue fish and the striped fish, we get $14+7=21$. However, we've double counted the blue striped which are included in both groups. To get around this, we substract the fish which are blue \textit{or} striped, and the actual answer is
+	$$
+		\abs{\text{blue and striped}} = \abs{\text{blue}} + \abs{\text{striped}} - \abs{\text{blue or striped}} = 14 + 7 - 4 = 17
+	$$
+}
+
+\thm{The Inclusion-Exclusion Principle for Two Sets}{
+	For any two sets, $A$ and $B$,
+	$$
+		\abs{A\cup B} = \abs{A} + \abs{B} - \abs{A\cap B}
+	$$
+
+	A special case of the theorem is for two \textbf{disjoint} sets $A$ and $B$, so $\abs{A\cap B}=0$. Therefore, $\abs{A\cup B} = \abs{A} + \abs{B}$.
+}
+
+\ex{}{
+	Suppose $A,B$ are sets with $\abs{A}=9,\ \abs{B}=15,\ \abs{A\cup B}=19$. What is $\abs{A\cap B}$?
+	$$
+		\abs{A\cup B} = \abs{A} + \abs{B} - \abs{A\cap B} \iff 19 = 9 + 15 - \abs{A\cap B} \iff \abs{A\cap B} = 9 + 15 - 19 = 24 - 19 = 5
+	$$
+}
+
+\thm{The Inclusion-Exclusion Principle for Three Sets}{
+	For any three sets, $A,\ B,\ C$,
+	\begin{align*}
+		\abs{A\cup B\cup C} &= \phantom{-} \abs{A} + \abs{B} + \abs{C} \\
+			&\phantom{=} - \abs{A\cap B} - \abs{A\cap C} - \abs{B\cap C} \\
+			&\phantom{=} + \abs{A\cap B\cap C} 
+	\end{align*}
+}
+
+\ex{}{
+	100 students are surveyed about the subjects they are taking. \\
+	\begin{tabular}{rl}
+		50 & students are taking maths \\
+		40 & students are taking chemistry \\
+		35 & students are taking physics \\
+		18 & students are taking maths and chemistry \\
+		15 & students are taking maths and physics \\
+		16 & students are taking chemistry and physics \\
+		10 & students are taking all 3 subjects \\
+	\end{tabular}
+	How many students are taking none of the subjects? \\
+
+	Let M, C, P denote the sets of students only taking maths, chemistry, or physics, respectively.
+	\begin{align*}
+		\abs{M\cup C\cup P} &= \abs{M} + \abs{C} + \abs{P} - \abs{M\cap C} - \abs{M\cap P} - \abs{C\cap P} + \abs{M\cap C\cap P} \\
+			&= 50 + 40 + 35 - 18 - 15 - 16 + 10 \\
+			&= 86 \\
+		\tf\abs{(M\cup C\cup P)'} = 14
+	\end{align*}
+	So 14 students take none of the subjects maths, chemistry, or physics.
+}
+
+\section{Lecture 34}
+\dfn{The Pigeonhole Principle}{
+	Suppose you have $n$ pigeons sitting in $k$ pigeonholes. If $n>k$, then at least one pigeonhole contains two pigeons. \vspace{3pt} 
+
+	If a function maps from a finite set to a finite set with smaller cardinality, then it cannot be injective. \\
+	
+	The contrapositive of the pigeonhole principle is: If you have $n$ pigeons sitting in $k$ pigeonholes, if each pigeonhole contains at most one pigeon, then $n\leq k$. \vspace{3pt}
+
+	If a function is injective, then it maps from a finite set to a set with equal or greater cardinality.
+}
+
+\ex{}{
+	If you have socks of 3 different colours in your drawer, what is the minimum number of socks you need to pull out in order to guarantee a matching pair?
+	$$
+		\text{pigeons}=\text{socks}\qquad \text{pigeonholes}=\text{colours}
+	$$
+	Since $\#\text{colors}=3$, $\#\text{socks}=4>3$.
+
+	Suppose there are 680 people in a room. Must there be at least two people with the exact same initals?
+	$$
+		\text{pigeons}=\text{people}\qquad \text{pigeonholes}=\text{initals}
+	$$
+	Since $\#\text{initals}=26\cd26=676$ and $680 > 676$, then yes, at least two people share initals. \\
+
+	Suppose $n\in\bbz_+$ and $n\geq 3$. Show that in every group of $n$ people there are at least two people who have the same number of friends within the group. 
+	$$
+		\text{pigeons}=\text{people}\qquad \text{pigeonholes}=\text{friends}
+	$$
+	Let $f:\bbz_{\geq3}\to\bbz_{+}$ map the $i$th person, $p_i$, to the number of friends $p_i$ has. Let $f(p_1)=1,\ f(p_2)=2, \dots, f(p_{n-1}) = n-1$. Now, $f(p_n)$ needs to map to something. All of the integers before it have been mapped to, and $p_n\not\mapsto n$ because a person cannot be friends with themselves. Therefore, by the pigeonhole principle, at least two people must have the same number of friends.
+}
+
+\thm{Generalised Pigeonhole Principle}{
+	Suppose you have $n$ pigeons sitting in $k$ pigeonholes. If $n > km$, then at least one of the pigeonholes contains at least $m+1$ pigeons. \\
+
+	The contrapositve form: Suppose you have $n$ pigeons sitting in $k$ pigeonholes. If each pigeonhole contains at most $m$ pigeons then $n\leq km$.
+}
+
+\ex{}{
+	Show that in a group of 25 people, at least 3 people share a birthmonth.
+
+	$$
+		n=25,\quad m=2,\quad k=12,\quad n=25 > 24 = 12\cd 2 = k\cd m
+	$$
+	By the generalised pigeonhole principle, at least 3 people share a birthmonth.
+}
+
+\chapter{Week 13}
+\section{Lecture 35}
+\subsection*{Introduction to Graph Theory}
+\begin{center}
+	\tikz\graph[multi, clockwise=3]{
+		a ->[out=110, in=70, looseness=8] a;
+		b ->[out=335, in=295, looseness=8] b;
+		c ->[out=245, in=205, looseness=8] c;
+		a <-> b;
+		a <-> c;
+		b <-> c;
+	};
+\end{center}
+
+\dfn{Graph}{
+	A graph, $G$, consists of two finite sets:
+	\begin{itemize}
+		\item a nonempty set of vertices, $V(G)$.
+		\item a possibly empty set of edges, $E(G)$, where each edge is associated with a set $\braces{v,w}\subseteq V(G)$. \\ The vertices $v$ and $w$ are called the endpoints of the edge.
+	\end{itemize}
+}
+\ex{}{
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[grid placement] {[n=4, wrap after=2]
+				a -- b -- a -- c -- d -- b;
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, grow right]{
+				a -- b -- c -- d;
+				a --[out=45, in=225, looseness=1.5] d;
+			};
+		\end{tikzpicture}
+	\end{center}
+
+	This graph $G$ has $V(G) = \braces{a,b,c,d}$ and $E(G)=\braces{\braces{a,b}, \braces{b,c}, \braces{c,d}, \braces{a,d}}$. \\
+
+	Note that both these representations are equivalent. How the graph is drawn is irrelevent, what matters is the relationships between vertices and edges.
+}
+
+\dfn{Loops, Parallel Edges, Simple Graphs}{
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, grow right]{
+				x/$x$ --["$e_1$", bend left] y/$y$ --["$e_3$"] z/$z$ --["$e_4$" right, out=-20, in=20, looseness=8] z;
+				x --["$e_2$" below, bend right] y;
+			};
+		\end{tikzpicture}
+		$$
+			V(G) = \braces{x,y,z}\qquad E(G) = \braces{e_1, e_2, e_3, e_4}
+		$$
+	\end{center}
+	\Defin{Loop} A loops is an edge whose endpoints are equal, which is denoted $\braces{v,v}$ or $\braces{v}$. \\
+	\Defin{Parallel Edges} Edges are parallel (also called multiple edges) if their is at least one other edge with the same set of endpoints. \\
+	\Defin{Simple Graph} A simele graph is a graph with no loops or parallel edges. \\
+
+	The example above has a loop, $e_4$, has a pair of parallel edges, $e_1,e_2$, and is therefore not a simple graph
+}
+
+\ex{}{
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] -- b/$.$[at={(1,0)}] -- c/$.$[at={(2,0)}] -- d/$.$[at={(1,-1)}] -- b;
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				d/$.$[at={(0,-1)}] -- a/$.$[at={(0,0)}] --[bend left] b/$.$[at={(1,0)}] -- c/$.$[at={(1,-1)}];
+				a --[bend right] b;
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] -- b/$.$[at={(0,-1)}];
+				c/$.$[at={(1,0)}] -- d/$.$[at={(1,-1)}];
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] -- b/$.$[at={(1,0)}] --[out=-30, in=30, looseness=32] b -- c/$.$[at={(0,-1)}] -- a;
+			};
+		\end{tikzpicture}
+	\end{center}
+	From left to right:
+	\begin{enumerate}
+		\item Simple
+		\item Not simple (has a loop)
+		\item Simple
+		\item Not simple (has a loop)
+	\end{enumerate}
+}
+
+\dfn{Incident, Adjacent, Isloated}{
+	\Defin{Incident Edges} An edge and a vertex are incident if and only if the vertex is an endpoint of the edge. \\
+	\Defin{Adjacent Edges} Two edges are are adjacent if and only if they are incident with the same vertex. \\
+	\Defin{Adjacent Vertices} Two vertices are adjacent if and only if their exists an edge such that both vertices are incident with it (they are connected by an edge). \\
+	\Defin{Isolated Vertex} An isolated vertex is a vertex which is incident with no edges. \\
+	}
+
+\ex{}{
+	$G$:
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, clockwise=5]{
+				v1/$v_1$ --["$e_1$" above, out=70, in=110, looseness=8] v1;
+				v2/$v_2$ --[draw=none] v2;
+				v3/$v_3$ --[draw=none] v3;
+				v4/$v_4$ --[draw=none] v4;
+				v5/$v_5$ --[draw=none] v5;
+
+				v1 --["$e_2$"] v2 --["$e_3$"] v3 --["$e_5$", bend left] v4;
+				v4 --["$e_4$", bend left] v2;
+				v4 --["$e_6$" above, bend left] v3;
+			};
+		\end{tikzpicture}
+	\end{center}
+	In the example above, 
+	\begin{itemize}
+		\item $e_3$ is incident with $v_2$ and $v_4$.
+		\item $v_1$ is incident with $e_1$ and $e_2$.
+		\item $e_2$ is adjacent to $e_3$ ($v_2$ in common).
+		\item $v_2$ and $v_4$ are adjacent ($e_4$ in common).
+		\item $v_1$ and $v_4$ are non-adjacent (no edges in common).
+		\item $v_5$ is isolated (no incident edges).
+	\end{itemize}
+}
+
+\dfn{Vertex Degree}{
+	The degree of a vertex $v$ is the number of edges incident with $v$, where we count each loop twice. We denote this $\deg(v)$.
+}
+
+\ex{}{
+	\begin{center}
+		\begin{tikzpicture}
+			\graph[no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				w/$.$[at={(0,0)}] -- x/$.$[at={(1,0)}] -- y/$.$[at={(2,0)}] -- z/$.$[at={(3,0)}];
+				v/$.$[at={(1.5,1)}];
+				
+				v [label=below:$v$];
+				w [label=below:$w$];
+				x [label=below:$x$];
+				y [label=below:$y$];
+				z [label=below:$z$];
+
+				x --[out=120, in=60, looseness=16] x;
+				y --[bend left] z;
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}%[baseline={(current bounding box.center)}]
+			\graph[multi, clockwise=6, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				v1/$.$ --[draw=none] v1;
+				v2/$.$ --[draw=none] v2;
+				v3/$.$ --[draw=none] v3;
+				v4/$.$ --[draw=none] v4;
+				v5/$.$ --[draw=none] v5;
+				v6/$.$ --[draw=none] v6;
+
+				v1 -- v2 -- v3 -- v4 -- v5 -- v6 -- v1;
+				v1 -- v4;
+				v2 -- v5;
+				v3 -- v6;
+			};
+		\end{tikzpicture}
+	\end{center}
+
+	With the graph on the left, $G$,
+	\begin{itemize}
+		\item $\deg(v) = 0$
+		\item $\deg(w) = 1$
+		\item $\deg(x) = 4$
+		\item $\deg(y) = 3$
+		\item $\deg(z) = 2$
+	\end{itemize}
+	The degree sum of $G$ is 10, which we note is $2\cd 5$, where 5 is interestingly the number of edges. \\
+
+	With the graph on the right, $H$, each vertex has $\deg(v)=3$. There are 6 vertices, so the degree sum for $H$ is $3\cd6$. This is also $2\cd9$ and $H$ has 9 edges.
+}
+
+\thm{The Handshake Theorem}{
+	Let $G$ be a graph with $n$ vertices,
+	$$
+		V(G) = \braces{v_1, v_2,\dots,v_n}.
+	$$
+	Then
+	$$
+		\sum_{i=1}^{n}\deg(v_i) = \deg(v_1)+\deg(v_2)+\dots+\deg(v_n) = 2\cd\abs{E(G)}.
+	$$
+	\Proof Let $G$ be a graph with $n$ vertices and $n\geq 1$ and $V(G)=\braces{v_1,v_2,\dots,v_n}$. \\
+	First, the degree sum is can be counted by counting the degree of each vertex individually, then summing them, $\sum_{i=1}^{n} \deg(v_i)$. \\
+	Second, let $e$ be any edge of $G$ with endpoints $\braces{v_i, v_j}$. Then, $e$ contributes 1 to the degree of $v_i$ and 1 to the degree of $v_j$. If $v_i=v_j$, then it still contributes 1 to $v_i$ and 1 to $v_j$ (which essentially means loops contributes 2 to a vertex). Hence, the degree sum is $2\abs{E(G)}$.\\
+	$\tf\sum_{i=1}^{n} \deg(v_i) = 2\abs{E(G)}. \QED$
+}
+
+\cor{}{In any graph, there is an even number of vertices with odd degree.}
+
+\subsection*{Walks, Trails, and Circuits}
+\dfn{Walk}{
+	Let $G$ be a graph, and let $v,w$ be vertices of $G$. A walk from $v$ to $w$ is a finite alternating sequence
+	$$
+		v_0e_1v_1e_2\dots v_{n-1}e_nv_n
+	$$
+	where $v_0=v$ and $v_n=w$ and $e_i$ is an edge with endpoints $\braces{v_{i-1},v_i}$, for $i\in\braces{1,2,\dots,n}$.
+}
+
+\ex{}{
+	$G$:
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, clockwise=5]{
+				v1/$v_1$ --["$e_1$" above, out=70, in=110, looseness=8] v1;
+				v2/$v_2$ --[draw=none] v2;
+				v3/$v_3$ --[draw=none] v3;
+				v4/$v_4$ --[draw=none] v4;
+				v5/$v_5$ --[draw=none] v5;
+
+				v1 --["$e_2$"] v2 --["$e_3$"] v3 --["$e_5$", bend left] v4;
+				v4 --["$e_4$", bend left] v2;
+				v4 --["$e_6$" above, bend left] v3;
+			};
+		\end{tikzpicture}
+	\end{center}
+	A path from $v_4$ to $v_3$ could be $v_4e_4v_2e_2v_1e_1v_1e_2v_2e_3v_3$. \\
+	Another path could be $v_4e_6v_3$.
+}
+
+\dfn{Connected Graph}{
+	A graph is connected if, given any two vertices, $v$ and $w$ in $G$, there exists a walk from $v$ to $w$.
+}
+
+\ex{}{
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] --[bend left] b/$.$[at={(1,0)}] --[bend left] a;
+				a -- c/$.$[at={(1,-1)}];
+				a -- d/$.$[at={(0,-1)}];
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, clockwise=6, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				v1/$.$ --[draw=none] v1;
+				v2/$.$ --[draw=none] v2;
+				v3/$.$ --[draw=none] v3;
+				v4/$.$ --[draw=none] v4;
+				v5/$.$ --[draw=none] v5;
+				v6/$.$ --[draw=none] v6;
+
+				v1 -- v3 -- v5 -- v1;
+				v6 -- v2 -- v4 -- v6;
+			};
+		\end{tikzpicture}
+	\end{center}
+	The graph on the left is connected.\\
+	The graph on the right is not connected.
+}
+
+\dfn{Trail and Circuit}{
+	A trial is a walk whose edges are distinct. \\
+
+	A circuit is a trial that starts and ends at the same vertex.
+}
+
+\dfn{Euler Circuit}{
+	Let $G$ be a graph. An Euler circuit for $G$ is a circuit which uses every edge of $G$ exactly once.
+}
+
+\ex{}{
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				1/$.$[at={(0,0)}];
+				2/$.$[at={(1,0)}];
+				3/$.$[at={(1,-1)}];
+				4/$.$[at={(0,-1)}];
+
+				1[label=above left:1] --["$a$"] 2[label=above:2] --["$b$", bend left] 3[label=below:3] --["$c$", bend left] 2 --["$d$"] 4[label=left:4] --["$e$", in=230,out=310,looseness=10] 4 --["$f$"] 1;
+			};
+		\end{tikzpicture}
+	\end{center}
+	$3d2c4e4f1a2b3$ is a an Euler circuit.
+}
+
+\mlenma{}{
+	If a graph $G$ has an Euler circuit, then each of its vertices has even degree.
+}
+\begin{proof}
+	Let $G$ be a graph with an Euler circuit. Let $v\in V(G)$ be any vertex. We consider cases depending on whether or not $v$ is the start/end point of the Euler circuit. \\
+
+	If $v$ is not the start/end point, then each time the Euler circuit vists passes through $v$, it comes along one edge, and out along another. Each pass contributes 2 to the degree of the the vertex. Hence $\deg(v)=2k,\ k\in\bbz_+$. \\
+
+	If the $v$ is the start/end point, then the Euler circuit starts by exiting the vertex, contributing 1 to its degree. Then the circuit may pass through the vertex many times, but each time it enters, it leaves, contributing 2 to the degree for each pass through. Finally, the Euler circuit concludes at $v$, contributing another 1 to the degree. Hence, $\deg(V)=1+2k+1=2+2k=2(k+1),\ k\in\bbz_+$. \\
+
+	Therefore, if $G$ has an Euler circuit, then each of its vertices has even degree.
+\end{proof}
+
+\thm{Euler Circuit}{
+	Let $G$ be a connected graph. Then, $G$ has an Euler circuit if and only if every vertex of $G$ has even degree.
+}
+
+To find an Euler circuit, we can find any circuit in a graph, remove the circuit's edges, and then remove any isolated vertices. We can keep decomposing the graph in this way, until we find a trivial Euler circuit (a single vertex). Then we can ``splice'' together this decompositions, by 
+\begin{center}
+	\begin{tikzpicture}
+		\graph[multi, no placement]{
+			a[at={(-1,1)}, opacity=0] ->[blue] v/$.$[at={(0,0)}, circle, fill=black, inner sep=0.2pt] ->[blue] b[at={(-1,-1)}, opacity=0];
+			c[at={(1,1)}, opacity=0] ->[red] v ->[red] d[at={(1,-1)}, opacity=0];
+		};
+	\end{tikzpicture}
+\end{center}
+entering a vertex which the two decomposed circuits have in common and exiting using the other circuit. In the example above, the blue and red edges represent different decomposed circuits. To create an Euler circut, we can enter with the blue, exit with the red, complete the red circuit, re-enter with the red, and exit with the blue, finally complete the blue circuit which can potentially complete an Euler circuit.
+
+\ex{}{
+	Decompose this graph, and find an Euler circuit.
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] -- b/$.$[at={(1,0)}] -- c/$.$[at={(1,-1)}] -- d/$.$[at={(0,-1)}] -- e/$.$[at={(-1,-1)}] -- f/$.$[at={(-1,0)}] -- a -- g/$.$[at={(0.5,0.5)}] -- b -- d -- a -- g --[in=50, out=130, looseness=16] g;
+			};
+		\end{tikzpicture} \\
+
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] ->[blue] b/$.$[at={(1,0)}] ->[blue] d/$.$[at={(0,-1)}] ->[blue] e/$.$[at={(-1,-1)}] ->[blue] f/$.$[at={(-1,0)}] ->[blue] a;
+
+				b[label=above:blue start/end];
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] <-[red] g/$.$[at={(0.5,0.5)}] <-[red] b/$.$[at={(1,0)}] <-[red] c/$.$[at={(1,-1)}] <-[red] d/$.$[at={(0,-1)}] <-[red] a;
+
+				c[label=right:start/end];
+				b[label=right:goto blue];
+				g[label=above:goto green];
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				g/$.$[at={(0.5,0.5)}] ->[green, in=130, out=50, looseness=16] g;
+
+				g[label=below:green start/end];
+			};
+		\end{tikzpicture}
+	\end{center}
+	I've decomposed the graph, and used the decomposition to find an Euler circuit, as required.
+}
+
+\dfn{Euler Trial}{
+	Let $G$ be a graph and let $u,v\in V(G)$. An Euler trail is a trail from $u$ to $v$ that uses every edge exactly once.
+}
+\thm{Euler Trial}{
+	Let $G$ be a connected graph and let $u,v\in V(G)$. \vspace{3pt}
+
+	If $u=v$, then $G$ has an Euler trail from $u$ to $v$ if and only if every vertex of $G$ has even degree. \vspace{3pt}
+
+	If $u\neq v$, then $G$ has an Euler trail from $u$ to $v$ if and only if $u,v$ have odd degree and all other vertices have even degree.
+}
+
+\section{Lecture 36}
+\subsection*{Matrix Representations of Graphs}
+\Defin{$m{\times}n$-matrix} An $m$-by-$n$ matrix over a set $S$ is a rectangular array of elements of $S$ arranged into $m$ rows and $n$ columns.
+$$
+	A = \begin{pmatrix}
+		a_{11} 	& a_{12} & \dots & a_{1j} & \dots & a_{1n} \\
+		a_{21} 	& a_{22} & \dots & a_{2j} & \dots & a_{2n} \\
+		\vdots	& \vdots & \ddots& \cdots & \cdots & \vdots \\
+		a_{i1} & a_{i2} & \dots & a_{ij} & \dots & a_{in} \\
+		\vdots	& \vdots & \ddots& \cdots & \cdots & \vdots \\
+		a_{m1} & a_{m2} & \dots & a_{mj} & \dots & a_{mn} 
+	\end{pmatrix}
+$$
+We write $A=\sqbracks{a_{ij}}$ or $A=\sqbracks{a_{ij}}_{m{\times}n}$. The symbol $a_{ij}$ denotes the entry in row $i$, column $j$. \\
+For our purposes, $S=\bbz_{\geq0}$.
+
+\dfn{Adjacency Matrix}{
+	Let $G$ be a graph with $n$ vertices and suppose we label the vertices $V(G)=\braces{v_1,v_2,\dots,v_n}$. \\
+
+	The adjacency matrix of $G$ is the $n{\times}n,\ A=\sqbracks{a_{ij}}$, where $a_{ij}$ is the number of edges with the endpoints $\braces{v_i, v_j}$. ie,
+	$$
+		a_{ij} = \left\lbrace \begin{array}{ll} r & \text{if}\ \exists r\ \text{edges connecting } v_i \text{ and } v_j \\ 0 & \text{otherwise} \end{array} \right.
+	$$
+}
+
+\ex{}{
+	Write the adjacency matrix for the following graph:
+	\begin{center}
+		\begin{tikzpicture}
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				v2/$.$[at={(0,0)}] --[bend left] v3/$.$[at={(1,0)}] --[bend left] v2 -- v1/$.$[at={(0,-1)}] -- v4/$.$[at={(1,-1)}] --[out=270, in=0, looseness=12] v4 -- v2;
+
+				v1[label=left:$v_1$];
+				v2[label=left:$v_2$];
+				v3[label=right:$v_3$];
+				v4[label=above:$v_4$];
+			};
+		\end{tikzpicture}
+	\end{center}
+	$$
+		A = \kbordermatrix{
+					& v_1 & v_2 & v_3 & v_4\\
+			v_1 & 0 	& 1 	& 0 	& 1	 \\
+			v_2 & 1 	& 0 	& 2 	& 1	 \\
+			v_3 & 0 	& 2 	& 0 	& 0	 \\
+			v_4 & 1 	& 1 	& 0 	& 1	
+		}
+	$$
+}
+\nt{
+	For an adjacency matrix $A=\sqbracks{a_ij},\ a_{ij}=a_{ji},\ \forall i,j\in\braces{1,2,\dots,n}$.
+}
+
+\dfn{Incidence Matrix}{
+	Let $G$ be a graph with $n$ vertices and $m$ edges, and suppose we label the vertices $V(G)=\braces{v_1,v_2,\dots,v_n}$ and label the edges $E(G)=\braces{e_1,e_2,\dots,e_n}$. \\
+
+	The incidence matrix for the graph $G$ is the $n{\times}m$ matrix $N=\sqbracks{a_{ij}}$ where each entry $n_{ij}$ is the number of times vertex $v_i$ is incident with $e_j$. ie,
+	$$
+		n_{ij} = \left\lbrace \begin{array}{ll} 2 & \text{if}\ e_j \text{ is a loop on vertex } v_i \\ 1 & \text{ if}\ e_j \text{ is an edge connecting } v_i \text{ to some other vertex} \\ 0 & \text{otherwise} \end{array} \right.
+	$$
+}
+
+\ex{}{
+	Write the incidence matrix for the following graph:
+	\begin{center}
+		\begin{tikzpicture}
+			\graph[multi, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				v2/$.$[at={(0,0)}] --["$e_4$", bend left] v3/$.$[at={(1,-1)}] --["$e_3$", bend left] v2 --["$e_2$" above left] v1/$.$[at={(-1,-1)}] --["$e_1$", out=315, in=225, looseness=16] v1;
+
+				v1[label=left:$v_1$];
+				v2[label=above:$v_2$];
+				v3[label=right:$v_3$];
+			};
+		\end{tikzpicture}
+	\end{center}
+	$$
+		A = \kbordermatrix{
+					& e_1 & e_2 & e_3 & e_4\\
+			v_1 & 2 	& 1 	& 0 	& 0	 \\
+			v_2 & 0 	& 1 	& 1 	& 1	 \\
+			v_3 & 0 	& 0 	& 1 	& 1	
+		}
+	$$
+}
+\nt{
+	For every adjacency matrix, every column will contain two 1s or one 2. The sum of each row is the degree of the corresponding vertex.
+}
+
+\ex{}{
+	Draw the graphs corresponding to the following matricies:
+	$$
+		A(G) = \kbordermatrix{
+					& v_1	& v_2	& v_3	& v_4 \\
+			v_1	& 0		& 1		& 1		& 0		\\
+			v_2	& 1		& 1		& 0		& 0		\\
+			v_3	& 1		& 0		& 0		& 2		\\
+			v_4	& 0		& 0		& 2		& 0
+		}\qquad
+		N(H) = \kbordermatrix{
+					& e_1	& e_2	& e_3	& e_4	& e_5 \\
+			v_1	& 1		& 0		& 1		& 0		& 0		\\
+			v_2	& 1		& 2		& 0		& 0		& 0		\\
+			v_3	& 0		& 0		& 1		& 1		& 1		\\
+			v_4	& 0		& 0		& 0		& 1		& 1		\\
+		}
+	$$
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement]{
+				v1/$v_1$[at={(0,0)}];
+				v2/$v_2$[at={(1,0)}];
+				v3/$v_3$[at={(0,-1)}];
+				v4/$v_4$[at={(1,-1)}];
+
+				v1 -- v2;
+				v1 -- v3;
+				v2 --[out=-25, in=25, looseness=3] v2;
+				v3 --[bend left] v4;
+				v3 --[bend right] v4;
+			};
+		\end{tikzpicture}\hspace{4cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[multi, no placement]{
+				v1/$v_1$[at={(0,0)}];
+				v2/$v_2$[at={(1,0)}];
+				v3/$v_3$[at={(0,-1)}];
+				v4/$v_4$[at={(1,-1)}];
+
+				v1 --["$e_1$"] v2;
+				v2 --["$e_2$" right, out=-25, in=25, looseness=3] v2;
+				v1 --["$e_3$" left] v3;
+				v3 --["$e_4$", bend left] v4;
+				v3 --["$e_5$" below, bend right] v4;
+			};
+		\end{tikzpicture}
+	\end{center}
+}
+
+\subsection*{Trees}
+\dfn{Tree}{
+	\Defin{Circuit-Free Graph} A graph is circuit-free if and only if it has no nontrivial circuits. \\
+
+	A graph is a tree if and only if it is connected and circuit-free. \\
+
+	Since loops and multiple edges are nontrivial circuits, trees are simple graphs.
+}
+
+\ex{}{
+	\begin{center}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[simple, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] -- b/$.$[at={(-0.5,-1)}];
+				a -- c/$.$[at={(0.5,-1)}] -- d/$.$[at={(0,-2)}];
+				c -- e/$.$[at={(1.5,-1)}] -- f/$.$[at={(1,-2)}];
+				e -- g/$.$[at={(1.5,-2)}];
+				e -- h/$.$[at={(2,-2)}];
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[simple, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}] -- b/$.$[at={(1,0)}];
+			};
+		\end{tikzpicture} \hspace{1cm}
+		\begin{tikzpicture}[baseline={(current bounding box.center)}]
+			\graph[simple, no placement, nodes={circle, draw, fill=black, inner sep=0.2pt}]{
+				a/$.$[at={(0,0)}];
+			};
+		\end{tikzpicture} 
+	\end{center}
+	All three of these are examples of trees.
+}
+
+\thm{Trees are\dots}{
+	A graph, $G$ with $n$ vertices, is a tree if and only if $G$ is simple, connected, and has $n-1$ edges.
+}
+
 \end{document}
