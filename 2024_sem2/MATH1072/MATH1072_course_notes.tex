@@ -2215,7 +2215,99 @@ Here, the constant $k$ is chosen such that if $T > T_m,\ T'(t)$ is negative, des
 \subsubsection*{Electrical Engineering}
 % TODO: ADD NOTES
 
-\subsubsection*{Single-Species Population Models}
+\chapter{Week 10}
+\section{Lecture 27}
+\subsection*{Single-Species Population Models}
+\subsubsection*{Malthusian Model}
 % TODO: ADD NOTES
+
+\subsubsection*{Logistic Model}
+Malthusian models problematically does not have ``damping factor.'' That is, the population will grow without bound, which doesn't reflect real life, where effects like overpopulation and limited food supply are contributing factors to population. 
+$$
+	\dyd[P]{t} = rP\bracks{1 - \frac{P}{\theta}}
+$$
+where $\theta$ is some large constant known as the carrying capacity. Note, $\theta >> 1$, otherwise
+$$
+	\dyd[P]{t}\approx rP
+$$
+which is the same Malthusian model as before. As population grows and approaches the carrying capacity, the then the growth comes to a standstill. If we introduce new varaibles $y = P/\theta$ and $\tau=rt$. Then the ODE becomes
+$$
+	\dyd{\tau} = y(1-y)
+$$
+which we can easily solve, and find
+$$
+	y(\tau) = \frac{y_0e^\tau}{1-y_0 + y_0e^\tau}
+$$
+and finally, we we let $P(0)=P_0$ and substitue back the original variables, we see
+$$
+	P(t) = \frac{\theta P_0e^{rt}}{\theta - P_0 + P_0e^{rt}}
+$$
+The model will have equilibria. Assuming $r>0$,
+$$
+	\dyd[P]{t} = rP\bracks{1 - \frac{P}{\theta}} \implies \left\lbrace \begin{array}{l} p = \theta \\ p=0	\end{array} \right.\ \text{are equilibria}
+$$
+We can then analyse the stability,
+$$
+	\begin{array}{rcl}
+		P > \theta 			& \implies 	& \dyd[P]{t} < 0 \\
+		0 < P < \theta 	& \implies 	& \dyd[P]{t} > 0 \\
+		P < 0 					& \implies	& \dyd[P]{t} < 0 \\
+	\end{array}
+$$
+So we can determine that the equilibrium at $P=\theta$ is stable, and the equilibrium at $P=0$ is unstable.
+
+\subsection*{Multi-Species Models}
+\subsubsection*{Predator-Prey System}
+Consider an isolated system where the prey (say rabbits, denoted $R(t)$) have an infinite food supply and the predators (wolves, denoted $W(t)$) feed on the prey. Assume
+\begin{itemize}
+	\item In the absence of predators, $\dps{\dyd[R]{t} = \alpha R,\quad \alpha > 0}$
+	\item In the absence of prey, $\dps{\dyd[W]{t} = -\beta W,\quad \beta > 0}$
+	\item With both spieces present, the principal cause of death in prey is being eaten by predators, and the birth and death rates of predators depends on the prey.
+	\item We assume that the interaction is at a rate proportinoal to both populations.
+\end{itemize}
+Under these assumptions, the system evolves according to 
+$$
+	\left\lbrace \begin{array}{l}
+		\dps{\dyd[R]{t} = \alpha R - \gamma RW = \gamma R\bracks{\frac{\alpha}{\gamma} - W}} \\ \\
+		\dps{\dyd[W]{t} = -\beta R + \delta RW = -\delta W\bracks{\frac{\beta}{\delta} - R} = \delta W \bracks{R - \frac{\beta}{\gamma}}}
+	\end{array} \right.
+$$
+These are called the Lotka-Volterra equations and are an example of a system of coupled ODEs (in this case, first-order, non-linear). We can evaluate the equilibria of the system:
+\begin{gather*}
+	\dyd[R]{t} = 0,\text{ if}\qquad R = 0,\quad W = \frac{\alpha}{\gamma} \\
+	\left.\begin{array}{ll}
+		\dps{\left.\dyd[W]{t}\right|_{R=0} = 0} & \dps{\implies W = 0} \\ \\
+		\dps{\left.\dyd[W]{t}\right|_{W=\alpha/\gamma} = 0} & \dps{\implies R = \frac{\beta}{\delta}}
+	\end{array}\right\rbrace \begin{array}{c} \text{Equilibria:} \\ (R,W) = (0,0) \text{ and } \bracks{\frac{\beta}{\delta}, \frac{\alpha}{\gamma}} \end{array}
+\end{gather*}
+We can plot these on an $R{-}W$ plane called the phase plane, and curves on the plane are called phase trajectories
+$$
+	\dyd[W]{R} = \dfrac{\dps{\dyd[W]{t}}}{\dps{\dyd[R]{t}}} = \frac{-\beta W + \delta RW}{\alpha R - \gamma RW}
+$$
+
+\subsubsection*{Competing Species}
+Consider two populations $P_1(t)$ and $P_2(t)$. Let's initally suppose they are kept separate from one another.
+$$
+	\begin{array}{l}
+		\dps{\dyd[P_1]{t} = P_1(\alpha_1 - \beta_1P_1)} \\ \\
+		\dps{\dyd[P_2]{t} = P_2(\alpha_2 - \beta_2P_2)}
+	\end{array} \qquad \begin{array}{c}
+		\text{Populations competing} \\
+		\text{with themselves} \\
+		\text{Uncoupled ODEs}
+	\end{array}
+$$
+These populations compete only with themselves, which is just the logistic model we introduced previously. Now let's suppose we bring these populations, so that they compete for shared resrouces. This is reflected by introducing a growth parameter $\gamma_{ij}>1$ which expresses how population $j$ affects population $i$. Now
+$$
+	\begin{array}{l}
+		\dps{\dyd[P_1]{t} = P_1(\alpha_1 - \beta_1P_1 - \gamma_{12}P_2)} \\ \\
+		\dps{\dyd[P_2]{t} = P_2(\alpha_2 - \beta_2P_2 - \gamma_{21}P_1)}
+	\end{array} 
+$$
+is a coupled system of ODEs.
+
+\section{Lecture 28}
+\subsection*{Second-Order Differential Equations}
+Just trying to figure out why my preamble is broken.
 
 \end{document}
