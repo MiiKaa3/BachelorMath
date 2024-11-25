@@ -19,6 +19,299 @@
 
 \chapter{Week 1}
 \section{Lecture 1}
-Here we go!
+In this course we will cover four major topics:
+\begin{itemize}
+  \item Ordinary Differential Equations
+  \item Linear Algebra
+  \item Vector Calculus
+  \item Integral Calculus
+\end{itemize}
+
+\subsection{Solutions to First Order ODEs}
+We are comfortable solving three types of first order ODEs by now:
+\begin{itemize}
+  \item Directly integrable: $\dps{\dydx = f(x)}$
+  $$
+    y(x) = \int f(x) \d x = F(x) + C
+  $$
+  \item Seperable: $\dps{\dydx = f(x)g(y)}$
+  $$
+    \frac{1}{g(y)}\dydx = f(x) \iff \int \frac{1}{g(y)}\frac{\d y}{\cancel{\d x}}\cancel{\d x} = \int f(x) \d x \iff G(y(x)) = F(x) + C
+  $$
+  $$
+    \text{If } G \text{ is invertible, then } y(x) = G\inv(F(x)+C) 
+  $$
+  \item Linear: $\dps{\dydx = q(x) - p(x)y}$
+  $$
+    \Let\mu = \exp\bracks{\int p(x)\d x}\implies \mu\dydx + \mu p(x)y = \mu q(x) \iff \ddx\bracks{\mu y} = \mu q(x) \iff y(x) = \frac{1}{\mu(x)}\int \mu q(x)\d x
+  $$
+\end{itemize}
+
+In many applications, we need to solve an IVP. In general this is an equation of form,
+$$
+  \dydx = f(x,y),\quad y(x_0) = y_0.
+$$
+In other words, we seek to find solutions to the ODE which pass through the point $(x_0, y_0)$ in the $x{-}y$ plane.
+
+\ex{}{
+  $$
+    \dydx = x,\quad y(0)=1\text{ has a unique solution:}
+  $$
+  \begin{align*}
+    \dydx &= x \\
+    y(x) &= \frac{1}{2}x^2 + C \\
+    \text{Impose } y(0) &= 1 \\ 
+    \tf 1 &= \frac{1}{2}(0)^2 + C \\
+    \tf C &= 1 \\
+    \tf y(x) &= \frac{1}{2}x^2 + 1 
+  \end{align*}
+}
+
+\ex{}{
+  $$
+    \dydx = 3xy^{1/3},\quad y(0)=0\text{ has more than one solution:}
+  $$
+  \begin{align*}
+    y^{-1/3}\dydx &= 3x \\
+    \int y^{-1/3}\dydx\d x &= \int 3x\d x \\
+    \int y^{-1/3}\d y &= \int 3x\d x \\
+    \frac{3}{2}y^{2/3} + C_1 &= \frac{3}{2}x^2 + C_2 \\
+    y^{2/3} &= x^2 + C \\
+    \text{Impose } y(0) &= 0 \\
+    0^{2/3} &= 0^2 + C \\ 
+    \implies C &= 0 \\
+    \tf y^{2/3} &= x^2 \\
+    \tf y &= \pm x^3
+  \end{align*}
+  This is problematic. Our inital value constraint hasn't allowed us to pick one particular solution. 
+}
+\nt{
+  The previous IVP has multiple solutions because $f(x,y)=3xy^{1/3}$ is not differentiable at $y=0$.
+}
+
+\ex{}{
+  $$
+    \dydx = \frac{x-y}{x},\quad y(0)=1\text{ has no solutions:}
+  $$
+  \begin{align*}
+    \dydx &= \frac{x}{x} - \frac{1}{x}y \\
+      &= q(x) - p(x)y \\
+    \dydx + p(x)y &= 1 \\
+    \mu &= \exp\bracks{\int p(x)\d x} \\
+      &= \exp\bracks{\int \frac{1}{x}\d x} \\
+      &= \exp(\ln(x)) \\
+      &= x \\
+    \mu\dydx + \mu p(x)y &= \mu \\
+    x\dydx + y &= x \\
+    \ddx\bracks{xy} &= x \\
+    xy &= \int x \d x \\ 
+      &= \frac{1}{2}x^2 + C \\
+    \Impose y(0) = 1 \\
+    \tf 0\cd 1 &= \frac{1}{2}(0)^2 + C \\
+    C &= 0 \\
+    \tf y(x) &= \frac{1}{2}x
+  \end{align*}
+  However, our general solution \textbf{does not} satisfy our inital value constraint, $y(0)=\frac{1}{2}(0) = 0 \neq 1$.
+} 
+\nt{
+  Our IVP doesn't have a solution because $f(x,y)=\frac{x-y}{x}$ is not differentiable or continuous around $x=0$.\\
+
+  We're kind of loosley referring to ``existence and uniqueness'' theorems, or Picard-Lindel\"of Theorem, which generally states:
+  $$
+    \text{The IVP } \dydx = f(x,y)\quad y(x_0)=y_0 
+  $$
+  has a unique solution around $x_0$ if:
+  \begin{enumerate}
+    \item $f(x,y)$ is continuous around $(x_0,y_0)$
+    \item $f(x,y)$ is differentiable with respect to $y$ around $(x_0,y_0)$, ie $\del{f}{y}$ is continuous aorund $(x_0,y_0)$.
+  \end{enumerate}
+}
+
+\subsection{Existence and Uniqueness}
+Consider the IVP
+$$
+  \dydx = f(x,y),\quad y(x_0)=y_0
+$$
+We are concerned with the conditions under which a solution exists and is unique.
+\begin{enumerate}
+  \item (existence, Peano's Theorem) If $f(x,y)$ is continuous in some rectangle
+  $$
+    R = \braces{(x,y)\suchthat \abs{x-x_0}<a,\ \abs{y-y_0}<b}
+  $$
+  then the IVP has at least one solution.
+  \item (uniqueness, Picard's Theorem) If $f_y(x,y):=\del{f}{y}$ is also continuous in $R$ then there is some interval $\abs{x-x_0}\leq h\leq a$ which contains at least one solution.
+\end{enumerate}
+This result only tells us that a solution exists or is unique locally. Beyond $R$, we simply don't know.
+
+\ex{}{
+  $$
+    \dydx = x,\quad y(0)=1
+  $$
+  \begin{align*}
+    f(x,y) &= x \\
+    f_y(x,y) &= 0
+  \end{align*}
+  These functions are both continuous over $\bbr^2$. Therefore there exists a unique solution \\
+
+  $$
+    \dydx = 3xy^{1/3},\quad y(0)=0\text{ has more than one solution:}
+  $$
+  \begin{align*}
+    f(x,y) &= 3xy^{1/3} \\
+    f_y(x,y) &= xy^{-2/3}
+  \end{align*}
+  $f(x,y)$ is continuous over $\bbr^2$ so there exists at least one solution. However, $f_y$ has a discontinuity at $y=0$, so there may or may not be unique solutions (remember, its not an iff).
+
+  $$
+    \dydx = \frac{x-y}{x},\quad y(0)=1\text{ has no solutions:}
+  $$
+  \begin{align*}
+    f(x,y) &= \frac{x-y}{x} \\
+    f_y(x,y) &= -\frac{1}{x}
+  \end{align*}
+  $f(x,y)$ and $f_y$ both have discontinuities when $x=0$, so we don't know from this test if there are solutions, or if the solution is unique.
+}
+
+\nt{
+  These theorems are not if and only if's. They can fail. For example, take the IVP
+  $$
+    \dydx = \frac{1}{3}x^{-2/3},\quad y(0)=1/
+  $$
+  We see
+  $$
+    f(x,y) = \frac{1}{3}x^{-2/3},\qquad f_y(x,y) = 0
+  $$
+  $f$ has a discontinuity when $x=0$, so the theorem's fail to identify if this IVP has solutions. However, this IVP \textbf{does} have a unique solution,
+  $$
+    y(x) = x^{1/3} + 1,
+  $$
+  so we need to be careful we're using these theorems correctly. \textbf{If} $f$ and $f_y$ are continuous in some reigon \textbf{then} there exists a unique solution in that reigon.
+}
+
+\ex{}{
+  Solve these:
+  \begin{enumerate}
+    \item $y' = y^{2/3},\quad y(0)=1$
+    \begin{align*}
+      f(x,y) &= y^{2/3} \\
+      f_y(x,y) &= \frac{2}{3}y^{-1/3}
+      \intertext{Therefore there exist at least one solution to the IVP.}
+      y^{-2/3}y' &= 1 \\
+      \int y^{-2/3}\d y &= \int 1\d x \\
+      3 y^{1/3} &= x + C \\
+      y^{1/3} &= \frac{1}{3}(x+C) \\
+      y &= \frac{1}{27}(x+C)^3 \\
+      \Impose y(0) = 1
+    \end{align*}
+    Imposing the IVP and expanding the cubic expression, will reveal 3 values for C, the nicest of which is 3. The one which satisfies our IVP is
+    $$
+      y(x) = \frac{1}{27}(x+3)^3
+    $$
+    Even though those other solutions exist, only one satisfies the IVP, hence this solution is unique.
+    \item $y' = (3x^2+4x+2)/(2y-2),\quad y(0)=1$
+    \begin{align*}
+      f(x,y) &= \frac{3x^2 + 4x + 2}{2(y-1)} \\
+      \intertext{Because of the discontinuity at $y=1$, our exisitence theorem fails to identify if solutions exist.}
+      y' &= \frac{3x^2 + 4x + 2}{2(y-1)} \\
+      2(y-1)y' &= 3x^2 + 4x + 2 \\ 
+      2\int y-1\d y &= \int 3x^2 + 4x + 2\ \d x \\
+      y^2-2y &= x^3 + 2x^2 + 2x + C \\
+      y^2-2y+1 &= x^3 + 2x^2 + 2x + C + 1 \\
+      (y-1)^2 &= x^3 + 2x^2 + 2x + C + 1 \\
+      \Impose y(0) &= 1 \\
+      ((1)-1)^2 &= (0)^3 + 2(0)^2 + 2(0) + C + 1 \\
+      \iff C &= -1 \\
+      \tf (y-1)^2 &= x^3 + 2x^2 + 2x \\
+      \tf y(x) &= 1\pm\sqrt{x^3 + 2x^2 + 2x}
+    \end{align*}
+    The IVP has two solutions.
+  \end{enumerate}
+}
+
+\subsection{Method of Succesive Approximations}
+\nt{WATCH THE BONUS CONTENT FOR THIS CHAPTER'S CONTENT}
+
+\subsection{Exact First Order ODEs}
+\dfn{Exact First Order ODE}{
+  Recall that if $z=f(x,y)$ is a differentiable function of $x$ and $y$, where $x=g(t)$ and $y=h(t)$ are both differentiable functions of $t$, then $z$ is a differentiable function of $t$, whose derivative is given by the chain rule:
+  $$
+    \dyd[z]{t} = \del{f}{x}\dyd[x]{t} + \del{f}{y}\dyd[y]{t}
+  $$
+  Now suppose the equation
+  $$
+    f(x,y) = C
+  $$
+  defines $y$ implicitly as a function of $x$. Then $y=y(x)$ can be show to satisfy a first order ODE obtained by using the chain rule above. In this case, $z=f(x,y(x))=C$, so,
+  \begin{gather*}
+    \dyd[z]{x} = \dd{x}C = 0 = \del{f}{x}\dyd[x]{x} + \del{f}{y}\dydx \\
+    \implies f_x + f_yy' = 0
+  \end{gather*}
+  A first order ODE of form
+  $$
+    P(x,y) + Q(x,y)\dydx = 0
+  $$
+  is called exact if there is a function $f(x,y)$ such that 
+  $$
+    f_x(x,y) = P(x,y)\quad\text{and}\quad f_y(x,y)=Q(x,y).
+  $$
+  The solution is then given implicitly by the equation
+  $$
+    f(x,y) = C,
+  $$
+  where $C$ can usually be determined by some intial condition.
+}
+
+\thm{Test for Exactness}{
+  Let $\dps{P,Q,\del{P}{y},\del{Q}{x}}$ be continuous over some reigon of interest. Then
+  $$
+    P(x,y) + Q(x,y)\dydx = 0
+  $$
+  is an exact ODE if and only if 
+  $$
+    \del{P}{y} = \del{Q}{x}
+  $$
+  everywhere in the reigon
+}
+\begin{proof}
+  1. Prove: ODE is exact $\dps{\implies\del{P}{y} = \del{Q}{x}}$. \\
+  Recall Clairout's Theorem,
+  \begin{gather*}
+    \del{^2f}{x\partial y} = \del{^2f}{y\partial x} \text{ if both $f_{xy}$ and $f_{yx}$ are continuous in the reigon.} \\
+    \Suppose \text{ODE is exact}\implies \exists f(x,y): \del{f}{x} = P(x,y), \del{f}{y} = Q(x,y) \\
+    \del{P}{y} = \del{^2 f}{x\partial y} = \del{^2 f}{y\partial x} = \del{Q}{x},\text{ by Clairout's Theorem.}
+  \end{gather*}
+  2. Prove: $\dps{\del{P}{y} = \del{Q}{x}\implies}$ ODE is exact. \\
+  \begin{gather*}
+    \intertext{$\dps{\Suppose \del{P}{y} = \del{Q}{x}}$. We seek a function $f$ such that $f_x=P, f_y=Q$.}
+    \Take f(x,y) = \int_{x_0}^x P(x',y)\d x' + \int_{y_0}^y Q(x_0, y') + C \\
+    f_x(x,y) = \del{}{x}\bracks{\int_{x_0}^x P(x',y)\d x' + \cancel{\int_{y_0}^y Q(x_0, y')\d y'}} = P(x,y) \\
+    f_y(x,y) = \del{}{y}\bracks{\cancel{\int_{x_0}^x P(x',y)\d x'} + \int_{y_0}^y Q(x_0, y')\d y'} = Q(x,y) \\
+  \end{gather*}
+  Therefore $\dps{P(x,y) + Q(x,y)\dydx = 0}$ is an exact ODE $\dps{\iff\del{P}{y} = \del{Q}{x}}$ everywhere in the reigon.
+\end{proof}
+
+\ex{}{
+  $$
+    \text{Solve the ODE } 2x+e^y + xe^yy' = 0
+  $$
+  \begin{align*}
+    P(x,y) &= 2x+e^y \\
+    \del{P}{y} &= e^y \\
+    Q(x,y) &= xe^y \\
+    \del{Q}{x} &= e^y \\
+    \del{P}{y} = \del{Q}{x} &\Rightarrow \text{ODE is exact} \\
+    \tf\exists f(x,y): f_x(x,y) &= P = 2x+e^y \\
+    \text{and } f_y(x,y) &= Q = xe^y \\
+    \implies f = \int P \d x &= \int 2x+e^y\d x \\
+      &= x^2 + xe^y + g(y) \\
+    \implies f_y(x,y) = xe^y &= \del{}{y}\bracks{x^2 + xe^y + g(y)} \\
+     xe^y &= xe^y + \dyd[g]{y} \\
+    \implies \dyd[g]{y} &= 0 \\
+    \tf f(x,y) &= x^2 + xe^y + C
+    \intertext{All solutions to ODE: $f(x,y)=k$.}
+    \iff x^2 + xe^y &= k' \tag*{$(k'=k-C)$} \\
+    \iff y &= \ln\bracks{\frac{k' - x^2}{x}}
+  \end{align*}
+}
 
 \end{document}
