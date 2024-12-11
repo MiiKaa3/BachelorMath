@@ -1,0 +1,104 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\centerline{\large\bf MATH2001, Assignment 1, Summer Semester, 2024-2025}
+
+\vspace{3mm}
+
+{\bf Due at 2:00pm 19 December.} Each question marked out of 10 then homogeneously rescaled up to a total marks of 13. {\bf Total marks: $\frac{13}{60}(Q1+Q2+Q3+Q4+Q5+Q6) $}. 
+
+Submit your assignment online via the Assignment 1 submission link in Blackboard.
+
+\qs{Exact IVP after Integrating Factors}{
+  Consider the equation
+  $$
+    \frac{\sin y}{y}-2e^{-x}\sin x +  \left(\frac{\cos y + 2 e^{-x} \cos x}{y}\right)y'=0.
+  $$ 
+  \begin{enumerate}[label=(\alph*)]
+    \item Show that it is not exact, but it becomes exact when multiplying by the integrating factor $\mu = y e^x$.
+    \item Solve the exact equation subject to the initial condition $y(\pi) = \dfrac{\pi}{2}$. Present your solution as a relation defining $y$ implicitly as a function of $x$.
+    %\\ (Do not solve the equation; only obtain the correct implicit equation that solves the given IVP).
+  \end{enumerate}
+}
+\sol
+
+
+\newpage
+\qs{Variation of Parameters}{
+  Consider the non-homogeneous ODE
+  \[
+    x^2 y'' - 3x y' + 4y = \ln x,\quad x>0.
+    \]
+  \begin{enumerate}[label=(\alph*)]
+    \item Show that $y_1=x^2$ and $y_2 = x^2\ln x$ are solutions to the corresponding homogeneous ODE $x^2 y'' - 3x y' + 4y =0.$
+    \item Find the general solution of the non-homogeneous ODE.
+  \end{enumerate}
+}
+\sol
+
+
+\newpage
+\qs{Orthogonal Basis and Projections}{
+  Consider the inner product space $P_2(\mathbb{R})$ with inner product 
+  $$
+    \big \langle p_0+p_1x+p_2x^2,q_0+q_1x+q_2x^2 \big \rangle = p_0q_0+p_1q_1+p_2q_2,\ \ p_0,p_1,p_2,q_0,q_1,q_2\in \mathbb{R}.
+  $$
+  Let $U=\{1+2x+x^2 \}$.
+  \begin{itemize}
+    \item[(a)]
+    Find $U^\perp$.
+    \item[(b)]
+    Determine an orthogonal basis for $U^\perp$.
+  \end{itemize}
+}
+\sol
+
+
+\newpage
+\qs{Orthogonality and Projections}{
+  Consider the vector space $\mathbb R^4$ endowed with the inner product
+  $$
+    \big \langle \left( u_1, u_2, u_3, u_4 \right), \left( v_1, v_2, v_3, v_4 \right) \big \rangle = u_1v_1+ 3u_2v_2 + u_3v_3+2u_4v_4.
+  $$
+  Let $U=\text{span} \{\mathbf u_1 = (-2,1,0,1), \mathbf u_2 = (0,1,2,3) \}$ be a subspace of $\mathbb R^4$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Use Gram-Schmidt procedure to construct an orthonormal basis for $U$.
+    \item Find the orthogonal projection of  $\mathbf v = (-1,2,5,1)$ in $U$ and $U^\perp$.
+  \end{enumerate}
+}
+\sol
+
+
+\newpage
+\qs{NAME NEEDED}{
+  Consider the vector space of $2\times2$ Matrices over the real numbers $M_{2,2}(\mathbb{R})$. The sets of matrices $S$ and $A$ such that $S^T=S$ and $A^T=-A$ define vector subspaces in $M_{2,2}(\mathbb{R})$. Call these subspaces respectively as $M^S_{2,2}(\mathbb{R})=\{S\in M_{2,2}(\mathbb{R}) |S^T=S\}$ and $M^A_{2,2}(\mathbb{R})=\{A\in M_{2,2}(\mathbb{R}) |A^T=-A\}$. 
+  Take the inner product over $M_{2,2}(\mathbb{R})$ defined by:
+  $$
+    \langle\bold{v},\bold{u}\rangle
+  =\rm{Tr}(\bold{v}^T\bold{u})
+  ~,
+  $$
+  $\forall\,\bold{v},\bold{u}\in M_{2,2}(\mathbb{R})$. Are the subspaces $M^S_{2,2}(\mathbb{R})$ and $M^A_{2,2}(\mathbb{R})$ orthogonal according to the inner product defined above? Explain your answer.
+}
+\sol
+
+
+\newpage
+\qs{NAME NEEDED}{
+  Let $P_2(\mathbb R)$ have the inner product,
+  $$
+    \langle \mathbf p, \mathbf q \rangle = \int_0^1 p(x) q(x) \,dx, \quad \forall \mathbf p, \mathbf q \in P_2(\mathbb R).
+  $$
+  Find the best approximation of $f(x) = x^2 + x^3$ by polynomials in $P_2(\mathbb R)$.
+  % \\  \emph{Hint: to simplify calculations, use the method of Solution 2 of section 12.1 of the workbook.}
+}
+\sol
+
+\end{document}

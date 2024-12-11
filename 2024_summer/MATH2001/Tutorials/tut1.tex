@@ -1,0 +1,104 @@
+\documentclass{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\title{\Huge{MATH2001}\\Calculus \& Linear Algebra II}
+\author{\huge{Michael Kasumagic, s4430266}}
+\date{\huge{Summer Semester, 2024-25}}
+
+\begin{document}
+\begin{center}
+  {
+    \LARGE
+    MATH2001 Tutorial 1 \\
+  }
+\end{center}
+    
+\begin{enumerate}
+  \item Find the general solution to the equation
+  $$
+    y' + xy = xy\inv
+  $$
+  using two approaches:
+  \begin{enumerate}
+    \item The ODE is separable.
+    \item Multiple both sides of the ODE by $ye^{x^2}$ to make it exact.
+  \end{enumerate}
+\end{enumerate}
+\sol (a)
+\begin{align*}
+  y' &= xy\inv - xy \\
+    &= x(y\inv - y) \\
+  \frac{1}{y\inv - y} y' &= x \\
+  \int \frac{1}{y\inv - y}\dydx\d x &= \int x\d x \\
+  \int \frac{1}{y\inv - y}\d y &= \int x\d x \\
+  \intertext{Lets focus on the LHS}
+  \int \frac{1}{y\inv - y}\d y &= \int\frac{1}{y\inv - y}\cd\frac{y}{y}\ \d y \\
+    &= \int\frac{y}{1 - y^2} \d y \\
+    &= \int\frac{y}{(1 - y)(1 + y)} \d y \\
+  \frac{y}{(1 - y)(1 + y)} &= \frac{\alpha}{1-y} + \frac{\beta}{1 + y} \\
+  y &= \alpha(1 + y) + \beta(1 - y) \\
+    &= \alpha + \alpha y + \beta - \beta y \\
+    &= (\alpha + \beta) + (\alpha - \beta) y \\
+  \tf 0 = \alpha + \beta &\Leftrightarrow \alpha = -\beta \\
+  \tf 1 = \alpha - \beta &\Leftrightarrow \alpha = 1 + \beta \\
+  \iff -\beta = 1 + \beta &\Leftrightarrow \beta = -\frac{1}{2} \\
+    &\Leftrightarrow \alpha = \frac{1}{2} \\
+  \intertext{Bringing it together}
+  \int\frac{1}{y\inv - y}\d y &= \frac{1}{2}\int\frac{1}{1-y}\d y - \frac{1}{2}\int\frac{1}{1 + y}\d y \\
+  \tf \int\frac{1}{y\inv - y}\d y = -\frac{1}{2}\ln\bracks{1-y} - \frac{1}{2}\ln\bracks{1 + y} &= \frac{1}{2}x^2 + C = \int x\d x \\
+  -\frac{1}{2}\ln\bracks{1-y^2} &= \frac{1}{2}x^2 + C \\
+  \ln\bracks{1-y^2} &= C - x^2 \\
+  1-y^2 &= \exp\bracks{C - x^2} \\
+  y^2 &= 1 - \frac{K}{\exp\bracks{x^2}},\quad K=\exp(C)>0 \\
+\end{align*}
+
+\sol (b)
+\begin{align*}
+  \Let h = h(x,y) &= y\exp\bracks{x^2} \\
+  hy' + hxy &= hxy\inv \\ 
+  \exp\bracks{x^2}yy' + \exp\bracks{x^2}xy^2 &= \exp\bracks{x^2}x
+\end{align*}
+
+\newpage
+
+\begin{enumerate}[start=2]
+  \item Find the gernal solution to the ODE
+  $$
+    (x^2 - 2x)y' = 2(x-1)y.
+  $$
+  Then consider the IVP with $y(x_0)=y_0$ and deterine all inital conditions $(x_0,y_0)$ such that the IVP has (a) no solutions, (b) more than one solution, (c) preciesly one solution.
+\end{enumerate}
+\sol
+\begin{align*}
+  y' &= \frac{2(x-1)}{x(x - 2)}y \\
+  \frac{1}{y}y' &= \frac{2(x-1)}{x(x - 2)} \\
+  \int\frac{1}{y}\dydx\d x &= \int\frac{2(x-1)}{x(x - 2)}\d x \\
+  \int\frac{1}{y}\d y &= 2\int\frac{(x-1)}{x(x - 2)}\d x \\
+  \frac{(x-1)}{x(x-2)} &= \frac{A}{x} + \frac{B}{x-2} \\
+    &= A(x-2) + Bx \\
+    &= (A+B)x - 2A \\
+  A &= \frac{1}{2} \\
+  B &= \frac{1}{2} \\
+  \int\frac{1}{y}\d y &= \int\frac{1}{x}\d x + \int\frac{1}{x-2}\d x\d x \\
+  \ln y &= \lnx + \ln(x-2) + C \\
+  \ln y &= \ln(x^2-2x) + C \\
+  y &= \exp(\ln(x^2-2x)+C) \\
+  y &= K(x^2-2x),\quad K=\exp(C)>0 \\
+  \intertext{Consider the IVP $y(x_0)=y_0$}
+  y_0 &= K(x_0^2-2x_0) \\
+  \implies K &= \frac{y_0}{x_0^2 - 2x_0},\quad x_0\neq0,\ x_0\neq 2, y_0>0
+  \intertext{So we have final solution}
+  y &= \frac{y_0(x^2-2x)}{x_0^2 - 2x_0}
+\end{align*}
+Consider $\dps{\dydx = f(x,y)= \frac{2(x-1)}{x(x-2)}y}$ with $\dps{\del{f}{y} = \frac{2(x-1)}{x(x-2)}}$\\
+\begin{enumerate}[label=(\alph*)]
+  \item IVP has no solutions if and only if $f(x,y)$ has discontinuities in a rectangle in some rectangle around the solution. $(x_0,y_0)=(0,y_0)$ and $(2,y_0)$ will make this happen. 
+  \item IVP has more than one solution if and only if $f(x,y)$ is continuous in a rectangle, but $f_y$ is not. 
+  \item IVP has preciesly one solution if and only if $f(x,y)$ and its derivative with respect to $y$ are continuous in a local rectangle. $(x_0,y_0)$ where $x_0\neq0$, $x_0\neq2$ is required.
+\end{enumerate}
+
+
+\end{document}

@@ -128,19 +128,21 @@ In other words, we seek to find solutions to the ODE which pass through the poin
 }
 
 \subsection{Existence and Uniqueness}
-Consider the IVP
-$$
-  \dydx = f(x,y),\quad y(x_0)=y_0
-$$
-We are concerned with the conditions under which a solution exists and is unique.
-\begin{enumerate}
-  \item (existence, Peano's Theorem) If $f(x,y)$ is continuous in some rectangle
+\thm{}{
+  Consider the IVP
   $$
-    R = \braces{(x,y)\suchthat \abs{x-x_0}<a,\ \abs{y-y_0}<b}
+    \dydx = f(x,y),\quad y(x_0)=y_0
   $$
-  then the IVP has at least one solution.
-  \item (uniqueness, Picard's Theorem) If $f_y(x,y):=\del{f}{y}$ is also continuous in $R$ then there is some interval $\abs{x-x_0}\leq h\leq a$ which contains at least one solution.
-\end{enumerate}
+  We are concerned with the conditions under which a solution exists and is unique.
+  \begin{enumerate}
+    \item (existence, Peano's Theorem) If $f(x,y)$ is continuous in some rectangle
+    $$
+      R = \braces{(x,y)\suchthat \abs{x-x_0}<a,\ \abs{y-y_0}<b}
+    $$
+    then the IVP has at least one solution.
+    \item (uniqueness, Picard's Theorem) If $f_y(x,y):=\del{f}{y}$ is also continuous in $R$ then there is some interval $\abs{x-x_0}\leq h\leq a$ which contains at least one solution.
+  \end{enumerate}  
+}
 This result only tells us that a solution exists or is unique locally. Beyond $R$, we simply don't know.
 
 \ex{}{
@@ -229,7 +231,82 @@ This result only tells us that a solution exists or is unique locally. Beyond $R
 }
 
 \subsection{Method of Succesive Approximations}
-\nt{WATCH THE BONUS CONTENT FOR THIS CHAPTER'S CONTENT}
+To start, we note that it is always possible to apply a variable shift and so that the IVP is expressed:
+$$
+  \dydx = f(x,y),\qquad y(0)=0
+$$
+\ex{}{
+  $$
+    y' = 2(x-1)(y-1),y(1)=2
+  $$
+  \begin{gather*}
+    \Let \bar{x} = x-1 \\
+    \Let \bar{y} = y-2 \\
+    \So \dydx = \dyd[\bar{y}]{\bar{x}} \\
+    \implies \dyd[\bar{y}]{\bar{x}} = 2\bar{x}(\bar{y}+1),\ \bar{y}(0)=0
+  \end{gather*}
+}
+Without loss of generality we will consider this problem where the inital point is at the origin. We can restate the previous theorem 1.1.1 as follows
+\thm{}{
+  If $f$ and $f_y$ are continuous in some rectangle
+  $$
+    R = \braces{(x,y)\suchthat \abs{x}\leq a,\ \abs{y}\leq b},
+  $$
+  then there is some interval $\abs{x}\leq h\leq a$ which contains a uniuqe solution $y=\phi(x)$ of the IVP
+  $$
+    \dydx = f(x,y),\qquad y(0)=0
+  $$
+}
+
+\subsubsection*{Equivilance with integral equation}
+Let $y=\phi(x)$ be the solution to the IVP 
+\[
+  \dydx=f(x,y),\qquad y(0)=0, \tag*{(1)}
+\]
+and note that the function $F(x) = f(x,\phi(x))$ is a continuous function of $x$ only. We then have
+\[
+  \phi(x) = \int_{0}^{x} F(t)\d t = \int_{0}^{x} f(t,\phi(t))\d t. \tag*{(2)}
+\]
+Note that $\phi(0)=0$. This is an example of an \textit{integral equation}. Conversely, let $\phi(x)$ satisfy the integral equation (2). By the Fundamental Theorem of Integral Calculus, $\phi'(x) = f (x, \phi(x))$, which implies that $y = \phi(x)$ is a solution of the IVP (1). In other words, the IVP (1) and the integral equation (2) are equivalent, meaning that a solution of one is a solution of the other. Herein we work with (2).
+
+\subsubsection*{Method of succesive approximations}
+The goal of the approach is to generate a sequence of functions ${\phi_0, \phi_1, \dots, \phi_n, \dots}$. Starting with the initial function $\phi_0(x) = 0$ (satisfying the initial condition of (1)), the sequence is generated iteratively by
+\[
+  \phi_{n+1}(x) = \int_{0}^{x} f(t, \phi_n(t))\d t. \tag*{(3)}
+\]
+Note that each $\phi_n$ satisfies $\phi_n(0) = 0$, but generally not the integral equation (2) itself. However, if there is a $k$, such that $\phi_{k+1}(x) = \phi_k(x)$, then $\phi_k(x)$ is a solution of the integral equation (2) and hence the IVP (1). Generally this does not occur, but we may instead consider \textit{limit functions}. \\
+
+There are 4 key points to consider:
+\begin{enumerate}
+  \item Do all members of the sequence exist?
+  \item Does the sequence converge to a limit function $\phi$?
+  \item What are the properties of $\phi$?
+  \item If $\phi$ satisfies the IVP (1), are there other solutions?
+\end{enumerate}
+
+\ex{}{
+  $$
+    y' = 2x(y+1),\qquad y(0) = 0
+  $$
+  \begin{gather*}
+    \phi_0(x) = 0,\qquad f(x,y) = 2x(y+1) \\
+    \phi_1(x) = \int_{0}^{x} f(t, \phi_0(t))\d t = \int_{0}^{x} f(t, 0)\d t = \int_{0}^{x} 2t(0+1) \d t = t^2\Big|_{0}^{x} = x^2 \\
+    \phi_2(x) = \int_{0}^{x} f(t, \phi_1(t))\d t = \int_{0}^{x} f(t, t^2)\d t = \int_{0}^{x} 2t(t^2+1) \d t = \int_{0}^{x} 2t^3+2t\ \d t = \frac{1}{2}t^4 + t^2\Big|_{0}^{x} = \frac{1}{2}x^4 + x^2
+    \intertext{Similarly,}
+    \phi_3(x) = x^2 + \frac{1}{2}x^4 + \frac{1}{6}x^6 \\
+    \phi_4(x) = x^2 + \frac{1}{2}x^4 + \frac{1}{6}x^6 + \frac{1}{24}x^8 \\
+    \intertext{\Propo}
+    \phi_n(x) = \sum_{i=1}^{n} \frac{1}{i!}x^{2i}
+    \intertext{\Proof By induction: True for $n=1$. Suppose True for $n=k$.}
+    \Then \phi_{k+1} (x) = \int_{0}^{x} f(t, \phi_k(t))\d t = \int_{0}^{x} 2t\bracks{1+\sum_{i=1}^{k} \frac{1}{i!}t^{2i}} \d t = \int_{0}^{x} \bracks{2t+\sum_{i=1}^{k} \frac{2}{i!}t^{2i+1}} \d t = t^2 + \sum_{i=2}^{k+1} \frac{1}{i!}t^{2i}\Bigg|_{0}^{x} \\
+    \tf\phi_{k+1} = x^2 + \sum_{i=2}^{k+1} \frac{1}{i!}x^{2i} = \sum_{i=1}^{k+1} \frac{1}{i!}x^{2i} \\ 
+    \intertext{So the proposition is true $\forall n\in\bbn$.  $\QED$}
+    \lim_{n\to\infty}\phi_n(x) = \lim_{n\to\infty} \sum_{i=1}^{n} \frac{1}{i!}x^{2i} \text{ exists}\iff \text{the series converges}
+    \intertext{Applying the ratio test between two successive terms, $j$ and $j+1$, as $j$ goes to infinty,}
+    \lim_{j\to\infty} \abs{\frac{\dfrac{x^{2j+2}}{(j+1)!}}{\dfrac{x^{2j}}{j!}}} = \lim_{j\to\infty} \abs{\frac{x^{2j+2}}{(j+1)!}\cd\frac{j!}{x^{2j}}} = \lim_{j\to\infty} \abs{\frac{x^2}{j+1}} = 0
+    \longintertext{Therefore, the series converges! \\ Therefore, the limit, as $n\to\infty$ of $\phi_n$  exists.}
+  \end{gather*}
+}
 
 \subsection{Exact First Order ODEs}
 \dfn{Exact First Order ODE}{
@@ -313,5 +390,355 @@ This result only tells us that a solution exists or is unique locally. Beyond $R
     \iff y &= \ln\bracks{\frac{k' - x^2}{x}}
   \end{align*}
 }
+
+
+\section{Lecture 2}
+\subsection{Almost Exact ODEs and Integrating Factors}
+Suppose we have
+$$
+  P(x,y) + Q(x,y)\dydx = 0
+$$
+and
+$$
+  \del{P}{y} \neq \del{Q}{x}.
+$$
+This is not an exact ODE, but can we do anything with it anyway? Let's consider an ``integrating factor'' (not to be confused with integrating factors used when solving linear ODEs). \\
+
+The general idea though, is to multiple the ODE by some function, $h(x,y)$ such that the resulting ODE
+$$
+  h(x,y)P(x,y) + h(x,y)Q(x,y)\dydx = 0
+$$
+\textit{is} exact. We know that this new ODE is exact if and only if 
+$$
+  \del{}{y}(hP) = \del{}{x}(hQ)
+$$
+Let's find a $h$ which accomplishes this:
+\begin{gather*}
+  \del{}{y}(hP) = \del{}{x}(hQ) \\
+  h_yP + hP_y = h_xQ + hQ_x \iff h_yP - h_xQ + h(P_y - Q_x) = 0 
+\end{gather*}
+Solving for $h$ in general requires us to solve this first order partial differential equation, which is very nasty and also outside the scope of this course. \\
+
+However, we can consider a simplier case, where $h$ is a function of one of the varaibles $x$ or $y$. Let's try $h = h(x)$:
+\begin{gather*}
+  \dyd[h]{x} = h(x)\frac{P_y-Q_x}{Q} = h\hat{f}
+  \intertext{Suppose $\hat{f}$ is a function of one variable, $x$. Then we are left with a first order seperable ODE which we can solve. Once we've solved for $h$, we can find $f(x,y)$ that solves the exact ODE we wanted to solve.}
+\end{gather*}
+This is not a great technique, it often doesn't work and requires a lot of trial an error. For example, if $h=h(x)$ didn't yield an approriate $f(x,y)$, we could try $h=h(y)$ or $h=h(x)+h(y)$, which would also give us a seperable ODE to solve. If this technique does work, it hints to some underlying symmetry in the differential system we're solving.
+
+\ex{}{
+  $$
+    \text{Solve}\ (3xy+y^2) + (x^2+xy)\dydx = 0
+  $$
+  \begin{gather*}
+    P(x,y) = 3xy + y^2\qquad Q(x,y) = x^2 + xy \\
+    \del{P}{y} = 3x + 2y \neq 2x + y = \del{Q}{x}
+    \intertext{So, this ODE is not exact. Can we multiply through by some integrating factor, $h$?}
+    \Take h = h(x) \neq 0 \\
+    h(3xy+y^2) + h(x^2+xy)\dydx = \hat{p} + \hat{q}\dydx = 0 \\
+    \intertext{is exact}
+    \iff \del{\hat{p}}{y} = \del{\hat{q}}{x} \iff h(3x + 2y) = h_x(x^2+xy) + h(2x+y) \iff h(x + y) = h_xx(x+y)
+    \intertext{Supposing that $x+y\neq0$, we can simplify and find}
+    h = h'x
+    \intertext{Supposing that $x\neq0$, we can see}
+    h' = \frac{1}{x}h
+    \intertext{This is a seperable first order ODE we can simply solve,}
+    \int \frac{1}{h} \dyd[h]{x}\d x = \int \frac{1}{x}\d x \iff \int \frac{1}{h}\d h = \int \frac{1}{x}\d x \iff \ln\abs{h} = \ln\abs{x} + \hat{\alpha} \iff h(x) = \alpha x,\ \alpha = \exp(\hat{\alpha}).
+    \intertext{We're free to choose $\alpha>0$, so we'll take $\alpha=1$ for simplicity, and then multiple our original ODE by our integrating factor $h=h(x)=x$. Check:}
+    h(3xy+y^2) + h(x^2+xy)\dydx = 0 \iff x(3xy+y^2) + x(x^2+xy)\dydx = 0 \\ 
+    \iff (3x^2y+xy^2) + (x^3+x^2y)\dydx = 0,\ P(x,y) = 3x^2y+xy^2,\ Q(x,y) = x^3+x^2y \\
+    \del{P}{y} = 3x^2+2xy = 3x^2+2xy = \del{Q}{x}
+    \intertext{So this ODE is exact. Therefore, there exists some functoin, $f(x,y)$ such that $f_x=P$ and $f_y=Q$}
+    \Take f(x,y) = x^3y + \frac{1}{2}x^2y^2 \implies f_x =3x^2y + xy^2 = P,\ f_y = x^3 + x^2y
+    \intertext{Therefore, the solution to our ODE is}
+    f(x,y) = K \iff x^3y + \frac{1}{2}x^2y^2 = K \iff \frac{1}{2}x^2y^2 + x^3y - K = 0 \iff y = \frac{-x^2 \pm \sqrt{x^3 + 2K}}{x}
+    \intertext{Purely for fun, we're going to apply an inital condition, $y(1)=0$}
+    \Then 0 = \frac{-1 \pm \sqrt{1 + 2K}}{1} \iff 0 = K \text{ and we choose the positive branch}
+    \intertext{So our final solution is} 
+    y(x) = \frac{x^2 + \sqrt{x^3}}{x} = \sqrt{x}-x
+  \end{gather*}
+}
+
+\subsection{Hyperbolic Functions}
+\dfn{Hyperbolic Functions}{
+  \begin{align*}
+    \cosh(x) &= \frac{e^x + e^{-x}}{2}, \\
+    \sinh(x) &= \frac{e^x - e^{-x}}{2}, \\
+    \tanh(x) &= \frac{\sinh (x)}{\cosh(x)} = \frac{1 - e^{-2x}}{1 + e^{-2x}}, \\
+  \end{align*}
+}
+\cor{Hyperbolic-Pythagorean Identity}{
+  $$
+    \cosh^2(x) - \sinh^2(x) = 1
+  $$
+}
+This follows from direct calculation. \\
+
+Note that the Pythagorean identity $\cos^2x + \sin^2x = 1$ allows us to paramaterise the unit circle, namely by setting $x(t)=\cos t,\ y(t)=\sin t$, which gives us the equation of a unit circle, $\cos^2t+\sin^2t = x^2 + y^2 = 1$. \\
+
+If instead, we set $x(t)=\cosh t,\ y(t)=\sinh t$, we can see
+$$
+  \cosh^2t - \sinh^2t = x^2 - y^2 = 1
+$$
+which is the equation for a hyperbola. \\
+Also following from direct calculation, similar to their trigonometric counterparts, the hyperbolic functions satisfy
+\begin{gather*}
+  \ddx\cosh x = \frac{e^x - e^{-x}}{2} = \sinh x,\\ 
+  \ddx\sinh x = \frac{e^x + e^{-x}}{2} = \cosh x
+\end{gather*}
+Note that $\cosh(0)=1,\ \cosh(x)\geq1$ and $\cosh(x)$ is an even function ($\cosh(-x) = \cosh(x)$); $\sinh(0)=0,\ \sinh(x)$ is an odd function $\sinh(-x) = -\sinh(x)$.
+
+% TODO:
+\ex{}{
+  Prove that:
+  \begin{enumerate}
+    \item $\cosh^2x = \frac{1}{2}(\cosh(2x)+1)$ 
+    \item $\sinh^2x = \frac{1}{2}(\cosh(2x)-1)$
+    \item $\sinh(2x) = 2\sinh x\cosh x$
+  \end{enumerate}
+}
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[
+        axis lines=middle,
+        samples=20,
+        domain=-2.5:2.5,
+        % enlargelimits=true,
+        grid=both,
+        grid style={dotted,gray},
+        minor tick num=1,
+        legend pos=south east,
+        xmin=-2.5, xmax=2.5,
+    ]
+        \addplot[blue, thick] {cosh(x)};
+        \addplot[red, thick] {sinh(x)};
+        \addplot[darkgreen, thick] {tanh(x)};
+        \addlegendentry{$\cosh(x)$};
+        \addlegendentry{$\sinh(x)$};
+        \addlegendentry{$\tanh(x)$};
+    \end{axis}
+  \end{tikzpicture}
+\end{center}
+
+Looking at the plots of the functions, we can deduce that
+\begin{align*}
+  \dom\cosh x &= \bbr       & \dom\sinh x &= \bbr & \dom\tanh x &= \bbr \\
+  \ran\cosh x &= [1,\infty) & \ran\sinh x &= \bbr & \ran\tanh x &= (-1,1)
+\end{align*}
+
+\dfn{Reciprocal Hyperbolic Functions}{
+  \begin{align*}
+    \coth(x) &= \frac{1}{\tanh(x)} = \frac{\cosh (x)}{\sinh(x)} = \frac{1 + e^{-2x}}{1 - e^{-2x}} \\
+    \sech(x) &= \frac{1}{\cosh(x)} = \frac{2}{e^{x} - e^{-x}} \\
+    \csch(x) &= \frac{1}{\sech(x)} = \frac{2}{e^{x} + e^{-x}} \\
+  \end{align*}
+}
+
+\subsection{Inverse Hyperbolic Functions}
+\dfn{Inverse Hyperbolic Functions}{
+  If $f$ is \dots $f\inv$ is denoted \dots:
+  \begin{align*}
+    \cosh(x) && \arcosh(x) \\
+    \sinh(x) && \arsinh(x) \\
+    \tanh(x) && \artanh(x)
+  \end{align*}
+}
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[
+        axis lines=middle,
+        samples=20,
+        domain=-2.5:2.5,
+        % enlargelimits=true,
+        grid=both,
+        grid style={dotted,gray},
+        minor tick num=1,
+        legend pos=south east,
+        xmin=-2.5, xmax=2.5,
+    ]
+        \addplot[blue, thick, domain=1:2.5] {ln(x + sqrt(x^2 - 1))};
+        \addplot[red, thick] {ln(x + sqrt(x^2 + 1))};
+        \addplot[darkgreen, thick, domain=-0.99:0.99] {0.5*ln((1+x)/(1-x))};
+        \addlegendentry{$\arcosh(x)$};
+        \addlegendentry{$\arsinh(x)$};
+        \addlegendentry{$\artanh(x)$};
+    \end{axis}
+  \end{tikzpicture}
+\end{center}
+\begin{align*}
+  \dom\arcosh x &= [1,\infty)       & \dom\arsinh x &= \bbr & \dom\artanh x &= (-1,1) \\
+  \ran\arcosh x &= [0,\infty) & \ran\arsinh x &= \bbr & \ran\artanh x &= \bbr
+\end{align*}
+
+We have the following:
+\begin{align*}
+  \int\frac{\d x}{\sqrt{1 + x^2}} &= \arsinh x + C \\
+  \int\frac{\d x}{\sqrt{1 - x^2}} &= \arcosh x + C,\ x > 1 
+\end{align*}
+
+\ex{}{
+  Show $\dps{\ddx(\arsinhx)=\frac{1}{\sqrt{1+x^2}}}$.
+  \begin{align*}
+    \arsinhx &= y(x) \\
+    x &= \sinh y \\
+    \iff\ddx(x) &= \ddx(\sinh y) \\
+    \iff 1 &= \dydx \cd \cosh y \\
+    \iff \dydx &= \frac{1}{\cosh y} \\
+      &= \frac{1}{\cosh(\arsinhx)} \\
+      &= \frac{1}{\sqrt{\cosh^2(\arsinhx)}} \\
+      &= \frac{1}{\sqrt{1 + \sinh^2(\arsinhx)}} \\
+      &= \frac{1}{\sqrt{1 + \sinh(\arsinhx)\sinh(\arsinhx)}} \\
+      &= \frac{1}{\sqrt{1 + x\cd x}} \\
+      &= \frac{1}{\sqrt{1 + x^2}}
+  \end{align*}
+
+  Show $\dps{\ddx(\arcoshx)=\frac{1}{\sqrt{x^2 - 1}}}$.
+  \begin{align*}
+    \arcoshx &= y(x) \\
+    x &= \cosh y \\
+    \iff\ddx(x) &= \ddx(\cosh y) \\
+    \iff 1 &= \dydx \cd \sinh y \\
+    \iff \dydx &= \frac{1}{\sinh y} \\
+      &= \frac{1}{\sinh(\arcoshx)} \\
+      &= \frac{1}{\sqrt{\sinh^2(\arcoshx)}} \\
+      &= \frac{1}{\sqrt{\cosh^2(\arcoshx) - 1}} \\
+      &= \frac{1}{\sqrt{\cosh(\arcoshx)\cosh(\arcoshx) - 1}} \\
+      &= \frac{1}{\sqrt{x\cd x - 1}} \\
+      &= \frac{1}{\sqrt{x^2 - 1}}
+  \end{align*}
+}
+
+\ex{}{
+  Evaluate $\dps{\int\frac{\d x}{\sqrt{1+x^2}}}$
+  \begin{align*}
+    1 + \sinh^2 t &= \cosh^2 t \\
+    \Let x &= \sinh t \\
+    \implies\dyd[x]{t} = \cosh t &\Rightarrow \d x = \cosh t\ \d t \\
+    \tf\int\frac{\d x}{\sqrt{1+x^2}} &= \int\frac{\cosh t}{\sqrt{1+\sinh^2t}}\d t \\
+      &= \int\frac{\cosh t}{\sqrt{\cosh^2 t}}\d t \\
+      &= \int\frac{\cosh t}{\cosh t}\d t \\
+      &= \int \d t \\
+      &= t + C\\
+      &= \arsinhx + C
+  \end{align*}
+
+  Evaluate $\dps{\int\frac{\d x}{\sqrt{x^2-1}}}$
+  \begin{align*}
+    \cosh^2 t - 1 &= \sinh^2 t \\
+    \Let x &= \cosh t \\
+    \implies\dyd[x]{t} = \sinh t &\Rightarrow \d x = \sinh t\ \d t \\
+    \tf\int\frac{\d x}{\sqrt{x^2-1}} &= \int\frac{\sinh t}{\sqrt{\cosh^2t - 1}}\d t \\
+      &= \int\frac{\sinh t}{\sqrt{\sinh^2 t}}\d t \\
+      &= \int\frac{\sinh t}{\sinh t}\d t \\
+      &= \int \d t \\
+      &= t + C\\
+      &= \arcoshx + C,\ x\geq 1
+  \end{align*}
+}
+
+% TODO:
+\ex{}{
+  Show that $\dps{\ddx(\artanhx) = \frac{1}{1 - x^2}}$
+}
+
+Using partial fractions, we also find that
+$$
+  \int\frac{\d x}{1 - x^2} = \frac{1}{2}\ln\bracks{\frac{1 + x}{1 - x}} + C
+$$
+In fact, we have the following identities
+\begin{gather*}
+  \artanhx = \frac{1}{2}\ln\bracks{\frac{1+x}{1-x}} \\
+  \arsinhx = \ln\bracks{x+\sqrt{x^2+1}} \\
+  \arcoshx = \ln\bracks{x+\sqrt{x^2-1}} 
+\end{gather*}
+
+% TODO:
+\ex{}{
+  Show that $\dps{\arsinhx = \ln\bracks{x + \sqrt{x^2 + 1}}}$
+}
+
+% TODO:
+\subsection{The Cateary Problem}
+
+\subsection{Linear Second-Order Non-Homogenous ODEs and the Wronskian}
+
+\section{Lecture 3}
+\subsection{Variation of Parameters}
+We've seen that for a linear second-order, non-homogenous IVP,
+$$
+  y'' + p(x)y' + q(x)y = r(x),\quad y(x_0)=y_0
+$$
+if $p,q,r$ are continous on an open interval $I$, and the inital condition, $x_0\in I$, then there exisits a solution to the IVP. The solution will be a linear combination of the solution in the homogenous case and the particular case, $y(x) = y_H(x) + y_P(x)$. Assuming the homogenous case is a linear combination of linearly independent $y$s, ie $W(y_1, y_2) \neq 0$, we can apply variation of parameters. The process is as follows:
+\begin{enumerate}
+  \item Solve $y'' + p(x)y' + q(x)y = 0$, and obtain a fundamental set of solutions, $y_1, y_2$. Calculate the Wronskian, $W(y_1,y_2)(x) = W$.
+  \item Set $y_P = u(x)y_1(x) + v(x)y_2(x)$ and substitute into the ODE. We also impose the condition, $u'y_1 + v'y_2 = 0$. We can freely impose this condition because we have two functions, $u,v$, and only one equation they must satisfy, the ODE.
+  \item We obtain
+  $$
+    u(x) = -\int \frac{y_2r}{W}\d x,\qquad v(x) = \int \frac{y_1r}{W}\d x.
+  $$
+\end{enumerate}
+This approach is a variation of the reduction of order, which prescribes taking some solution, $y$, of the associated ODE, and using it to find a particular solution.
+
+\ex{}{
+  Derivation of $u(x)$ and $v(x)$ of the variation of parameters.
+  \begin{gather*}
+    y'' + p(x)y' + q(x)y = r(x) \tag{1}\label{eq:LinSecOrdODE}
+    \intertext{Suppose we solved the homogenous case, $y''+py'+qy=0$.}
+    \implies\exists y_1(x), y_2(x): W(y_1,y_2)(x) \neq 0,\ y_H(x) = Ay_1(x) + By_2(x) \\
+    y_P(x) = u(x)y_1(x) + v(x)y_2(x) \tag{2}\label{eq:VarParams} \\
+    \tf y_P' = u'y_1 + uy_1' + v'y_2 + vy_2 \\
+    \intertext{Impose that $u'y_1 + v'y_2 = 0$, then}
+    y_P' = uy_1' + vy_2' \\
+    \tf y_P'' = u'y_1' + uy_1'' + v'y_2' + vy_2'' 
+    \intertext{We'll now substitute (\ref{eq:VarParams})'s derivatives back into (\ref{eq:LinSecOrdODE}), and find}
+    (u'y_1' + uy_1'' + v'y_2' + vy_2'') + p(uy_1' + vy_2') + q(uy_1 + vy_2) = r
+    \intertext{Consider $uy_1'' + puy_1' + quy_1$ and $vy_2'' + pvy_2' + qvy_2$, and note that they are solutions to the homogenous case, and are therefore equal to 0. So we can simply cancel them out, and are left with:}
+    u'y_1' + v'y_2' = r
+    \intertext{In fact, the entire system has been reduced to the system of equations}
+    \left\lbrace \begin{array}{l} u'y_1 + v'y_2 = 0 \\ u'y_1' + v'y_2' = r \end{array} \right. \\
+    \iff \begin{pmatrix} y_1(x) & y_2(x) \\ y_1'(x) & y_2'(x) \end{pmatrix} \begin{pmatrix} u' \\ v' \end{pmatrix} = \begin{pmatrix} 0 \\ r(x) \end{pmatrix} \\
+    \begin{pmatrix} y_1(x) & y_2(x) \\ y_1'(x) & y_2'(x) \end{pmatrix} = \hat{W},\ \det\hat{W} = \det W(y_1,y_2)(x) = W \neq 0 \implies \hat{W}\text{ is invertible.} \\
+    \hat{W}\inv = \frac{1}{\det\hat{W}}\begin{pmatrix} y_2'(x) & -y_2(x) \\ -y_1' & y_1(x) \end{pmatrix} \\
+    \tf \begin{pmatrix} u ' \\ v' \end{pmatrix} = \hat{W}\inv\begin{pmatrix} 0 \\ r(x) \end{pmatrix} = \frac{1}{\det\hat{W}}\begin{pmatrix} y_2'(x) & -y_2(x) \\ -y_1' & y_1(x) \end{pmatrix}\begin{pmatrix} 0 \\ r(x) \end{pmatrix} \\
+    \begin{pmatrix} u ' \\ v' \end{pmatrix} = \frac{1}{W}\begin{pmatrix} -y_2r \\ y_1r \end{pmatrix} \\
+    \iff \left\lbrace \begin{array}{l} \dps{u' = \frac{-y_2r}{W}} \\ \dps{v' = \frac{y_1r}{W}}\end{array} \right.
+    \iff \left\lbrace \begin{array}{l} \dps{u = -\int\frac{y_2r}{W}\d x} \\ \dps{v = \int\dfrac{y_1r}{W}\d x} \end{array} \right.
+  \end{gather*}
+}
+
+\ex{}{
+  Solve
+  $$
+    y'' - 4y' + 5y = \frac{2e^{2x}}{\sin x}
+  $$
+  using variation of parameters.
+  \begin{gather*}
+    y = y_H + y_P
+    \intertext{Let's ansatz that $y_H = e^{\lm x}$}
+    \iff \lm^2 - 4 + 5 = 0 \iff \lm_{1,2} = 2\pm i \iff y_H = Ae^{2x}\cos x + Be^{2x}\sin x \\ 
+    W = \det W(y_1, y_2)(x) = \det\begin{pmatrix} e^{2x}\cos x & e^{2x}\sin x \\ 2e^{2x}\cosx - e^{2x}\sinx & 2e^{2x}\sinx + e^{2x}\cosx \end{pmatrix} = e^{4x} \neq 0
+    \intertext{Find $y_P = uy_1 + vy_2$}
+    u(x) = -\int\frac{y_2r}{W}\d x = -\int\frac{e^{2x}\sinx\frac{2e^{2x}} {\sinx}}{e^{4x}}\d x = -2\int1\ \d x = -2x \\
+    v(x) = \int\frac{y_1r}{W}\d x = \int\frac{e^{2x}\cosx\frac{2e^{2x}}{\sin x}}{e^{4x}}\d x = 2\int\cotx\ \d x = 2\ln\abs{\sinx} \\
+    \implies y_P = 2\ln\abs{\sinx}e^{2x}\sin x - 2xe^{2x}\cos x \\
+    \implies y = Ae^{2x}\cos x + Be^{2x}\sin x + 2\ln\abs{\sinx}e^{2x}\sin x - 2xe^{2x}\cos x
+  \end{gather*}
+}
+
+\ex{}{
+  Solve
+  $$
+    y'' - 4y' + 5y = \frac{2e^{2x}}{\sin x}
+  $$
+  using reduction of order.
+  \begin{gather*}
+    y = y_H + y_P
+  \end{gather*}
+}
+
+
+
+
 
 \end{document}
