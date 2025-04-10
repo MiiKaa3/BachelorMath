@@ -1,0 +1,715 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\begin{center}
+	{\large\bf STAT2003 Mathematical Probability \\ Semester 1 2025 \\ Problem Set 1} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+	Tutorial Group \#10 \\
+	Due 1pm Friday 28 March 2025
+\end{center}
+
+\qs{}{
+  Consider a probability space $(\Omega, \clf, \bbp)$ where $\Omega = \{a,b,c\}$ and $\clf$, the set of events, is the set of all possible subsets of $\Omega$. 
+  \begin{enumerate}[label=(\alph*)]
+    \item Enumerate all the events in $\clf$.
+    \item Assume that for all $A \in \clf$,
+      \[
+        \bbp(A) = \frac{|A \setminus \{c\}|}{|\Omega \setminus \{c\}|}.
+      \]
+      List out the values of $\bbp(A)$ for all events $A \in \clf$.
+    \item How would you describe this probability space in words?
+    \item Prove that $\bbp(\cdot)$, as given, satisfies the 3 probability axioms.
+  \end{enumerate}
+}
+\sol (a)
+$$
+  \clf = \braces{
+    \begin{array}{cccc}
+      \emp, & \braces{a},& \braces{a,b},& \braces{a,b,c}  \\
+            & \braces{b},& \braces{a,c},&                 \\
+            & \braces{c},& \braces{b,c},&                 \\
+    \end{array}
+  }
+$$
+
+\sol (b) \\
+Firstly, we note that
+$$
+    \Omega\setminus\braces{c} = \braces{a,b,c}\setminus\braces{c} = \braces{a,b},\implies\abs{\Omega\setminus\braces{c}} = 2
+$$
+With that, we can go ahead and define the probability function, $\bbp:\clf\to\sqbracks{0,1}$,
+$$
+  \bbp = \braces{
+    \begin{array}{cccc}
+      \bracks{\emp, \dfrac{0}{2}=0}, & \bracks{\braces{a}, \dfrac{1}{2}}, & \bracks{\braces{a,b}, \dfrac{2}{2}=1}, & \bracks{\braces{a,b,c}, \dfrac{2}{2}=1}  \\
+                        & \bracks{\braces{b}, \dfrac{1}{2}}, & \bracks{\braces{a,c}, \dfrac{1}{2}}, &                             \\
+                        & \bracks{\braces{c}, \dfrac{0}{2}=0}, & \bracks{\braces{b,c}, \dfrac{1}{2}}, &                             \\
+    \end{array}
+  }
+$$
+
+\sol (c) \\
+In words, I describe this probability function counts if $a$ and $b$ are present in the event, while $c$ contributes nothing to the probability of an event occuring. \\
+
+\newpage
+\sol (d) \\
+\textbf{Axiom 1}: $\bbp(A) \geq 0$
+\begin{proof}
+  By exhaustion.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+    We defined $\bbp:\clf\to\sqbracks{0,1}$ by listing all mappings, $A\mapsto p$. \\
+    From that list, we see that $\nexists A\in\bbf: \bbp(A)<0$.
+  \end{list}
+  Therefore, $\forall A\in\clf,\ \bbp(A)\geq 0$.
+\end{proof} \vspace{0.4cm}
+
+\textbf{Axiom 2}: $\bbp(\Omega)=1$
+\begin{proof}
+  Directly.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+    $\bbp(\Omega) = \bbp(\braces{a,b,c}) = \dfrac{\abs{\braces{a,b,c}\setminus\braces{c}}}{\abs{\braces{a,b,c}\setminus\braces{c}}} = \dfrac{\abs{\braces{a,b}}}{\abs{\braces{a,b}}} = \frac{2}{2} = 1$.
+  \end{list}
+  Therefore, $\bbp(\Omega) = 1$.
+\end{proof} \vspace{0.4cm}
+
+\textbf{Axiom 3}: For any sequence of disjoint events, $A_1, A_2,\dots$ we have $\bbp\bracks{\bigcup_i A_i} = \sum_i \bbp(A_i)$ 
+\begin{proof} Directly.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+    Suppose $\braces{A_i}_{i=1}^{n}$ is a finite sequence, of length $i$, of disjoint sets in $\clf$. \\
+    Then, because the sets are disjoint, the cardinality of the union, is simply the sum of the cardinality of the individual sets.
+    \begin{align*}
+      \bbp\bracks{\bigcup_{i=1}^n A_i} &= \frac{\abs{\bigcup_{i=1}^n A_i \setminus \braces{c}}}{\abs{\Omega \setminus \braces{c}}} \\
+        &= \frac{\sum_{i=1}^n \abs{A_i \setminus \braces{c}}}{\abs{\Omega \setminus \braces{c}}}.
+      \intertext{We can move the constant divsion into the summation,}
+        &= \sum_{i=1}^n \frac{\abs{A_i \setminus \braces{c}}}{\abs{\Omega \setminus \braces{c}}}.
+      \intertext{And we note that this is the explicit definition of $\bbp:\clf\to\sqbracks{0,1}$ we are given.}
+        &= \sum_{i=1}^n \bbp\bracks{A_i}.
+    \end{align*}
+  \end{list}
+  Therefore, for a sequence of disjoint events, $\dps{\braces{A_i}_{i=1}^{n},\ \bbp\bracks{\bigcup_{i=1}^{n} A_i} = \sum_{i=1}^{n} \bbp(A_i)}$.
+\end{proof}
+
+\newpage
+\qs{}{
+  Let the events $B_i$ signify a cyclone of category $i$ for $i=1,\ldots,5$, with $B_i \cap B_j = \emptyset$ for $i \neq j$ and $\cup_{i=1}^5 B_i = \Omega$.  Let the event $A$ be the event of total property damage exceeding \$10 billion. Assume $\bbp(B_i) = (5-i+1)/15$, and assume $\bbp(A ~ |~ B_i) = i /5$.
+  \begin{enumerate}[label=(\alph*)]
+  \item Calculate the probability of total property damage exceeding \$10 billion, $\bbp(A)$.
+  \item Are the events $B_2$ and $B_3$ independent? Prove your answer.
+  \item Are the events $A$ and $B_4$ independent? Prove your answer.
+  \item Assume that $A$ happened (the total property damage exceeded \$10 billion). What are the probabilities $\bbp(B_i ~|~A)$ for $i=1,\ldots,5$? Which category of cyclone is most likely (given property damage exceeding \$10 billion)? 
+  \end{enumerate}
+}
+\sol (a) \\
+We'll use the law of total probability.
+\begin{align*}
+  \bbp(A) &= \sum_{i=1}^{5} \bbp\bracks{A\given B_i}\bbp\bracks{B_i} \\
+    &= \bbp\bracks{A\given B_1}\bbp\bracks{B_1} + \bbp\bracks{A\given B_2}\bbp\bracks{B_2} + \bbp\bracks{A\given B_3}\bbp\bracks{B_3} \\
+    &\phantom{=} + \bbp\bracks{A\given B_4}\bbp\bracks{B_4} + \bbp\bracks{A\given B_5}\bbp\bracks{B_5} \\
+    &= \bracks{\frac{1}{5}}\bracks{\frac{5}{15}} + \bracks{\frac{2}{5}}\bracks{\frac{4}{15}} + \bracks{\frac{3}{5}}\bracks{\frac{3}{15}} + \bracks{\frac{4}{5}}\bracks{\frac{2}{15}} + \bracks{\frac{5}{5}}\bracks{\frac{1}{15}} \\
+    &= \frac{5+8+9+8+5}{75} \\
+    &= \frac{35}{75} \\
+  \tf\bbp(A) &= \frac{7}{15} \\
+\end{align*}
+
+\sol (b) \\
+$B_2$ and $B_3$ are not independent.
+\begin{proof}
+  Directly.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+    We are given $B_i\cap B_j = \emp, \forall i,j\in\braces{1,2,3,4,5}, i\neq j$.
+
+    Applying this, $\bbp(B_2\cap B_3) = \bbp(\emp) = 0$.
+
+    Next, we'll compute $\bbp(B_2)\bbp(B_3) = \frac{4}{15}\cd\frac{3}{15} = \frac{12}{15}$.
+
+    We note that $\bbp(B_2\cap B_3) = 0 \neq \frac{12}{15} = \bbp(B_2)\bbp(B_3)$.
+
+    By definition, $B_2, B_3$ are independent $\iff \bbp(B_2\cap B_3) = \bbp(B_2)\bbp(B_3)$
+  \end{list}
+  Therefore, $B_2$ and $B_3$ are not independent.
+\end{proof}
+
+\newpage
+\sol (c) \\
+$A$ and $B_4$ are not independent.
+\begin{proof}
+  Directly.
+  \begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+    We'll compute $\bbp(A\cap B_4)$ using the conditional probability formula.
+    $$
+      \bbp(A\cap B_4) = \bbp\bracks{A\given B_4}\bbp(B_4) = \frac{4}{5}\cd\frac{2}{15} = \frac{8}{75}.
+    $$
+
+    Next, we'll compute $\dps{\bbp(A)\bbp(B_4) = \frac{7}{15}\cd\frac{2}{15}= \frac{14}{225}}$.
+
+    We note that $\bbp(A\cap B_4) = \frac{8}{75} \neq \frac{14}{225} = \bbp(A)\bbp(B_4)$.
+
+    By definition, $A, B_4$ are independent $\iff \bbp(A\cap B_4) = \bbp(A)\bbp(B_4)$
+  \end{list}
+  Therefore, $A$ and $B_4$ are not independent.
+\end{proof}
+
+\sol (d) \\
+We'll start with a lot of repeated computation using the conditional probability formula.
+\begin{gather*}
+  \bbp\bracks{B_1 \given A} = \frac{\bbp(B_1 \cap A)}{\bbp(A)} = \frac{\bbp\bracks{A \given B_1}\bbp(B_1)}{\bbp(A)} = \frac{5/75}{7/15} = \frac{5}{35} \\
+  \bbp\bracks{B_2 \given A} = \frac{\bbp(B_2 \cap A)}{\bbp(A)} = \frac{\bbp\bracks{A \given B_2}\bbp(B_2)}{\bbp(A)} = \frac{8/75}{7/15} = \frac{8}{35} \\
+  \bbp\bracks{B_3 \given A} = \frac{\bbp(B_3 \cap A)}{\bbp(A)} = \frac{\bbp\bracks{A \given B_3}\bbp(B_3)}{\bbp(A)} = \frac{9/75}{7/15} = \frac{9}{35} \\
+  \bbp\bracks{B_4 \given A} = \frac{\bbp(B_4 \cap A)}{\bbp(A)} = \frac{\bbp\bracks{A \given B_4}\bbp(B_4)}{\bbp(A)} = \frac{8/75}{7/15} = \frac{8}{35} \\
+  \bbp\bracks{B_5 \given A} = \frac{\bbp(B_5 \cap A)}{\bbp(A)} = \frac{\bbp\bracks{A \given B_5}\bbp(B_5)}{\bbp(A)} = \frac{5/75}{7/15} = \frac{5}{35}
+\end{gather*}
+Therefore, given that damage exceeded \$10 billion, a category 3 cyclone is the most likely to have occured.
+
+
+\newpage
+\qs{}{
+  Consider the equation,
+  \[
+    x_1 + x_2 + x_3  = 6,
+  \]
+  where we restrict solutions to be tuples of integers $(x_1, x_2, x_3)$ with $x_i \geq 0$. 
+
+  \begin{enumerate}[label=(\alph*)]
+    \item How many solutions are there? Explain your answer.
+    \item Assume that we now choose a random tuple $(x_1, x_2, x_3)$ such that each $x_i \in \{0,1,2,3,4,5,6\}$ is possible with equal probability and the outcome for $x_i$ is independent of the outcome for $x_j$ when $i \neq j$. What is the probability that this tuple is a solution to the equation?
+    \item The following Python code attempts to estimate your answer from (b).
+  
+    \texttt{import random} \\
+    \texttt{def trial():} \\
+    ${}^{}\qquad$\texttt{x1 = random.randint(0, 2)} \\
+    ${}^{}\qquad$\texttt{x2 = random.randint(0, 2)} \\
+    ${}^{}\qquad$\texttt{x3 = random.randint(0, 2)} \\
+    ${}^{}\qquad$\texttt{if x1 + x2 + x3 == 6:} \\
+    ${}^{}\qquad$ ${}^{}\qquad$\texttt{return 1} \\
+    ${}^{}\qquad$\texttt{else:} \\
+    ${}^{}\qquad$ ${}^{}\qquad$\texttt{return 0} \\
+    ${}^{}\qquad$ \\
+    \texttt{N = 10**6} \\
+    \texttt{sum([trial() for \_ in range(N)])/N}
+
+    The output of this code is about $0.037$ (with actual numbers varying depending on the random numbers generated). This should not agree with your answer for (b). Correct the bug(s) in the code so that you get a result that approximately agrees with the correct answer for (b). Run your corrected code and show the output. Also briefly explain what happens in the corrected code.
+  \end{enumerate}
+}
+\sol (a) \\
+There are 28 solutions. \\
+
+\verb|>>> len([(a,b,c) for a in range(0,7) for b in range(0,7) \| \\
+\verb|... for c in range(0,7) if a + b + c == 6])| \\
+\verb|28| \\
+
+The first $x$ has 7 choices (0,1,2,3,4,5,6). \\
+If the first $x$ chose 0, then the second $x$ has 7 choices (0,1,2,3,4,5,6). \\
+If the first $x$ chose 1, then the second $x$ has 6 choices (0,1,2,3,4,5). \\
+If the first $x$ chose 2, then the second $x$ has 5 choices (0,1,2,3,4). \\
+If the first $x$ chose 3, then the second $x$ has 4 choices (0,1,2,3). \\
+If the first $x$ chose 4, then the second $x$ has 3 choices (0,1,2). \\
+If the first $x$ chose 5, then the second $x$ has 2 choices (0,1). \\
+If the first $x$ chose 6, then the second $x$ has 1 choice (0). \\
+The third $x$ always has one choice 1 choice: 6 minus the sum of the first two $x$'s. \\
+
+\newpage
+\sol (b) \\
+Let's find the cardinality of the sample space. Each of the three $x$'s has 7 options to choose from. Hence,
+$$
+  \abs{\Omega} = 7^3 = 343.
+$$
+Let $S$ be the event that a tuple is a solution to the equation. In the previous question, we calculated that $\abs{S}=28$.
+$$
+  \tf\bbp(S) = \frac{\abs{S}}{\abs{\Omega}} = \frac{28}{343} = \frac{4}{49} \approx 0.081633
+$$
+
+\sol (c) \\
+The fixed code:
+\begin{lstlisting}[language=Python]
+import random
+def trial():
+  x1 = random.randint(0, 6)
+  x2 = random.randint(0, 6)
+  x3 = random.randint(0, 6)
+  if x1 + x2 + x3 == 6:
+    return 1
+  else:
+    return 0
+
+N = 10**6
+sum([trial() for _ in range(N)])/N
+\end{lstlisting}
+Output: \\
+\verb|  0.081638| \\
+
+The faulty code was drawing $x_i$ from the set $\braces{0,1,2}$, not $\braces{0,1,2,3,4,5,6}$. By adjusting the upper bound of \verb|random.randint()| on lines 3,4, and 5, we correctly draw $x_i$ from the correct set, $\forall i\in\braces{1,2,3}$.
+
+
+\newpage
+\qs{}{
+  A standard deck of playing cards consists of 52 cards, divided into four suits: hearts \(\heartsuit\), diamonds \(\diamondsuit\), clubs \(\clubsuit\), and spades \(\spadesuit\). Each suit contains 13 ranks: ace, numbers 2 through 10, jack, queen, and king.
+
+  You are dealt a hand of 6 cards at random from a full deck of 52 cards.
+
+  \begin{enumerate}[label=(\alph*)]
+    \item What is the probability that all six cards belong to the same suit?
+    \item What is the probability that the hand contains exactly one pair (two cards of the same rank, with the other four cards all having different ranks)?
+    \item What is the probability that the hand contains three cards of one rank and three cards of another rank (i.e., two trips)?
+  \end{enumerate}
+}
+\sol (a) \\
+There are $\comb{52}{6} = \dfrac{52!}{6!(52-6)!} = 20,358,520$ total 6 card hands. \\
+To get dealt a 6 card hand, with matching suits, there are:
+\begin{itemize}[itemsep=-1ex]
+  \item 4 choices for the suit.
+  \item 13 choose 6 ways to select cards from that suit.
+\end{itemize}
+So there are $4\cd\comb{13}{6}=6864$ 6 card hands, with all matching suits.
+$$
+  \tf \bbp(\text{6 cards, same suit}) = \frac{\abs{\braces{\text{6 cards, matching suit}}}}{\abs{\braces{\text{6 card hands}}}} = \frac{6864}{20,358,520} \approx 0.000337 = 0.0337\%
+$$
+
+\sol (b) \\
+To get dealt a 6 card hand containing exactly one pair, we must:
+\begin{itemize}[itemsep=-1ex]
+  \item Choose 1 rank from 13.
+  \item Choose 2 suits for the pair from 4.
+  \item Choose 4 ranks from the remaining 12.
+  \item Choose any suit for the remaining 4 cards.
+\end{itemize}
+So there are $\comb{13}{1}\comb{4}{2}\comb{12}{4}4^4 = 13\cd6\cd495\cd256 = 9,884,160$ hands with exactly 1 pair.
+$$
+  \tf\bbp(\text{6 cards, one pair}) = \frac{9,884,160}{20,358,520} \approx 0.485504 = 48.5504\%
+$$
+
+\sol (c) \\
+To get dealt a 6 card hand with two trips, we must:
+\begin{itemize}[itemsep=-1ex]
+  \item Choose 2 rank from 13.
+  \item Choose 3 suits for the first set of trips, from 4.
+  \item Choose 3 suits for the second set of trips, from 4.
+\end{itemize}
+So, there are $\comb{13}{2}\comb{4}{3}\comb{4}{3}= 78\cd4\cd4 = 1248$
+$$
+  \tf\bbp(\text{6 cards, two trips}) = \frac{1248}{20,358,520} \approx 0.000061 = 0.0061\%
+$$
+
+\newpage
+\qs{}{
+  Assume that you are putting $r$ identical business cards randomly into $n$ envelopes with $r \geq n$. As you put the business cards in the envelopes you don't notice if the envelope already has cards in it or not. Hence some envelopes can get multiple cards and other envelopes may end up without any cards at all. You are interested in the event that all envelopes are non empty. More specifically, denote the event that the $i$th envelope is empty as $A_i$. With this notation, you are interested in the event $B = \cap_{i=1}^n A_i^c$. The various items of this problem help you determine an expression for this probability.
+
+  \begin{enumerate}[label=(\alph*)]
+    \item Determine a different real life situation (not business cards in envelopes) where knowing this probability is of interest. 
+    \item Denote, 
+    \[
+      p_k = \bbp(A_{i_1} \cap A_{i_2} \cap \ldots \cap A_{i_k}),
+    \]
+    for any distinct collection of indices $i_1,\ldots,i_k$ with $k \leq n$. What is an expression for $p_k$? Use counting arguments to arrive at this expression and explain your answer.
+    \item Represent $\bbp(B)$ using one of De Morgan's laws and the inclusion-exclusion formula for $n$ events. Do this using the probabilities $p_k$ you computed above (for $k=1,\ldots,n$). Find the neatest expression possible.
+    \item Assume we have $n=20$ envelopes and $r=60$ cards. Evaluate $\bbp(B)$. Use Python for a script of evaluating these probabilities. Present your code.
+    \item Staying with $n=20$, what is the minimal $r$ needed to ensure that $\bbp(B) > 0.9$. Again use a Python script for this computation and present your code.
+  \end{enumerate}
+}
+\sol (a) \\
+Suppose my server has $n$ worker nodes, and is recieving $r$ tasks (GET requests, database querries, etc.). Some worker nodes my recieve multiple tasks, others may recieve none.. I am interested in the probability that every node is recieving at least one task, minimising my server's idle time. \\
+
+\sol (b) \\
+This notation is describing the probability that $k$ envelopes are empty. Given that I have $n$ envelopes, and $r\geq n$ business cards, $k < n$, and the $r$ business cards have filled the remaining $n-k$ envelopes. 
+
+$p_k$ is a probability; so I need to count the number of ways we can fill $n$ envelopes with $r$ usiness cards ($\Omega$), and I need to count the number of ways we can fill $n-k$ with $r$ business cards. 
+
+$r$ business cards are independently and uniform-randomly placed in $n$ envelopes. Therefore $\abs{\Omega} = n^r$. 
+
+$r$ business cards are independent and uniform-randomly placed in $n-k$ envelopes, the $k$ empty ones are ignored. $\abs{P_k}=(n-k)^r$.
+
+Therefore, $\dps{p_k = \frac{\abs{P_k}}{\abs{\Omega}} = \frac{(n-k)^r}{n^r} = \bracks{\frac{n-k}{n}}^r}$
+
+\newpage
+\sol (c) \\
+We'll start by applying De Morgan's Law to the given expression of $\bbp\bracks{B}$.
+$$
+  \bbp(B) = \bbp\bracks{\bigcap_{i=1}^{n} \bar{A_i}} = 1 - \bbp\bracks{\bigcup_{i=1}^{n} A_i}
+$$
+The generalised inclusion-exclusion principle can allow us work out the probability of the union of events.
+$$
+  \bbp\bracks{\bigcup_{i=1}^{n} A_i} = \sum_{k=1}^{n} (-1)^{k+1} \sum_{1\leq i_1<\dots<i_i \leq n} \bbp\bracks{A_{i_1}\cap A_{i_2}\cap \dots \cap A_{i_n}}
+$$
+The summation counts through all the ways we can sequence empty enevelopes, $\comb{n}{k}$, and $\bbp(A_{i_1}\cap\dots)$ is obviously our $p_k$! We can make these substitutions.
+$$
+  \tf\bbp\bracks{\bigcup_{i=1}^{n} A_i} = \sum_{k=1}^{n} (-1)^{k+1}\comb{n}{k}p_k = \sum_{k=1}^{n} (-1)^{k+1}\comb{n}{k}\bracks{\frac{n-k}{n}}^r
+$$
+Finally, we can represent the probability that every enevelope recieves at least one business card,
+$$
+  \bbp\bracks{B} = 1 - \sum_{k=1}^{n}(-1)^{k+1} \comb{n}{k}\bracks{\frac{n-k}{k}}^r
+$$
+
+\newpage
+\sol (d) \\
+My code:
+\begin{lstlisting}[language=Python]
+from math import comb
+
+def pr_allfilled(n, r):
+  return 1 - sum([
+    (-1) ** (k + 1) * comb(n, k) * ((n - k) / n) ** r \
+    for k in range(1, n+1)
+  ])
+  
+n = 20
+r = 60
+  
+pb = pr_allfilled(n, r)
+print(f"P(B) = {pb:.6f}")
+\end{lstlisting}
+Output:\\
+\verb|  P(B) = 0.360605| \\
+
+\sol (e) \\
+My code:
+\begin{lstlisting}[language=Python]
+from math import comb
+
+def pr_allfilled(n, r):
+  return 1 - sum([
+    (-1) ** (k + 1) * comb(n, k) * ((n - k) / n) ** r \
+    for k in range(1, n+1)
+  ])
+  
+n = 20
+r = 60
+while pr_allfilled(n, r) < 0.9:
+  r += 1
+
+print(f"P(B) = {pr_allfilled(n,r):.6f}\nr    = {r}")
+\end{lstlisting}
+Output:\\
+\verb|  P(B) = 0.897151|\\
+\verb|  r    = 103|
+
+
+
+
+\newpage
+\qs{}{
+  Suppose a potential probability density function of a random variable $X$ is given by
+  \[
+    f(x) = 
+    \begin{cases}
+        K(4x - x^2), & 0 < x < 3, \\
+        0, & \text{otherwise},
+    \end{cases}
+  \]
+
+  for some \( k > 0 \).
+
+  \begin{enumerate}[label=(\alph*)]
+    \item Find a value of $K$ that makes $f(x)$ a density function or if there is not such value, argue why.
+    \item Determine the cumulative distribution function $F(x)$. Specify it for all $x\in\bbr$.
+    \item Find the mean of $X$, but try to reason if it is $<1.5$ or $>1.5$, before computing it. 
+    \item Find the variance and standard deviation of $X$.
+    \item Plot the density of $X$ together with a density of a normal distribution with the same mean and variance.
+  \end{enumerate}
+}
+\sol (a) \\
+We note that $\int_{-\infty}^{0}0\d x = \int_{3}^{\infty}0\d x = 0 \geq 0$ \\
+So, we are interested in finding $K\in\bbr: \int_{0}^{3} K(4x-x^2)\d x = 1,\ K(4x-x^2)\geq0,\ \forall x\in\bracks{0,3}$.
+\begin{align*}
+  \int_{0}^{3} K(4x-x^2)\d x &= K\int_{0}^{3} (4x-x^2)\d x \\
+    &= K\sqbracks{2x^2-\frac{1}{3}x^3}_{0}^{3} \\
+    &= K\bracks{2(3)^2-\frac{1}{3}(3)^3} \\
+    &= 9K = 1 \\
+  \iff K &= \frac{1}{9}
+\end{align*}
+Let's find the $x$-intecepts (we can ignore $K$ when finding the intercepts here!)
+$$
+  -x^2 + 4x = (x)(4-x) \iff \text{intercepts at } (0,0) \text{ and } (4,0).
+$$
+Since the coefficent for $x^2$ is $-1$, and the function has two real roots, we know that $\forall x\in[0,4],\ (4x - x^2)\geq0$. And since $(0,3)\subset[0,4]$, we know that $\forall x\in\bbr,\ f(x)=\frac{1}{9}(4x-x^2)\geq0$. \\
+Therefore, we've found a value for $K$, namely $\frac{1}{9}$, that makes $f(x)$ a valid probability density function.
+
+\newpage
+\sol (b) \\
+For values of $x\leq 0,\ F(x) = 0$. \\
+For values of $x\geq 3,\ F(x) = 1$. \\
+For values of $x\in(0,3),\ F(x) = \int_{0}^{x} f(t)\d t$. \\
+We can expand this out, and try and find an intergral-less expression.
+\begin{align*}
+  \int_{0}^{x} f(t)\d t &= \int_{0}^{x} \frac{1}{9}(4t-t^2) \d t \\
+    &= \frac{1}{9} \int_{0}^{x} (4t-t^2) \d t \\
+    &= \frac{1}{9} \sqbracks{2t^2-\frac{1}{3}t^3}_{0}^{x} \\
+    &= \frac{1}{9} \bracks{2x^2-\frac{1}{3}x^3} \\
+    &= \frac{2}{9}x^2-\frac{1}{27}x^3 \\
+\end{align*}
+Therefore, our cumulative distribution function is
+$$
+  F(x) = \left\lbrace \begin{array}{ll} 0, & x\leq 3 \\ \frac{2}{9}x^2 - \frac{1}{27}x^3, & 0 < x < 3 \\ 1, & x \geq 3 \end{array} \right.
+$$
+
+\sol (c) \\
+I have a feeling that the mean is greater then 1.5. Because when we figured out the $x$-intercepts, I noticed that the lower values between 3 and 4 were removed, probably skewing the expected value upward. \\
+Let's compute $\mu = \bbe\sqbracks{X} = \int_{-\infty}^{\infty} xf(x)\d x$. 
+\begin{align*}
+  \int_{-\infty}^{\infty} xf(x)\d x &= \frac{1}{9}\bracks{\int_{-\infty}^{0} 0\d x + \int_{0}^{3} (4x^2-x^3)\d x + \int_{3}^{\infty} 0\d x} \\
+    &= \frac{1}{9}\bracks{0 + \sqbracks{\frac{4}{3}x^3-\frac{1}{4}x^4}_{0}^{3} + 0} \\
+    &= \frac{1}{9}\bracks{\frac{4}{3}(27)-\frac{1}{4}(81)} \\
+    &= \frac{1}{9}\bracks{36-\frac{81}{4}} \\
+    &= \frac{36}{9} - \frac{9}{4} \\
+    &= \frac{63}{36} \\
+  \tf \mu &= 1.75 
+\end{align*}
+
+\sol (d) \\
+Variance computing time B) \\
+We know that $\Var(X) = \bbe\sqbracks{X^2} - \bracks{\bbe\sqbracks{X}}^2$. We've already calcuated the mean, so let's compute the secod moment.
+\begin{align*}
+  \bbe\sqbracks{X^2} &= \frac{1}{9}\bracks{\int_{-\infty}^{0} 0\d x + \int_{0}^{3} (4x^3-x^4)\d x + \int_{3}^{\infty} 0\d x} \\
+    &= \frac{1}{9}\bracks{0 + \sqbracks{x^4-\frac{1}{5}x^5}_{0}^{3} + 0} \\
+    &= \frac{1}{9}\bracks{(3)^4-\frac{1}{5}(3)^5} \\
+    &= \frac{81}{9} - \frac{243}{45} \\
+    &= \frac{162}{45} \\
+  \tf\bbe\sqbracks{X^2} &= 3.6 \\
+  \tf\Var(X) &= 3.6 - (1.75)^2 \\
+    &= 3.6 - 3.0625 \\
+    &= 0.5375 \\
+  \sigma(X) &= \sqrt{\Var(X)} \\
+    &= \sqrt{0.5375} \\
+  \tf\sigma(X) &\approx 0.733144
+\end{align*}
+
+\sol (e) \\
+My plot:
+\begin{center}\begin{tikzpicture}
+  \begin{axis}[
+      axis lines = middle,
+      xlabel = {$x$},
+      ylabel = {$y$},
+      title = {Normal Distribution, $\mu = 1.75, \sigma = 0.73$, and $f(x)$},
+      domain = -3:5,
+      samples = 100,
+      axis line style = thick,
+      width=15cm,
+      height=12cm,
+      enlargelimits,
+      ytick=\empty,
+      xtick={-3,-2,-1,0,1,2,3, 4, 5},
+      legend style={at={(0,1)}, anchor=north west, legend columns=1},
+      ]
+      \addplot[blue, thick] {exp(-(x-1.75)^2/(2*0.73^2))/sqrt(2*pi*0.73^2)};
+      \addplot[red, thick, domain=0:3] {(1/9)*(4*x - x^2)};
+      \addplot[red, thick, domain=3:5] {0};
+      \addplot[red, thick, domain=-3:0] {0};
+      \node at (axis cs:3,0.333333) [circle, draw, minimum size=4pt, inner sep=0pt, fill=white] {};
+      \node at (axis cs:3,0) [circle, draw, minimum size=4pt, inner sep=0pt, fill=black] {};
+      \node at (axis cs:0,0) [circle, draw, minimum size=4pt, inner sep=0pt, fill=black] {};
+  \end{axis}
+  \end{tikzpicture}\end{center}
+  Pretty good!
+
+
+
+\newpage
+\qs{}{
+  Consider a random variable $X$, distributed with an exponential distribution with rate parameter $\lambda$ (mean is $1/\lambda$). Assume that from $X$ we obtain two discrete random variables, $Y_0 = \lfloor X \rfloor$ and $Y_1 = \lceil X \rceil$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Prove that the $n$'th moment of $X$ is $n!/\lambda^n$, namely,
+    \[
+      \bbe[X^n] = \frac{n!}{\lambda^n},
+      \qquad \text{for} \qquad
+      n=0,1,2,\ldots.
+    \]
+    Do so directly via (repeated) integration by parts.
+    \item Derive the moment generating function of $X$.
+    \item Use the moment generating function to verify the moment expressions from (a).
+    \item Recall the memoryless property of $X$, state it, and repeat its proof.
+    \item Determine the distribution of $Y_0$ and $Y_1$, and present their probability mass functions. Hint:
+    \[
+      \bbp(Y_0 = k) = \int_{k}^{k+1} \lambda e^{-\lambda x} \, dx.
+    \]
+    \item Do the distributions of $Y_0$ and $Y_1$ fit within a paradigm of some known distribution family. If so, identify the distribution families and determine the parameters (in terms of $\lambda$).
+  \end{enumerate}
+}
+\sol (a)
+\begin{align*}
+    \mathbb{E}\sqbracks{X^n} &= \int_0^\infty x^n \lambda e^{-\lambda x}dx \\
+    \Let u = x^n &\Rightarrow du = nx^{n-1} \\
+    \Let dv = e^{-\lambda x} &\Rightarrow v = \frac{-e^{-\lambda x}}{\lambda} \\
+    \tf \int_0^\infty x^n \lambda e^{-\lambda x}dx &= \left.\frac{-x^n \lambda e^{-\lambda x}}{\lambda}\right|_0^\infty - \int_{0}^{\infty} \frac{-nx^{n-1}\lambda e^{-\lambda x}}{\lambda} dx \\
+    \lim_{x\to \infty} e^{-\lambda x } = 0 &\Rightarrow \left.\frac{-x^n e^{-\lambda x}}{\lambda}\right|_0^\infty = 0 \\
+    \therefore \int_0^\infty x^n \lambda e^{-\lambda x}dx &= \int_{0}^{\infty} \frac{nx^{n-1}\lambda e^{-\lambda x}}{\lambda} dx \\
+    &= \frac{n}{\lambda}\int_{0}^{\infty} x^{n-1}\lambda e^{-\lambda x} dx \\
+    \text{If we let } I_n &= \int_0^\infty x^n e^{-\lambda x}dx \text{ such that } \mathbb{E}\sqbracks{X^n} = \lambda I_n\\
+    \text{We get } I_n &= \frac{n}{\lambda} I_{n-1} \\
+    I_0 &= \mathbb{E}\sqbracks{X} = \frac{1}{\lambda} \text{ by the exponential distribution} \\
+    \therefore I_1 &= \frac{1}{\lambda^2}, I_2 = \frac{2}{\lambda^3}, I_3 = \frac{2\cdot 3}{\lambda^4}, \dots, I_n = \frac{n!}{\lambda^{n+1}} \\
+    \therefore \mathbb{E}\sqbracks{X^n} &= \lambda I_n = \frac{n!}{\lambda^{n}} 
+\end{align*}
+
+\sol (b) \\
+We know that the MGF of a continuous random variable is given by
+$$
+  M(t) = \int_x e^{tx}f(x)\d x.
+$$
+So let's plug in $f(x)$ and derive this bad boy.
+\begin{align*}
+  M(t) &= \int_0^\infty e^{tx}\lm e^{-\lm x}\d x \\
+    &= \lm\int_0^\infty e^{(t-\lm) x}\d x \\
+    &= \lm \cd \frac{1}{\lm - t} \\
+  \tf M(t) &= \frac{\lm}{\lm - t}
+\end{align*}
+
+\sol (c) \\
+Let's take some derivatives!
+\begin{align*}
+  M(t) &= \frac{\lm}{\lm - t} \\
+  M'(t) &= \frac{\lm}{(\lm - t)^2} \\
+  M''(t) &= \frac{2\lm}{(\lm - t)^3} \\
+  M'''(t) &= \frac{2\cd3\cd\lm}{(\lm - t)^4} \\
+  M''''(t) &= \frac{2\cd3\cd4\cd\lm}{(\lm - t)^5}
+  \intertext{Given this, we can generalise!}
+  M^{(n)}(t) &= \frac{n!\lm}{(\lm-t)^{n+1}}
+  \intertext{Now, we'll evaluate this for $t=0$,}
+  M^{(n)}(0) &= \frac{n!\lm}{(\lm-0)^{n+1}} \\
+    &= \frac{n!\lm}{(\lm)^{n+1}} \\
+    &= \frac{n!\lm}{(\lm)^{n+1}} \\
+    &= \frac{n!}{\lm^n}
+\end{align*}
+Which is the same expression we got for $\bbe\sqbracks{X^n}$ in part (a)!
+
+\newpage
+\sol (d) \\
+\Theomm{2.2} (The Memoryless Property). Let $X\sim\operatorname{Exp}(\lm)$. Then
+$$
+  \bbp\bracks{X > x+y \given X > x} = \bbp\bracks{X > y},\ \forall x,y>0.
+$$
+\begin{proof} Directly. \\
+  By the defintion of conditional probability,
+  \begin{align*}
+    \bbp\bracks{X > x+y \given X > x} &= \frac{\bbp\bracks{X > x+y, X>x}}{\bbp\bracks{X > x}}. \\
+  \intertext{$X>x+y$ is a continued event of $X>x$; If the former has happened, the later neccesierly has, because $X>x+y>x$. So the intersection of the sets, equals the bigger set, hence,}
+      &= \frac{\bbp\bracks{X > x+y}}{\bbp\bracks{X > x}}. \\
+    \intertext{Next, we apply the exponential distribution's function,}
+      &= \frac{e^{\lm(x+y)}}{e^{\lm(x)}}, \\
+    \intertext{and simplify.}
+      &= e^{\lm(y)}. \\
+    \tf\bbp\bracks{X > x+y \given X > x} &= \bbp\bracks{X > y}
+  \end{align*}
+\end{proof}
+
+\sol (e)
+We'll start with $Y_0$.
+\begin{align*}
+  Y_0 &= k \implies X \in [k, k+1) \\
+  \therefore \mathbb{P}(Y_0 = k) &= \mathbb{P}(k \leq X < k+1) \\
+  &= \int_k^{k+1} \lambda e^{-\lambda x}dx \\
+  &= -e^{\lambda (k + 1)} + e^{-\lambda k} \\
+  &= e^{-\lambda k} (1 - e^{-\lambda}),\ k = 0,1,2,3,... \\
+  \intertext{Now we follow a similar process for $Y_1$}
+  Y_1 &= k \implies X\in (k-1, k] \\
+  \therefore \mathbb{P}(Y_1 = k) &= \mathbb{P}(k-1 < X \leq k) \\ 
+  &= \int_{k-1}^{k} \lambda e^{-\lambda x}dx \\
+  &= -e^{-k\lambda} + e^{-\lambda(k-1)} \\
+  &= (e^\lambda - 1)e^{-k\lambda} \\
+  &= (1 - e^{-\lambda})e^{-(k+1)\lambda},\ k = 0,1,2,3,...
+\end{align*}
+
+\newpage
+\sol (f) \\
+Both $Y_0$ and $Y_1$ are similar to discrete geometric probability mass functions, with $p = e^{-\lm}$. But, because $e^{-1}$ is a factor, it's going to be the case that we're counting the number of successes until failure, as opposed to the number of failures until success, in the case of a ``regular'' geometric PMF.
+\begin{gather*}
+  Y_0 \sim \operatorname{Geom}(e^{-\lm}),\ (k \geq 0) \\
+  Y_1 \sim \operatorname{Geom}(e^{-\lm}),\ (k \geq 1)
+\end{gather*}
+$Y_1$'s $k$ must be greater then or equal to 1, as a consequence of its domain.
+
+\newpage
+\qs{}{
+  Assume that a weight of a manufactured item is uniformly distributed between $19.25$ and $20.75$ Kg, with a mean of $20Kg$ and a standard deviation of $\sigma$. A manufacturing facility creates $20$ items daily with the manufacturing of items assumed independent. An item is considered faulty if its weight is not within the range $[20 -\sigma, 20 + \sigma]$.
+
+  \begin{enumerate}[label=(\alph*)]
+    \item Determine the cumulative distribution function $F(x)$ of a manufactured item. Specify it for all $x\in\bbr$.
+    \item Determine $\sigma$.
+    \item Use $F(x)$ to determine the probability of an item being faulty.
+    \item Determine the distribution of the number of faulty items per day.
+    \item What is the mean and variance of the number of faulty items per day?
+    \item Numerically determine the probability of having $17$ or less faulty items per day. Use a calculator only (no software).  
+  \end{enumerate}
+}
+\sol (a) \\
+My interpretation of the information given is that $\forall x\notin(19.25, 20.75),\ f(x) = 0$. \\
+Therefore, $\forall x\in(-\infty, 19.25],\ F(x)=0$. \\
+Therefore, $\forall x\in[20.75, \infty),\ F(x)=1$. \\
+Because the weight is uniformly distributed for $x\in(19.25,20.75)$, the CDF will be linear in this range. \\
+\begin{align*}
+  \text{Ansatz}\ F(x) &= mx+c \\
+  m &= \frac{\D y}{\D x} \\
+    &= \frac{1-0}{20.75 - 19.25} \\
+    &= \frac{1}{1.5} \\
+    &= \frac{2}{3} \\
+  F(19.25) = 0 &= \frac{2}{3}(19.25) + c \\
+  \iff c &= -\frac{77}{6}
+\end{align*}
+$$
+  \tf F(x) = \left\lbrace \begin{array}{ll} 0, & x \leq 19.25 \\ \frac{2}{3}x - \frac{77}{6}, & 19.25 < x < 20.75 \\ 1, & x \geq 20.75 \end{array} \right.
+$$
+
+\sol (b) \\
+$$
+  \sigma = \sqrt{\Var(X)} = \sqrt{\frac{(19.25 - 20.75)^2}{12}} \approx 0.433013
+$$
+
+\newpage
+\sol(c) \\
+Let's first define the boundary of a faulty item.
+$$
+  \sqbracks{20 - \sigma, 20 + \sigma} = \sqbracks{20 - 0.433, 20 + 0.433} = \sqbracks{19.567, 20.433} \subset (19.25, 20.75)
+$$
+Because the faulty region is a subset of the interval, we can simply apply
+$$
+  \bbp(\text{not faulty}) = \frac{20.433 - 19.567}{20.75 - 19.25} = \frac{0.866}{1.5} = 0.577\dot{3}
+$$
+Finally, we take the complement of this probability,
+$$
+  \bbp(\text{faulty}) = 1 - \bbp(\text{not faulty}) = 1 - 0.577\dot{3} = 0.422\dot{6} \approx 42.2667\%
+$$
+
+\sol(d) \\
+Since we have a fixed number of trials per day, 20, and a probability of failure/success, (42.2667\%, 57.7333\%), a binomial distribution is a no-brainer. Therefore, if $X$ is the number of faulty items per day,
+$$
+  X\sim \Binomial(20, 0.4227)
+$$
+Note we are using $p=0.4227$, since we're counting the faulty items as ``successes'' here. \\
+
+\sol(e) \\
+Binomial distubtions have some very neat formulas.
+$$
+  \bbe\sqbracks{X} = np = 20 \cd 0.4227 = 8.454
+$$
+$$
+  \Var(X) = np(1-p) = 20\cd0.4227(0.5773) = 4.8805
+$$
+
+\sol(f) \\
+We'll calculate $\bbp(X>17) = \bbp(x{=}18)+\bbp(x{=}19)+\bbp(x{=}20)$, and then take the compliment to calculate $\bbp(x\leq 17) = 1 - \bbp(X>17)$.
+\begin{align*}
+  \bbp(X>17) &= \bbp(x{=}18)+\bbp(x{=}19)+\bbp(x{=}20) \\
+    &= \comb{20}{18}(0.4227)^{18}(0.5773)^2 + \comb{20}{19}(0.4227)^{19}(0.5773)^1 + \comb{20}{20}(0.4227)^{20}(0.5773)^0 \\
+    &= 190\cd0.00018560\cd 0.33327529 + 20\cd0.0000000785\cd0.5773 +  1\cd0.0000000332\cd1\\
+    &= 0.01175262 + 0.00000091 + 0.00000003 \\
+    &= 0.011754 \\
+  \tf\bbp(X\leq17) &= 1 - 0.015395 = 0.988245
+\end{align*}
+
+\newpage
+I feel compelled to apologise. I don't think this was my best work. I misread my assignment planner/put the wrong date in following the cyclone situation and all that. \\
+
+I submitted an assignment at midnight on Thursday night. Casually. For no reason in particular, after I submitted it, I thought ``hey! while im on gradescope, let's check in on STAT2003. It's due on Monday, I can't wait to dedicate the next three days to working on it!'' \\
+
+My heart completely sank when I saw ``due in 12 hours.'' I sighed deeply, grabbed a couple red bulls from my fridge and locked in. \\
+
+If I get this in on time, it'll be a miracle. \\
+
+Please accept my appologies! I'll try and stay on-track with my planner for the next one!
+
+\end{document}

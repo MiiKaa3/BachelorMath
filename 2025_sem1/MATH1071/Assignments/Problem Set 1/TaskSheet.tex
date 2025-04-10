@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\parindent = 0mm
+\unitlength=3mm
+
+\pagestyle{empty}
+
+
+\setlength{\textwidth}{183.0truemm}
+\setlength{\textheight}{245.0truemm}
+\setlength{\oddsidemargin}{-8.0mm}
+\setlength{\evensidemargin}{-8.0mm}
+\setlength{\topmargin}{-20.5truemm}
+
+
+\def \qed {\hfill $\Box$}
+
+
+\usepackage{graphicx}
+
+
+\begin{document}
+
+{\underline{\bf MATH1071 \hspace*{3.8cm} Assignment 1 
+\hspace*{2cm} Due 3pm Friday 14 March 2025}}
+
+\vspace*{3mm}
+
+This Assignment is compulsory. In the absence of an approved extension, assignments submitted after the due date will attract a penalty as outlined in the course profile. Prepare your assignment as a {\bf pdf file}, either by typing it, writing on a tablet or by scanning/photographing your handwritten work. Ensure that your name, student number and tutorial group number appear on the first page of your submission. Check that your pdf file is legible and that the file size is not excessive. Files that are poorly scanned and/or illegible may not be marked. Upload your submission using the Gradescope assignment submission link in Blackboard. {\bf In the submission process, after uploading your file, you must allocate page number(s) to each question!}
+
+Please provide reasoning and justification along with your final answer. 
+  
+\vskip 0.2cm
+
+\begin{itemize}
+\item[{\bf 1.}] {\bf (10 pts total)}
+
+Given the following sets
+\begin{align*}
+A=\{2,7,17,37\}, \hspace{.5 in} B=\{3,37,59\}\\
+C=\{2,3,5,17,37,59\}, \hspace{.5 in} D=\{37,102\}
+\end{align*}
+Determine if $B\subseteq C$ (1 pt), and write down the list of elements for each of the following sets (4 pts)
+\begin{align*}
+A\cup B,  \hspace{.3 in} D\backslash A, \hspace{.3 in} B\cap C, \hspace{.3 in} B\times D.
+\end{align*}
+Lastly, verify the following statement by listing the elements for both sides of the quality: (5 pts)
+\begin{align*}
+(A\cap B)\times D=(A\times D) \cap (B \times D).
+\end{align*}
+
+
+\vspace*{2mm} 
+
+
+\item[{\bf 2.}] {\bf (5 pts total)}
+
+(a) (2 pts) Determine if $f$ constitutes a binary operation on the set $A$. Please state your reasoning.
+\[
+	A=\{\text{QLD},\text{VIC},\text{NSW}\}, \qquad  f: A\times A\to \mathbb{N}, 
+\] 
+where for each $a,b\in A$, we define $f(a,b)=$ the total number of driver licences issued in 2024 by states $a$ and $b$ combined.
+
+(b) (3 pts)  Determine if the following binary operation is associative. Please state your reasoning.
+\[
+	A=\{\text{States and territories in Australia}\}, \qquad  f: A\times A\to A, 
+\] 
+where for each $a,b\in A$, we define $f(a,b)=$ the state or territory with the larger population at the end of the year 2024. 
+
+We may assume that no states or territories have the same population at the end of the year 2024.
+
+
+\vspace*{2mm} 
+
+
+
+\vspace*{\fill}
+{\em Continues next page.}
+\newpage
+
+{\underline{\bf MATH1071 \hspace*{3.8cm} Assignment 1 
+\hspace*{2cm} Due 3pm Friday 14 March 2025}}
+
+\vspace*{3mm} 
+
+\item[{\bf 3.}] {\bf (10 pts total)} Let $\mathbb{Z}_{11}=\{0,1,2,3,4,5,6,7,8,9,10\}$, with modular arithmetic as the two binary operations (i.e. addition and multiplication, taking the remainder upon being divided by $11$).
+
+Find the additive and multiplicative inverse for each element in the set.
+
+
+\vspace*{2mm} 
+\item[{\bf 4.}] {\bf (15 pts total)}
+
+
+
+a) (5 pts) Prove that the additive identity of a field is always unique. (Therefore we can drop the uniqueness condition from the field axioms.)
+
+b) (5 pts) Let $\mathbb{Z}_{8}=\{0,1,2,3,4,5,6,7\}$. If we use modular arithmetic mod $4$ (i.e. addition and multiplication, taking the remainder upon being divided by $4$, notice that the answer should be an integer between $0$ and $3$), are these still binary operations?  
+
+Argue why there does not exist an additive identity in $\mathbb{Z}_{8}$.
+
+c) (5 pts)
+Let $\mathbb{R}$ be the set of real numbers, where multiplication is regarded as the (new) addition, and addition is regarded as the (new) multiplication. Is $\mathbb{R}$ still a field with the two operations swapped? Why?
+
+
+\item[{\bf 5.}] {\bf (10 pts total)}
+
+a) (5 pts) Using the formal definition, prove that if $a_n\leq b_n$ for all $n\in \mathbb{N}$, and $\operatorname{lim}_{n\to \infty}a_n=\infty$, then $\operatorname{lim}_{n\to \infty}b_n=\infty$.
+
+
+b)  (5 pts) Using the previous item, show that 
+$$\lim_{n\rightarrow \infty} (n-7+n^5+3^n)=\infty .$$
+\vspace*{2mm}
+
+
+
+
+
+\end{itemize}
+
+\end{document}

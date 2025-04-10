@@ -1,3 +1,5 @@
+\newcommand{\ignorealign}[1]{\clap{$\dps{#1}$}}
+
 \newcommand{\inv}{^{-1}}
 \newcommand{\opname}{\operatorname}
 \newcommand{\surjto}{\twoheadrightarrow}
@@ -23,10 +25,10 @@
 \DeclareMathOperator{\coker}{coker} % Cokernel
 \DeclareMathOperator{\Coker}{Coker} % Cokernel
 \DeclareMathOperator{\Ker}{Ker} % Kernel
-\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\rank}{rank} 
 \DeclareMathOperator{\Spec}{Spec} % spectrum
 \DeclareMathOperator{\Tr}{Tr} % trace
-\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\proj}{proj} % projection
 \DeclareMathOperator{\ext}{ext} % extension
 \DeclareMathOperator{\pred}{pred} % predecessor
 \DeclareMathOperator{\dom}{dom} % domain
@@ -35,6 +37,11 @@
 \DeclareMathOperator{\Mor}{Mor} % morphisms
 \DeclareMathOperator{\End}{End} % endomorphism
 \DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Div}{div}
+\newcommand{\Real}{\mathfrak{Re}}
+\newcommand{\Imag}{\mathfrak{Im}}
+
 \newcommand{\Mod}{\mathbin{\mathrm{mod}}}
 \newcommand{\comb}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
 \newcommand{\perm}[2]{\mathrm{P}\left( #1, #2 \right)}
@@ -115,14 +122,19 @@
 \newcommand{\expx}{\exp x}
 \newcommand{\e}[1]{e^{#1}}
 
+%% Probability Distributions
+\DeclareMathOperator{\Binomial}{Binomial}
+
 \newcommand{\Theom}{\textbf{Theorem. }}
+\newcommand{\Theomm}[1]{\textbf{Theorem} #1.}
 \newcommand{\Lemma}{\textbf{Lemma. }}
 \newcommand{\Corol}{\textbf{Corollary. }}
 \newcommand{\Remar}{\textit{Remark. }}
 \newcommand{\Defin}[1]{\textbf{Definition} (#1).}
+\newcommand{\Definn}[2]{\textbf{Definition} #1 (#2).}
 \newcommand{\Claim}{\textbf{Claim. }}
 \newcommand{\Propo}{\textbf{Proposition. }}
-\newcommand{\Proof}{\textit{proof. }}
+\newcommand{\Proof}{\textit{Proof. }}
 
 \newcommand{\lb}{\left(}
 \newcommand{\rb}{\right)}
@@ -135,9 +147,10 @@
 \newcommand{\brangle}[1]{\left\langle #1 \right\rangle}
 
 \newcommand{\suchthat}{\medspace\middle|\medspace}
+\newcommand{\given}{\medspace\middle|\medspace}
 \newcommand{\sqbracks}[1]{\lsb #1 \rsb}
 \renewcommand{\abs}[1]{\left| #1 \right|}
-\newcommand{\Mag}[1]{\left|\left| #1 \right|\right|}
+% \newcommand{\norm}[1]{\left|\left| #1 \right|\right|}
 \renewcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \renewcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 

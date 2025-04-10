@@ -1,0 +1,440 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\centerline{\large\bf MATH2001, Assignment 2, Summer Semester, 2024-2025}
+
+\vspace{3mm}
+
+{\bf Due on 9 January at 14:00AEST.} Each question is marked out of 10 then homogeneously rescaled up to a total marks of 14. {\bf Total marks: $\frac{14}{60}(Q1+Q2+Q3+Q4+Q5+Q6) $}. 
+
+Submit your assignment online via the Assignment 2 submission link in Blackboard. \\
+\textbf{Michael Kasumagic, s4430266}
+
+\qs{Solve System of ODEs with Diagonalization}{
+  $$
+    \Let A = \left(\begin{array}{rrr}
+      -3 & 0 & -4 \\
+      -2 & 2 & -1 \\
+      2 & 0 & 3
+    \end{array}\right)
+  $$
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item Find a matrix $P$ that diagonalizes $A$.
+    \item Use the result from part (a) to find the general solution $\mathbf{x}(t)=\left(x_1(t), x_2(t), x_3(t)\right)^T$ to the system of ODEs
+    \begin{align*}
+      \dot{x}_1 & =-3 x_1-4 x_3 \\
+      \dot{x}_2 & =-2 x_1+2 x_2-x_3 \\
+      \dot{x}_3 & =2 x_1+3 x_3
+    \end{align*}
+  \end{enumerate}
+}
+\sol (a)
+We'll start by finding the eigenvalues of $A$,
+\begin{align*}
+  A - \lm I &= \begin{pmatrix} -3-\lm & 0 & -4 \\ -2 & 2-\lm & -1 \\ 2 & 0 & 3-\lm \end{pmatrix} \\
+  \abs{A - \lm I} = 0 &= \begin{vmatrix} -3-\lm & 0 & -4 \\ -2 & 2-\lm & -1 \\ 2 & 0 & 3-\lm \end{vmatrix} \\
+    &= -0 +(2-\lm)\begin{vmatrix} -3-\lm & -4 \\ 2 & 3 - \lm \end{vmatrix} - 0 \\
+    &= (2-\lm)(\lm^2-1)\\
+  0 &= -\lm^3 + 2\lm^2 + \lm - 2
+\end{align*}
+With trial and error, I found that $\lm=1$ is a solution to the characteristic polynomial, so $(x-1)$ is a factor of it. We'll use polynomial long division to find the other factors:
+$$
+  \begin{array}{rlclclcl}
+          & & - & \lm^2 & + & \lm & + & 2 \\ \cline{2-8}
+    \lm-1 &\vline -\lm^3 & + & 2\lm^2 & + & \lm & - & 2 \\
+        - & -\lm^3 & + & \lm^2 \\ \cline{2-4} 
+          & 0 & + & \lm^2 & + & \lm & - & 2 \\
+        - &   &   & \lm^2 & - & \lm \\ \cline{4-6}
+          &   &   & 0     & + & 2\lm & - & 2 \\
+        - &   &   &       &   & 2\lm & - & 2 \\ \cline{6-8}
+          &   &   &       &   & 0    & + & 0 \\
+  \end{array}
+$$
+Therefore, we can factorises the cubic into a linear multipled by a quadratic. Then the quadratic factor trivially factorises into two more linear factors:
+$$
+  0 = -\lm^3 + 2\lm^2 + \lm - 2 = (\lm-1)(-\lm^2 + \lm + 2) = (\lm-1)(\lm-2)(\lm+1)
+$$
+Therefore our eigenvalues are: $\lm_1=-1,\ \lm_2=1,\ \lm_3=2$.\\
+To find the three corresponding eigenvectors, we'll solve the linear system $(A - \lm_iI)\ut{x} = \ut{0}$, for $i=1,2,3$, using Gaussian elimination to simplify, then solving the system of equations. \\
+\begin{gather*}
+  (A - \lm_1I)\ut{x} = \ut{0} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} -3-\lm & 0 & -4 \\ -2 & 2-\lm & -1 \\ 2 & 0 & 3-\lm \end{pmatrix}\begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} \rightsquigarrow \left(\begin{array}{ccc|c} -3-\lm & 0 & -4 & 0 \\ -2 & 2-\lm & -1 & 0 \\ 2 & 0 & 3-\lm & 0 \end{array}\right)
+  \intertext{For $\lm_1=-1$:}
+  \Rightarrow \left(\begin{array}{ccc|c} -2 & 0 & -4 & 0 \\ -2 & 3 & -1 & 0 \\ 2 & 0 & 4 & 0 \end{array}\right) \underset{\substack{\text{Swap}: R_3, R_1 \\ R_2 := R_2 + R_1 \\ R_3 := R_3 + R_1}}{\rightsquigarrow} \left(\begin{array}{ccc|c} 2 & 0 & 4 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 3 & 3 & 0 \end{array}\right) \underset{\substack{\text{Swap}: R_2, R_3 \\ R_1:=R_1/2 \\ R_2:=R_2/3}}{\rightsquigarrow} \left(\begin{array}{ccc|c} 1 & 0 & 2 & 0 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array}\right) \\
+  \left\lbrace\begin{array}{lcl} 1x_1 + 2x_2 & = & 0 \\ 1x_2 + 1x_3 & = & 0 \end{array} \right. \implies x_2 = -x_3,\quad x_1 = -2x_2 = -2x_3
+  \intertext{$x_3$ is a free varaible, so we'll take $x_3=1$, and conclude that the first eigenvector $\ut{v_1}$ is}
+  \ut{v_1} = \begin{pmatrix} -2x_3 \\ -x_3 \\ x_3 \end{pmatrix} = \begin{pmatrix} -2 \\ -1 \\ 1 \end{pmatrix}
+  \intertext{For $\lm_2=1$:}
+  \Rightarrow \left(\begin{array}{ccc|c} -4 & 0 & -4 & 0 \\ -2 & 1 & -1 & 0 \\ 2 & 0 & 2 & 0 \end{array}\right) \underset{\substack{\text{Swap}: R_3, R_1 \\ R_2:=R_2+2R_1 \\ R_3:=R_3+R_1}}{\rightsquigarrow} \left(\begin{array}{ccc|c}  2 & 0 & 2 & 0  \\ 0 & 0 & 0 & 0 \\ 0 & 1 & 1 & 0 \end{array}\right) \underset{\substack{\text{Swap}: R_2, R_3 \\ R_1:=R_2/2}}{\rightsquigarrow} \left(\begin{array}{ccc|c}  1 & 0 & 1 & 0  \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array}\right) \\
+  \left\lbrace\begin{array}{lcl} 1x_1 + 1x_3 & = & 0 \\ 1x_2 + 1x_3 & = & 0 \end{array} \right. \implies x_1 = -x_3,\quad x_2 = -x_3
+  \intertext{$x_3$ is a free varaible, so we'll take $x_3=1$, and conclude that the second eigenvector $\ut{v_2}$ is}
+  \ut{v_2} = \begin{pmatrix} -x_3 \\ -x_3 \\ x_3 \end{pmatrix} = \begin{pmatrix} -1 \\ -1 \\ 1 \end{pmatrix}
+  \intertext{For $\lm_3=2$:}
+  \Rightarrow \left(\begin{array}{ccc|c} -5 & 0 & -4 & 0 \\ -2 & 0 & -1 & 0 \\ 2 & 0 & 1 & 0 \end{array}\right) \underset{\substack{R_3:R_3+R_2 \\ R_1:=-R_1\\R_2:=-R_2}}{\rightsquigarrow} \left(\begin{array}{ccc|c} 5 & 0 & 4 & 0 \\ 2 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array}\right) \underset{\substack{R_1:=R_1-4R_2}}{\rightsquigarrow} \left(\begin{array}{ccc|c} -3 & 0 & 0 & 0 \\ 2 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{array}\right) \\
+  \left\lbrace\begin{array}{lcl} -3x_1 & = & 0 \\ 2x_1 + 1x_3 & = & 0 \end{array} \right. \implies x_1 = 0,\quad x_3 = 0
+  \intertext{$x_2$ is a free varaible, so we'll take $x_2=1$, and conclude that the second eigenvector $\ut{v_2}$ is}
+  \ut{v_3} = \begin{pmatrix} 0 \\ x_2 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+  \intertext{A matrix $P$ that diagonalizes $A$ is $P=(\ut{v}_1|\ut{v}_2|\ut{v}_3)$.}
+  \tf P = \begin{pmatrix} -2 & -1 & 0 \\ -1 & -1 & 1 \\ 1 & 1 & 0 \end{pmatrix}
+\end{gather*}
+
+\newpage
+\sol (b)
+Since $A$ is diagonalizable, we know that $P\inv AP = D$, where $D=\diag(\lm_1,\lm_2,\lm_3)$.
+Our system of ODEs can be expressed
+$$
+  \dot{\ut{x}} = A\ut{x},
+$$
+where $\dot{\ut{x}} = \bracks{\dot{x}_1, \dot{x}_2, \dot{x}_3}^T,\ \ut{x} = \bracks{x_1, x_2, x_3}^T$, and $x_1, x_2, x_3$ are functions of $t$. \\
+Let's now substitute $\ut{x}=P\ut{y}$, and $\dot{\ut{x}} = P\ut{y}$, then pre-multiple by $P\inv$:
+$$
+  P\dot{\ut{y}} = AP\ut{y} \iff P\inv P\dot{\ut{y}} = P\inv AP\ut{y} \iff \dot{\ut{y}} = D\ut{y}
+$$
+which we can do, because we've already established that $A$ is diagonalizable with $P\inv AP = D$. Now, because $D=\diag(\lm_1,\lm_2,\lm_3) = \diag(-1,1,2)$, the matrix multipliaction on the RHS is trivial, and successfully decouples the differential equations, namely,
+$$
+  \dot{\ut{y}_1} = -\ut{y}_1,\qquad \dot{\ut{y}_2} = \ut{y}_2,\qquad \dot{\ut{y}_3} = 2\ut{y}_3.
+$$
+All three of these are simple, first order linear ODEs, which will have general solutions:
+\begin{gather*}
+  y_1(t) = \beta_1e^{-t},\qquad y_2(t) = \beta_2e^t,\qquad y_3(t) = \beta_3e^{2t} \\
+  \tf \ut{y}(t) = \begin{pmatrix} \beta_1e^{-t} \\ \beta_2e^t \\ \beta_3e^{2t} \end{pmatrix}
+\end{gather*}
+Finally, we'll substitute our new found $\ut{y}$ back into the equation $\ut{x}=P\ut{y}$.
+\begin{align*}
+  \ut{x}(t) = \begin{pmatrix} x_1(t) \\ x_2(t) \\ x_3(t) \end{pmatrix} &= \begin{pmatrix} -2 & -1 & 0 \\ -1 & -1 & 1 \\ 1 & 1 & 0 \end{pmatrix} \begin{pmatrix} \beta_1e^{-t} \\ \beta_2e^t \\ \beta_3e^{2t} \end{pmatrix} = P\ut{y}(t), \\
+     &= \begin{pmatrix} -2 & -1 & 0 \\ -1 & -1 & 1 \\ 1 & 1 & 0 \end{pmatrix}, \\
+     &= \begin{pmatrix} -2(\beta_1e^{-t}) - (\beta_2e^t) + 0(\beta_3e^{2t}) \\ -(\beta_1e^{-t}) - (\beta_2e^t) + (\beta_3e^{2t}) \\ (\beta_1e^{-t}) + (\beta_2e^t) + 0(\beta_3e^{2t}) \end{pmatrix}. \\
+    \tf\ut{x}(t) &= \begin{pmatrix} -2\beta_1e^{-t} - \beta_2e^t \\ -\beta_1e^{-t} - \beta_2e^t + \beta_3e^{2t} \\ \beta_1e^{-t} + \beta_2e^t \end{pmatrix}
+\end{align*}
+is the general solution to the coupled ODEs.
+
+
+
+\newpage
+\qs{Classify an Arbitrary Critical Points}{
+  You are given that the function
+  $$
+    f(x, y, z) = ax^2 + b\bracks{y^2+z^2} + cxy + dxz, \quad a, b, c, d \in \mathbb{R}
+  $$
+  has a critical point at $\left(x_0, y_0, z_0\right)=(0,0,0)$, meaning that the gradient of the function at the origin is zero. Assuming that the product of the $a$ and $b$ parameters is positive, $a {\times} b>0$, and that the parameters $c, d$ are not simultaneously equal to zero, classify the critical point.
+}
+\sol
+\begin{gather*}
+  \del{f}{x} = 2ax + cy + dz,\qquad \del{f}{y} = 2by + cx,\qquad \del{f}{z} = 2bz + dx \\
+  \tf\grad f(0,0,0) = \begin{pmatrix} 2a(0) + c(0) + d(0) \\ 2b(0) + c(0) \\ 2b(0) + d(0) \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}
+  \longintertext{Since $\grad f$ is 0 at $(0,0,0)$, we conclude that the point is indeed a critical point. \\ To classify the critical point, we're going to need to find the Hessian of $f$, $H(f)$. So let's start by finding our second partial derivatives (We only need to find 6, not all 9 because of Clairaut's Theorem, of course).}
+  \Del{2}{f}{x} = 2a,\qquad \Del{2}{f}{y} = 2b,\qquad \Del{2}{f}{z} = 2b, \\
+  \del{^2f}{xy} = c,\qquad \del{^2f}{yz} = 0,\qquad \del{^2f}{xz} = d. \\ 
+  H(f) = \begin{pmatrix} \Deld{2}{f}{x} & \deld{^2f}{xy} & \deld{^2f}{xz} \\ \deld{^2f}{yx} & \Deld{2}{f}{y} & \deld{^2f}{yz} \\ \deld{^2f}{zx} & \deld{^2f}{zy} & \Deld{2}{f}{z} \end{pmatrix} = \begin{pmatrix} 2a & c & d \\ c & 2b & 0 \\ d & 0 & 2b \end{pmatrix}.
+  \intertext{Next, we'll take find the eigenvalues of $H(f)$.}
+  \begin{align*}
+    \det(H(f) - \lm I) = 0
+      &\iff \begin{vmatrix} 2a - \lm & c & d \\ c & 2b - \lm & 0 \\ d & 0 & 2b - \lm \end{vmatrix} = 0 \\
+      &\iff (2a-\lm)\begin{vmatrix} 2b-\lm & 0 \\ 0 & 2b-\lm \end{vmatrix} - c\begin{vmatrix} c & 0 \\ d & 2b-\lm \end{vmatrix} + d\begin{vmatrix} c & 2b-\lm \\ d & 0 \end{vmatrix} = 0 \\
+      &\iff (2a-\lm)(2b-\lm)^2 - c(2bc - c\lm) + d(d\lm - 2bd) = 0 \\
+      &\iff (2a-\lm)(2b-\lm)^2 - c^2(2b - \lm) - d^2(2b - \lm) = 0 \\
+      &\iff (2a-\lm)(2b-\lm)^2 - (c^2 + d^2)(2b - \lm) = 0 \\
+      &\iff (2b-\lm)\bracks{(2a-\lm)(2b-\lm) - (c^2 + d^2)} = 0 \\
+      &\iff (2b-\lm)\bracks{4ab - 2a\lm - 2b\lm + \lm^2 - (c^2 + d^2)} = 0 \\
+      &\iff (2b-\lm)\bracks{\lm^2 + (-2a-2b)\lm + (4ab - c^2 - d^2)} = 0
+  \end{align*}
+  \intertext{Therefore, one of the eigenvalues is $2b$, and the other two are the solutions of the quadratic.}
+  \begin{aligned}
+    \lm_{2,3} &= \frac{-(-2a-2b) \pm \sqrt{(-2a-2b)^2 - 4(1)(4ab - c^2 - d^2)}}{2(1)} \\
+      &= \frac{2(a+b) \pm \sqrt{(-2)(a+b)(-2)(a+b) - 4(4ab - c^2 - d^2)}}{2} \\
+      &= \frac{2(a+b) \pm \sqrt{4(a+b)^2 - 4(4ab - c^2 - d^2)}}{2} \\
+      &= a+b \pm \sqrt{(a+b)^2 - 4ab + c^2 + d^2} \\
+      &= a+b \pm \sqrt{a^2 + b^2 - 2ab + c^2 + d^2} \\
+      &= a+b \pm \sqrt{(a-b)^2 + c^2 + d^2} \\
+  \end{aligned}
+  \longintertext{Without any loss of generality, we can assume that $c\neq0$ and $d$ may or may not be 0. Because of this, we know that $c^2 + d^2 \neq0$. It is this fact which allows an indefinite mix of signs among our eigenvalues. \\ Our 3 eigenvalues are:}
+  \begin{aligned}
+    \lm_1 &= 2b \\
+    \lm_2 &= a+b + \sqrt{(a-b)^2 + c^2 + d^2} \\
+    \lm_3 &= a+b - \sqrt{(a-b)^2 + c^2 + d^2} \\
+  \end{aligned}
+  \intertext{If, $c^2 + d^2$ was able to equal 0, then $\lm_{2,3}$ would simplify to $2a$ and $2b$ respectively; the same sign as $\lm_1=2b$, since $ab>0$. Since, this is not possible, our eigenvalues may have a mix of signs, which enables us to conclude that the critical point of $f$ at $(0,0,0)$ is a saddle point.}
+\end{gather*}
+
+\newpage
+\qs{One-Parameterize a General Matrix with Conditions}{
+  Take a general complex $2 {\times} 2{-}\text{matrix}$,
+  $$
+    A=\left(\begin{array}{ll}
+      a & b \\
+      c & d
+    \end{array}\right).
+  $$
+  Impose the following conditions on the previous matrix:
+  \begin{enumerate}[label=\roman*.]
+    \item $A$ is Hermitian;
+    \item $A$ is unitary;
+    \item $b, c$ are purely imaginary, non-zero numbers.
+  \end{enumerate}
+  Obtain the one-parameter family of simultaneous solutions of these three conditions. The result will be complex $2 \times 2{-}\text{matrices}$ that are both Hermitian and unitary and whose entries are not all real numbers.
+}
+\sol $A$ is Hermitian $\implies A = A^*$.
+\begin{gather*}
+  \text{Hence,}\ A = \begin{pmatrix} a & b \\ c & d \end{pmatrix} = \begin{pmatrix} \bar{a} & \bar{c} \\ \bar{b} & \bar{d} \end{pmatrix} = A^*. \\
+  \tf a = \bar{a},\ d = \bar{d} \implies a,d\in\bbr,\ \text{and,}\ c = \bar{b}. \\
+  \tf A = \begin{pmatrix} a & b \\ \bar{b} & d \end{pmatrix}. \\
+  \intertext{$A$ is unitary $\implies A^* = A\inv \iff A^*A = A\inv A = I$.}
+  \tf\begin{pmatrix} a & b \\ \bar{b} & d \end{pmatrix}\begin{pmatrix} a & b \\ \bar{b} & d \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \iff
+  \begin{pmatrix} a^2 + b\bar{b} & ab + bd \\ \bar{b}a + d\bar{b} & \bar{b}b + d^2 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \\
+  \iff \begin{pmatrix} a^2 + \abs{b}^2 & ab + bd \\ a\bar{b} + \bar{b}d & d^2 + \abs{b}^2 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}. \\
+  \text{So,}\ ab + bd = 0,\ b\neq0\ \text{, from condition iii.} \\
+  \tf a + d = 0 \iff a = -d \\
+  \tf A = \begin{pmatrix} a & b \\ \bar{b} & -a \end{pmatrix}
+  \intertext{Now, we've previously imposed that $A$ is both Hermitian and unitary, ie. $A=A^*$ and $A^*=A\inv$. Therefore, by the transitive property, $A=A\inv$.}
+  \tf \begin{pmatrix} a & b \\ \bar{b} & -a \end{pmatrix} = \frac{1}{-a^2 - \abs{b}^2}\begin{pmatrix} -a & \bar{b} \\ b & a \end{pmatrix}
+  \intertext{Because $b$ is a purely imaginary number, $-b=\bar{b}$, so}
+  \begin{pmatrix} a & b \\ \bar{b} & -a \end{pmatrix} = \frac{1}{a^2 + \abs{b}^2}\begin{pmatrix} a & b \\ \bar{b} & -a \end{pmatrix} \\
+  \implies \frac{1}{a^2 + \abs{b}^2} = 1 \iff a^2 + \abs{b}^2 = 1 \iff a^2 = 1 - \abs{b}^2 \iff a = \pm\sqrt{1 - \abs{b}^2}
+  \intertext{Now, because $b$ is a purely imaginary number}
+  \Real(b) = 0,\ b = i\beta,\ \beta\in\bbr \implies \abs{b}^2 = \beta^2 \implies a = \pm\sqrt{1 - \beta^2}. \\
+  \tf A = \begin{pmatrix} \pm\sqrt{1 - \beta^2} & i\beta \\ -i\beta & \mp\sqrt{1 - \beta^2} \end{pmatrix}
+\end{gather*}
+
+\newpage
+\qs{Double Integral Over a Rectangle}{
+  Compute the following double integral over the rectangle $R=[-1,0] \times[1,2]$:  
+  $$
+    \iint_R \frac{e^x}{2y} - \frac{4x - 1}{y^2} \d A
+  $$
+}
+\sol
+\begin{align*}
+  I &= \iint_R \frac{e^x}{2y} - \frac{4x - 1}{y^2} \d A \\
+    &= \int_{1}^{2}\int_{-1}^{0} \frac{e^x}{2y} - \frac{4x - 1}{y^2}\ \d x\d y \\
+    &= \int_{1}^{2}\left( \int_{-1}^{0} \frac{e^x}{2y}\d x - \int_{-1}^{0}\frac{4x}{y^2}\d x + \int_{-1}^{0}\frac{1}{y^2}\d x \right)\d y \\
+    &= \int_{1}^{2}\left( \frac{1}{2y}\int_{-1}^{0} e^x\d x - \frac{4}{y^2}\int_{-1}^{0} x\d x + \frac{1}{y^2}\int_{-1}^{0} 1 \d x \right)\d y \\
+    &= \int_{1}^{2}\left( \frac{1}{2y}\sqbracks{e^x}_{-1}^{0} - \frac{4}{y^2}\sqbracks{\frac{1}{2}x^2}_{-1}^{0} + \frac{1}{y^2}\sqbracks{x}_{-1}^{0} \right)\d y \\
+    &= \int_{1}^{2}\left( \frac{1}{2y}\bracks{e^0 - e^{-1}} - \frac{4}{y^2}\bracks{\frac{1}{2}0^2 - \frac{1}{2}(-1)^2} + \frac{1}{y^2}\bracks{0 - (-1)} \right)\d y \\
+    &= \int_{1}^{2}\left( \frac{1}{2y}\bracks{1 - e^{-1}} - \frac{4}{y^2}\bracks{-\frac{1}{2}} + \frac{1}{y^2}\bracks{1} \right)\d y \\
+    &= \int_{1}^{2}\left( \frac{1 - e^{-1}}{2y} + \frac{2}{y^2} + \frac{1}{y^2} \right)\d y \\
+    &= \int_{1}^{2}\left( \frac{1 - e^{-1}}{2y} + \frac{3}{y^2} \right)\d y \\
+    &= \int_{1}^{2} \frac{6 + y - ye^{-1}}{2y^2} \d y \\
+    &= \int_{1}^{2} \frac{6}{2y^2} \d y + \int_{1}^{2} \frac{y}{2y^2} \d y - \int_{1}^{2} \frac{ye^{-1}}{2y^2} \d y \\
+    &= 3\int_{1}^{2} \frac{1}{y^2} \d y + \frac{1}{2}\int_{1}^{2} \frac{1}{y} \d y - \frac{1}{2e}\int_{1}^{2} \frac{1}{y} \d y \\
+    &= 3\sqbracks{\frac{-1}{y}}_{1}^{2} + \frac{1}{2}\sqbracks{\ln y}_{1}^{2} - \frac{1}{2e}\sqbracks{\ln y}_{1}^{2} \\
+    &= 3\bracks{\frac{-1}{2} - \frac{-1}{1}} + \frac{1}{2}\bracks{\ln2 - \ln1} - \frac{1}{2e}\bracks{\ln2 - \ln1} \\
+    &= 3\bracks{\frac{1}{2}} + \frac{1}{2}\bracks{\ln2} - \frac{1}{2e}\bracks{\ln2} \\
+    &= \frac{3}{2} + \frac{\ln2}{2} - \frac{\ln2}{2e} \\
+  \tf I &= \frac{3e + (e-1)\ln2}{2e} \approx 1.7191 \\
+\end{align*}
+
+\newpage
+\qs{Numerical Double Integration}{
+  Determine the volume that lies under $f(x, y)=\frac{e^x}{2 y}-\frac{4 x-1}{y^2}$ within $R=[-1,0] \times[1,2]$ in the $xy$-plane   Write computer code (Matlab or python) that approximates the volume by breaking up the integration domain $R$ into $N \times N$ squares of equal sizes and within each square approximate the function by its value in the middle of each square. \\
+
+  Use your code to evaluate the volume under $f(x, y)$ in $R$ using $N=10,50,250$ and 1250. Create a table showing the values obtained numerically. Plot the logarithm of the error (i.e. the absolute value of the difference between the exact value obtained at the previous question and the numerical result) as a function of $\log N$. Include your code in your response.
+}
+\sol My Code:
+\begin{lstlisting}[language=Python]
+from typing import Callable
+from math import exp, log
+  
+  
+def numerical_volume(
+  f: Callable[[float, float], float],
+  a: float, b: float,
+  c: float, d: float,
+  N: int
+) -> float:
+  volume = 0
+  dx = (b - a) / N
+  dy = (d - c) / N
+  
+  for i in range(N):
+    for j in range(N):
+      square_midpoint_x = a + (i + 0.5) * dx
+      square_midpoint_y = c + (j + 0.5) * dy
+
+      volume += f(square_midpoint_x, square_midpoint_y) * dx * dy
+  
+  return volume
+  
+  
+f = lambda x,y: (exp(x) / (2*y)) - ((4*x - 1) / (y**2))
+exact_value = 1/2 * (3 + log(2) - log(2)/exp(1))  # From WolframAlpha
+  
+for N in [10, 50, 250, 1250]:
+  result = numerical_volume(f, -1, 0, 1, 2, N)
+  print(
+    f"N: {N:<6}" +
+    f"Approx Volume: {result:.12f}   " +
+    f"log N: {log(N):.12f}   " +
+    f"log error: {log(abs(result - exact_value)):.12f}"
+  )
+  
+\end{lstlisting}
+
+Ok, so I got my data, now I'm just going to typeset my table and plot in \LaTeX using a \verb|tabular| and a \verb|tikzpicture| environment, respectively. In my table, I'm also going to include the points I plotted. I'll leave the code in an appendix.
+
+\begin{center}
+  \begin{tabular}{l|rrr}
+    \multicolumn{1}{c|}{$N$} & \multicolumn{1}{c}{Approx Volume} & \multicolumn{1}{c}{$\log(N)$} & \multicolumn{1}{c}{$\log(\text{err})$} \\ \hline
+    10    & 1.716707432355  & 2.302585092994 & -6.045346786600  \\
+    50    & 1.718981203550  & 3.912023005428 & -9.260707644136  \\
+    250   & 1.719072487504  & 5.521460917862 & -12.479442011216 \\
+    1250  & 1.719076139400  & 7.130898830296 & -15.698311799022 \\
+  \end{tabular}
+  \vspace{2em}
+
+  \begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$\log(N)$},
+        ylabel={$\log(\text{err})$},
+        title={$\log(\text{err})$ against $\log(N)$},
+        grid=major,
+    ]
+        \addplot coordinates {
+            (2.302585092994, -6.045346786600)
+            (3.912023005428, -9.260707644136)
+            (5.521460917862, -12.479442011216)
+            (7.130898830296, -15.698311799022)
+        };
+    \end{axis}
+  \end{tikzpicture}
+\end{center}
+
+\newpage
+\qs{Double Integral over a Bounded Region}{
+  Evaluate 
+  $$
+    \iint_D x(y-1) \d A
+  $$
+  where $D$ is the region bounded by $y_1=1-x^2$ and $y_2=x^2-3$ in two ways using different orders of integration.
+  %Hint: for one of them you may need to break up the integral into two parts.
+}
+\sol \\
+The first way we'll do this is by finding the bounds of the double integral with respect to $x$ and $y$ and then integrating normally. \\
+
+On the domain where the region is bound, $y_2 < y_1$. Hence the upper bound will be $y_1 = 1 - x^2$, and the lower bound will be $y_2 = x^2- 3$. \\
+The domain itself will be bounded by the two points where $y_1$ meets $y_2$.
+$$
+  y_1 = y_2 \iff 1 - x^2 = x^2 - 3 \iff 0 = 2x^2 - 4 \iff 0 = x^2 - 2 \iff x^2 = 2 \iff x = \pm\sqrt{2}
+$$
+Therefore, the lower bound is $x_2 = -\sqrt{2}$ and the upper bound is $x_1 = \sqrt{2}$. \\
+Now we can substitute the variables and find the integral.
+\begin{align*}
+  I &= \iint_D x(y-1) \d A \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}}\int_{x^2 - 3}^{1 - x^2} x(y-1)\ \d y\d x \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}} x \int_{x^2 - 3}^{1 - x^2} y-1\ \d y\d x \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}} x \bracks{\sqbracks{\frac{1}{2}y^2}_{x^2 - 3}^{1 - x^2} - \sqbracks{\vphantom{\frac{1}{2}}y}_{x^2 - 3}^{1 - x^2}} \d x \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}} x \bracks{\sqbracks{\frac{1}{2}\bracks{{1 - x^2}}^2 - \frac{1}{2}\bracks{x^2 - 3}^2} - \sqbracks{\vphantom{\frac{1}{2}}(1 - x^2) - (x^2 - 3)}} \d x \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}} x \bracks{\bracks{\frac{1 - 2x^2 + x^4 - x^4 + 6x^2 - 9}{2}} - \bracks{1 - x^2 - x^2 + 3}} \d x \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}} x \bracks{2x^2 - 4 + 2x^2 - 4} \d x \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}} x \bracks{4x^2 - 8} \d x \\
+    &= \int_{-\sqrt{2}}^{\sqrt{2}} 4x^3 - 8x\ \d x \\
+    &= \sqbracks{x^4}_{-\sqrt{2}}^{\sqrt{2}} - \sqbracks{4x^2}_{-\sqrt{2}}^{\sqrt{2}} \\
+    &= \bracks{\sqrt{2}^4 - \bracks{-\sqrt{2}}^4} - \bracks{4\bracks{\sqrt{2}}^2 - 4\bracks{-\sqrt{2}}^2} \\
+    &= \bracks{4 - 4} - \bracks{8 - 8} \\
+  \tf I &= 0
+\end{align*}
+
+\newpage
+Next, we'll evaluate the integral by expressing $D$ as a Type II region. To do that, 
+$$
+D' = {(x,y) : c \leq y \leq d, h_1(y) \leq x \leq h_2(y)}
+$$
+Finding the min and max of $y$ in $D$ is finding $c$ and $d$ respectively. Because $y = 1 - x^2$ and $ y = x^2 - 3$ are quadratics, we know that either the min or max occurs on the axis of symmetry, $x = \frac{-b}{2a}$.
+\begin{align*}
+    y = 1 - x^2 &&&& y = x^2 - 3 \\
+    && b=0 \implies x = 0 & \\
+    y = 1 - 0^2 &&&& y = 0^2 - 3 \\
+    y = 1 &&&& y = -3 \\
+    && \therefore c = -3, \ d = 1
+\end{align*}
+Now we need to find $h_1 (y)$ and $h_2(y)$.
+\begin{align*}
+    x^2 - 3 &\leq y \\
+    x^2 &\leq y - 3 \\
+    \implies -\sqrt{y - 3} &\leq \ x^2 \leq \sqrt{y - 3} \\
+    \\
+    y &\leq 1 - x^2 \\
+    y - 1 &\leq -x^2 \\
+    1 - y &\geq x^2 \\
+    \implies -\sqrt{1 - y} &\leq x \leq \sqrt{1 - y} 
+\end{align*}
+So, $x$ is bounded above by 2 functions and bounded below by 2 functions. If we find where they intersect, we can introduce a piecewise function that correctly defines an equivalent domain to $D$. 
+\begin{align*}
+    \text{Bounded above:}\\
+    \sqrt{1 - y} &= \sqrt{y + 3} \\
+    1 - y &= y + 3 \\
+    2y &= -2 \\
+    y &= -1 \\ \\
+    \text{Bounded below:} \\
+    -\sqrt{1 - y} &= -\sqrt{y + 3} \\
+    1 - y &= y + 3 \\
+    y &= -1
+\end{align*}
+So between $-3$ and $-1$, $x$ is bounded by $\pm \sqrt{y + 3}$ and between $-1$ and $1$, $x$ is bounded by $\pm \sqrt{1 - y}$. We can express each as its own region.
+
+$$
+B = {(x, y): -3 \leq y \leq -1, -\sqrt{y +3} \leq x \leq \sqrt{y + 3}}
+$$
+
+$$
+C = {(x, y): -1 \leq y \leq 1, -\sqrt{1-y} \leq x \leq \sqrt{1 - y}}
+$$
+Now we can express $D'$ as a union between these 2 regions.
+$$
+D' = B \cup C
+$$
+\begin{align*}
+    I = \iint_D x(y-1) \d A &= \iint_{D'}x(y-1)\d A \\
+    I &= \iint_B x(y-1)dA + \iint_Cx(y-1)\d A \\
+    &= \int_{-3}^{-1} \int_{-\sqrt{y + 3}}^{\sqrt{y+3}} x(y-1) \d x\d y + \int_{-1}^{1} \int_{-\sqrt{1-y}}^{\sqrt{1-y}} x(y-1) \d x\d y \\
+    &= \int_{-3}^{-1} (y-1)\int_{-\sqrt{y + 3}}^{\sqrt{y+3}} x \d x \ \d y + \int_{-1}^{1} (y-1)\int_{-\sqrt{1-y}}^{\sqrt{1-y}} x \d x \ \d y \\
+    &= \int_{-3}^{-1} (y-1) \Big[ \frac{1}{2} x^2 \Big]_{-\sqrt{y + 3}}^{\sqrt{y + 3}}\ dy + \int_{-1}^{1} (y-1) \Big[ \frac{1}{2} x^2 \Big]_{-\sqrt{1-y}}^{\sqrt{1 -y}}\ \d y \\
+    &= \int_{-3}^{-1} (y-1) (\frac{1}{2}(\sqrt{y+3})^2 - \frac{1}{2}(-\sqrt{y+3})^2 \d y + \int_{-1}^{1} (y-1) (\frac{1}{2}(\sqrt{1-y})^2 - \frac{1}{2}(-\sqrt{1-y})^2 \d y \\
+    &= \int_{-3}^{-1} (y-1) (\frac{y+3}{2}  - \frac{y + 3}{2}) dy + \int_{-1}^{1} (y-1) (\frac{1-y}{2}  - \frac{1-y}{2}) \d y \\
+    &= \int_{-3}^{-1} (y-1) \cdot 0 dy + \int_{-1}^{1} (y-1) \cdot 0 \d y \\
+    &= \int_{-3}^{-1} 0 \d y + \int_{-1}^{1} 0\d y \\
+  \tf I &= 0 \\
+\end{align*}
+So, we successfully defined a Type II region, and used $\d x\d y$ instead of $\d y\d x$, and got the same answer for the integral, $0$.
+
+\newpage
+\section*{Appendix 1 - Table and Plot Code}
+\begin{lstlisting}[language=TeX]
+\begin{center}
+  \begin{tabular}{l|rrr}
+    \multicolumn{1}{c|}{$N$} & \multicolumn{1}{c}{Approx Volume} &
+    \multicolumn{1}{c}{$\log(N)$} &
+    \multicolumn{1}{c}{$\log(\text{err})$} \\ \hline
+    10    & 1.716707432355  & 2.302585092994 & -6.045346786600  \\
+    50    & 1.718981203550  & 3.912023005428 & -9.260707644136  \\
+    250   & 1.719072487504  & 5.521460917862 & -12.479442011216 \\
+    1250  & 1.719076139400  & 7.130898830296 & -15.698311799022 \\
+  \end{tabular}
+  \vspace{2em}
+  
+  \begin{tikzpicture}
+    \begin{axis}[
+      xlabel={$\log(N)$},
+      ylabel={$\log(\text{err})$},
+      title={$\log(\text{err})$ against $\log(N)$},
+      grid=major,
+    ]
+      \addplot coordinates {
+        (2.302585092994, -6.045346786600)
+        (3.912023005428, -9.260707644136)
+        (5.521460917862, -12.479442011216)
+        (7.130898830296, -15.698311799022)
+      };
+    \end{axis}
+  \end{tikzpicture}
+\end{center}
+\end{lstlisting}
+
+
+\end{document}

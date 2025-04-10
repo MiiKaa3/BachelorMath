@@ -1,0 +1,268 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\centerline{\large\bf MATH2001, Assignment 3, Summer Semester, 2024-2025}
+
+\vspace{3mm}
+
+{\bf Due on 23 January at 14:00AEST.} Each question is marked out of 10 then homogeneously rescaled up to a total marks of 13. {\bf Total marks: $\frac{13}{60}(Q1+Q2+Q3+Q4+Q5+Q6) $}. 
+
+Submit your assignment online via the Assignment 3 submission link in Blackboard. \\
+\textbf{Michael Kasumagic, s4430266}
+
+\qs{Polarising Integral}{
+    Evaluate the following integral by first converting the integral to polar coordinates
+    $$
+        \int_{0}^{3}\int_{-\sqrt{9-x^2}}^{0} e^{x^2 + y^2}\ \d y\d x
+    $$
+}
+\sol
+\begin{gather*}
+    \intertext{From the limits of the integral, we can see that $x$ ranges from 0 to 3, and $y$ ranges from $-\sqrt{9-x^2}$, for some fixed $x$ to 0. The $y$ bound $-\sqrt{9-x^2}$ is particularly interesting, because it corresponds to a bottom semi-circle. Rearranging, we can find the equation of the circle,}
+    y = -\sqrt{9 - x^2},\qquad y^2 = 9 - x^2,\qquad x^2 + y^2 = 3^2 \implies r = 3
+    \intertext{Now we can make the conversion,}
+    x = r\cos\theta \\
+    y = r\sin\theta \\
+    \longintertext{The bounds of $x$ correspond to the bounds of $r$. So, where $x$ ranges from 0 to 3, $r$ ranges from 0 to 3. \\ The bounds of $y$ correspond with the bounds of $\theta$. So, where $y$ ranges from the bottom of the semi circle, with radius 3; so $\theta=-\pi/2$, to $y=0$, which corresponds to $\theta=0$. \\ The last thing we need to convert our integral, is to note that $e^{x^2+y^2}$ can be rewritten as $e^{r^2}$. \\ Now, we can rewrite the integral.}
+    \begin{aligned}
+      I = \int_{0}^{3}\int_{-\sqrt{9-x^2}}^{0} e^{x^2 + y^2}\ \d y\d x &= \int_{-\pi/2}^{0}\int_{0}^{3} e^{r^2}r\ \d r\d\theta \\
+      \mathclap{\Let u = r^2 \Rightarrow u' = 2r \iff \d u = 2r\d r \iff r\d r = \frac{1}{2}\d u} \\
+      \int_{0}^{3} e^{r^2}r\ \d r &= \frac{1}{2}\int_{0^2=0}^{3^2=9} e^u\ \d u \\ 
+        &= \frac{1}{2}\sqbracks{\vphantom{\frac{1}{2}}e^u}_0^9 \\
+        &= \frac{1}{2}\bracks{e^9 - e^0} \\
+        &= \frac{1}{2}\bracks{e^9 - 1} \\
+      \tf I &= \frac{1}{2}\bracks{e^9 - 1}\int_{-\pi/2}^{0}\d\theta \\
+        &= \frac{1}{2}\bracks{e^9 - 1}\sqbracks{\vphantom{\frac{1}{2}}\theta}_{-\pi/2}^0 \\
+      \tf I &= \frac{\pi}{4}\bracks{e^9 - 1} \approx 6363.3618
+    \end{aligned}
+\end{gather*}
+
+\newpage
+\qs{Volume of a Bounded Region Within a Cylinder}{
+    Use a triple integral to determine the volume of a the region below $z=6-x$, above $z=-\sqrt{4x^2 + 4y^2}$, inside the cylinder $x^2 + y^2 = 3$ with $x\leq 0$.
+}
+\sol
+\begin{gather*}
+  \longintertext{The upper bound of $z$ is the plane $z=6-x$ and its lower bound is the upside-down cone, $z=-\sqrt{4x^2 + 4y^2}=-\sqrt{4\bracks{x^2 + y^2}}$.\\ The cylinder is described by the circle equation $x^2 + y^2 = r^2 = 3$, which implies that the radius of the cylinder is $\sqrt{3}$.\\ These facts make it really natural to express the integral using cylindrical coordinates,}
+  \begin{aligned}
+    x &= r\cos\theta \\
+    y &= r\sin\theta \\
+    \d x\d y &= r\d r\d \theta
+  \end{aligned}
+  \longintertext{$r$ ranges from 0 to $\sqrt{3}$, the radius of the cylinder. $\theta$ ranges from $\pi/2$ to $3\pi/2$, since we're only dealing with the left side of the cylinder, $x\leq0$. Finally, $z$ will range from the bottom to the top of the region (the height, in a sense), namely from $-\sqrt{4r^2}=-2r$ to $6 - r\cos\theta$.\\ Therefore, the volume of the region of interest is given by the triple integral}
+  V = \int_{\theta=\pi/2}^{3\pi/2}\int_{r=0}^{\sqrt{3}}\int_{z=-2r}^{6-r\cos\theta} r\ \d z\d r\d\theta.
+\end{gather*}
+Now, we'll evaluate the integral to find our volume.
+\begin{align*}
+  V &= \int_{\theta=\pi/2}^{3\pi/2}\int_{r=0}^{\sqrt{3}}r\int_{z=-2r}^{6-r\cos\theta} 1\ \d z\d r\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\int_{r=0}^{\sqrt{3}}r \sqbracks{\vphantom{\frac{1}{2}}z}_{-2r}^{6-r\cos\theta}\ \d r\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\int_{r=0}^{\sqrt{3}}r \bracks{6-r\cos\theta + 2r}\ \d r\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\int_{r=0}^{\sqrt{3}} 6r - r^2\cos\theta + 2r^2\ \d r\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\bracks{
+      \int_{r=0}^{\sqrt{3}} 6r\d r - 
+      \int_{r=0}^{\sqrt{3}}r^2\cos\theta\d r +
+      \int_{r=0}^{\sqrt{3}}2r^2\d r
+    }\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\bracks{
+      6\int_{r=0}^{\sqrt{3}} r\d r - 
+      \cos\theta\int_{r=0}^{\sqrt{3}}r^2\d r +
+      2\int_{r=0}^{\sqrt{3}}r^2\d r
+    }\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\bracks{
+      6\sqbracks{\frac{1}{2}r^2}_{0}^{\sqrt{3}} - 
+      \cos\theta\sqbracks{\frac{1}{3}r^3}_{r=0}^{\sqrt{3}} +
+      2\sqbracks{\frac{1}{3}r^3}_{r=0}^{\sqrt{3}}
+    }\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\bracks{
+      6\bracks{\frac{3}{2} - \frac{0}{2}} - 
+      \cos\theta\bracks{\frac{\sqrt{27}}{3} - \frac{0}{3}} +
+      2\bracks{\frac{\sqrt{27}}{3} - \frac{0}{3}}
+    }\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}\bracks{
+      6\bracks{\frac{3}{2}} - 
+      \cos\theta\bracks{\frac{3\sqrt{3}}{3}} +
+      2\bracks{\frac{3\sqrt{3}}{3}}
+    }\d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}9 - \sqrt{3}\cos\theta + 2\sqrt{3}\ \d\theta \\
+    &= \int_{\theta=\pi/2}^{3\pi/2}9\d\theta - \int_{\theta=\pi/2}^{3\pi/2}\sqrt{3}\cos\theta\d\theta + \int_{\theta=\pi/2}^{3\pi/2}2\sqrt{3}\d\theta \\
+    &= 9\int_{\theta=\pi/2}^{3\pi/2}1\d\theta - \sqrt{3}\int_{\theta=\pi/2}^{3\pi/2}\cos\theta\d\theta + 2\sqrt{3}\int_{\theta=\pi/2}^{3\pi/2}1\d\theta \\
+    &= 9\sqbracks{\vphantom{\frac{1}{2}}\theta}_{\pi/2}^{3\pi/2} - \sqrt{3}\sqbracks{\vphantom{\frac{1}{2}}\sin\theta}_{\pi/2}^{3\pi/2} + 2\sqrt{3}\sqbracks{\vphantom{\frac{1}{2}}\theta}_{\pi/2}^{3\pi/2} \\
+    &= 9\bracks{\frac{3\pi}{2} - \frac{\pi}{2}} - \sqrt{3}\bracks{\sin\frac{3\pi}{2} - \sin\frac{\pi}{2}} + 2\sqrt{3}\bracks{\frac{3\pi}{2} - \frac{\pi}{2}} \\
+    &= 9\pi - \sqrt{3}\bracks{-1 - 1} + 2\pi\sqrt{3} \\
+    &= 9\pi + 2\sqrt{3} + 2\pi\sqrt{3} \\
+  \tf V &= 2\sqrt{3} + \bracks{9 + 2\sqrt{3}}\pi \approx 42.6212\text{ units}^3 \\
+\end{align*}
+
+\newpage
+\qs{Line Integral Over Vector Field}{
+    Evaluate $\int_C \ut{F}\cd\d\ut{r}$ where $\ut{F} = (6x - 2y)\ihat + x^2\jhat$ for each of the following curves.
+    \begin{enumerate}[label=(\roman*)]
+        \item $C$ is the line segment from $(6,-3)$ to $(0,0)$ followed by the line segment from $(0,0)$ to $(6,3)$.
+        \item $C$ is the line segment from $(6,-3)$ to $(6,3)$.
+    \end{enumerate}
+}
+\sol (i) \\
+We'll break up the line integral into two for each line segment
+$$
+    \int_C \ut{F}\cd\d\ut{r} = \int_{C_1}\ut{F}\cd\d\ut{r} + \int_{C_2}\ut{F}\cd\d\ut{r},
+$$
+where $C_1$ is the segment from $(6,-3)$ to $(0,0)$, and $C_2$ is the segment from $(0,0)$ to $(6,3)$. We can parameterise these line segments, \\
+$C_1$:
+\begin{align*}
+  x &= 6-6t &\qquad y &= -3+3t,\ t\in[0,1] \\
+  \dyd[x]{t} = -6 &\Rightarrow \d x = -6\d t &\qquad \dyd[y]{t} = 3 &\Rightarrow \d y = 3\d t
+  \intertext{$C_2$:}
+  x &= 6t &\qquad y &= 3t,\ t\in[0,1] \\
+  \dyd[x]{t} = 6 &\Rightarrow \d x = 6\d t &\qquad \dyd[y]{t} = 3 &\Rightarrow \d y = 3\d t
+\end{align*}
+Finally, utilising the fact that $\ut{F} = P(x,y)\ihat + Q(x,y)\jhat$, and $\int_C\ut{F}\cdot\d\ut{r} = \int_CP(x,y)\d x + \int_CQ(x,y)\d y$, we can break up the line integral into 4, single variable integrals.
+\begin{align*}
+  I = \int_C \ut{F}\cd\d\ut{r} &= \int_{C_1}\ut{F}\cd\d\ut{r} + \int_{C_2}\ut{F}\cd\d\ut{r} \\
+    &= \int_{C_1}P(x,y)\d x + \int_{C_1}Q(x,y)\d y + \int_{C_2}P(x,y)\d x + \int_{C_2}Q(x,y)\d y \\
+    &= \int_{C_1}(6x - 2y)\d x + \int_{C_1}\bracks{x^2}\d y + \int_{C_2}
+    (6x - 2y)\d x + \int_{C_2}\bracks{x^2}\d y \\
+  \intertext{Now, we'll substitute the approriate $x$ and $y$ and the approriate bounds for $C_1$ and $C_2$, respectively.}
+  I &= \int_0^1 -6(6(6-6t) - 2(-3+3t))\d t + \int_0^1 3\bracks{(6-6t)^2}\d t \\ &\phantom{=} + \int_0^1 6(6(6t) - 2(3t))\d t + \int_0^1 3\bracks{(6t)^2}\d t \\
+    &= \int_0^1 (-252+252t)\d t + \int_0^1 \bracks{108-216t+108t^{2}}\d t \\ &\phantom{=} + \int_0^1 180t\d t + \int_0^1 108t^2\d t \\
+    &= \int_0^1 (-252+252t) + \bracks{108-216t+108t^{2}} + 180t + 108t^2\ \d t \\
+    &= \int_0^1 108t^2 + 108t^2 + 252t - 216t + 180t - 252 + 108\ \d t \\
+    &= \int_0^1 216t^2 + 216t - 144\ \d t \\
+    &= \sqbracks{72t^3 + 108t^2 - 144t}_0^1 \\
+    &= 72(1)^3 + 108(1)^2 - 144(1) - 0 \\
+    &= 72 + 108 - 144 - 0 \\
+  \tf I &= 36
+\end{align*}
+
+\sol(ii) \\
+We're going to follow a similar process as we did in (i). Except, this time, we only need to parameterise the one line segment, from (6,-3) to (6,3).
+\begin{align*}
+  x &= 6 &\qquad y &= -3+6t,\ t\in[0,1] \\
+  \dyd[x]{t} = 0 &\Rightarrow \d x = 0\d t &\qquad \dyd[y]{t} = 6 &\Rightarrow \d y = 6\d t
+\end{align*}
+Now, we'll toss these functions into the integral, and evaluate.
+\begin{align*}
+  I = \int_C \ut{F}\cd\d\ut{r} &= \int_C (6x - 2y)\d x + \int_C x^2\d y \\
+    &= \int_0^1 0(6(6) - 2(-3+6t))\d t + \int_0^1 6(6)^2\d t \\
+    &= 0 + \int_0^1 216\d t \\
+    &= \int_0^1 216\d t \\
+    &= \sqbracks{\vphantom{\frac{1}{2}}216t}_0^1 \\
+    &= 216(1) - 216(0) \\
+  \tf I &= 216
+\end{align*}
+
+\newpage
+\qs{Finding Potential Function}{
+    Find the potential function $f(x,y)$ for the vector field
+    $$
+        \ut{F} = y^2(1 + \cos(x+y))\ihat + (2xy - 2y + y^2\cos(x+y) + 2y\sin(x+y))\jhat
+    $$
+    that satisfies $\grad f = \ut{F}$.
+}
+\sol
+Given that $\grad f = \ut{F}$, we can deduce that
+$$
+  \del{f}{x} = y^2(1 + \cos(x+y))\qquad \del{f}{y} = 2xy - 2y + y^2\cos(x+y) + 2y\sin(x+y)
+$$
+To find our potential function $f(x,y)$ then, we'll start by integrating its partial derivative with respect to $x$, with respect to $x$.
+\begin{align*}
+  f(x,y) = \int\del{f}{x}\d x &= \int y^2(1 + \cos(x+y))\d x \\
+    &= y^2 \int 1\d x + y^2\int\cos(x+y)\d x \\
+  \tf f(x,y) &= xy^2 + y^2\sin(x+y) + g(y) \\
+  \intertext{Next, we'll differentiate this expression with respect to $y$, and compare it to the other expression of $\deld{f}{y}$, which is an equivalent.}
+  \del{f}{y} &= \del{}{y}\bracks{xy^2 + y^2\sin(x+y) + g(y)} \\
+    &= 2xy + 2y\sin(x+y) + y^2\cos(x+y) + g'(y) \\
+    &= 2xy + 2y\sin(x+y) + y^2\cos(x+y) - 2y \\
+  \implies g'(y) &= -2y \\
+  \iff g(y) &= -2\int y\d y \\
+    &= -y^2 + A_i,
+\end{align*}
+where $A_i$ is an arbitrary constant. Therefore,
+$$
+  f(x,y) = 2xy - y^2 + 2y\sin(x+y) + y^2\cos(x+y) + A_i.
+$$
+
+\newpage
+\qs{Flux Over Surface of Bounded Solid}{
+    Evaluate $\iint_S\ut{F}\cd\d S$ where $\ut{F} = y\ihat + 2x\jhat + (z-8)\khat$ and $S$ is the surface of the solid bounded by $4x + 2y + z = 8,\ z=0,\ y=0$ and $x=0$ with the positive orientation. Note that all four surfaces of the solid are included in $S$.
+}
+\sol \\
+Since these bounds bound a solid region, we can apply the divergence theorem to find the flux over the surface of solid.
+$$
+  \iint_S \ut{F}\cd\d\ut{S} = \iiint_V (\grad\cd\ut{F})\d V
+$$
+First, we'll calculate $\Div\ut{F}$
+\begin{align*}
+  \grad\cd\ut{F} &= \del{}{x}(y) + \del{}{y}(2x) + \del{}{z}(z-8) \\
+    &= 0 + 0 + 1 \\
+    &= 1
+\end{align*}
+Next, we're going to assess the vertices which bound the solid. First, we note that the three planes $x=0,\ y=0,\ z=0$ all intersect at the vertex $(0,0,0)$. If we hold $x$ and $y$ at 0, $z$ will reach its maximum of 8, so $(0,0,8)$ is a vertex. If $x$ and $z$ are held at 0, $y$ reaches its maximum at 4, so $(0,4,0)$ is a vertex. Finally, if $y$ and $z$ are held at 0, $x$ reaches its maximum at 2, so $(2,0,0)$ is the last vertex. \\
+Thus, the solid, $V$, is bound by the verticies
+$$
+  (0,0,0),\quad (2,0,0),\quad (0,4,0),\quad (0,0,8)
+$$
+The volume of the solid is given by halving the scalar triple product,
+$$
+  \frac{1}{2}\cd\frac{1}{3}(\ut{a}\times\ut{b})\cd\ut{c} = \frac{1}{6}\begin{vmatrix} 2 & 0 & 0 \\ 0 & 4 & 0 \\ 0 & 0 & 8 \end{vmatrix} = \frac{1}{6}(2\cd4\cd8) = \frac{64}{6} = \frac{32}{3}
+$$
+By the divergence theorem then,
+$$
+  I = \iint_S \ut{F}\cd\d\ut{S} = \iiint_V (\grad\cd\ut{F})\d V = \iiint_V 1\d V = \frac{32}{3} \approx 10.6667
+$$
+
+\newpage
+\qs{Divergence Theorem}{
+    Use the Divergence Theorem to evaluate $\iint_S\ut{F}\cd\d S$ where $\ut{F} = 2xz\ihat + (1-4xy^2)\jhat + (2z-z^2)\khat$ and $S$ is the surface of the solid bounded by $z=6-2x^2-2y^2$ and the plane $z=0$. Note that both of the surfaces of this solid are included in $S$.
+}
+\sol
+Divergence theorem states that
+$$
+  \iint_S \ut{F}\cd\d\ut{S} = \iiint_V (\grad\cd\ut{F})\d V
+$$
+We'll start by calculating $\Div\ut{F}$,
+\begin{align*}
+  \grad\cd\ut{F} &= \del{}{x}(2xz) + \del{}{y}(1-4xy^2) + \del{}{z}(2z-z^2) \\
+    &= 2z - 8xy + 2 - 2z \\
+    &= 2 - 8xy
+\end{align*}
+We'll use cylindrical coordinates,
+$$
+  x^2 + y^2 = r^2,\quad x = r\cos\theta,\quad y = r\sin\theta,\quad z = h,\quad \d V = r\ \d r\d\theta\d h
+$$
+$r$ will range between $0$ and $0=6-2r^2\iff r^2 = 3 \iff r = \sqrt{3}$. \\
+$\theta$ will range between $0$ and $2\pi$, the full circular rotation. \\
+$h$ will range between $0$ and the bounding surface $6 - 2x^2 - 2y^2 = 6 - 2(x^2+y^2) = 6 - 2r^2$.
+$$
+  \tf \iiint_V (\grad\cd\ut{F})\d V = \iiint_V (2 - 8xy)\d V = \iiint_V (2 - 8r^2\cos\theta\sin\theta)r\ \d r\d\theta\d h
+$$
+Let's go ahead and evaluate this integral
+\begin{align*}
+  I = \iint_S \ut{F}\cd\d\ut{S} &= \iiint_V (\grad\cd\ut{F})\d V \\
+    &= \iiint_V (2 - 8r^2\cos\theta\sin\theta)r\ \d r\d\theta\d h \\
+    &= \iiint_V 2r - 8r^3\cos\theta\sin\theta\ \d r\d\theta\d h \\
+    &= \int_{0}^{2\pi}\int_{0}^{\sqrt{3}}\int_{0}^{6-2r^2} 2r - 8r^3\cos\theta\sin\theta\ \d h\d r\d\theta \\
+    &= \int_{0}^{2\pi}\int_{0}^{\sqrt{3}}\sqbracks{\vphantom{\frac{1}{2}}2hr - 8hr^3\cos\theta\sin\theta}_{0}^{6-2r^2}\d r\d\theta \\
+    &= \int_{0}^{2\pi}\int_{0}^{\sqrt{3}}\bracks{2(6-2r^2)r - 8(6-2r^2)r^3\cos\theta\sin\theta - \bracks{2(0)r - 8(0)r^3\cos\theta\sin\theta}}\d r\d\theta \\
+    &= \int_{0}^{2\pi}\int_{0}^{\sqrt{3}}\bracks{2(6-2r^2)r - 8(6-2r^2)r^3\cos\theta\sin\theta}\d r\d\theta \\
+    &= \int_{0}^{2\pi}\int_{0}^{\sqrt{3}}\bracks{12r-4r^3 + 16r^5\cos\theta\sin\theta - 48r^3\cos\theta\sin\theta}\d r\d\theta \\
+    &= \int_{0}^{2\pi}\sqbracks{6r^2 - r^4 + \frac{8}{3}r^6\cos\theta\sin\theta - 12r^4\cos\theta\sin\theta}_{0}^{\sqrt{3}}\d\theta \\
+    &= \int_{0}^{2\pi}\bracks{6(\sqrt{3})^2 - (\sqrt{3})^4 + \frac{8}{3}(\sqrt{3})^6\cos\theta\sin\theta - 12(\sqrt{3})^4\cos\theta\sin\theta}\d\theta \\
+    &= \int_{0}^{2\pi}\bracks{18 - 9 + 72\cos\theta\sin\theta - 108\cos\theta\sin\theta}\d\theta \\
+    &= \int_{0}^{2\pi} 9 - 36\cos\theta\sin\theta\ \d\theta \\
+    &= \int_{0}^{2\pi} 9 - 18\cd 2\cos\theta\sin\theta\ \d\theta \\
+    &= \int_{0}^{2\pi} 9 - 18\sin2\theta\ \d\theta \\
+    &= \sqbracks{\vphantom{\frac{1}{2}}9\theta + 9\cos2\theta}_{0}^{2\pi} \\
+    &= 9(2\pi) + 9\cos(2(2\pi)) - 9(0) - 9\cos(2(0)) \\
+    &= 18\pi + 9 - 0 - 9 \\
+  \tf I &= 18\pi \approx 56.5487\\
+\end{align*}
+
+
+\end{document}

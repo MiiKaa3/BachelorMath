@@ -1,0 +1,280 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../../latex_template/preamble}
+\input{../../../../latex_template/macros}
+\input{../../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\begin{center}
+	{\large\bf MATH1071 Advanced Calculus \& Linear Algebra I \\ Semester 1 2025 \\ Problem Set 2} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+	Tutorial Group \#8 \\
+	Due 5pm Monday 31 March 2025
+\end{center}
+
+\qs{5 marks}{	
+	Use the definition of limits, show that
+	$$
+    \lim_{n\to \infty} \frac{1}{n^3}=0
+	$$
+}
+\sol \\
+\Definn{1.1}{Limit of a Sequence} Let $\bracks{a_n}_{n=1}^{\infty}$ be a sequence of real numbers. The limit of $\bracks{a_n}_{n=1}^{\infty}$ equals $a\in\bbr$, written $\lim_{n\to\infty} a_n = a$, if $\forall\veps>0, \exists N\in\bbn: n\geq N\implies \abs{a_n - a} < \veps$. \\
+\Lemma $\dps{\lim_{n\to\infty} \frac{1}{n^3} = 0}$ \\
+\Proof Suppose $\bracks{a_n}_{n=1}^{\infty} := \bracks{\frac{1}{n^3}}_{n=1}^{\infty}$ is a sequence of real numbers, with a limit $a:=0\in\bbr$. Suppose $\veps > 0$. Let's consider
+\begin{align*}
+	\clap{$\dps{\abs{a_n - a} = \abs{\frac{1}{n^3} - 0} = \abs{\frac{1}{n^3}} = \frac{1}{n^3} < \veps}$} \tag*{($n\in\bbn$)}
+	\intertext{When $n\geq N$. Solving for $N$ now,}
+	\clap{$\dps{n^3 > \frac{1}{\veps} \iff n > \sqrt[3]{\frac{1}{\veps}}}$} \\
+	\Choose N &= \ceil{\sqrt[3]{\frac{1}{\veps}}}
+	\intertext{Therefore, $\forall\veps>0, \exists N\in\bbn, N = \operatorname{ceil}\bracks{\sqrt[3]{1/\veps}}$ we have}
+	\clap{$\dps{n \geq N = \ceil{\sqrt[3]{\frac{1}{\veps}}}}$} \\
+	\clap{$\dps{n \geq N \geq \sqrt[3]{\frac{1}{\veps}}}$} \\
+	\clap{$\dps{n^3 \geq N^3 \geq \frac{1}{\veps}}$} \\
+	\clap{$\dps{\frac{1}{n^3} \leq \frac{1}{N^3} \leq \veps}$} \\
+	\longintertext{Verifying our choice of $N$, and completing the proof. \\ Therefore, by the $\veps{-}N$ definition of the limit, $\dps{\lim_{n\to\infty}\frac{1}{n^3} = 0. \QED}$}
+\end{align*}
+
+
+\newpage
+\qs{10 marks}{
+	Use suitable limit laws, find the limits for the following sequences. Please cite which laws you've used.
+
+	\begin{enumerate}[label=(\alph*)]
+		\item $\dps{\lim_{n\to\infty} \frac{2n^3 + 4n}{7n^4 + 5n^2 - 1}}$
+		\item $\dps{\lim_{n\to\infty} \frac{\cos n + \sin n}{n}}$
+	\end{enumerate}
+}
+\Theomm{2.1} (Sequence Limit Properties) Suppose $n\in\bbn$, $\lim_{n\to\infty}a_n = a$, $\lim_{n\to\infty}b_n = b$, and $\lm\in\bbr$ is fixed, then
+\begin{multicols}{2}
+	\begin{enumerate}[label=(\alph*), itemsep=0pt]
+		\item $\dps{\lim_{n\to\infty}(a_n + b_n) = a + b}$
+		\item $\dps{\lim_{n\to\infty}\lm a_n = \lm a}$
+		\item $\dps{\lim_{n\to\infty}a_nb_n = ab}$
+		\item $\dps{\lim_{n\to\infty}\frac{a_n}{b_n} = \frac{a_n}{b_n},\ \text{given}\ b\neq0,\ b_n\neq0,\forall n}$
+	\end{enumerate}	
+\end{multicols}
+\Theomm{2.2} (Squeeze Theorem) Suppose we have three sequences $\bracks{a_n}_{n=1}^{\infty}, \bracks{b_n}_{n=1}^{\infty}, \bracks{c_n}_{n=1}^{\infty}$ such that $a_n\leq b_n\leq c_n$, and $a_n = c_n = L$. Then $b_n = L$. \\
+
+\sol(a) \\
+Just for fun, and for no particular reason, we'll divide through every term by $n^4$.
+\begin{align*}
+	\clap{$\dps{\Let L := \lim_{n\to\infty} \frac{2n^3 + 4n}{7n^4 + 5n^2 - 1} = \lim_{n\to\infty} \frac{\frac{2n^3}{n^4} + \frac{4n}{n^4}}{\frac{7n^4}{n^4} + \frac{5n^2}{n^4} - \frac{1}{n^4}} = \lim_{n\to\infty} \frac{\frac{2}{n} + \frac{4}{n^3}}{7 + \frac{5}{n^2} - \frac{1}{n^4}}}$}
+	\longintertext{Let $a_n := \frac{2}{n} + \frac{4}{n^3}$ and $a:=\lim_{n\to\infty} a_n $ \\ Let $b_n := 7 + \frac{5}{n^2} - \frac{1}{n^4}$ and $b:=\lim_{n\to\infty}b_n$. \\ We need to make sure that $b_n \neq 0$, $\forall n\in\bbn$}
+	n &> 0 \\
+	n^4 &> 0 \\
+	-n^4 &< 0 \\
+	\frac{n^2}{5}-n^4 &< 0 \\
+	\frac{5}{n^2} - \frac{1}{n^4} &> 0 \\
+	7 + \frac{5}{n^2} - \frac{1}{n^4} &> 0 \\
+	\tf b_n &> 0,\ \forall n\in\bbn
+	\intertext{Since, $b_n\neq0,\ \forall n\in\bbn,\ \lim_{n\to\infty} b_n \neq 0$. Therefore, we can apply Theorem 2.1(d)}
+	L &= \frac{a}{b}
+	\intertext{Let's start by finding $a$}
+	a &= \lim_{n\to\infty} \frac{2}{n} + \frac{4}{n^3} \\
+	\longintertext{But this is just the sum of two other sequences! \\ Let $\alpha_n := \frac{2}{n}$ and $\alpha = \lim_{n\to\infty} \alpha_n$. \\ Let $\beta_n := \frac{4}{n^3}$ and $\beta:=\lim_{n\to\infty} \beta_n$}
+	\Then a_n &= \alpha_n + \beta_n
+	\intertext{So we can apply Theorem 2.1(a)}
+	\clap{$\dps{a = \alpha + \beta = \lim_{n\to\infty} \frac{2}{n} + \lim_{n\to\infty} \frac{4}{n^3}}$}
+	\intertext{So, let's find $\alpha$.}
+	\alpha &= \lim_{n\to\infty} \frac{2}{n} 
+	\intertext{2 is a fixed constant, so we can apply Theorem 2.1(b)}
+		&= 2\lim_{n\to\infty} \frac{1}{n}
+	\intertext{And $\lim_{n\to\infty} 1/n$ is trivially equal to 0. If I need further justification, I would direct you to Question 1, where the same argument holds, except choosing $N=\ceil{1/\veps}$.}
+	\ignorealign{\tf \alpha = \lim_{n\to\infty} \frac{2}{n} = 2\lim_{n\to\infty} \frac{1}{n} = 2\cd0 = 0}
+	\intertext{Next, we'll find $\beta$.}
+	\beta &= \lim_{n\to\infty} \frac{4}{n^3}
+	\intertext{4 is a fixed constant, so we can apply Theorem 2.1(b)}
+		&= 4\lim_{n\to\infty} \frac{1}{n^3}
+	\intertext{We proved in question 1 that $\lim_{n\to\infty}1/n^3 = 0$, so}
+	\ignorealign{\tf \beta = \lim_{n\to\infty} \frac{4}{n^3} = 4\lim_{n\to\infty} \frac{1}{n^3} = 4\cd0 = 0}
+	\intertext{Hence, we've found $a$,}
+	\ignorealign{a = \alpha + \beta = 0 + 0 = 0} \\
+	\longintertext{Next we'll find $b$ \\ $b$ is also the sum of three sequencess, so we can apply Theorem 2.1(a) \\ Let $\gamma_n := 7$ and $\gamma := \lim_{n
+	\to\infty} \gamma_n$ \\ Let $\delta_n := \frac{5}{n^2}$ and $\delta := \lim_{n\to\infty} \delta_n$ \\ Let $\veps_n := \frac{1}{n^4}$ and $\veps := \lim_{n\to\infty} \veps_n$}
+	\Then b_n &= \gamma_n + \delta_n + \veps_n 
+	\intertext{And we can apply Theorem 2.1(a)}
+	\ignorealign{b = \gamma + \delta + \veps = \lim_{n
+	\to\infty} 7 + \lim_{n\to\infty} \frac{5}{n^2} + \lim_{n\to\infty} \frac{1}{n^4}}
+	\intertext{We'll start by computing $\gamma$}
+	\ignorealign{\gamma = \lim_{n\to\infty} 7 = 7\lim_{n\to\infty} 1 = 7\cd1 = 7}
+	\longintertext{In the first step, we applied Theorem 2.1(b), and in the second we note that $\lim_{n\to\infty}1$ is trivially 1. \\ Next, we'll find $\delta$}
+	\ignorealign{\delta = \lim_{n\to\infty} \frac{5}{n^2} = 5\lim_{n\to\infty} \frac{1}{n^2} = 5\cd0 = 0}
+	\longintertext{In the first step, we apply Theorem 2.1(b). In the second, we note that $\lim_{n\to\infty}1/n^2$ is trivially equal to 0. If you're not convinced, apply Theorem 2.1(c) to $\lim_{n\to\infty}\frac{1}{n^2}=\lim_{n\to\infty}\frac{1}{n}\cd\lim_{n\to\infty}\frac{1}{n}=0\cd0=0$. \\ Finally, let's find $\veps$}
+	\ignorealign{\veps = \lim_{n\to\infty}\frac{1}{n^4} = 0}
+	\longintertext{This is trivial again. You can either apply Theorem 2.1(c) twice, to find the limit is equal to $0\cd0\cd0$, or you can repeat my argument from question, but choosing $N=\ceil{\sqrt[4]{1/n}}$. \\ Thus, we can compute $b$ using Theorem 2.1(a)}
+	\ignorealign{b = \gamma + \delta + \veps = 7 + 0 + 0 = 0}
+	\intertext{and we can proceed to find the limit we were looking for!}
+	\ignorealign{L = \frac{a}{b} = \frac{\alpha + \beta}{\gamma + \delta + \veps} = \frac{0 + 0}{7 + 0 + 0} = \frac{0}{7} = 0}
+	\intertext{and conclude that}
+	\lim_{n\to\infty} \frac{2n^3 + 4n}{7n^4 + 5n^2 - 1} &= 0
+\end{align*}
+
+\sol (b) \\
+We'll start by applying Theorem 2.1(a) to break up the limit into two limits
+\begin{align*}
+	\ignorealign{\Let L := \lim_{n\to\infty}\frac{\cos n + \sin n}{n} = \lim_{n\to\infty}\frac{\cos n}{n} + \lim_{n\to\infty}\frac{\sin n}{n}}
+	\longintertext{Let $a_n := \frac{\cos n}{n},\ a := \lim_{n\to\infty}a_n$. \\ Let $b_n := \frac{\sin n}{n},\ b := \lim_{n\to\infty}b_n$. \\ $\tf L = a + b$. \\ We'll work out $a$ and $b$ by using Theorem 2.2, and finding some sequences that may squeeze $a$ and $b$, respectively.}
+	\ignorealign{\begin{array}{ccc}
+		-1 \leq \cos n \leq 1 & \qquad\qquad & -1 \leq \sin n \leq 1 \\
+		\\
+		\dfrac{-1}{n} \leq \dfrac{1}{\cos n} \leq \dfrac{1}{n} & \qquad\qquad & \dfrac{-1}{n} \leq \dfrac{1}{\sin n} \leq \dfrac{1}{n} \\
+		\\
+		\dfrac{-1}{n} \leq a_n \leq \dfrac{1}{n} & \qquad\qquad & \dfrac{-1}{n} \leq b_n \leq \dfrac{1}{n} \\
+	\end{array}}
+	\longintertext{Note that, since $n\in\bbn$, $n$ is strictly positive, so we don't have to flip the equalities. Let's now find the limit of these sequences, and see if the sqeeuze $a_n$ and $b_n$}
+	\lim_{n\to\infty} \frac{1}{n} &= 0 
+	\intertext{That is a trivial limit we've already identified and worked with in previously.}
+	\lim_{n\to\infty} \frac{-1}{n} &= -1 \lim_{n\to\infty} \frac{1}{n} \\
+		&= -1\cd0 \\ 
+		&= 0
+	\intertext{We apply Theorem 2.1(b) to pull the constant fixed factor out, then compute the trivial limit again. As we can see, $\lim_{n\to\infty}1/n = \lim_{n\to\infty}-1/n = 0$. Also, $-1/n \leq a_n \leq 1/n$ and $-1/n \leq b_n \leq 1/n$. Therefore, by Theorem 2.2, the sqeeze theorem,}
+	\ignorealign{a=0, \quad\qquad b=0} \\
+	\intertext{Now, we can calculate the limit of interest,}
+	\tf L = a + b &= 0 + 0 = 0
+	\intertext{Therefore, we can conlude that the limit}
+	\ignorealign{\lim_{n\to\infty} \frac{\cos n + \sin n}{n} = 0}
+\end{align*}
+
+\newpage
+\qs{10 marks}{
+	Suppose $(b_n)_{n=0}^{\infty}$ and $(c_n)_{n=0}^{\infty}$ are two convergent sequences with
+	$$
+		\lim_{n\to \infty}b_n=\lim_{n\to \infty}c_n=L.
+	$$
+	Suppose there's another sequence $(a_n)_{n=0}^{\infty}$ where $b_n=a_{2n}$ and $c_n=a_{2n+1}$ for all $n\in\mathbb{Z}_{\geq 0}$. Use the definition of limits, show that $\lim_{n\to \infty}a_n = L$.
+}
+\sol \\
+Since $b_n$ and $c_n$ are convergent sequences,
+\begin{gather*}
+	\tf\forall \veps > 0, \exists N_1\in\bbz_{\geq0}: n\geq N_1 \implies \abs{b_n - L} < \veps, \\
+	\forall \veps > 0, \exists N_2\in\bbz_{\geq0}: n\geq N_2 \implies \abs{c_n - L} < \veps.
+\end{gather*}
+$a_n$ is made up of two subsequences. Even $n$'s take $b_n$'s value, while odd $n$'s take $c_n$'s value. \\
+We must show that
+$$
+	\forall\veps > 0, \exists N\in\bbz_{\geq0}: n\geq N \implies \abs{a_n - L} < \veps
+	$$
+	Therefore, choose $n=2\max\braces{N_1,N_2}$. \\
+Case $n=2k,\ k\in\bbz$. $\abs{a_{2N_1} - L} = \abs{b_{N_1} - L} < \veps$ \\
+Case $n=2k+1,\ k\in\bbz$. $\abs{a_{2N_2} - L} = \abs{c_{N_2} - L} < \veps$ \\
+
+Therefore, with this choice of $N$, in either case, $a_n$ converges to $L$.
+
+\newpage
+\qs{15 marks}{
+	In class we studied the sequence $(a_n)_{n=0}^{\infty}$ where $a_0=1$ and $a_{n+1}=\frac{1}{a_n+1}$ for all $n$. We showed that the  subsequence with  even terms $(b_n)_{n=0}^{\infty}$ where $b_n=a_{2n}$ forms a bounded monotone decreasing sequence and concluded that it converges to the number $\phi=\frac{-1+\sqrt{5}}{2}$. The purpose of this exercise is to repeat this process for the  subsequence with odd  terms.
+
+	\begin{enumerate}[label=(\alph*)]
+		\item Write out the first five terms of $(c_n)_{n=0}^{\infty}$ where $c_n=a_{2n+1}$.
+		\item Find a recursion between the terms of $c_n$. (Hint: use the recursion for $a_n$ twice!)
+		\item Show that $c_n\leq\phi$ for all $n$.
+		\item Show that $c_n$ is monotone increasing.
+		\item Find the limit of $\lim_{n\to \infty}c_n$.
+	\end{enumerate}
+}
+\sol (a) \\
+The first 5 terms of $c_n$:
+$$
+	\begin{array}{ccccccccl}
+		c_0 &=& a_1 &=& \dfrac{1}{a_0 + 1} &=& \dfrac{1}{2} &\approx& 0.5 \\ \\
+		c_1 &=& a_3 &=& \dfrac{1}{a_2 + 1} &=& \dfrac{3}{5} &\approx& 0.6 \\ \\
+		c_2 &=& a_5 &=& \dfrac{1}{a_2 + 1} &=& \dfrac{8}{13} &\approx& 0.615385 \\ \\
+		c_3 &=& a_7 &=& \dfrac{1}{a_2 + 1} &=& \dfrac{21}{34} &\approx& 0.617647 \\ \\
+		c_4 &=& a_9 &=& \dfrac{1}{a_8 + 1} &=& \dfrac{55}{89} &\approx& 0.617978 \\ \\		
+	\end{array}
+$$
+\sol (b) \\
+The easy part of developing the recursion relation is setting the starting point:
+$$
+	c_0 = 0.5
+$$
+is clear from the term list above. Next, the relation itself,
+\begin{gather*}
+	c_n = a_{2n+1} = \frac{1}{a_{2n} + 1} = \frac{1}{\dfrac{1}{a_{2n-1}+1}+1} = \frac{1}{\dfrac{1}{c_{n-1}+1} + 1} = \frac{1}{\dfrac{1}{c_{n-1}+1} + \dfrac{c_{n-1}+1}{c_{n-1}+1}} = \frac{c_{n-1}+1}{c_{n-1}+2}
+\end{gather*}
+Therfore,
+$$
+	c_0 = \frac{1}{2},\qquad c_{n+1} = \frac{c_n+1}{c_n+2}
+$$
+
+\newpage
+\sol (c) \\
+Let's consider the function $f:\bbr\to\bbr$ defined by
+$$
+	f(x) = \frac{x+1}{x+2}
+$$
+We're looking for a point which maps back to itself. I.e. if the reccurance relation $c_n$ ever reached this value, it would repeatedly map back onto itself. We'll call this point $\alpha$.
+$$
+	\alpha = f(\alpha) = \frac{\alpha + 1}{\alpha + 2} \iff \alpha(\alpha+2) = \alpha + 1 \iff \alpha^2 + 2\alpha = \alpha + 1 \iff \alpha^2 + \alpha - 1 = 0
+$$
+Applying the quadratic formula, to solve for $\alpha$,
+$$
+	\alpha = \frac{-(1)\pm\sqrt{1^2 - 4(1)(-1)}}{2(1)} = \frac{-1 \pm \sqrt{5}}{2}
+$$
+and we'll take the positive square root, which is the larger number. Therefore, $\alpha = \frac{-1+\sqrt{5}}{2} = \phi$. \\
+
+So, since $c_n$ starts below $\phi$, and $c_n$ is increasing, and if $c_n$ ever \textit{reached} $\phi$, it would remain at $\phi$ forever, we can conclude
+$$
+	c_n \leq \phi
+$$
+
+\sol (d) \\
+For $c_n$ to be monotone increasing, we must show that $c_n\leq c_{n+1},\ \forall n\geq 0$. i.e.,
+\begin{gather}
+	c_n \leq c_{n+1} = \frac{c_n + 1}{c_n + 2} 
+\end{gather}
+Let's work with the inequality, see if we can find find a fact which we certainly know is true
+\begin{align*}
+	c_n &\leq \frac{c_n + 1}{c_n + 2} \\
+	c_n\bracks{c_n + 2} &\leq c_n + 1 \\
+	c_n^2 + 2c_n &\leq c_n + 1 \\
+	c_n^2 + c_n - 1 &\leq 0 \\
+	\intertext{We've already solved this quadratic!}
+	\tf c_n &\leq \frac{-1+\sqrt{5}}{2} \tag*{(2)}
+\end{align*}
+And we know that this is true, we proved this fact in the previous part. In other words, $(1)\iff (2)$. $(2)$. Therefore $(1)$.	Since the equality holds, we've proven that the sequence $c_n$ is monotone increasing. \\
+
+\sol (e) \\
+\Theomm{4.1} (Monotone Convergence Theorem)	A monotone sequence converges if and only if it is bounded. \\
+
+In (d) we proved that $c_n$ is a monotone increasing sequence. In (c) we proved that $c_n$ is bounded, i.e. $c_n\leq\phi$. From these two facts, along with Theorem 4.1, it follows that
+$$
+	\lim_{n\to\infty} c_n = \phi = \frac{-1+\sqrt{5}}{2}
+$$
+
+
+
+
+\newpage
+\qs{10 marks}{
+	Show that a convergent sequence is always bounded. In other words, given a sequence $(a_n)_{n=0}^{\infty}$ and assume that $\lim_{n\to\infty}a_n=L$. Show that there exists a number $M$ such that $|a_n|<M$ for all $n$.
+}
+\sol 
+\begin{proof}
+	Directly, by construction.
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Suppose $\bracks{a_n}_{n=0}^{\infty}$ is a convergent sequence with $\lim_{n\to\infty} a_n = L$. \\
+		We will construct a global bounding value, $A$.
+
+		Then, $\forall \veps > 0,\ \exists N\in\bbz_{\geq0}: n\geq N\implies \abs{a_n - L} < \veps$. \\
+		Therefore, $\forall n\geq N$, $\abs{L}-\veps < \abs{a_n} < \abs{L}+\veps$. \\
+		So, the ``tail'' of the sequence is bounded.
+
+		Cosnider the sequence $\bracks{a_0, a_1,\dots,a_{N-1}}$. In other words, the subsequence made up of $a_n$'s terms up-to, but not including $a_N$. \\
+		This subsequence is finite, since $N$ is an integer, \\
+		therefore, $A_0 = \max\braces{\abs{a_0}, \abs{a_1}, \dots, \abs{a_{N-1}}}$ is well-defined.
+
+		Take $A = \max\braces{A_0,\ \abs{L}+\veps}$. \\
+		Our construction guarantees that $a_n \leq A,\ \forall n\in\bbz_{\geq0}$. \\
+	\end{list}
+	Therefore, a convergent seuqnce, $a_n$, is bounded.
+\end{proof}
+
+Note that you can arbitrarily choose $\veps>0$, and the constrution holds.
+
+
+\end{document}

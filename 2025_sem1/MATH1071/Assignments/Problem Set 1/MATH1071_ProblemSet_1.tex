@@ -1,0 +1,272 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../../latex_template/preamble}
+\input{../../../../latex_template/macros}
+\input{../../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\begin{center}
+	{\large\bf MATH1071 Advanced Calculus \& Linear Algebra I \\ Semester 1 2025 \\ Problem Set 1} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+	Tutorial Group \#8 \\
+	Due 3pm Friday 14 March 2025
+\end{center}
+
+\qs{10 marks}{
+	Given the following sets
+	\begin{gather*}
+		A=\{2,7,17,37\}, \qquad B=\{3,37,59\},\\
+		C=\{2,3,5,17,37,59\}, \qquad D=\{37,102\}
+	\end{gather*}
+	Determine if $B\subseteq C$ (1 mark), and write down the list of elements for each of the following sets (4 mark)
+	$$
+		A\cup B, \qquad D\setminus A, \qquad B\cap C, \qquad B\times D.
+	$$
+	Lastly, verify the following statement by listing the elements for both sides of the equality: (5 marks)
+	$$
+		(A\cap B)\times D = (A\times D) \cap (B \times D).
+	$$
+}
+\sol \\
+We note that, of the elements in $B$, 3 is an element of $C$, 37 is an element of $C$, and 59 is an element of $C$. Since all the elements of $B$ are accounted for in $C$, we conclude that $B\subseteq C$.
+\begin{gather*}
+	A\cup B = \braces{2,7,17,37}\cup\braces{3,37,59} = \braces{2,3,7,17,37,59} \\
+	D\setminus A = \braces{37,102}\setminus\braces{2,7,17,37} = \braces{102} \\
+	B\cap C = \braces{3,37,59}\cap\braces{2,3,5,17,37,59} = \braces{3, 37, 59} \\
+	B\times D = \braces{3,37,59}\times\braces{37,102} = \braces{\bracks{3,37},\bracks{3,102},\bracks{37,37},\bracks{37,102},\bracks{59,37},\bracks{59,102}}
+\end{gather*}
+\begin{align*}
+	(A\cap B)\times D &= \bracks{\braces{2,7,17,37}\cap\braces{3,37,59}}\times\braces{37,102} \\
+		&= \braces{37}\times\braces{37,102} \\
+		&= \braces{\bracks{37,37},\bracks{37,102}} \\
+	\bracks{A\times D}\cap\bracks{B\times D} &= \bracks{\braces{2,7,17,37}\times \braces{37,102}}\cap\bracks{\braces{3,37,59}\times \braces{37,102}} \\
+		&= \braces{\bracks{2,37},\bracks{2,102},\bracks{7,37},\bracks{7,102},\bracks{17,37},\bracks{17,102},\bracks{37,37},\bracks{37,102}} \\
+		&\phantom{a=} \cap\braces{\bracks{3,37},\bracks{3,102},\bracks{37,37},\bracks{37,102},\bracks{59,37},\bracks{59,102}} \\
+		&= \braces{\bracks{37,37},\bracks{37,102}} \\
+		&= \bracks{A\cap B}\times D
+\end{align*}
+
+\newpage
+\qs{5 marks}{
+	\begin{enumerate}[label=(\alph*)]
+		\item (2 marks) Determine if $f$ constitutes a binary operation on the set $A$. Please state your reasoning.
+			$$
+				A=\{\text{QLD},\text{VIC},\text{NSW}\}, \qquad  f: A\times A\to \mathbb{N}, 
+			$$
+			where for each $a,b\in A$, we define $f(a,b)=$ the total number of driver licences issued in 2024 by states $a$ and $b$ combined.
+		\item (3 marks)  Determine if the following binary operation is associative. Please state your reasoning.
+			$$
+				A=\{\text{States and territories in Australia}\}, \qquad  f: A\times A\to A, 
+			$$
+			where for each $a,b\in A$, we define $f(a,b)=$ the state or territory with the larger population at the end of the year 2024. 
+	\end{enumerate}
+	We may assume that no states or territories have the same population at the end of the year 2024.
+}
+\sol (a) \\
+A binary operation is a function mapping the Cartesian product of a set with itself, to itself. \\
+Since the given function, $f$, is mapping between $A\times A$ to $\bbn\neq A$, we know that $f$ does not constitute a binary operation on $A$. \\
+
+\sol (b) \\
+A binary operation, $*:S\times S\to S$, is associative if it holds to:
+$$
+	(a*b)*c = a*(b*c),\quad \forall a,b,c\in S
+$$
+We'll define a ``magnitude'' operator, $\abs{\cd}:S\to\bbn$, where $\abs{s}\mapsto$ the population of $s$ at the end of 2024, $\forall s\in S$. \\
+Then, we can reformulate $f$ using only mathematical notation. Let $f:A\times A\to A$ be a binary operatin on $A$, where $\forall a,b\in A$,
+$$
+	f(a,b) = \left\lbrace\begin{array}{ll} a, & \abs{a}>\abs{b} \\ b, & \abs{b} > \abs{a}	\end{array} \right. .
+$$
+
+\begin{proof}
+	We'll prove that the binary operation $f$ on $A$ is associative.
+
+\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item 
+	Suppose $a,b,c\in S$. \\
+	Without loss of generality, assume $\abs{a} < \abs{b} < \abs{c}$. \\
+	We'll first consider, $f(f(a,b),c) = f(b,c)$, because $\abs{b}>\abs{a}$. \\
+	Then, $f(b,c) = c$, because $\abs{c}>\abs{b}$. \\
+	Now we'll consider $f(a,f(b,c)) = f(a,c)$, because $\abs{c}>\abs{b}$. \\
+	Then, $f(a,c) = c$, because $\abs{c}>\abs{a}$. \\
+	Hence, $f(f(a,b),c) = c = f(a,f(b,c))$.
+\end{list}
+	Therefore, $f$ on $A$ is associative.
+\end{proof}
+
+
+
+\newpage
+\qs{10 marks}{
+	Let $\mathbb{Z}_{11}=\{0,1,2,3,4,5,6,7,8,9,10\}$, with modular arithmetic as the two binary operations. Find the additive and multiplicative inverse for each element in the set.
+}
+\sol \\
+Before we can find the additive and multiplicative inverses, we need to identify the additive and multiplicative identities. 
+\begin{gather*}
+	\exists i\in\bbz_{11}: a+i=i+a=a,\ \text{namely}, i=0.\ \textit{Proof.}\ \Suppose a \in \bbz_{11}.\ a + 0 = 0 + a = a. \qed \\
+	\exists e\in\bbz_{11} a \cd e = e \cd a = a,\ \text{namely}, e=1.\ \textit{Proof.}\ \Suppose a\in\bbz_{11}.\ a \cd 1 = 1 \cd a = a. \qed
+\end{gather*}
+Now, for an element $x\in\bbz_{11}$ to have an additive identity, $y\in\bbz_{11}$, it must conform to the equation
+$$
+	x + y \equiv i \Mod{11} 
+$$
+$\forall x\in\bbz_{11},\exists y\in\bbz_{11}: x+y\equiv 0\Mod{11},\ \text{namely,}\ y\equiv -x\Mod{11}$.
+\begin{center}
+	\begin{tabular}{c|rrrrrrrrrrr}
+		$x\in\bbz_{11}$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+		$y$							& 0 & -1 & -2 & -3 & -4 & -5 & -6 & -7 & -8 & -9 & -10 \\ \hline
+		$y\Mod{11}\in\bbz_{11}$ & 0 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 \\ \hline
+		$x + y$ & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	\end{tabular}
+\end{center}
+
+For an element $x\in\bbz_{11}$ to have a multiplicative identity, $y\in\bbz_{11}$, it must conform to the equation
+$$
+	x\cd y \equiv e \Mod{11}
+$$
+$\forall x\in\bbz_{11},\exists y\in\bbz_{11}:x\cd y\equiv 1\Mod{11}\iff\exists k\in\bbz: 1\cd xy=11k,\ \text{namely,}\ y = \frac{11k}{x}$. \\
+From this result, we can immediately see that $x=0\in\bbz_{11}$ does not have a multiplicative inverse in $\bbz_{11}$, but every other element does.
+\begin{center}
+	\begin{tabular}{c|rrrrrrrrrrr}
+		$x\in\bbz_{11}$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+		$y$ & & 1 & 6 & 4 & 3 & 9 & 2 & 8 & 7 & 5 & 10 \\ \hline
+		$x\cd y$ & & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\ 
+	\end{tabular}
+\end{center}
+
+
+\newpage
+\qs{15 marks}{
+	\begin{enumerate}[label=(\alph*)]
+		\item (5 marks) Prove that the additive identity of a field is always unique. (Therefore we can drop the uniqueness condition from the field axioms.)
+		\item (5 marks) Let $\mathbb{Z}_{8}=\{0,1,2,3,4,5,6,7\}$. If we use modular arithmetic mod $4$, are these still binary operations? Argue why there does not exist an additive identity in $\mathbb{Z}_{8}$.
+		\item (5 marks) Let $\mathbb{R}$ be the set of real numbers, where multiplication is regarded as the (new) addition, and addition is regarded as the (new) multiplication. Is $\mathbb{R}$ still a field with the two operations swapped? Why?
+	\end{enumerate}
+}
+\sol (a)
+\begin{proof}
+	Suppose a field, $\bbf$, has more than one unique additive identities, $i_1, i_2\in\bbf$, an element $x\in\bbf$, and its inverse $y\in\bbf$. 
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Then $x + y = y + x = i_1$. \\
+		And $x + y = y + x = i_2$. \\
+		Hence $i_1 = i_2$. \CONTRA \\
+		Therefore, a field can't have more than one unique additive identities.
+	\end{list}
+	Therefore, a field has one unique additive identity.
+\end{proof}
+
+\sol (b) \\
+A binary operator on a set, $S$, is a function
+$$
+	f:S\times S\to S
+$$
+which is closed, every pair of elements in $S$ has a result in $S$. \\
+
+If we endow $\bbz_8$ with mod 4 arithmetic, the function may or may not be a binary operation. The question is a little vague; I'll explain. The key is considering what we mean by ``modular arithmetic mod 4'', and whether it meets the definition we laid out, or not. \\
+
+If by ``modular arithmetic mod 4'' we mean
+$$
+	f:\bbz_8\times\bbz_8\to\bbz_4,\ (x,y)\mapsto (x+y)\Mod{4}, \forall x,y\in\bbz_8
+$$
+then this function is not a binary operation, since the codomain is not the same set as the domain (prior to taking the Cartesian product). \\
+
+If by ``modular arithmetic mod 4'' we mean
+$$
+	f:\bbz_8\times\bbz_8\to\bbz_8,\ (x,y)\mapsto (x+y)\Mod{4}, \forall x,y\in\bbz_8
+$$
+then the function is a binary operation. Even though the entire codomain isn't being mapped to, every pair of elements has a result it can map to, which I show using this Cayley table,
+\begin{center}
+	\begin{tabular}{c|cccccccc}
+		$f$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ \hline
+		0		&	0	&	1	&	2	&	3	&	0	&	1	&	2	&	3 \\
+		1		&	1	&	2	&	3	&	0	&	1	&	2	&	3	&	0 \\
+		2		&	2	&	3	&	0	&	1	&	2	&	3	&	0	&	1 \\
+		3		&	3	&	0	&	1	&	2	&	3	&	0	&	1	&	2 \\
+		4		&	0	&	1	&	2	&	3	&	0	&	1	&	2	&	3 \\
+		5		&	1	&	2 &	3	&	0	&	1	&	2 &	3	&	0 \\
+		6		&	2	&	3	&	0	&	1	&	2	&	3	&	0	&	1 \\
+		7		&	3	&	0	&	1	&	2	&	3	&	0	&	1	&	2 \\
+	\end{tabular}
+\end{center}
+
+If we accept the latter, even though arithmetic mod 4 on $\bbz_8$ is a binary operator, there isn't an additive identity. This is because, again referring to the Cayley table above, 
+$$
+	\nexists i\in\bbz_8: (k,i)\mapsto k, \forall k\in\braces{4,5,6,7}.
+$$
+4, 5, 6 and 7 never map onto themselves; hence there is not an additive identity for $(\bbz_8, +_{\Mod{4}})$. \\
+
+\sol (c) \\
+Since this might get notationally confusing, let's clear that up right away. We'll define the ``new'' addition and multiplication like so,
+\begin{gather*}
+	\oplus:\bbr\times\bbr\to\bbr,\ x\oplus y \mapsto x \cd y,\ \forall x,y\in\bbr \\
+	\otimes:\bbr\times\bbr\to\bbr,\ x\otimes y \mapsto x + y,\ \forall x,y\in\bbr
+\end{gather*}
+Now the question is, does the algebraic structure, $\bbf := (\bbr,\oplus,\otimes)$ form a field? \\
+
+We'll start by determining whether or not $(\bbr,\oplus)$ forms an Abelian group. Since normal multiplication, $\cd$ , is closed, associative, and communitative on $\bbr$, so is $\oplus$. We need to consider the existence of an identity element. 
+\begin{gather*}
+	\exists i\in\bbr: \forall x\in\bbr, x\oplus i = x,\ \text{namely,}\ i=1. \\
+	\textit{Proof.}\ \Suppose x\in\bbr.\ x\oplus 1 = 1\oplus x = 1\cd x = x \qed
+\end{gather*}
+Next, we'll consider the existence of an inverse for each element.
+\begin{gather*}
+	\forall x\in\bbr, \exists y\in\bbr: x\oplus y = 1.\ \text{This is false. We prove with a counterexample.} \\
+	\textit{Proof.}\ \Suppose \forall x\in\bbr,\exists y\in\bbr:x\oplus y = 1.\ \Take x=0\in\bbr.\\
+	\Then 0\oplus y = 1 \iff 0\cd y = 1 \iff y = \frac{1}{0}\ \CONTRA \\
+	\tf \forall x\in\bbr,\ \nexists y\in\bbr: x\oplus y = 1 \QED 
+\end{gather*}
+Therefore, the algebraic structure $(\bbr, \oplus)$ does not have an inverse for each element. \\
+Therefore, the algebraic structure $\bbf$ is not a field. \\
+
+The reason $(\bbr, \oplus, \otimes)$ does not form a field, but $(\bbr, +,\ \cd\ )$ does is because the additive identity, 0, is critically removed from the set before we consider whether or not it forms an Abelian group. i.e. $(\bbr,\ \cd\ )$ does not form an Abelian group, but $(\bbr\setminus\braces{0},\ \cd\ )$ does.
+
+
+
+\newpage
+\qs{10 marks}{
+	\begin{enumerate}[label=(\alph*)]
+		\item (5 marks) Using the formal definition, prove that if $a_n\leq b_n$ for all $n\in \mathbb{N}$, and $\operatorname{lim}_{n\to \infty}a_n=\infty$, then $\operatorname{lim}_{n\to \infty}b_n=\infty$.
+		\item	(5 marks) Using the previous item, show that
+			$$
+				\lim_{n\rightarrow \infty} (n-7+n^5+3^n)=\infty.
+			$$
+	\end{enumerate}
+}
+\sol (a) \\
+\Definn{5.1.1}{Sequence Limits to Infinity} The sequence $\braces{a_n}_{n=1}^{\infty}$ \textit{goes to infinity}, denoted $\lim_{n\to\infty}a_n = \infty$, if $\forall M>0,\ \exists N\in\bbn: a_N > M$. \\
+
+\Theomm{5.1.1} If $a_n \leq b_n,\ \forall n\in\bbn$ and $\lim_{n\to\infty} a_n = \infty$ then $\lim_{n\to\infty} b_n = \infty$. 
+
+\begin{proof}
+	Suppose $\braces{a_n}_{n=1}^{\infty},\ \braces{b_n}_{n=1}^{\infty}$ are sequences with $\lim_{n\to\infty} a_n = \infty$ and $a_n \leq b_n,\ \forall n\in\bbn$.
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Let $M$ be an arbitrarily large real number. \\
+		Let $N$ be the index such that the element $M < a_N$. \\
+		Since $\lim_{n\to\infty} a_n = \infty$, by definition 5.1.1, $N$ is guaranteed to exist. \\
+		Since, $a_n \leq b_n,\ \forall n\in\bbn$, we know $a_N \leq b_N$. \\
+		Therefore, $M < a_N \leq b_N$.
+	\end{list}
+	Therefore, $\lim_{n\to\infty} b_n = \infty$
+\end{proof}
+
+\sol (b) \\
+\Corol $\lim_{n\to\infty} (n - 7 + n^5 + 3^n) = \infty$.
+\begin{proof}
+	Let $\braces{a_n}_{n=1}^\infty: a_n \mapsto n - 7 + n^5 + 3^n,\ \braces{b_n}_{n=1}^\infty: b_n \mapsto 3^n,\ \forall n\in\bbn$.
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		We start by noting that $3^n \leq 3^n + n^5$. \\
+		Then, $3^n \leq 3^n + n^5 + n$. \\
+		Finally, $3^n \leq 3^n + n^5 + n - 7 \leq 3^n + n^5 + n$. \\
+		We see that $3^n \leq 3^n + n^5 + n - 7$,\\
+		thus, $b_n \leq a_n,\ \forall n\in\bbn$. \\
+		Let $M$ be an arbitrarily large real number. \\
+		Choose $N = \ceil{M}$. \\
+		Then $b_N = 3^N = 3^{\ceil{M}} > M$. \\
+		Therefore by Definition 5.1.1, $\lim_{n\to\infty} b_n = \infty$. \\
+		Therefore by Theorem 5.1.1, $\lim_{n\to\infty} b_n = \infty,\ \because b_n \leq a_n$, and $\lim_{n\to\infty} b_n = \infty$.
+	\end{list}
+	Therefore, $\lim_{n\to\infty} (n - 7 + n^5 + 3^n) = \infty$
+\end{proof}
+
+\end{document}

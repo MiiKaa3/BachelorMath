@@ -1,0 +1,293 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+\usepackage{wasysym}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\begin{center}
+	{\large\bf MATH1081 Advanced Discrete Mathematics \\ Semester 1 2025 \\ Problem Set 1} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+	Tutorial Group \#3 \\
+	Due 5pm Friday 28 March 2025
+\end{center}
+
+\qs{10 marks}{
+	Prove that \textsf{XOR} satisfies the associative law; that is:
+	\[ p \oplus (q \oplus r) \equiv (p \oplus q) \oplus r. \]
+}
+\sol \\
+\Definn{1.1}{\textsf{XOR}} For two predicates, $p$ and $q$, the \textsf{XOR} of them, denoted $p\lxor q \equiv (p\lor q) \land \lnot(p\land q)$. \\
+
+\Theomm{1.1} \textsf{XOR} satisfies the associative law; that is: $p\lxor (q\lxor r) \equiv (p\lxor q)\lxor r$.
+\begin{proof}
+	By considering all cases with a truth table. 
+	\begin{center}\begin{tabular}{|ccc|cc|cc|c|}
+		\hline
+		$p$ & $q$ & $r$ & $p\lxor q$ & $q\lxor r$ & $p\lxor(q\lxor r)$ & $(p\lxor q)\lxor r$ & $p\lxor(q\lxor r)\liff(p\lxor q)\lxor r$ \\ \hline 
+		T & T & T & F & F & T & T	& T \\
+		T & T & F & F & T & F & F	& T \\
+		T & F & T & T & T & F & F	& T \\
+		T & F & F & T & F & T & T	& T \\
+		F & T & T & T & F & F & F	& T \\
+		F & T & F & T & T & T & T	& T \\
+		F & F & T & F & T & T & T	& T \\
+		F & F & F & F & F & F & F	& T \\ \hline
+	\end{tabular}\end{center}
+	As we can see in the final column, $p\lxor(q\lxor r)$ is logically equivalent to $(p\lxor q)\lxor r$, for all possible value combinations of $(p,q,r)$. \\
+	Therefore \textsf{XOR} satisfies the associative law.
+\end{proof}
+
+Which makes sense! Since the group $(\braces{T,F},\lxor)$ is isomorphic to $(\braces{0,1}, {+})$ (which I won't prove here $\smiley$).
+
+\newpage
+\qs{10 marks}{
+	Using the laws of logical equivalence, prove that for any fixed $n \in \bbn$ and statement variables $p,q_1,q_2,\ldots,q_n$:
+	\[
+		p \land (q_1 \oplus q_2 \oplus \ldots \oplus q_n) \equiv
+		(p \land q_1) \oplus (p \land q_2) \oplus \ldots \oplus (p \land q_n)
+	\]
+}
+\sol Let's first make sure that $\land$ distributes over $\lxor$. \\
+
+\Theomm{2.1} For three statement variables, $p,q_1,q_2$, $p\land(q_1 \lxor q_2) \equiv (p\land q_1) \lxor (p\land q_2)$.
+\begin{proof}
+	By considering all cases with a truth table. 
+	\begin{center}\begin{tabular}{|ccc|ccc|cc|c|}
+		\hline
+		$p$ & $q_1$ & $q_2$ & $q_1\lxor q_2$ & $p\land q_1$ & $p\land q_2$ & $\cll := p\land(q_1\lxor q_2)$ & $\clr := (p\land q_1) \lxor (p\land q_2)$ & $\cll\liff\clr$ \\ \hline 
+		T & T & T & F & T & T & F & F & T \\
+		T & T & F & T & T & F & T & T & T \\
+		T & F & T & T & F & T & T & T & T \\
+		T & F & F & F & F & F & F & F & T \\
+		F & T & T & F & F & F & F & F & T \\
+		F & T & F & T & F & F & F & F & T \\
+		F & F & T & F & F & F & F & F & T \\
+		F & F & F & F & F & F & F & F & T \\ \hline
+	\end{tabular}\end{center}
+	As we can see in the final column, $p\land(q_1 \lxor q_2)$ is logically equivalent to $(p\land q_1) \lxor (p\land q_2)$, for all possible value combinations of $(p,q,r)$. \\
+	Therefore $\land$ distributes over $\lxor$.
+\end{proof}
+
+\Theomm{2.2} For a fixed $n\in\bbn$, and statement variables $p,q_1,q_2,\dots,q_n,$ \\ $p \land (q_1 \lxor q_2 \lxor \ldots \lxor q_n) \equiv (p \land q_1) \lxor (p \land q_2) \lxor \ldots \lxor (p \land q_n).$ \\
+
+Note: I will express $\dps{\bracks{q_1 \lxor q_2 \lxor \ldots \lxor q_n} \equiv \bigoplus_{i=1}^n q_i}$.
+
+\begin{proof}
+	Suppose $n\in\bbn$ is fixed and $p,q_1,q_2,\dots,q_n$ are statement variables.
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Let's consider $\dps{p \land \bracks{\bigoplus_{i=1}^{n} q_i} \equiv p \land \bracks{q_1 \lxor \bigoplus_{i=2}^n q_i}}$.
+
+		Let's define a statement variable $\dps{r_2 = \bigoplus_{i=2}^n q_i}$.
+
+		Then we can rewrite the statement $\dps{p \land \bracks{\bigoplus_{i=1}^{n} q_i} \equiv p \land \bracks{q_1 \lxor r_2}}$. 
+
+		We can apply Theorem 2.1, $\dps{p \land \bracks{\bigoplus_{i=1}^{n} q_i} \equiv (p\land q_1) \lxor \bracks{p\land\bigoplus_{i=2}^{n} q_i}}$.
+
+		We can repeat this for $\dps{r_3 = \bigoplus_{i=3}^{n} q_i}$, and applying Theorem 2.1,
+
+		$\dps{p\land\bracks{\bigoplus_{i=1}^n q_i} \equiv (p\land q_1) \lxor (p\land q_2) \lxor (p\land r_3) \equiv (p\land q_1) \lxor (p\land q_2) \lxor \bracks{p\land \bigoplus_{i=3}^{n} q_i}}$	
+
+		We can continue this process, repeatedly taking $\dps{r_k = \bigoplus_{i=k}^n q_i,\ k \leq n}$, and then distributing $p\land$, according to Theorem 2.1.
+
+		Eventually, when $\dps{k=n,\ r_k \equiv r_n \equiv \bigoplus_{i=k=n}^n q_i \equiv q_n}$, 
+		
+		and $\dps{p \land \bracks{\bigoplus_{i=1}^{n} q_i} \equiv \bigoplus_{i=1}^{n-1} \bracks{p\land q_i}} \lxor (p \land r_n) \equiv \bigoplus_{i=1}^{n} (p\land q_i)$. 
+
+		which is equivalent to $(p\land q_1)\lxor\dots\lxor(p\land q_n)$, which is what we wanted to show. \\
+	\end{list}
+	Therefore, $p \land (q_1 \lxor q_2 \lxor \ldots \lxor q_n) \equiv
+	(p \land q_1) \lxor (p \land q_2) \lxor \ldots \lxor (p \land q_n)$
+\end{proof}
+
+
+\newpage
+\qs{10 marks}{
+	Show that the following argument is valid, using the rules of inference and/or logical equivalences. Clearly label which rule you used in each step.
+	$$
+		\argument{
+			1. & r \lthen \lnot a \\
+			2. & \lnot r \lthen \lnot b \\
+			3. & \lnot c \lthen a \\
+			4. & \lnot c \lthen b \\
+		}{c}
+	$$
+}
+\sol
+$$
+	\argument{
+		1. & r \lthen \lnot a \\
+		2. & \lnot r \lthen \lnot b \\
+		3. & \lnot c \lthen a \\
+		4. & \lnot c \lthen b \\
+		5. & a \lthen \lnot r & \text{(Contrapositive of 1.)} \\
+		6. & a \lthen \lnot b & \text{(Transitivity of 5. and 2.)} \\
+		7. & \lnot b \lthen c & \text{(Contrapositive of 4.)} \\
+		8. & a \lthen c & \text{(Transitivity of 6. and 7.)} \\
+		9. & \lnot c \lthen \lnot a & \text{(Contrapositive of 8.)} \\
+		10. & \bracks{\lnot c \lthen a}\land\bracks{\lnot c \lthen \lnot a} & \text{(Conjunction of 3. and 9.)} \\
+		11. & \bracks{c \lor a}\land\bracks{c \lor \lnot a} & \text{(Logically Equivalent to 10. (Def. of $\lthen$))} \\
+		12. & c \lor \bracks{a\land\lnot a} & \text{(Logically Equivalent to 10. (Distributivity))} \\
+		13. & c \lor \bot & \text{(Logically Equivalent to 10. (Negation))} \\
+		14. & c & \text{(Logically Equivalent to 10. (Identity))} \\
+	}{c}
+$$
+
+
+\newpage
+\qs{10 marks}{
+	Let $D$ be some domain, and let $p(x)$ and $q(x)$ be predicates in the variable $x \in D$. Write the following English sentences symbolically, i.e., using logical symbols, logical operations, and/or quantifiers. Your answers should not contain any English other than possibly the phrase ``such that''.
+	\begin{enumerate}[label=(\alph*)]
+		\item $p(x)$ is never true.
+		\item $p(x)$ is a necessary condition for $q(x)$.
+		\item It is impossible for $p(x)$ and $q(x)$ to both be true for the same value of $x$.
+		\item Every $x$ satisfies exactly one of $p(x)$ or $q(x)$ (not both).
+		\item There is exactly one value of $x$ (no more, no less) for which $p(x)$ is true.
+	\end{enumerate}
+}
+\sol
+\begin{enumerate}[label=(\alph*)]
+	\item $\forall x\in D, \lnot p(x)$
+	\item $\forall x\in D, q(x) \lthen p(x)$
+	\item $\forall x\in D, \lnot(q(x) \land p(x))$
+	\item $\forall x\in D, (p(x)\land\lnot q(x)) \lor (q(x)\land\lnot p(x))$
+	\item $\exists x\in D: p(x) \land \forall y\in D,\ p(y) \lthen (y=x)$
+\end{enumerate}
+
+\newpage
+\qs{10 marks}{
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that for all integers $n \in \bbn$, if $n$ is prime and $n > 2$ then $n$ is odd.
+		\item Prove that for all integers $n \in \bbn$, if $n^2+3$ is prime then $n$ is even.
+		\item Prove that for all integers $n \in \bbn$, if $n^2-1$ is prime then $n^2+1$ is also prime.
+	\end{enumerate}
+}
+\sol (a)
+\begin{proof}
+	The statement's contrapositive is $\forall n\in\bbn, n>2,\ n\text{ is even} \lthen n\text{ is composite}$.
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Suppose $n\in\bbn$, $n>2$ and $n$ is even. \\
+		Then $n = 2k,\ k\in\bbz$. \\
+		Hence, $2\divs 2k \iff 2\divs n$. \\
+		Therefore $n$ is composite. \\
+		Therefore, $\forall n\in\bbn, n>2,\ n\text{ is even} \lthen n\text{ is composite}$. \\
+	\end{list}
+	Therefore, $\forall n\in\bbn, n>2,\ n\text{ is prime} \lthen n\text{ is odd}$. \\
+\end{proof}
+
+\sol (b)
+\begin{proof}
+	The statement's contrapositive is $\forall n\in\bbn,\ n \text{ is odd} \lthen n^2+3 \text{ is composite}.$
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Suppose $n\in\bbn$ and $n$ is odd. \\
+		Then, $n = 2k+1,\ k\in\bbz$. \\
+		Hence, $n^2+3 = (2k+1)^2+3 = 4k^2 + 4k + 1 + 3 = 4k^2 + 4k + 4$. \\
+		So, $n^2 + 3 = 2(2k^2 + 2k + 2) \iff 2\divs n^2 + 3$. \\
+		Therefore, $n$ is even.
+		Therefore, $\forall n\in\bbn,\ n \text{ is odd} \lthen n^2+3 \text{ is composite}.$ \\
+	\end{list}
+	Therefore, $\forall n\in\bbn,\ n^2+3 \text{ is prime} \lthen n \text{ is even}.$ \\
+\end{proof}
+
+\sol (c)
+\begin{proof}
+	The statement's contrapositive is $\forall n\in\bbn,\ n^2 + 1 \text{ is composite} \lthen n^2 - 1 \text{ is composite}$
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Suppose $n\in\bbn$, $n^2 + 1$ is composite. \\
+		We note that $n^2 - 1$ can be factorised into $(n+1)(n-1)$.
+
+		For $n{=}1$, $(n+1)(n-1) = 2\cd0 = 0 \notin \bbn$, so we can discard this case.
+
+		For $n{=}2$, $(n+1)(n-1) = 3\cd1 = 3$, is not composite! \\
+		However, $n^2 + 1 = 5$, is not composite. Since the premise of the implication is not true, we can actually discard this case.
+
+		For $n{>}2$,\ $n+1 > 2$,\ $n-1 \geq 2 $. \\
+		Which means, $n^2 - 1$ can be factorised into at least two factors.
+
+		This is the definition of composite, hence, $n^2 - 1$ is composite.
+
+		Therefore $\forall n\in\bbn,\ n^2 + 1 \text{ is composite} \lthen n^2 - 1 \text{ is composite}$.\\
+	\end{list}
+	Therefore $\forall n\in\bbn,\ n^2 - 1 \text{ is prime} \lthen n^2 + 1 \text{ is prime}$. \\
+\end{proof}
+
+
+\newpage
+\qs{10 marks}{
+	\begin{enumerate}[label=(\alph*)]
+		\item Prove that there are infinitely many odd integers $n\in\bbn$ for which $n$ and $n+100$ are both composite.
+		\item Prove that there are infinitely many odd integers $n\in\bbn$ for which $n$, $n+2$, $n+4$, $n+6$, \ldots, $n+1000$ are all composite.
+	\end{enumerate}
+}
+\sol (a)
+\begin{proof}
+	Directly.
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Suppose $k \in \bbn$. \\
+		Choose $n=5(2k+1)\in\bbn$.
+
+		Then $5\divs n$, since 5 is trivially a factor. \\
+		Hence $n$ is composite. \\
+		Consider, $n = 5(2k+1) = 10k + 5 = 2(5k+2) + 1 \iff 2\ndivs n$. \\
+		Hence, $n$ is odd. 
+		
+		Consider $n + 100 = 5(2k+1) + 100 = 25k+5+100 = 25k+105 = 5(5k+21)$. \\
+		Since $5\divs(n + 100)$, then $n+100$ is composite. \\
+		Consider $n + 100 = 5(2k+1) + 100 = 25k+5+100 = 25k+105 = 2(12k+52)+(k+1) \iff 2\ndivs(n+100)$. \\
+		Hence, $n+100$ is odd.
+
+		Since there are infinite natural numbers $k$, there are infinite $n=5(2k+1)$s.
+	\end{list}
+	Therefore, there are infinitely many odd integers, $n$ for which $n$ and $n+100$ are composite.	
+\end{proof}
+
+\sol (b)
+\begin{proof}
+	Directly.
+	\begin{list}{}{\setlength{\leftmargin}{1in}\setlength{\topsep}{0pt}}\item
+		Suppose $k\in\bbn$. \\
+		Choose $n = 2(1001!k + 1)+1$.
+		Therefore, $n$ is odd.
+		\begin{align*}
+			n &= 2(1001!k + 1) + 1 \\
+				&= 2\cd1001!k + 2 + 1 \\
+				&= 2\cd1001!k + 3 \\
+				&= 3\bracks{\frac{2\cd1001!k}{3} + 1}
+		\end{align*}
+		Therefore, $n$ is composite.
+
+		Next, we'll consider $n+2$
+		\begin{align*}
+			n + 2 &= 2(1001!k + 1) + 3 \\
+				&= 2\cd1001!k + 2 + 3 \\
+				&= 2\cd1001!k + 5 \\
+				&= 5\bracks{\frac{2\cd1001!k}{5} + 1}
+		\end{align*}
+		Therefore, $n+2$ is composite.
+
+		Finally, we'll consider $n+1000$
+		\begin{align*}
+			n + 1000 &= 2(1001!k + 1) + 1001 \\
+				&= 2\cd1001!k + 2 + 1001 \\
+				&= 2\cd1001!k + 1003 \\
+				&= 1001\bracks{2\cd1000!k + 1}
+		\end{align*}
+		Therefore, $n$ is composite.
+
+		In general, for every $m\in\braces{0,2,4,\dots,1000}$, we can always factorise the expression
+		$$
+			n + m = 2(1001!k + 1)+1+m = (m+1)\bracks{\frac{2\cd1001!k}{m+1}+1}
+		$$
+		which shows that all of these numbers we've found are composite. 
+
+		Since there are infinite natural numbers $k$, there are infinite $n\text{'s} = 2(1001!k + 1)+1$ with $n+m,\ \forall m\in\braces{0,2,\dots,1000}$ are all composite.\\
+	\end{list}
+	Therefore, there are infinitely many odd integers, $n$ for which $n+m,\ \forall m\in\braces{0,2,\dots,1000}$ are composite.	\\
+\end{proof}
+
+
+\end{document}

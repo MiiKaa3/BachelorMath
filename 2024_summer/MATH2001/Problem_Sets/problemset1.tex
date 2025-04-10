@@ -14,9 +14,9 @@
 
 {\bf Due at 2:00pm 19 December.} Each question marked out of 10 then homogeneously rescaled up to a total marks of 13. {\bf Total marks: $\frac{13}{60}(Q1+Q2+Q3+Q4+Q5+Q6) $}. 
 
-Submit your assignment online via the Assignment 1 submission link in Blackboard.
+Submit your assignment online via the Assignment 1 submission link in Blackboard. \\ 
 
-\qs{Exact IVP after Integrating Factors}{
+\qs{Exact IVP after Integrating Factors - [10 marks]}{
   Consider the equation
   $$
     \frac{\sin y}{y}-2e^{-x}\sin x +  \left(\frac{\cos y + 2 e^{-x} \cos x}{y}\right)y'=0.
@@ -27,78 +27,294 @@ Submit your assignment online via the Assignment 1 submission link in Blackboard
     %\\ (Do not solve the equation; only obtain the correct implicit equation that solves the given IVP).
   \end{enumerate}
 }
-\sol
+\sol (a)
+\begin{gather*}
+  \begin{aligned}
+      \text{Let } P(x,y) &= \frac{\sin y}{y} - 2e^{-x}\sin x \\
+      \text{Let } Q(x,y) &= \frac{\cos y + 2e^{-x}\cos x}{y}
+  \end{aligned} \\
+  \text{Then } P(x,y) + Q(x,y)y' = 0 \text{ is exact}\iff \del{P}{y} = \del{Q}{x} \\
+  \begin{aligned}
+      \del{P}{y} &= \del{}{y}\left(\frac{\sin y}{y} - 2e^{-x}\sin x\right) \\
+          &= \frac{y\cos y - \sin y}{y^2} \\
+      \del{Q}{x} &= \del{}{x}\left(\frac{\cos y + 2e^{-x}\cos x}{y}\right) \\
+          &= \frac{-2e^{-x}\cos x - 2e^{-x}\sin x}{y} \\
+          &= \frac{-2e^{-x}(\cos x + \sin x)}{y} \neq \del{P}{y}
+  \end{aligned} \\
+  \intertext{Let's now define new functions which are scaled by integrating factor $\mu=ye^x$.}
+  \begin{aligned}
+      \text{Let } \widehat{P}(x,y) = \mu P(x,y) &= e^x\sin y - 2y\sin x \\
+      \text{Let } \widehat{Q}(x,y) = \mu Q(x,y) &= e^x\cos y + 2\cos x
+  \end{aligned} \\
+  \begin{aligned}
+      \del{\widehat{P}}{y} &= \del{}{y}\left(e^x\sin y - 2y\sin x\right) \\
+          &= e^x\cos y - 2\sin x \\
+      \del{\widehat{Q}}{x} &= \del{}{x}\left(e^x\cos y + 2\cos x\right) \\
+          &= e^x\cos y - 2 \sin x = \del{\widehat{P}}{y} \\
+  \end{aligned} \\
+  \intertext{Therefore, while the ODE}
+  P(x,y) + Q(x,y)y' = 0
+  \intertext{is not exact, multiplying the equation by an integrating factor, $\mu$ gives the ODE}
+  \widehat{P}(x,y) + \widehat{Q}(x,y)y' = e^x\sin y - 2y\sin x + (e^x\cos y + 2\cos x)y' = 0
+  \intertext{which is exact.}
+\end{gather*}
+
+\sol (b)\\
+Since the ODE $\widehat{P}(x,y) + \widehat{Q}(x,y)y' = 0$ is exact, $\exists f$ such that $f_x=\widehat{P}(x,y)$, $f_y=\widehat{Q}(x,y)$, and $f(x,y) = K$ implicitly defines $y$ as a function of $x$.
+\begin{gather*}
+    \begin{align*}
+        \del{f}{x} = \widehat{P}(x,y) &= e^x\sin y - 2y\sin x \\
+        \implies f(x,y) = \int \widehat{P}(x,y)\d x &= \int e^x\sin y - 2y\sin x\ \d x \\
+            &= e^x\sin y + 2y\cos x + g(y) \\ 
+        \del{f}{y} = \widehat{Q}(x,y) &= \del{}{y}(e^x\sin y + 2y\cos x + g(y)) \\
+        e^x\cos y + 2\cos x &= e^x\cos y + 2\cos x + g'(y) \\
+        \implies g'(y) = 0 &\Rightarrow g(y) = C \\
+        \tf f(x,y) = K &= e^x\sin y + 2y\cos x + C
+        \intertext{Since, $K$ and $C$ are arbitrary constants, we will incorprate them into one arbitrary constant, $K$. Now, we'll apply the inital condition, $y(\pi)=\pi/2$.}
+        f\bracks{\pi,\frac{\pi}{2}} = K &= e^\pi\sin\frac{\pi}{2} + 2\frac{\pi}{2}\cos\pi \\
+          &= e^\pi - \pi \\
+        \tf f(x,y) = e^\pi - \pi &= e^x\sin y + 2y\cos x 
+        \intertext{implicitly defines $y$ as a function of $x$.}
+    \end{align*}
+\end{gather*}
 
 
 \newpage
-\qs{Variation of Parameters}{
+\qs{Variation of Parameters - [10 marks]}{
   Consider the non-homogeneous ODE
-  \[
-    x^2 y'' - 3x y' + 4y = \ln x,\quad x>0.
-    \]
+  $$
+    x^2y'' - 3xy' + 4y = \lnx,\quad x>0.
+  $$
   \begin{enumerate}[label=(\alph*)]
-    \item Show that $y_1=x^2$ and $y_2 = x^2\ln x$ are solutions to the corresponding homogeneous ODE $x^2 y'' - 3x y' + 4y =0.$
+    \item Show that $y_1=x^2$ and $y_2 = x^2\ln x$ are solutions to the corresponding homogeneous ODE $x^2y'' - 3xy' + 4y = 0$.
     \item Find the general solution of the non-homogeneous ODE.
   \end{enumerate}
 }
-\sol
+\sol (a)
+\begin{gather*}
+  \intertext{Given the homogeneous ODE}
+  x^2y'' - 3xy' + 4y = 0, \\
+  \intertext{consider the potential solution $y_1=x^2$.}
+  y_1 = x^2 \implies y_1' = 2x \implies y_1''= 2.
+  \intertext{Substitute these back into the ODE,}
+  x^2y'' - 3xy' + 4y = x^2(2) - 3x(2x) + 4(x^2) = 2x^2 - 6x^2 + 4x^2 = 0.
+  \longintertext{Therefore, $y_1=x^2$ is a solution to the homogeneous ODE. \\Now consider the potential solution $y_2=x^2\lnx$.}
+  y_2 = x^2\lnx \implies y_2' = 2x\lnx + x^2(1/x) = 2x\lnx + x \\
+  \implies y_2'' = 2\lnx + 2x(1/x) + 1 = 2\lnx + 3. \\
+  \intertext{Substitute these back into the ODE,}
+  x^2y'' - 3xy' + 4y = x^2(2\lnx + 3) - 3x(2x\lnx + x) + 4(x^2\lnx) \\
+    = 2x^2\lnx + 3x^2 - 6x^2\lnx - 3x^2 + 4x^2\lnx = 2x^2\lnx + 4x^2\lnx - 6x^2\lnx + 3x^2 - 3x^2 = 0.
+  \intertext{Therefore, $y_2=x^2\lnx$ is also a solution to the homogeneous ODE.}
+\end{gather*}
+
+\sol (b)
+\begin{gather*}
+  \intertext{Given the second order, non-homogeneous ODE}
+  x^2y'' - 3xy' + 4y = \lnx,\quad x>0,
+  \intertext{and the solutions to the homogeneous case found in the prior question, we will solve this ODE using variation of parameters. To apply variation of parameters though, first we need the $y''$ term without a multiplying factor, so we'll divide the ODE through by $x^2$,}
+  y'' - \frac{3}{x}y' + \frac{4}{x^2}y = \frac{\lnx}{x^2}
+  \intertext{Since we determined the fundamental set of solutions $y_1,y_2$ in the previous question, let's go ahead and calculate the Wronskian.}
+  \clw(y_1,y_2)(x) = \begin{vmatrix} y_1 & y_2 \\ y_1' & y_2' \end{vmatrix} = y_1y_2' - y_2y_1' = 2x^3\lnx + x^3 - 2x^3\lnx = x^3
+  \intertext{After variation of parameters, our general solution will look like,}
+  y = y_H + y_p = \alpha y_1(x) + \beta y_2(x) + u(x)y_1(x) + v(x)y_2(x) \\
+  \intertext{We know (and have previously derived) the equations}
+  u = -\int \frac{y_2r}{W}\d x \qquad v = \int \frac{y_1r}{W}
+  \intertext{where $W=\clw(y_1,y_2)(x)$, which we just calculated, and $r=\lnx / x^2$, the RHS of the ODE. We'll make the subsitutions and solve for $u$ and $v$.}
+  \begin{align*}
+    u(x) &= -\int \frac{y_2r}{W}\d x \\
+      &= -\int \frac{x^2\lnx\frac{\lnx}{x^2}}{x^3}\d x \\
+      &= -\int \frac{\ln^2x}{x^3}\d x \\
+      &= \frac{\ln^2x}{2x^2} - \int\frac{\lnx}{x^3}\d x \tag*{(Integration by Parts)} \\
+      &= \frac{\ln^2x}{2x^2} + \frac{\lnx}{2x^2} - \int\frac{1}{2x^3}\d x \tag*{(Integration by Parts)} \\
+    \tf u(x) &= \frac{\ln^2x}{2x^2} + \frac{\lnx}{2x^2} + \frac{1}{4x^2} \\
+    v(x) &= \int \frac{y_1r}{W}\d x \\
+      &= \int \frac{x^2\frac{\lnx}{x^2}}{x^3}\d x \\
+      &= \int \frac{\lnx}{x^3}\d x \\
+      &= \frac{-\lnx}{2x^2} - \int\frac{-1}{2x^3}\d x \tag*{(Integration by Parts)}\\
+      &= \frac{-\lnx}{2x^2} + \frac{1}{2}\int\frac{1}{x^3}\d x \\
+    \tf v(x)&= \frac{-\lnx}{2x^2} - \frac{1}{4x^2}
+  \end{align*}
+  \intertext{Bringing it all together, we find the general solution}
+  y = \alpha x^2 + \beta x^2\lnx + \bracks{\frac{\ln^2x}{2x^2} + \frac{\lnx}{2x^2} + \frac{1}{4x^2}}x^2 + \bracks{\frac{-\lnx}{2x^2} - \frac{1}{4x^2}}x^2\lnx,
+  \intertext{which we can simplify to}
+  y = \alpha x^2 + \beta x^2\lnx + \frac{1 + \lnx}{4}.
+\end{gather*}
 
 
 \newpage
-\qs{Orthogonal Basis and Projections}{
+\qs{Orthogonal Basis and Projections - [10 marks]}{
   Consider the inner product space $P_2(\mathbb{R})$ with inner product 
   $$
-    \big \langle p_0+p_1x+p_2x^2,q_0+q_1x+q_2x^2 \big \rangle = p_0q_0+p_1q_1+p_2q_2,\ \ p_0,p_1,p_2,q_0,q_1,q_2\in \mathbb{R}.
+    \brangle{p_0+p_1x+p_2x^2,q_0+q_1x+q_2x^2} = p_0q_0+p_1q_1+p_2q_2,\ \ p_0,p_1,p_2,q_0,q_1,q_2\in\bbr.
   $$
-  Let $U=\{1+2x+x^2 \}$.
-  \begin{itemize}
-    \item[(a)]
-    Find $U^\perp$.
-    \item[(b)]
-    Determine an orthogonal basis for $U^\perp$.
-  \end{itemize}
-}
-\sol
-
-
-\newpage
-\qs{Orthogonality and Projections}{
-  Consider the vector space $\mathbb R^4$ endowed with the inner product
-  $$
-    \big \langle \left( u_1, u_2, u_3, u_4 \right), \left( v_1, v_2, v_3, v_4 \right) \big \rangle = u_1v_1+ 3u_2v_2 + u_3v_3+2u_4v_4.
-  $$
-  Let $U=\text{span} \{\mathbf u_1 = (-2,1,0,1), \mathbf u_2 = (0,1,2,3) \}$ be a subspace of $\mathbb R^4$.
+  Let $U = \braces{1+2x+x^2}$.
   \begin{enumerate}[label=(\alph*)]
-    \item Use Gram-Schmidt procedure to construct an orthonormal basis for $U$.
-    \item Find the orthogonal projection of  $\mathbf v = (-1,2,5,1)$ in $U$ and $U^\perp$.
+    \item Find $U^\perp$.
+    \item Determine an orthogonal basis for $U^\perp$.
   \end{enumerate}
 }
-\sol
+\sol (a)
+\begin{gather*}
+  \brangle{p_0 + p_1x + p_2x^2, q_0 + q_1x + q_2x^2} = p_0q_0 + p_1q_1 + p_2q_2 \\
+  U = \braces{1 + 2x + x^2} \\
+  U^\perp = \braces{p \in P_2(\bbr)\suchthat \brangle{p, u}=0, \forall u\in U}
+  \intertext{$U$ has one element, so we'll take it for $u$, and we'll take a general polynomial for $p$.}
+  \brangle{p_0 + p_1x + p_2x^2, 1 + 2x + x^2} = p_0 + 2p_1 + p_2 = 0 \\
+  \implies p_0 = -2p_1 - p_2 \\ 
+  \intertext{So, a polynomial which belongs in $U^\perp$ is constrained by this condition.}
+  \implies p = (-2p_1 - p_2, p_1, p_2)\in P_2(\bbr)
+  \intertext{Finally, we'll utilise some vector addition, and scalar multiplcation}
+  \tf p = (-2p_1, p_1, 0) + (-p_2, 0, p_2) = p_1(-2,1,0) + p_2(-1,0,1)
+  \intertext{All polynomials which belong in $U^\perp$ must be some linear combination of these vectors}
+  \tf U^\perp = \braces{\alpha(-2,1,0) + \beta(-1,0,1)\suchthat \alpha,\beta\in\bbr}.
+\end{gather*}
+
+\sol (b)
+\begin{gather*}
+  \intertext{We've found a basis for $U^\perp$, namely}
+  \braces{(-2,1,0), (-1,0,1)}.
+  \intertext{Since these vectors are linearly independent ($\nexists\alpha\in\bbr:(-2,1,0)=\alpha(-1,0,1)$), we can find an orthogonal basis for $U^\perp$ by taking the cross product to find an orthogonal vector.}
+  (-2,1,0) \times (-1,0,1) = \begin{vmatrix} \ihat & \jhat & \khat \\ -2 & 1 & 0 \\ -1 & 0 & 1 \end{vmatrix} = (1, 2, 1)
+  \intertext{So, we've actually determined two orthogonal bases for $U^\perp$,}
+  \braces{(-2,1,0),(1,2,1)}\quad\text{and}\quad\braces{(-1,0,1),(1,2,1)}.
+\end{gather*}
 
 
 \newpage
-\qs{NAME NEEDED}{
-  Consider the vector space of $2\times2$ Matrices over the real numbers $M_{2,2}(\mathbb{R})$. The sets of matrices $S$ and $A$ such that $S^T=S$ and $A^T=-A$ define vector subspaces in $M_{2,2}(\mathbb{R})$. Call these subspaces respectively as $M^S_{2,2}(\mathbb{R})=\{S\in M_{2,2}(\mathbb{R}) |S^T=S\}$ and $M^A_{2,2}(\mathbb{R})=\{A\in M_{2,2}(\mathbb{R}) |A^T=-A\}$. 
-  Take the inner product over $M_{2,2}(\mathbb{R})$ defined by:
+\qs{Orthogonality and Projections - [10 marks]}{
+  Consider the vector space $\bbr^4$ endowed with the inner product
   $$
-    \langle\bold{v},\bold{u}\rangle
-  =\rm{Tr}(\bold{v}^T\bold{u})
-  ~,
+    \brangle{\bracks{u_1, u_2, u_3, u_4}, \bracks{v_1, v_2, v_3, v_4}} = u_1v_1 + 3u_2v_2 + u_3v_3 + 2u_4v_4.
   $$
-  $\forall\,\bold{v},\bold{u}\in M_{2,2}(\mathbb{R})$. Are the subspaces $M^S_{2,2}(\mathbb{R})$ and $M^A_{2,2}(\mathbb{R})$ orthogonal according to the inner product defined above? Explain your answer.
+  Let $U = \Span\braces{\ut{u_1} = (-2,1,0,1), \ut{u_2} = (0,1,2,3)}$ be a subspace of $\bbr^4$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Use Gram-Schmidt procedure to construct an orthonormal basis for $U$.
+    \item Find the orthogonal projection of  $\ut{v} = (-1,2,5,1)$ in $U$ and $U^\perp$.
+  \end{enumerate}
+}
+\sol (a)
+\begin{gather*}
+  \intertext{Let $v_1,v_2$ be the basis vectors of the orthogonal basis. Set $v_1$ to $u_1$.}
+  v_1 = u_1 = (-2,1,0,1).
+  \intertext{Constructing $v_2$ requires us to subtract the projection of $u_2$ onto $v_1$, from $u_2$.}
+  v_2 = u_2 - \proj_{v_1}(u_2) = u_2 - \frac{\brangle{u_2,v_1}}{\brangle{v_1,v_1}}\ v_1 \\
+  \intertext{Let's now compute these inner products, according to the definition given in the question,}
+  \begin{aligned}
+    \brangle{u_2,v_1} &= {u_2}_x{v_1}_x + 3{u_2}_y{v_1}_y + {u_2}_z{v_1}_z + 2{u_2}_w{v_1}_w \\ % u_1 = v_1 = (-2,1,0,1); u_2 = (0,1,2,3)
+      &= 0\cd-2 + 3\cd1\cd1 + 2\cd0 + 2\cd3\cd1 \\
+      &= 0 + 3 + 0 + 6 \\
+      &= 9 \\
+    \brangle{v_1,v_1} &= {v_1}_x{v_1}_x+ 3{v_1}_y{v_1}_y + {v_1}_z{v_1}_z+2{v_1}_w{v_1}_w \\
+      &= -2\cd-2 + 3\cd1\cd1 + 0\cd0 + 2\cd1\cd1 \\
+      &= 4 + 3 + 0 + 2 \\
+      &= 9
+  \end{aligned} \\
+  \tf v_1 = u_2 - \frac{9}{9}v_1 = (0,1,2,3) - (-2,1,0,1) = (2,0,2,2)
+  \intertext{Now, to make this into an orthonormal basis, we need to normalise the vectors. These normalised vectors, we'll label $e_1$ and $e_2$.}
+  e_1 = \frac{v_1}{\norm{v_1}} = \frac{v_1}{\sqrt{\brangle{v_1,v_1}}} = \frac{v_1}{\sqrt{{v_1}_x{v_1}_x+ 3{v_1}_y{v_1}_y + {v_1}_z{v_1}_z+2{v_1}_w{v_1}_w}} = \frac{v_1}{\sqrt{9}} = \frac{v_1}{3} = \bracks{-\frac{2}{3}, \frac{1}{3}, 0, \frac{1}{3}} \\
+  e_2 = \frac{v_2}{\norm{v_2}} = \frac{v_2}{\sqrt{\brangle{v_2,v_2}}} = \frac{v_2}{\sqrt{{v_2}_x{v_2}_x+ 3{v_2}_y{v_2}_y + {v_2}_z{v_2}_z+2{v_2}_w{v_2}_w}} = \frac{v_2}{\sqrt{16}} = \frac{v_2}{4} = \bracks{\frac{1}{2}, 0, \frac{1}{2}, \frac{1}{2}}
+  \intertext{Therefore, we've constructed an orthonormal basis for $U$,}
+  \braces{\bracks{-\frac{2}{3}, \frac{1}{3}, 0, \frac{1}{3}}, \bracks{\frac{1}{2}, 0, \frac{1}{2}, \frac{1}{2}}}.
+\end{gather*}
+
+\newpage
+\sol (b)
+\begin{gather*}  % v = (-1,2,5,1)
+  \proj_{U}(v) = \brangle{v, e_1}e_1 + \brangle{v, e_2}e_2 \\
+  \brangle{v, e_1} = -\frac{2}{3}(-1) + 3\frac{1}{3}(2) + 0(5) + 2\frac{1}{3}(1) = \frac{2}{3} + 2 + 0 + \frac{2}{3} = \frac{10}{3} \\
+  \brangle{v, e_1} = \frac{1}{2}(-1) + 3(0)(2) + \frac{1}{2}(5) + 2\frac{1}{2}(1) = \frac{-1}{2} + 0 + \frac{5}{2} + 1 = 3 \\
+  \tf\proj_{U}(v) = \frac{10}{3}\bracks{-\frac{2}{3}, \frac{1}{3}, 0, \frac{1}{3}} + 3\bracks{\frac{1}{2}, 0, \frac{1}{2}, \frac{1}{2}} = \bracks{-\frac{20}{9}, \frac{10}{9}, 0, \frac{10}{9}} + \bracks{\frac{3}{2}, 0, \frac{3}{2}, \frac{3}{2}} \\
+    = \bracks{\frac{-13}{18}, \frac{10}{9}, \frac{3}{2}, \frac{47}{18}} \\
+  \proj_{U^\perp}(v) = v - \proj_{U}(v) = (-1,2,5,1) - \bracks{\frac{-13}{18}, \frac{10}{9}, \frac{3}{2}, \frac{47}{18}} = \bracks{-\frac{31}{18}, \frac{8}{9}, \frac{7}{2}, -\frac{29}{18}}
+\end{gather*}
+
+
+\newpage
+\qs{Orthogonal Subspaces - [10 marks]}{
+  Consider the vector space of $2\times2$ Matrices over the real numbers $M_{2,2}(\bbr)$. The sets of matrices $S$ and $A$ such that $S^T=S$ and $A^T=-A$ define vector subspaces in $M_{2,2}(\bbr)$. Call these subspaces respectively $M^S_{2,2}(\bbr)=\braces{S\in M_{2,2}(\bbr) \suchthat S^T = S}$ and $M^A_{2,2}(\bbr)=\braces{A\in M_{2,2}(\bbr) \suchthat A^T = -A}$. \\
+  Take the inner product over $M_{2,2}(\bbr)$ defined by:
+  $$
+    \brangle{\ut{v}, \ut{u}} = \Tr(\ut{v}^T\ut{u}),
+  $$
+  $\forall\ut{v},\ut{u}\in M_{2,2}(\bbr)$. Are the subspaces $M^S_{2,2}(\bbr)$ and $M^A_{2,2}(\bbr)$ orthogonal according to the inner product defined above? Explain your answer.
 }
 \sol
+\begin{gather*}
+  \intertext{Let's consider what elements of $M^A_{2,2}(\bbr)$ and $M^S_{2,2}(\bbr)$ look like, generally.}
+  A = \begin{pmatrix} 0 & x \\ -x & 0 \end{pmatrix} \in M^A_{2,2}(\bbr). \\
+  S = \begin{pmatrix} a & b \\ b & c \end{pmatrix} \in M^S_{2,2}(\bbr).
+  \longintertext{$A^T=-A$ and $S^T=S$, as expected. \\We'll now take the inner product of the two matrices, as defined above.}
+  \brangle{\begin{pmatrix} 0 & x \\ -x & 0 \end{pmatrix}, \begin{pmatrix} a & b \\ b & c \end{pmatrix}} = \Tr\bracks{\begin{pmatrix} 0 & -x \\ x & 0 \end{pmatrix} \begin{pmatrix} a & b \\ b & c \end{pmatrix}} = \Tr\bracks{\begin{pmatrix} -bx & -cx \\ ax & bx \end{pmatrix}} = -bx + bx = 0
+  \intertext{For the sake of completeness, let's swap the arguments.}
+  \brangle{\begin{pmatrix} a & b \\ b & c \end{pmatrix}, \begin{pmatrix} 0 & x \\ -x & 0 \end{pmatrix}} = \Tr\bracks{\begin{pmatrix} a & b \\ b & c \end{pmatrix} \begin{pmatrix} 0 & x \\ -x & 0 \end{pmatrix}} = \Tr\bracks{\begin{pmatrix} -bx & ax \\ -cx & bx \end{pmatrix}} = -bx + bx = 0
+  \intertext{It's nice to know that the order of the arguments doesn't matter...}
+  \intertext{Since $\brangle{A,S}=\brangle{S,A}=0,\ \forall A\in M^A_{2,2}(\bbr),\ S\in M^S_{2,2}(\bbr)$, we can conclude that the two subspaces $M^A_{2,2}(\bbr)$ and $M^S_{2,2}(\bbr)$ are orthogonal under the inner product $\brangle{\ut{v}, \ut{u}} = \Tr(\ut{v}^T\ut{u})$.}
+\end{gather*}
 
 
 \newpage
-\qs{NAME NEEDED}{
-  Let $P_2(\mathbb R)$ have the inner product,
+\qs{Least Sqaures Approximation - [10 marks]}{
+  Let $P_2(\bbr)$ have the inner product,
   $$
-    \langle \mathbf p, \mathbf q \rangle = \int_0^1 p(x) q(x) \,dx, \quad \forall \mathbf p, \mathbf q \in P_2(\mathbb R).
+    \brangle{\ut{p}, \ut{q}} = \int_0^1 p(x)q(x)\d x, \quad \forall \ut{p}, \ut{q}\in P_2(\bbr).
   $$
-  Find the best approximation of $f(x) = x^2 + x^3$ by polynomials in $P_2(\mathbb R)$.
+  Find the best approximation of $f(x) = x^2 + x^3$ by polynomials in $P_2(\bbr)$.
   % \\  \emph{Hint: to simplify calculations, use the method of Solution 2 of section 12.1 of the workbook.}
 }
 \sol
+\begin{gather*}
+  \intertext{We seek to approximate $f(x)=x^2+x^3$ with a polynomial $p(x)\in P_2(\bbr)$ with a least squares approximation.}
+  p(x) = \alpha_0 + \alpha_1x + \alpha_2x^2,\quad \alpha_0,\alpha_1,\alpha_2\in\bbr \\
+  \intertext{The best approximation of $f$ is a projection onto $P_2(\bbr)$. Therefore, the problem reduces to}
+  \proj_{P_2}(f) = \alpha_0 + \alpha_1x + \alpha_2x^2 = \sum_{i=0}^{2} \frac{\brangle{f,\ut{e}_i}}{\brangle{\ut{e}_i,\ut{e}_i}}\ \ut{e}_i
+  \intertext{Where $\ut{e}_i$ are the basis vectors, $\ut{e}_0=1,\ \ut{e}_1=x,\ \ut{e}_2=x^2$. The RHS here is just the standard projection formula. All that's left for us to do is to calculate all the innter products.}
+  \begin{aligned}
+    \brangle{f,e_0} = \brangle{f,1} &= \int_0^1(x^2+x^3)\cd1\d x \\
+      &= \int_0^1 x^2\d x + \int_0^1 x^3\d x \\
+      &= \frac{1}{3}x^3\Big|_0^1 + \frac{1}{4}x^4\Big|_0^1 \\
+    \tf\brangle{f,1} &= \frac{1}{3} + \frac{1}{4} = \frac{7}{12} \\
+    \brangle{e_0,e_0} = \brangle{1,1} &= \int_0^1 1\cd1\d x \\
+      &= x\Big|_0^1 \\
+    \tf\brangle{1,1} &= 1
+  \end{aligned} \\
+  \begin{aligned}
+    \brangle{f,e_1} = \brangle{f,x} &= \int_0^1 (x^2+x^3)x\ \d x \\
+    &= \int_0^1 x^3\d x + \int_0^1 x^4\d x \\
+    &= \frac{1}{4}x^4\Big|_0^1 + \frac{1}{5}x^5\Big|_0^1 \\
+    \tf\brangle{f,x} &= \frac{1}{4} + \frac{1}{5} = \frac{9}{20} \\
+    \brangle{e_1,e_1} = \brangle{x,x} &= \int_0^1 x^2\d x \\
+    &= \frac{1}{3}x^3\Big|_0^1 \\
+    \tf\brangle{x,x} &= \frac{1}{3} \\
+  \end{aligned} \\
+  \begin{aligned}
+    \brangle{f,e_2} = \brangle{f,x^2} &= \int_0^1 (x^2 + x^3)x^2\ \d x \\
+      &= \int_{0}^{1}x^4\d x + \int_{0}^{1}x^5\d x \\
+      &= \frac{1}{5}x^5\Big|_0^1 + \frac{1}{6}x^6\Big|_0^1 \\
+    \tf\brangle{f,x^2} &= \frac{1}{5} + \frac{1}{6} = \frac{11}{30} \\
+    \brangle{e_2,e_2} = \brangle{x^2,x^2} &= \int_{0}^{1} x^4\d x \\
+      &= \frac{1}{5} x^5 \Big|_0^1 \\
+    \tf\brangle{x^2,x^2} &= \frac{1}{5}
+  \end{aligned}
+  \intertext{Now that we've calculated all these inner products, we can put it all together.}
+  \begin{aligned}
+    \proj_{P_2}(f) = \sum_{i=0}^{2} \frac{\brangle{f,\ut{e}_i}}{\brangle{\ut{e}_i,\ut{e}_i}}\ \ut{e}_i &= \frac{\brangle{f,e_0}}{\brangle{e_0,e_0}}\ e_0 + \frac{\brangle{f,e_1}}{\brangle{e_1,e_1}}\ e_1 + \frac{\brangle{f,e_2}}{\brangle{e_2,e_2}}\ e_2 \\
+      &= \frac{\brangle{f,1}}{\brangle{1,1}}\ 1 + \frac{\brangle{f,x}}{\brangle{x,x}}\ x + \frac{\brangle{f,x^2}}{\brangle{x^2,x^2}}\ x^2 \\
+      &= \frac{\frac{7}{12}}{1} + \frac{\frac{9}{20}}{\frac{1}{3}}\ x + \frac{\frac{11}{30}}{\frac{1}{5}}\ x^2 \\
+      &= \frac{7}{12} + \frac{27}{20}x + \frac{11}{6}x^2 \\
+      &= \alpha_0 + \alpha_1x + \alpha_2x^2 \\
+    \implies (\alpha_0, \alpha_1, \alpha_2) &= \bracks{\frac{7}{12}, \frac{27}{20}, \frac{11}{6}}
+  \end{aligned}
+  \intertext{Therefore, the projection of $f$ onto $P_2(\bbr)$ under the inner product we've defined, and the best approximation of $f$ by a polynomial in $P_2(\bbr)$}
+  \proj_{P_2}(f) = p(x) = \frac{7}{12} + \frac{27}{20}x + \frac{11}{6}x^2 \\
+  \therefore \text{there is a being in the room with me rn.}
+\end{gather*}
 
 \end{document}
+
+%%% TIPS %%%
+% Q1 Dont solve for an epxlicit solution
+% Q2 Use variation of parameters for (b) with u=y and v=y from (a)
+% Q3 Dont use Gram-Schmidt
+% Q4 remeber for (b) that v = Proj_u(v) + Proj_u^perp(v)
+% Q5 take general vectors in each set. their inner product equalts to 0 andsee if the solution set is empty! Show that angledbracks(u, v) = - angledbrakcs(u, v) for all u,v
+% Q6 straight forward. to simplify calculations, use the method of Solution 2 of section 12.1 of the workbook. f(x) is in the set P_3(bbr), and we seek to project it down into P_4(bbr).
