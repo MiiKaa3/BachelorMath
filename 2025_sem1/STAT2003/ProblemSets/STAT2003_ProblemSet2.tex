@@ -1,0 +1,116 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\begin{center}
+	{\large\bf STAT2003 Mathematical Probability \\ Semester 1 2025 \\ Problem Set 2} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+	Tutorial Group \#10 \\
+	Due 1pm Monday 28 April 2025
+\end{center}
+
+\qs{}{
+  You are at a small pond that contains a total of $N = 20$ fish. Of these $N_1 = 14$ are catfish and $N_2 = 6$ are bass. You go fishing and you use bait and a fishing technique that attracts both types of fish in the same manner.
+  \begin{enumerate}[label=(\alph*)]
+    \item You catch $n=4$ fish without replacement. What is the $\bbp\bracks{\text{\#Catfish}=2}$? Use a first principles counting argument.
+    \item Answer the problem using the hyper-geometric distribution.
+    \item Suppose you now return the fish to the pond after catching it. You catch $n=4$ fish in total. What is the $\bbp\bracks{\text{\#Catfish}=2}$ now?
+    \item Compare the results of the two cases above. Why are the results different?
+    \item The results do not differ significantly. Explain this by presenting a derivation of the binomial$(n,p)$ distribution is the limit of the hypergeometric distribution, where we sample $n$ elements from a population that has of $N_1$ of one type and and $N_2$ of another type. In particular assume that, \[\lim_{N_1, N_2 \to \infty}  \frac{N_1}{N_1 + N_2} = p.\] With such a limit, show that the probability mass function of a bionomial is the limit of the hypergeometric probability mass function.\\ Argue what happens to $\bbp(X=x)$ as $N_1, N_2 \to \infty$.
+    \item For the case of $n = 4$, and $p= 14/20$, plot the CDF of the binomial, together with the CDF of the associated hypergeometric distributions having $N_1+N_2 = 10$, $N_1+N_2 = 20$, and $N_1+N_2 = 100$. Use Python for this and present your code. Explain what you see in the plot.
+  \end{enumerate}
+}
+\sol
+
+
+\newpage
+\qs{}{
+  Assume a mixture distribution is parameterized by some scalar parameter $\theta$, and has a probability density or probability mass function $f(x ; \theta)$. It can also have other parameters not included in $\theta$. Treat the parameter $\theta$ as a random variable with some known continuous probability density function $g(\cdot)$. Then we have the mixture distribution (probability density or probability mass function),
+  \[
+    f(x) = \int_{-\infty}^\infty f(x ; \theta) g(\theta) \, d \theta.
+  \]
+  \begin{enumerate}[label=(\alph*)]
+    \item Assume $\alpha > 0$ and $\lm >0$ are some fixed values, and that $\theta$ is distributed as Gamma$(\alpha, \beta)$ with density, \[g(\theta) = \frac{\lm^\alpha}{\Gamma(\alpha)} \theta^{\alpha-1} e^{-\lm\theta} {\mathbf 1}_{\{\theta > 0\}}\] Further assume that $f(x ; \theta)$ is Poisson where $\theta$ is the mean. Determine the resulting mixture distribution and express it's parameters in terms of $\alpha$ and $\beta$. Is it a negative binomial distribution?
+    \item Assume that $\theta$ is distributed as beta$(\alpha, \beta)$ for some fixed $\alpha>0$ and $\beta >0$, with density,\[g(\theta) = \frac{\theta^{\alpha-1} (1-\theta)^{\beta-1}}{\mathrm{B}(\alpha, \beta)}{\mathbf 1}_{\{0 \le \theta \le 1\}}.\]Assume that $f(x ; \theta)$ is binomial with a fixed number of trials $n$ and the success probability parameter being $\theta$. Determine the probability mass function of the mixture distribution. Try to represent the probability mass function using only expressions involving gamma functions $\Gamma(\cdot)$. Identify the name of this probability distribution using the distributions table supplied in the lecture.
+    \item Assume that the density of $\theta$ on $u \in [0,1]$ is $g(u) = 6u(1-u)$, and is $0$ elsewhere. Continuing with $f(x ; \theta)$ being binomial with a fixed number of trials $n$ and the success probability parameter being $\theta$, determine the mixture distribution. Plot the probability mass function when $n=20$. Present your code.
+\end{enumerate}
+}
+\sol
+
+
+\newpage
+\qs{}{
+  Consider a Pareto distribution with probability density function (PDF) given by:
+%
+\[
+f(x) = \frac{\alpha }{x^{\alpha+1}}{\mathbf 1}_{\{x \ge 1\}}, 
+\]
+%
+where \(\alpha >0\) is the shape parameter.
+
+\begin{enumerate}
+\item Compute the cumulative distribution function, $F(x)$.
+%
+\item Determine for which integer values of $\alpha$ the \(r\)-th moment \(\mathbb{E}[X^r]\) is finite.
+%
+\item A relationship that holds for non-negative continuous random variables $X$ is, 
+%
+\[
+\mathbb{E}[X] = \int_{0}^{\infty} \big(1 - F(x)\big) \, dx.
+\]
+Prove this by considering $F(x)$ as an integral and manipulating the order of integration of the double integral.
+%
+\item Use the above result to compute the mean of the Pareto distribution, and verify this against a straightforward mean computation. What is the range of the values of $\alpha$ for which the mean is finite?
+%
+\item Determine $F^{-1}(u)$, the inverse cdf.
+%
+\item Use the inverse transform sampling to generate $10^6$ random variables for the case of $\alpha=1.5$. Use the sample mean to estimate the mean and compare to the theoretical result. 
+%
+\item {\bf (*STAT7003)} Try to repeat for $\alpha = 1$. Generate an array of $10^6$ random variables, and create a table of your sample mean estimates for the first $n=10^5, 2\times 10^5, 3\times 10^5, \ldots, 10^6$ from that array. Does the estimate appear to converge? Explain your results.
+\end{enumerate}
+}
+\sol
+
+
+\newpage
+\qs{}{
+
+}
+\sol
+
+
+\newpage
+\qs{}{
+
+}
+\sol
+
+
+\newpage
+\qs{}{
+
+}
+\sol
+
+
+\newpage
+\qs{}{
+
+}
+\sol
+
+
+\newpage
+\qs{}{
+
+}
+\sol
+
+
+\end{document}

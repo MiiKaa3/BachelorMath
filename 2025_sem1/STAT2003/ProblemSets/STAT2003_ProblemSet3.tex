@@ -1,0 +1,386 @@
+\documentclass[a4paper,12pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\begin{center}
+	{\large\bf STAT2003 Mathematical Probability \\ Semester 1 2025 \\ Problem Set 3} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+	Tutorial Group \#10 \\
+	Due 1pm Monday 25 May 2025
+\end{center}
+
+\qs{10 marks}{
+  Let $X_1\sim\cln(\mu_1,\sigma^2)$ and $X_2\sim\cln(\mu_2,\sigma^2)$ be independent random variables. Consider $Y_1 = X_1 + X_2$ and $Y_2 = X_1 - X_2$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Using MGF, show that $Y_1$ and $Y_2$ are independent.
+    \item Find the joint PDF of $Y_1$ and $Y_2$.
+  \end{enumerate}
+}
+\sol(a)
+\begin{align*}
+  M_{Y_1}(s) &= \expect e^{sY_1} = \expect e^{s(X_1 + X_2)} = \expect e^{sX_1}e^{sX_2} \\
+    &= \exp\bracks{s\mu_1+\sigma^2s^2/2}\exp\bracks{s\mu_2+\sigma^2s^2/2} \\
+    &= \exp\bracks{s\mu_1 + s\mu_2 + \sigma^2s^2} \\
+  M_{Y_2}(t) &= \expect e^{tY_2} = \expect e^{t(X_1 - X_2)} = \expect e^{t(X_1 + (-X_2))} = \expect e^{tX_1}e^{-tX_2}  \\
+    &= \exp\bracks{t\mu_1+\sigma^2t^2/2}\exp\bracks{-t\mu_2+\sigma^2(-t)^2/2} \\
+    &= \exp\bracks{t\mu_1 - t\mu_2 + \sigma^2t^2}\\
+  M_{Y_1,Y_2}(s,t) &= \expect e^{sY_1 + tY_2} = \expect e^{s(X_1 + X_2) + t(X_1 - X_2)} = \expect e^{sX_1} e^{sX_2} e^{tX_1} e^{-tX_2} \\
+    &= \exp\bracks{s\mu_1+\sigma^2s^2/2}\exp\bracks{s\mu_2+\sigma^2s^2/2}\exp\bracks{t\mu_1+\sigma^2t^2/2}\exp\bracks{-t\mu_2+\sigma^2t^2/2} \\
+    &= \exp\bracks{s\mu_1 + s\mu_2}\exp\bracks{t\mu_1 - t\mu_2}\exp\bracks{\sigma^2s^2/2 + \sigma^2s^2/2 + \sigma^2t^2/2 + \sigma^2t^2/2} \\
+    &= \exp\bracks{s\mu_1 + s\mu_2}\exp\bracks{t\mu_1 - t\mu_2}\exp\bracks{(2s^2 + 2t^2)\sigma^2/2} \\
+    &= \exp\bracks{s\mu_1 + s\mu_2}\exp\bracks{t\mu_1 - t\mu_2}\exp\bracks{\sigma^2s^2}\exp\bracks{\sigma^2t^2} \\
+    &= \exp\bracks{s\mu_1 + s\mu_2 + \sigma^2s^2}\exp\bracks{t\mu_1 - t\mu_2 + \sigma^2t^2} \\
+    &= \expect e^{s(X_1 + X_2)} \expect e^{t(X_1 - X_2)} \\
+    &= \expect e^{sY_1} \expect e^{tY_2} \\
+    &= M_{Y_1}(s) M_{Y_2}(t) \iff Y_1\ \text{and}\ Y_2\ \text{are independent.}
+\end{align*}
+
+\sol(b)
+\begin{gather*}
+  Y_1 \sim \cln(\mu_1+\mu_2, 2\sigma^2)\ \text{has pdf}\ f_{Y_1}(y_1) = \frac{1}{\sqrt{4\pi\sigma^2}}\exp\bracks{-\frac{(y_1-\mu_1-\mu_2)^2}{4\sigma^2}} \\
+  Y_2 \sim \cln(\mu_1+\mu_2, 2\sigma^2)\ \text{has pdf}\ f_{Y_2}(y_2) = \frac{1}{\sqrt{4\pi\sigma^2}}\exp\bracks{-\frac{(y_2-\mu_1+\mu_2)^2}{4\sigma^2}} 
+  \intertext{Since $Y_1$ and $Y_2$ are independent, we can apply Theorem 4.2,}
+  f_{Y_1,Y_2}(y_1,y_2) = f_{Y_1}(y_1)f_{Y_2}(y_2) = \frac{1}{4\pi\sigma^2}\exp\bracks{-\frac{(y_1-\mu_1-\mu_2)^2}{4\sigma^2}}\exp\bracks{-\frac{(y_2-\mu_1+\mu_2)^2}{4\sigma^2}}
+\end{gather*}
+
+
+\newpage
+\qs{20 marks}{
+  Two machines participate in a performance test where each is timed to complete a specific task. The time it takes a machine to complete the task follows a geometric distribution with success probability $p$ per minute; that is, in each minute, there is a probability $p$ that the machine completes the task. Let $A$ and $B$ denote the number of minutes taken by machines $A$ and $B$, respectively, to complete the task. Consider
+  \begin{itemize}
+    \item $X = \min\braces{A, B}$: the earliest time the task is completed by either machine,
+    \item $Y = A - B$: the difference in completion times, and
+    \item $Z = \frac{A}{A+B}$: the proportion of total time taken by machine A.
+  \end{itemize}
+  \begin{enumerate}[label=(\alph*)]
+    \item Find the joint probability mass function (PMF) of $X$ and $Y$
+    \item Are $X$ and $Y$ independent? Justify your answer.
+    \item Determine the joint PMF of A and A + B.
+    \item Find the PMF of Z
+  \end{enumerate}
+}
+I will assume that $A\sim\Geom(p)$ and $B\sim\Geom(p)$ are independent. \\
+\sol(a)
+\begin{gather*}
+  f_A(a) = p(1-p)^{a-1},\ a\in\bbn \qquad f_B(b) = p(1-p)^{b-1},\ b\in\bbn \\
+  \intertext{$A$ and $B$ are independent, so we can apply Theorem 4.1}
+  f_{A,B}(a,b) = f_A(a)f_B(b) = p(1-p)^{a-1}p(1-p)^{b-1} = p^2(1-p)^{a+b-2},\ a,b\in\bbn
+  \longintertext{We'll find the joint pmf of $X$ and $Y$ by expressing $A$ and $B$ in those terms.\\ Case 1: $A$ finishes last or ties, $Y\geq0$}
+  \Hence X = \min\bracks{A,B} = B \implies A = B + A - B = X + Y\ \text{and } B = X 
+  \intertext{Case 2: $B$ finishes last, $Y<0$}
+  \Hence X = \min\bracks{A,B} = A \implies A = X\ \text{and } B = A - A + B = X - Y
+  \intertext{Summarising...}
+  A = \begin{cases} X + Y & , Y\geq 0 \\ X &, Y<0 \end{cases} = X + \max\braces{Y,0} \\
+  B = \begin{cases} X & , Y\geq 0 \\ X - Y &, Y<0 \end{cases} = X + \max\braces{-Y,0} \\
+  \intertext{We substitute back into the joint pmf,}
+  \tf f_{X,Y}(x,y) = p^2(1-p)^{x + \max\braces{y,0}+ x + \max\braces{-y,0}-2} = p^2(1-p)^{2x + \abs{y} - 2},\ a,b\in\bbn
+\end{gather*}
+
+\sol(b)
+Because the geometric distribution is memoryless, the difference $Y$ is unaffected by the value of $X$. Therefore, the conditional distribution of the difference $\abs{Y}$ given $X=x$ is the same as its unconditional distribution. \\
+
+\sol(c) \\
+Let $U:=A\implies A = U$.\\
+Let $V:=A+B\implies B = V-A = V-U \geq 1$. \\
+Therefore $U\leq S - 1$ and $S\geq 2$.
+\begin{gather*}
+  f_{U,V}(u,v) = p^2(1-p)^{a+b-2} = p^2(1-p)^{u+v-u-2} = p^2(1-p)^{v-2},\ 1\leq u\leq s-1,\ s\geq 2.
+\end{gather*}
+
+\sol(d) 
+$$
+  Z=z \iff \exists a,b\in\bbn: \frac{a}{a+b} = z\ \text{and}\ A=a,\ B=b
+$$
+Let $z=r/t$ where $r,t\in\bbn$ and $r<t$. \\
+Then, $a=kr$ and $b=k(t-r)$ for some $k\in\bbn$.
+\begin{align*}
+  f_{Z}\bracks{r,t} &= \sum_{k\in\bbn} f_{A,B}(a,b) \\
+    &= \sum_{k\in\bbn} f_{A,B}(kr,k(t-r)) \\
+    &= \sum_{k\in\bbn} p^2(1-p)^{kr+k(t-r)-2} \\
+    &= p^2(1-p)^{t-2} \sum_{k\in\bbn} (1-p)^{kt} \\
+    &= \frac{p^2(1-p)^{t-2}}{1 - (1-p)^t}
+\end{align*}
+$r,t\in\bbn,\ r<t$.
+
+\newpage
+\qs{10 marks}{
+  An engineer needs to simplify the processing of sensor data by rounding the recorded values to the nearest whole number. For example, both sensor readings of 9.53 and 10.47 will be rounded to 10. To model the rounding errors, the engineer assumes that the rounding errors are independent and follow a uniform distribution between -0.5 and 0.5. Let $X_1, X_2, \dots, X_n$ represent the rounding errors for $n$ measurements.
+  \begin{enumerate}[label=(\alph*)]
+    \item Find the expected value and variance of each rounding error $X_i$.
+    \item Using Chebyshev's inequality, calculate an upper bound for the probability that the total rounding error exceeds 10\% of the number of measurements, that is, $\prob{\abs{\sum_{i=1}^{n}X_i} > 0.1n}$.
+    \item A researcher is interested in how the mean absolute error (MAE) $\frac{1}{n}\sum_{i=1}^{n} \abs{X_i}$ behaves as the number of measurements $n$ becomes large. What can you conclude using the law of large numbers?
+    \item For large $n$, find the distribution of the MAE using the central limit theorem.
+  \end{enumerate}
+}
+\sol(a)\\
+\begin{gather*}
+  X_i \sim \Uniform(-0.5,0.5),\ 1\leq i \leq n. \\
+  \expect X_i = \frac{-0.5 + 0.5}{2} = 0. \\
+  \Var\bracks{X_i} = \frac{(0.5-(-0.5))^2}{12} = \frac{1}{12}
+\end{gather*}
+
+\sol(b)\\
+Chebyshev's inequality:
+$$
+  \prob{\abs{S_n/n - \mu} > \veps} \leq \frac{\Var\bracks{S_n/n}}{\veps^2}
+$$
+Let $S_n := \sum_{i=1}^{n} X_i$. \\
+Because every $X_i$ is independent,
+$$
+  \Var\bracks{S_n} = \frac{n}{12}.
+$$
+Therefore,
+$$
+  \prob{\abs{S_n} > 0.1n} \leq \frac{\Var\bracks{S_n}}{(0.1n)^2} = \frac{n}{12\cd0.01n^2} \approx \frac{8.3333}{n}
+$$
+
+\sol(c)\\
+Lets consider $\expect\abs{X_i}$.
+$$
+  \expect\abs{X_i} = \int_{-0.5}^{0.5} \abs{x}\d x = 2\int_{0}^{0.5} x\d x = 2\sqbracks{\frac{x^2}{2}}_{0}^{0.5} = (0.5)^2 - (0)^2 = 0.25
+$$
+Because the $X_i$ are independent, identically distributed and have a finite first moment, the Law of Large Numbers (Theorem 5.5) states
+$$
+  \lim_{n\to\infty} \frac{1}{n} \sum_{i=1}^{n} \abs{X_i} = \expect\abs{X_i} = 0.25
+$$
+As the number of measurements grows, the mean absolute rounding error settles near 0.25. The probability that it differs from 0.25 by more than any fixed tolerance shrinks to zero.
+
+\sol(d)\\
+$$
+  \Phi(x) = \lim_{n\to\infty} \prob{\frac{S_n - n\mu}{\sigma\sqrt{n}} \leq x}
+$$
+We already found $\mu = \expect\abs{X_i} = 0.25$. \\
+Next we find $\sigma^2 = \expect\abs{X_i}^2 - \bracks{\expect\abs{X_i}}^2 = 2\int_{0}^{0.5}x^2\d x - 0.25^2 = 2\sqbracks{\frac{x^3}{3}}_{0}^{0.5} - 0.0625 = 0.0208\dot{3} = \frac{1}{48}$. \\
+Now, since $X_i$'s are independent and identically distributed with this $\mu$ and $\sigma^2$ we can see, according to central limit theorem, as $n$ goes to infinty,
+$$
+  \frac{1}{n} \sum_{i=1}^{n} \abs{X_i} = \cln\bracks{\frac{1}{4}, \frac{1}{48n}}
+$$
+
+
+\newpage
+\qs{30 marks}{
+  A sports equipment store sells limited edition tennis rackets. Due to the exclusive nature of the product and limited display space, the store can hold a maximum of four rackets at any one time. Rackets must be stored individually to avoid damage, and storing them elsewhere in the shop is not permitted. Each day, the number of rackets sold (provided there is sufficient stock) follows the same distribution:
+  \begin{itemize}
+    \item There is a 40\% chance that no rackets are sold.
+    \item There is a 40\% chance that one racket is sold.
+    \item There is a 20\% chance that two rackets are sold.
+  \end{itemize}
+  If the store has no rackets in stock at the end of the day, the manager places a restocking order for four new rackets, which are delivered before the store opens the following morning. Each delivery incurs a fixed cost of C.
+  \begin{enumerate}[label=(\alph*)]
+    \item Give the one-step transition matrix for the number of rackets in stock at the start of each day, given the stock level at the start of the previous day. Draw the corresponding transition graph.
+    \item Find the limiting distribution for the number of rackets in stock when the shop opens, using your transition matrix in (a).
+    \item Determine the expected long-run average number of restocking orders placed per day.
+    \item If a customer arrives and no rackets are in stock, the sale is lost. Calculate the expected number of lost sales per day in the long run.
+    \item Each successful sale generates a profit of $P$, and the delivery charge remains as $C$ regardless of the quantity ordered. Use Python to simulate the sales and inventory of this store. Implement two restocking strategies: (i) restock when there are no rackets left, and (ii) restock if there are fewer than two rackets at the end of the day. Start with an initial stock of four rackets. Set $P = 10$ and $C = 15$. Simulate 1000 days and report the average number of restocking orders, the average number of sales lost, and the average profit from sales. Compare the two restocking strategies based on the simulation results. 
+  \end{enumerate}
+}
+\sol(a) \\
+Let $\cls = \braces{1,2,3,4}$ be the possible stock levels. (Note that 0 is not possible, since, we we ever ``hit'' 0, the restock ensures that the next state is 4.) \\
+We construct the transition matrix $P = \sqbracks{p_{ij}}$ \\
+where $p_{ij} = \prob{\text{next morning stock = $j$} \given \text{this morning stock = $i$}}$
+$$
+    P = \bracks{\begin{tabular}{c|cccc}
+            & 1   & 2   & 3   & 4   \\ \hline
+        1   & 0.4 & 0.0 & 0.0 & 0.6 \\
+        2   & 0.4 & 0.4 & 0.0 & 0.2 \\
+        3   & 0.2 & 0.4 & 0.4 & 0.0 \\
+        4   & 0.0 & 0.2 & 0.4 & 0.4 \\
+    \end{tabular}}
+$$
+And the corresponding transition graph \\
+\includegraphics[width=\textwidth]{stat2003_q4a.png} \\
+
+\sol(b) \\
+The limiting distribution, $\boldsymbol{\pi}$, if it exists, is a vector such that 
+$$
+    \boldsymbol{\pi} = \boldsymbol{\pi}P,\quad \sum_{\forall i}\pi_i = 1 \text{ and } \pi_i\geq 0,\ \forall i
+$$
+Let $\boldsymbol{\pi} = \bracks{\pi_1, \pi_2, \pi_3, \pi_4}$. Then
+$$
+    \begin{array}{lcl}
+         \pi_1 &=& 0.4\pi_1 + 0.4\pi_2 + 0.2\pi_3   \\
+         \pi_2 &=& 0.4\pi_2 + 0.4\pi_3 + 0.2\pi_4   \\
+         \pi_3 &=& 0.4\pi_3 + 0.4\pi_4    \\
+         1 &=& \pi_1 + \pi_2 + \pi_3 + \pi_4   \\
+    \end{array}
+$$
+is a solvable system of linear equations. From WolframAlpha, I find a potential solution,
+$$
+    \boldsymbol{\pi} = \bracks{\frac{10}{43}, \frac{21}{86}, \frac{9}{43}, \frac{27}{86}}
+$$
+Just as a sanity check, we can throw these entries into the ``secret'' fifth equation,
+$$
+    \pi_4 = 0.6\pi_1 + 0.2\pi_2 + 0.4\pi_4 = 0.6\frac{10}{43} + 0.2\frac{21}{86} + 0.4\frac{27}{86} = \frac{27}{86}
+$$
+as expected. \\
+Therefore, In the long run, when the shop opens
+\begin{itemize}
+    \item ~23\% of mornings begin with 1 racket on the shelf,
+    \item ~24\% with 2 rackets,
+    \item ~21\% with 3 rackets,
+    \item ~31\% with the shelf freshly refilled to 4 rackets.
+\end{itemize}
+
+\sol(c)\\
+If the start of day stock is 4 or 3, it is impossible to get a restock order. \\
+If the start of day stock is 2, there is a 0.2 probability that a restock order is made (the case that 2 rackets are sold). \\
+If the start of the day stock is 1, there is a 0.4+0.2 probability that a restock order is made (either 1 racket is sold, or 2 rackets are sold.) \\
+$$
+    \text{Hence,\ } R(i) := \prob{\text{restock order made}\given \text{morning stock}=i} = \begin{cases}
+        \frac{3}{5}, &\ i=1 \\
+        \frac{1}{5}, &\ i=2 \\
+        0,           &\ i=3,4 \\
+    \end{cases}
+$$
+Then, the long run average,
+\begin{align*}
+    \expect R &= \sum_{i=1}^{4} \pi_i R(i) \\
+        &= \pi_1\bracks{\frac{3}{5}} + \pi_2\bracks{\frac{1}{5}} + \pi_3\bracks{0} + \pi_4\bracks{0} \\
+        &= \frac{10}{43}\bracks{\frac{3}{5}} + \frac{21}{86}\bracks{\frac{1}{5}} \\
+        &= \frac{30}{215} + \frac{21}{430} = \frac{81}{430} \approx 0.1884
+\end{align*}
+So, the store expects to restock 0.19 times per day, or once every 5.3 days. \\
+
+\sol(d)\\
+A lost sale occurs on days when we start with 1 stock in the morning, and we have two customers. This is the only configuration which results in a lost sale.\\
+The probability that We have morning stock of 1 is $\pi_1 = \frac{10}{43}$. \\
+The probability that we have 2 customers is always $\frac{1}{5}$, given in the question. \\
+Therefore, the expected number of lost sales per day is
+$$
+    \expect \text{loss}/\text{day} = \frac{10}{43}\cd\frac{1}{5} = \frac{10}{215} \approx 0.0465.
+$$
+
+\sol(e)
+\begin{verbatim}
+[ 1] import numpy as np
+[ 2] import pandas as pd
+[ 3] 
+[ 4] # Parameters
+[ 5] days = 1000
+[ 6] P = 10
+[ 7] C = 15
+[ 8] maxStock = 4
+[ 9] demandOptions = [0, 1, 2]
+[10] demandPr = [0.4, 0.4, 0.2]
+[11] 
+[12] def simulate(restockStrat):
+[13]   stock = maxStock
+[14]   restocks = 0
+[15]   lostSales = 0
+[16]   profit = 0
+[17] 
+[18]   for _ in range(days):
+[19]     demandToday = np.random.choice(demandOptions, p=demandPr)
+[20]     if demandToday > stock:
+[21]       lostSales += demandToday - stock
+[22]       demandToday = stock
+[23]         
+[24]     stock -= demandToday
+[25]     profit += demandToday * P
+[26] 
+[27]     # Restocking Strategies
+[28]     if restockStrat == "zero" and stock == 0:
+[29]       stock = maxStock
+[30]       restocks += 1
+[31]       profit -= C
+[32]     elif restockStrat == "less_than_two" and stock < 2:
+[33]       stock = maxStock
+[34]       restocks += 1
+[35]       profit -= C
+[36]     else:
+[37]       ValueError(f"Unknown strategy: '{restockStrat}'")
+[38] 
+[39]   return restocks, lostSales, profit
+[40] 
+[41] # Run both strategies
+[42] results = {
+[43]   "Strategy": [],
+[44]   "Avg Restocks": [],
+[45]   "Avg Lost Sales": [],
+[46]   "Avg Profit": []
+[47] }
+[48] 
+[49] for strategy_name in ["zero", "less_than_two"]:
+[50]   restocks, lost_sales, profit = simulate(strategy_name)
+[51]   results["Strategy"].append(strategy_name)
+[52]   results["Avg Restocks"].append(restocks)
+[53]   results["Avg Lost Sales"].append(lost_sales)
+[54]   results["Avg Profit"].append(profit)
+[55] 
+[56] # Print my results nicely
+[57] print(pd.DataFrame(results))
+[58] 
+\end{verbatim}
+\verb|Output:|\\
+\verb|            Strategy  Avg Restocks  Avg Lost Sales  Avg Profit|\\
+\verb|    0           zero           185              42        4625|\\
+\verb|    1  less_than_two           236               0        4170|\\
+
+In conclusion, the ``\texttt{less\_than\_two}'' strategy will result in no lost sales, however the cost of so many additional restocks seriously eats into our profit.
+
+
+\newpage
+\qs{10 marks}{
+  A smart irrigation system manages water delivery using the following components:
+  \begin{itemize}
+    \item two soil moisture sensors (Sensor A and Sensor B) monitors moisture levels.
+    \item a central decision unit processes sensor data and determines when irrigation is needed.
+    \item two electronic irrigation valves (Valve A and Valve B) which open if instructed.
+    \item a power controller provides energy to all components.
+  \end{itemize}
+  The system is considered operational if both the power controller and the central decision unit are working, and at least one sensor is working, and at least one valve is working.
+  \begin{enumerate}[label=(\alph*)]
+    \item Draw a block diagram that represents the system's components and their relationships.
+    \item Give the structure function for this system.
+    \item Assume all six components fail independently and have exponentially distributed lifetimes with mean $\lm$ years. What is the probability that the system is working at some time $t > 0$?
+  \end{enumerate}
+}
+\sol(a)\\
+\includegraphics[width=\textwidth]{stat2003_q5a.png} \\
+
+\sol(b) \\
+Let $U$ be the set of all my components. \\
+$\forall u\in U,\ u=1$ if it is operational, and $u=0$ if it is not. \\
+Let $p:=\text{State of Power Controller}$.\\
+Let $c:=\text{State of Central Decision Unit}$.\\
+Let $s_i:=\text{State of Soil Moisture Sensor}\ i,\ i\in\braces{A,B}$.\\
+Let $v_i:=\text{State of Irrigation Valve}\ i,\ i\in\braces{A,B}$.\\
+
+The system, $\phi: U\to\braces{0,1}$, is operational if $p=1$, $c=1$, at least one of $s_A,s_B=1$, and at least one of $v_A, v_B=1$, all in series. In logic, we might express,
+$$
+    \phi \equiv p\land c\land (s_A \vee s_B) \land (v_A \vee v_B)
+$$
+The structure function is given by
+\begin{align*}
+    \phi(u) = \phi(p,c,s_A,s_B,v_a,v_b) &= pc(1 - (1-s_A)(1-s_B))(1 - (1-v_A)(1-v_B)) \\
+        &= pc(s_A + s_B - s_As_B)(v_A + v_B - v_Av_B)     
+\end{align*}
+
+\sol(c) \\
+Let $r(t):=\text{Be the probability the component is still operational at time}\ t$. We are given that $r(t) = e^{-t/\lm}$. \\
+$p$ is in series, so it's reliability $r(t)$. \\
+$c$ is in series, so it's reliability $r(t)$. \\
+$s_i$ is in series, so it's reliability is multiplied. \\
+$v_i$ is in series, so it's reliability is multiplied. \\
+However, $s_A$ and $s_B$ are in parallel, so we need to apply the formula,
+$$
+    r(s) = 1 - \prod_{i\in\braces{A,B}} (1-r(t)) = 1 - (1-r(t))(1-r(t)) = r(t)(2 - r(t))
+$$
+$v_A$ and $v_B$ are similarly parallel, and their $r$ is similarly expressed,
+$$
+    r(v) = r(t)(2-r(t))
+$$
+The overall reliability then is given by
+$$
+    R(t) = r(t) r(t) r(t)(2-r(t)) r(t)(2-r(t)) = r(t)^4(2-r(t))^2 = e^{-4t/\lm}(2-e^{-t/\lm})^2
+$$
+and represnets the probability that the entire system is operational at time $t$.
+
+
+\end{document}
