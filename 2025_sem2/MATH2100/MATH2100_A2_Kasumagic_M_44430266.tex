@@ -1,0 +1,252 @@
+\documentclass[a4paper,11pt]{report}
+
+\input{../../latex_template/preamble}
+\input{../../latex_template/macros}
+\input{../../latex_template/letterfonts}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{mathematicaPurple}{rgb}{0.36,0.2,0.5}
+\definecolor{mathematicaBlue}{rgb}{0.25,0.35,0.75}
+\definecolor{mathematicaGreen}{rgb}{0.0,0.5,0.0}
+
+\lstdefinelanguage{Mathematica}{
+  morekeywords={Plot, Solve, Table, Do, Module, If, True, False, Integrate,
+    Sum, Limit, Sin, Cos, Exp, Log, Simplify, FullSimplify, Eigenvalues,
+    Eigenvectors, D, DSolve, NDSolve, Piecewise},
+  sensitive=true,
+  morecomment=[l](*),
+  morestring=[b]"
+}
+
+\lstset{
+  language=Mathematica,
+  basicstyle=\ttfamily,
+  keywordstyle=\color{mathematicaBlue}\bfseries,
+  stringstyle=\color{mathematicaGreen},
+  commentstyle=\color{mathematicaPurple}\itshape,
+  showstringspaces=false,
+  breaklines=true,
+  columns=flexible,
+}
+
+\begin{document}
+\begin{center}
+{\bf School of Mathematics and Physics, UQ}
+\end{center}
+\begin{center}
+	{\large\bf MATH2100 Applied Mathematical Analysis \\ Semester 2 2025 \\ Problem Set 2} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+	Professor Ivana Carrizo Molina \\
+	Due 1pm Monday 8 September 2025
+\end{center}
+
+\qs{27 marks}{
+  The Duffling equation $\ddot{x} - c\dot{x} -4x + x^3 = 0$, with damping constant $c$, models the motin of a mechanical system in a twin-well potential field.
+  \begin{enumerate}[label=(\alph*), itemsep=-3pt, topsep=0pt]
+    \item Rewrite this second order ODE as a system of first order ODEs.
+    \item For $c=0$
+    \begin{enumerate}[label=(\roman*), itemsep=-3pt, topsep=0pt]
+      \item Find all critical points of the system.
+      \item Use linearisation to classify the nature and stability of the critical points
+      \item Use the chain rule to solve for the phase curves $y_1 = y_2(y_1)$.
+      \item Does the linearised system exhibit qualitatively similar behaviour as the nonlinear?
+    \end{enumerate}
+    \item (Mathematica) Verify results from part (b)(ii), (iii), and (iv) by plotting a vector field.
+    \item For $c=2$
+    \begin{enumerate}[label=(\roman*), itemsep=-3pt, topsep=0pt]
+      \item Find all critical points of the system.
+      \item Calculate the linearised system about each critical point. Classify their nature and stability. If a critical point is a saddle or a node, identify the relevant eigenvalues and eigenvector. If a critical point is a spiral or a centre, describe the direction of rotation, vertical nullclines, and direction field along the axes.
+      \item Does the linearised system exhibit qualitatively similar behaviour to the nonlinear?
+      \item Sketch a phase portrait for the non-linear system, by hand. Clearly identify each of the critical points and determine the heteroclinic orbit.
+    \end{enumerate}
+  \end{enumerate}
+}
+\sol (a)
+
+
+\newpage
+\qs{6 marks}{
+  Consider the non-linear system of ODEs
+  $$
+    \begin{array}{l}
+      y_1' = f_1'(y_1,y_2) = -2y_1(3-y_2-y_1) \\
+      y_2' = f_2'(y_1,y_2) = y_2(-4+y_1+2y_2)      
+    \end{array}
+  $$
+  \begin{enumerate}[label=(\alph*), itemsep=-3pt, topsep=0pt]
+    \item (Mathematica) Find all critical points of the system.
+    \item (Mathematica) Calculate the linearised system about each critical point. Classify their type and stability.
+    \item (Mathematica) Find the nullcines of the system.
+    \item (Mathematica) Sketch a phase portrait for the non-linear system. Clearly identify each critical point and nullcine.
+  \end{enumerate}
+}
+\sol (a)
+
+
+\newpage
+\qs{7 marks}{
+  \begin{enumerate}[label=(\alph*), itemsep=-3pt, topsep=0pt]
+    \item (Mathematica) Solve the first order DE
+    $$
+      \dyd{t} + \frac{2}{t}y(t) = \frac{1}{t^2}
+    $$
+    \item Consider the IVP 
+    $$
+      ty'' + 2ty' - 2y = -2,\quad y(0) = 1,\qquad y'(0) = 2.
+    $$
+    \begin{enumerate}[label=(\roman*), itemsep=-3pt, topsep=0pt]
+      \item Apply the Laplace transform to solve for $Y(s)$.
+      \item Apply the inverse Laplace transform to $Y(s)$, yielding the solution $y(t)$.
+    \end{enumerate}
+  \end{enumerate}
+}
+\sol (a)
+\begin{lstlisting}[language=Mathematica]
+In[1]   :=  DSolve[a'[t] + (2/t) a[t] == 1/t^2, a[t], t]
+Out[1]  :=  {{a[t] -> 1/t + C[1]/t^2}}
+\end{lstlisting}
+Hence,
+$$
+  y(t) = \frac{1}{t} + \frac{c}{t^2}
+$$
+
+\sol (b)(i) \\
+We'll apply the Laplace transform, then solve for $\laplace{y(t)}(s) =: Y(s)$
+\begin{align*}
+  \laplace{ty'' + 2ty' - 2y}(s) &= \laplace{-2}(s)
+  \intertext{First we'll apply linearity,}
+  \laplace{ty''}(s) + 2\laplace{ty'}(s) - 2\laplace{y}(s) &= -2\laplace{1}(s)
+  \intertext{From the table we have the identities}
+  \ignorealign{\laplace{tf(t)} = -\dd{s}\laplace{f(t)}(s) = -\dyd[F]{s} =: -F'(s)} \\
+  \ignorealign{\laplace{f^{(n)}(t)}(s) = s^nF(s) - \sum_{i=0}^{n-1} s^if^{(n-i)}(0)} \\
+  \intertext{From left to right...}
+  \laplace{ty''}(s) &= -\dyd{s} \bracks{s^2Y(s) - sy(0) - y'(0)} \\
+    &= -\dyd{s} \bracks{s^2Y(s) - s - 2} \\
+    &= -2sY(s) - s^2Y'(s) + 1 + 0  \\
+    &= -2sY(s) - s^2Y'(s) + 1  \\
+  \laplace{ty'}(s) &= -\dyd{s}\bracks{sY(s) + y(0)} \\
+    &= -\dyd{s}\bracks{sY(s) + 1} \\
+    &= -Y(s) - sY'(s) \\
+  \laplace{y}(s) &= Y \\
+  \laplace{1}(s) &= \frac{1}{s} \\
+  \intertext{After substituting these values and doing some simplifying, we find that}
+  Y'(s^2 + 2s) + Y(2s - 4)  &= 1 + \frac{2}{s}.
+\end{align*}
+
+
+\newpage
+\qs{10 marks}{
+  \begin{enumerate}[label=(\alph*), itemsep=-3pt, topsep=0pt]
+    \item Find the Laplace transform of $f(t) = t^5e^{-4t}-7\sin(6t)$.
+    \item Let $f(t)$ satisfy the following identity
+    $$
+      f(t) = (t-1)^2u(t-1) + \int_{0}^{t} f(\tau)\sin(t-\tau)\d\tau.
+    $$
+    Find the Laplace transform of $f(t)$.
+    \item (Mathematica) Use the Laplace-transforms method to solve the IVP
+    $$
+      \begin{cases}
+        y_1'(t) = 3y_1(t) - 4y_2(t),\\
+        y_2'(t) = 3y_2(t) - 4y_1(t)
+      \end{cases}
+    $$
+    with initial conditions, $y_1(0)=0$ and $y_2(0)=1$.
+    \item (Mathematica) Use \texttt{DSolve} to solve the same IVP, and show the results are equal.
+  \end{enumerate}
+}
+\sol (a) \\
+We seek the Laplace transform of $f(t) = t^5e^{-4t}-7\sin(6t)$,
+\begin{align*}
+  \laplace{f(t)}(s) &= \laplace{t^5e^{-4t}-7\sin(6t)}(s). \\
+  \intertext{The Laplace transform is a linear operator, hence}
+    &= \laplace{t^5e^{-4t}}(s) + \laplace{-7\sin(6t)}(s) \\
+    &= \laplace{t^5e^{-4t}}(s) - 7\laplace{\sin(6t)}(s)
+  \intertext{We'll use the table to evaluate these,}
+  \ignorealign{\laplace{e^{\alpha t}g(t)}(s) = \laplace{g(t)}(s-\alpha)\qquad \laplace{t^n}(s) = \frac{n!}{s^{n+1}}}
+  \intertext{Here, $\alpha=-4,~ g(t)=t^5$, and $n=5$. Therefore}
+  \ignorealign{\laplace{t^5e^{-4t}}(s) = \laplace{t^5}(s+4) = \frac{5!}{(s+4)^{s+1}} = \frac{120}{(s+4)^6}}
+  \intertext{Now we'll evaluate the other using the table.}
+  \laplace{\sin(\alpha t)}(s) &= \frac{\alpha}{s^2 + \alpha^2}
+  \intertext{Here, $\alpha=6$, therefore,}
+  \ignorealign{\laplace{\sin(6t)}(s) = \frac{6}{s^2 + 6^2} = \frac{6}{s^2 + 36}}
+  \intertext{Hence, our transformation comes to}
+  \laplace{f(t)}(s) &= \laplace{t^5e^{-4t}}(s) - 7\laplace{\sin(6t)}(s) \\
+    &= \frac{120}{(s+4)^6} - 7\cd\frac{6}{s^2 + 36} \\
+    &= \frac{120}{(s+4)^6} - \frac{42}{s^2 + 36}
+\end{align*}
+
+\newpage
+\sol (b) \\
+We seek the Laplace transform of 
+\begin{align*}
+  f(t) &= (t-1)^2u(t-1) + \int_{0}^{t} f(\tau)\sin(t-\tau)\d\tau, \\
+  \laplace{f(t)}(s) &= \laplace{(t-1)^2u(t-1) + \int_{0}^{t} f(\tau)\sin(t-\tau)\d\tau}(s).
+  \intertext{First, we'll use the linearity of the Laplace transform operator,}
+  \laplace{f(t)}(s) &= \laplace{(t-1)^2u(t-1)}(s) + \laplace{\int_{0}^{t} f(\tau)\sin(t-\tau)\d\tau}(s).
+  \intertext{Second shifting theorem states}
+  \laplace{f(t-k)u(t-k)}(s) &= e^{-ks}\laplace{f(t)}(s).
+  \intertext{In our case $k=1$, and $f(t)=t^2$, hence}
+  \ignorealign{\laplace{(t-1)^2u(t-1)}(s) = e^{-1s}\laplace{t^2}(s) = e^{-s}\cd\frac{2!}{s^{2+1}} = \frac{2e^{-s}}{s^{3}}}
+  \intertext{Convolution theorem states}
+  \laplace{\int_{0}^{t} f(\tau)g(t-\tau)\d\tau}(s) &= \laplace{f(t)}(s)\cd\laplace{g(t)}(s).
+  \intertext{We have $f(\tau)$ and $g(t)=\sin(t)$. Hence,}
+  \laplace{\int_{0}^{t} f(\tau)\sin(t-\tau)\d\tau}(s) &= \laplace{f(t)}(s)\cd\laplace{\sin t}(s) \\
+    &= \laplace{f(t)}(s)\cd\frac{1}{s^2+1^2}
+  \intertext{Let $F(s) := \laplace{f(t)}(s)$. Hence, we have}
+  \laplace{f(t){(s)}} = F(s) &= \frac{2e^{-s}}{s^{3}} + F(s)\cd\frac{1}{s^2+1} \\
+  \implies F(s)\bracks{1 - \frac{1}{s^2+1}} &= \frac{2e^{-s}}{s^{3}} \\
+  \tf F(s) &= \frac{2e^{-s}}{s^{3}} \div \bracks{1 - \frac{1}{s^2+1}} \\
+    &= \frac{2e^{-s}}{s^{3}}\bracks{\frac{s^2+1}{s^2}} \\
+  \intertext{Therefore, an arbitrary function defined by the identify}
+  f(t) &= (t-1)^2u(t-1) + \int_{0}^{t} f(\tau)\sin(t-\tau)\d\tau
+  \intertext{has Laplace transform}
+  \laplace{f(t)}(s) &= \frac{2e^{-s}(s^2+1)}{s^{5}}.
+\end{align*}
+
+\newpage
+\sol (c)(i)
+\begin{lstlisting}[language=Mathematica]
+In[1]   :=  A = {{3, -4}, {-4, 3}};
+            y0 = {0, 1};
+            LapY = Inverse[s*IdentityMatrix[2] - A] . y0;
+            y = InverseLaplaceTransform[LapY, s, t]
+Out[4]  := {-(1/2) Exp[-t] (-1 + Exp[8 t]), 1/2 Exp[-t] (1 + Exp[8 t])}
+\end{lstlisting}
+
+First we set the matrix \texttt{A} to the coefficents, as they were given in the question, namely
+$$
+  \mathbf{Y}'(t) = A\mathbf{Y}(t) \iff \begin{pmatrix} y_1'(t) \\ y_2'(t) \end{pmatrix} = \begin{pmatrix} 3 & -4 \\ -4 & 3 \end{pmatrix} \begin{pmatrix} y_1(t) \\ y_2(t) \end{pmatrix}^\rmt \implies A = \begin{pmatrix} 3 & -4 \\ -4 & 3 \end{pmatrix}.
+$$
+Next we set a vector to represent the intial condition, \texttt{y0}, by
+$$
+  \textbf{Y}(0) = \begin{pmatrix} y_1 (0) \\ y_2(0) \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+$$
+Applying the Laplace transform to
+$$ 
+  \mathbf Y'(t)=A\mathbf Y(t)
+$$
+with $\mathbf Y(0)=\mathbf y_0$ yields
+$$
+  s\mathbf Y(s)-\mathbf y_0=A\mathbf Y(s),
+$$
+hence
+$$
+  (sI-A)\mathbf{Y}(s)=\mathbf y_0\quad \text{and}\quad \mathbf{Y}(s)=(sI-A)^{-1}\mathbf y_0.
+$$
+The inverse Laplace transform gets us our desired result! \\
+
+\sol (c)(ii)
+\begin{lstlisting}[language=Mathematica]
+In[1]   :=  eqs = {y1'[t] == 3 y1[t] - 4 y2[t], y2'[t] == 3 y2[t] - 4 y1[t], 
+              y1[0] == 0, y2[0] == 1};             
+In[2]   :=  solDS = DSolve[eqs, {y1, y2}, t][[1]];
+In[3]   :=  solLap = {y1[t] -> -(1/2) Exp[-t] (-1 + Exp[8 t]),
+              y2[t] -> 1/2 Exp[-t] (1 + Exp[8 t])};
+In[4]   :=  ({y1[t], y2[t]} /. solDS) == ({y1[t], y2[t]} /. solLap)
+Out[4]  :=  True
+\end{lstlisting}
+We set the system of DEs, along with the initial values in the \texttt{eqs} variable. We then solve it numerically and store the first solution it found in \texttt{solDS}. Next we store the Laplace solution from the previous question in \texttt{solLap}. Finally, we compare the solutions, and find that they are equal.
+
+\end{document}
