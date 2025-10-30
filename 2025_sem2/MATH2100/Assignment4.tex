@@ -1,0 +1,172 @@
+\documentclass[a4paper,11pt]{report}
+
+\input{../../latex_template/preamble}
+\input{../../latex_template/macros}
+\input{../../latex_template/letterfonts}
+\usepackage{float}
+
+\begin{document}
+\begin{center}
+  {\bf\small Universtiy of Queensland \\ School of Mathematics and Physics}
+\end{center}
+\begin{center}
+	{\Large\bf MATH2100 Applied Mathematical Analysis \\ Semester 2 2025 \\ Problem Set 4} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+  Applied Class \#1 \\
+	Due 3pm Sunday 26 October 2025
+\end{center}
+
+\qs{8 marks}{
+  Consider the following system
+  \[
+  X''(x) + \lambda X(x) = 0, \qquad X(0) = 0, \qquad X(1) = X'(1),
+  \]
+  where $\lambda$ is a numerical constant. Find the values of $\lambda$ which give rise to non-zero solutions to the above system and determine the corresponding solutions $X(x)$. \medskip
+
+  You may use graphs of $y = \alpha$ and $y = \tanh \alpha$ to determine the solution of the equation $\tanh \alpha = \alpha.$ Also you are given that positive roots of the transcendental equation $\tan \alpha = \alpha$ are $\alpha_n$, $n = 1, 2, \ldots$
+}
+\sol \\
+We consider the boundary value problem
+\[
+  X''(x) + \lambda X(x) = 0, \qquad X(0) = 0, \quad X(1) = X'(1),
+\]
+and seek non-trivial solutions \( X(x) \) corresponding to specific values of the constant \( \lambda \).
+
+\subsection*{Case 1: \(\lambda = 0\)}
+If \( \lambda = 0 \), then \( X''(x) = 0 \), and hence
+\[
+  X(x) = A x + B.
+\]
+Applying the boundary condition \( X(0) = 0 \) gives \( B = 0 \).  
+The second boundary condition \( X(1) = X'(1) \) becomes
+\[
+  A(1) = A,
+\]
+which is satisfied for all \( A \). Therefore, for \(\lambda = 0\),
+\[
+  \lambda_0 = 0, \qquad X_0(x) = A x.
+\]
+
+\subsection*{Case 2: \(\lambda > 0\)}
+Let \( \lambda = \alpha^2 \) with \( \alpha > 0 \). The general solution is
+\[
+  X(x) = A \sin(\alpha x) + B \cos(\alpha x).
+\]
+The condition \( X(0) = 0 \) gives \( B = 0 \), so \( X(x) = A \sin(\alpha x) \).  
+Then
+\[
+  X'(x) = A \alpha \cos(\alpha x),
+\]
+and applying \( X(1) = X'(1) \) gives
+\[
+  A \sin \alpha = A \alpha \cos \alpha \implies \tan \alpha = \alpha.
+\]
+This transcendental equation determines the allowed values of \( \alpha \):
+\[
+  \tan \alpha_n = \alpha_n, \qquad n = 1, 2, 3, \ldots
+\]
+Hence the corresponding eigenvalues and eigenfunctions are
+\[
+  \lambda_n = \alpha_n^2, \qquad X_n(x) = \sin(\alpha_n x), \quad n = 1, 2, 3, \ldots
+\]
+
+\subsection*{Case 3: \(\lambda < 0\)}
+Let \( \lambda = -\beta^2 \) with \( \beta > 0 \). Then
+\[
+  X(x) = A e^{\beta x} + B e^{-\beta x}.
+\]
+From \( X(0) = 0 \) we obtain \( B = -A \), giving
+\[
+  X(x) = 2A \sinh(\beta x).
+\]
+Applying \( X(1) = X'(1) \) yields
+\[
+  2A \sinh \beta = 2A \beta \cosh \beta \implies \tanh \beta = \beta.
+\]
+However, since \( \tanh \beta < 1 \) for all \( \beta > 0 \), there are no non-trivial solutions for \( \beta > 0 \).  
+Thus, no negative eigenvalues exist.
+
+Therefore, we've found the Eigens-,
+\[
+\begin{aligned}
+  &\text{Eigenvalue: } && \lambda_0 = 0, && X_0(x) = x, \\[3pt]
+  &\text{Eigenvalues: } && \lambda_n = \alpha_n^2, && X_n(x) = \sin(\alpha_n x), \quad n = 1, 2, 3, \ldots \\[3pt]
+  &\text{where } && \tan \alpha_n = \alpha_n.
+\end{aligned}
+\]
+The equation \( \tan \alpha = \alpha \) has infinitely many positive roots \( \alpha_1, \alpha_2, \ldots \), each giving rise to a distinct oscillatory mode satisfying the mixed boundary condition \( X(1) = X'(1) \).
+
+\newpage
+\qs{14 marks}{
+  In the polar coordinates $(r, \theta)$, the steady state temperature distribution $T(r, \theta)$ in a unit circular disc centred at the origin is given by Laplace's equation
+  \[
+    \nabla^2 T = \frac{\partial^2 T}{\partial r^2} + \frac{1}{r} \frac{\partial T}{\partial r} + \frac{1}{r^2} \frac{\partial^2 T}{\partial \theta^2} = 0.
+  \]
+
+  The temperature on the circumference is $T(1, \theta) = f(\theta)$, where $f(\theta)$ is a periodic function of period $2\pi$. Guess that $T$ has the form $T(r, \theta) = R(r)\Theta(\theta)$. Use separation of variables to find the temperature $T(r, \theta)$ throughout the disc. \medskip
+
+  \textbf{Hint:} For $T(r, \theta)$ to be bounded and single-valued, it must obey $T(0, \theta) < \infty$ and the periodicity condition $T(r, \theta) = T(r, \theta + 2\pi)$. Also note that the ODE for $R(r)$ is a Cauchy--Euler equation and its solution has the form $r^{\alpha}$.
+}
+
+\newpage
+\qs{Part a) - 2 marks}{
+  A textiles company would like to know the thermal properties of a new material. The material is 1cm thick and is primarily constructed of polyester with an overall thermal diffusivity of $c^2 = 0.2\,\text{cm}^2/\text{s}$. As part of the testing procedure, the material is wrapped around a drum which is placed in an environment at temperature 10 degC and the drum's temperature is regulated so that the temperature gradient on the outer surface of the material is 25degC/cm. \medskip
+
+  (a) Give one reason why a 1-dimensional heat equation is appropriate here, and thus deduce a model of heat transfer through the material could be
+  \[
+    \frac{\partial T}{\partial t} = c^2 \frac{\partial^2 T}{\partial x^2}, \qquad c^2 = 0.2,
+  \]
+  \[
+    T(0,t) = 10, \qquad \frac{\partial T}{\partial x}(1,t) = 25, \qquad T(x,0) = 10,
+  \]
+  where $T$ is temperature (degC), $x$ is depth into the material (cm) and $t$ is time (seconds). \medskip
+}
+
+\begin{question*}{Part b) - 4 marks}
+  (b) Write $T(x,t) = T_{\text{steady}}(x) + \hat{T}(x,t)$ where $T_{\text{steady}}(x)$ is the steady state solution and $\hat{T}$ is the transient. Show that the steady state solution is $T_{\text{steady}}(x) = 10 + 25x$ and $\hat{T}$ satisfies the following equations:
+  \[
+    \frac{\partial \hat{T}}{\partial t} = c^2 \frac{\partial^2 \hat{T}}{\partial x^2},
+  \]
+  \[
+    \hat{T}(0,t) = 0, \qquad \frac{\partial \hat{T}}{\partial x}(1,t) = 0, \qquad \hat{T}(x,0) = -25x.
+  \]
+\end{question*}
+
+\begin{question*}{Part c) - 10 marks}
+  \[
+    \hat{T}(x,t)
+    = \sum_{n=0}^{\infty} \frac{50(-1)^{\,n+1}}{\pi^{2}\!\left(n+\tfrac{1}{2}\right)^{2}}
+    \, \sin\!\bigl[\left(n+\tfrac{1}{2}\right)\pi x\bigr]\,
+    e^{-\left(n+\tfrac{1}{2}\right)^{2}\pi^{2}c^{2}t}.
+  \]
+
+  You may assume the orthogonality property
+  \[
+    \int_{0}^{1}
+    \sin\!\bigl[\left(n+\tfrac{1}{2}\right)\pi x\bigr]\,
+    \sin\!\bigl[\left(m+\tfrac{1}{2}\right)\pi x\bigr]\,
+    dx
+    =
+    \begin{cases}
+    \frac{1}{2}, & n=m,\\[4pt]
+    0, & \text{otherwise},
+    \end{cases}
+  \]
+  which are valid for $n$ and $m$ non\hbox{-}negative integers.
+\end{question*}
+
+\newpage
+\qs{6 marks}{
+  A disc at $x=0$ separates two salt solutions in a long cylindrical tube with impermeable walls. The region $x>0$ is at concentration $C_{+}$ and the region $x<0$ is at concentration $C_{-}$. At time $t=0$ the disc is removed. Find the concentration $C(x,t)$ of the salt in the tube for $t>0$.
+
+  \medskip
+
+  \noindent
+  \textit{You are given that the PDE governing the process of salt diffusion is the same as the one governing conduction of heat (see the Note on page 132 of the Workbook), i.e., the concentration $C(x,t)$ of salt satisfies the PDE}
+  \[
+  C_t(x,t) = D\,C_{xx}(x,t),
+  \]
+  \textit{where $D>0$ is the coefficient of diffusion.}
+}
+
+\end{document}

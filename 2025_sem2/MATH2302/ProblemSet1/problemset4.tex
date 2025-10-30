@@ -1,0 +1,432 @@
+\documentclass[a4paper,11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+\usepackage{float}
+\usetikzlibrary{calc,arrows,decorations.markings}
+
+\begin{document}
+\begin{center}
+  {\bf\small Universtiy of Queensland \\ School of Mathematics and Physics}
+\end{center}
+\begin{center}
+	{\Large\bf MATH2302 Discrete Mathematics II \\ Semester 2 2025 \\ Problem Set 4} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+  Applied Class \#1 \\
+	Due 3pm Friday 28 October 2025
+\end{center}
+
+\qs{6 marks}{
+  For each of the graphs shown below, determine whether it is Hamiltonian. Justify your answer. 
+
+  \vspace{0.5cm}
+  \begin{minipage}{0.48\textwidth}\centering
+  % ---------- FIRST TIKZ ----------
+  \begin{tikzpicture}[
+      scale=1,
+      dot/.style={circle,fill,inner sep=1.5pt},
+      edge/.style={line width=0.9pt}
+  ]
+
+  % radii
+  \pgfmathsetmacro{\Rout}{1.0}
+  \pgfmathsetmacro{\Rin}{0.45}
+
+  % angles (top vertex at 90°, 72° apart)
+  \foreach \k in {0,...,4}{
+    \pgfmathsetmacro{\ang}{90 - 72*\k}
+    \coordinate (O\k) at ({\Rout*cos(\ang)},{\Rout*sin(\ang)});
+    \coordinate (I\k) at ({\Rin*cos(\ang)},{\Rin*sin(\ang)});
+  }
+
+  \coordinate (O) at (0,0);
+  % --- Draw outer and inner pentagons ---
+  \draw[edge] (O0)--(O1)--(O2)--(O3)--(O4)--cycle;
+  %\draw[edge] (I0)--(I1)--(I2)--(I3)--(I4)--cycle;
+
+  % --- Connect corresponding vertices ---
+  \foreach \k in {0,...,4}{
+    \draw[edge] (O)--(I\k);
+  }
+
+  % --- Dots at vertices ---
+  \foreach \P in {O0,O1,O2,O3,O4,I0,I1,I2,I3,I4}
+    \node[dot] at (\P) {};
+
+  \node [dot] at (O) {};
+
+  \node at (-1.5,0) {(a)};
+
+  \draw[edge] (O0)--(I4) (O0)--(I1) (O2)--(I1) (O3)--(I4) (O2)--(I3) (O3)--(I2) (O1)--(I0) (O1)--(I2) (O4)--(I0) (O4)--(I3);
+
+
+  \end{tikzpicture}
+  \end{minipage}\hfill
+  \begin{minipage}{0.48\textwidth}\centering
+  % ---------- SECOND TIKZ ----------
+  \begin{tikzpicture}[
+      scale=1,
+      dot/.style={circle,fill,inner sep=1.5pt},
+      edge/.style={line width=0.9pt}
+  ]
+  \pgfmathsetmacro{\s}{0.866025403784}
+  \pgfmathsetmacro{\m}{0.65}
+  \pgfmathsetmacro{\r}{0.30}
+
+  \coordinate (O1) at (1,0);
+  \coordinate (O2) at (0.5,\s);
+  \coordinate (O3) at (-0.5,\s);
+  \coordinate (O4) at (-1,0);
+  \coordinate (O5) at (-0.5,-\s);
+  \coordinate (O6) at (0.5,-\s);
+
+  \coordinate (M1) at (\m*1,\m*0);
+  \coordinate (M2) at (\m*0.5,\m*\s);
+  \coordinate (M3) at (\m*-0.5,\m*\s);
+  \coordinate (M4) at (\m*-1,\m*0);
+  \coordinate (M5) at (\m*-0.5,\m*-\s);
+  \coordinate (M6) at (\m*0.5,\m*-\s);
+
+  \coordinate (I1) at (\r*1,\r*0);
+  \coordinate (I2) at (\r*0.5,\r*\s);
+  \coordinate (I3) at (\r*-0.5,\r*\s);
+  \coordinate (I4) at (\r*-1,\r*0);
+  \coordinate (I5) at (\r*-0.5,\r*-\s);
+  \coordinate (I6) at (\r*0.5,\r*-\s);
+
+  \draw[edge] (O1)--(O2)--(O3)--(O4)--(O5)--(O6)--cycle;
+  \draw[edge] (M1)--(M2)--(M3)--(M4)--(M5)--(M6)--cycle;
+  \draw[edge] (I1)--(I2)--(I3)--(I4)--(I5)--(I6)--cycle;
+
+  \draw[edge] (O1)--(I1) (O2)--(I2) (O3)--(I3)
+              (O4)--(I4) (O5)--(I5) (O6)--(I6);
+
+  \foreach \P in {O1,O2,O3,O4,O5,O6,M1,M2,M3,M4,M5,M6,I1,I2,I3,I4,I5,I6}
+    \node[dot] at (\P) {};
+
+  % midpoints on middle edges 
+  \coordinate (Mm12) at ($(M1)!0.5!(M2)$);
+  \coordinate (Mm23) at ($(M2)!0.5!(M3)$);
+  \coordinate (Mm34) at ($(M3)!0.5!(M4)$);
+  \coordinate (Mm45) at ($(M4)!0.5!(M5)$);
+  \coordinate (Mm56) at ($(M5)!0.5!(M6)$);
+  \coordinate (Mm61) at ($(M6)!0.5!(M1)$);
+  \foreach \Q in {Mm12,Mm23,Mm34,Mm45,Mm56,Mm61} \node[dot] at (\Q) {};
+
+  \node at (-1.5,0) {(b)};
+  \end{tikzpicture}
+  \end{minipage}
+}
+\sol \vspace{0.5em}
+
+Graph (a) is Hamiltonian. I present one such spanning cycle:
+
+\begin{center}\begin{tikzpicture}[
+      scale=2,
+      dot/.style={circle,fill,inner sep=1.5pt},
+      edge/.style={line width=0.9pt}
+  ]
+
+  % radii
+  \pgfmathsetmacro{\Rout}{1.0}
+  \pgfmathsetmacro{\Rin}{0.45}
+
+  % angles (top vertex at 90°, 72° apart)
+  \foreach \k in {0,...,4}{
+    \pgfmathsetmacro{\ang}{90 - 72*\k}
+    \coordinate (O\k) at ({\Rout*cos(\ang)},{\Rout*sin(\ang)});
+    \coordinate (I\k) at ({\Rin*cos(\ang)},{\Rin*sin(\ang)});
+  }
+
+  \coordinate (O) at (0,0);
+  % --- Draw outer and inner pentagons ---
+  \draw[edge] (O0)--(O1)--(O2)--(O3)--(O4)--cycle;
+  %\draw[edge] (I0)--(I1)--(I2)--(I3)--(I4)--cycle;
+
+  % --- Connect corresponding vertices ---
+  \foreach \k in {0,...,4}{
+    \draw[edge] (O)--(I\k);
+  }
+
+  % --- Dots at vertices ---
+  \foreach \P in {O0,O1,O2,O3,O4,I0,I1,I2,I3,I4}
+    \node[dot] at (\P) {};
+
+  \node [dot] at (O) {};
+
+  \draw[edge] (O0)--(I4) (O0)--(I1) (O2)--(I1) (O3)--(I4) (O2)--(I3) (O3)--(I2) (O1)--(I0) (O1)--(I2) (O4)--(I0) (O4)--(I3);
+
+  \draw[->, red, ultra thick] (O) -- (I0);
+  \draw[->, red, ultra thick] (I0) -- (O1);
+  \draw[->, red, ultra thick] (O1) -- (I2);
+  \draw[->, red, ultra thick] (I2) -- (O3);
+  \draw[->, red, ultra thick] (O3) -- (I4);
+  \draw[->, red, ultra thick] (I4) -- (O0);
+  \draw[->, red, ultra thick] (O0) -- (O4);
+  \draw[->, red, ultra thick] (O4) -- (I3);
+  \draw[->, red, ultra thick] (I3) -- (O2);
+  \draw[->, red, ultra thick] (O2) -- (I1);
+  \draw[->, red, ultra thick] (I1) -- (O);
+
+\end{tikzpicture}\end{center}
+
+Graph (b) is not Hamiltonian. We show this by considering Theorem 26.85. Consider the set $S$, which contains only the highlighted vertices. Then consider the graph $G-S$, in particular, we count the number of components the graph has.
+
+\begin{center}\begin{tikzpicture}[
+      scale=2,
+      dot/.style={circle,fill,inner sep=1.5pt},
+      highlightDot/.style={circle,fill,inner sep=2.5pt},
+      edge/.style={line width=0.9pt}
+  ]
+  \pgfmathsetmacro{\s}{0.866025403784}
+  \pgfmathsetmacro{\m}{0.65}
+  \pgfmathsetmacro{\r}{0.30}
+
+  \coordinate (O1) at (1,0);
+  \coordinate (O2) at (0.5,\s);
+  \coordinate (O3) at (-0.5,\s);
+  \coordinate (O4) at (-1,0);
+  \coordinate (O5) at (-0.5,-\s);
+  \coordinate (O6) at (0.5,-\s);
+
+  \coordinate (M1) at (\m*1,\m*0);
+  \coordinate (M2) at (\m*0.5,\m*\s);
+  \coordinate (M3) at (\m*-0.5,\m*\s);
+  \coordinate (M4) at (\m*-1,\m*0);
+  \coordinate (M5) at (\m*-0.5,\m*-\s);
+  \coordinate (M6) at (\m*0.5,\m*-\s);
+
+  \coordinate (I1) at (\r*1,\r*0);
+  \coordinate (I2) at (\r*0.5,\r*\s);
+  \coordinate (I3) at (\r*-0.5,\r*\s);
+  \coordinate (I4) at (\r*-1,\r*0);
+  \coordinate (I5) at (\r*-0.5,\r*-\s);
+  \coordinate (I6) at (\r*0.5,\r*-\s);
+
+  \draw[edge] (O1)--(O2)--(O3)--(O4)--(O5)--(O6)--cycle;
+  \draw[edge] (M1)--(M2)--(M3)--(M4)--(M5)--(M6)--cycle;
+  \draw[edge] (I1)--(I2)--(I3)--(I4)--(I5)--(I6)--cycle;
+
+  \draw[edge] (O1)--(I1) (O2)--(I2) (O3)--(I3)
+              (O4)--(I4) (O5)--(I5) (O6)--(I6);
+
+
+  \foreach \P in {O1,O2,O3,O4,O5,O6} \node[dot] at (\P) {};
+  \foreach \P in {M1,M2,M3,M4,M5,M6} \node[highlightDot, red] at (\P) {};
+  \foreach \P in {I1,I2,I3,I4,I5,I6} \node[dot] at (\P) {};
+
+  % midpoints on middle edges 
+  \coordinate (Mm12) at ($(M1)!0.5!(M2)$);
+  \coordinate (Mm23) at ($(M2)!0.5!(M3)$);
+  \coordinate (Mm34) at ($(M3)!0.5!(M4)$);
+  \coordinate (Mm45) at ($(M4)!0.5!(M5)$);
+  \coordinate (Mm56) at ($(M5)!0.5!(M6)$);
+  \coordinate (Mm61) at ($(M6)!0.5!(M1)$);
+  \foreach \Q in {Mm12,Mm23,Mm34,Mm45,Mm56,Mm61} \node[dot] at (\Q) {};
+
+\end{tikzpicture}
+\hspace{8em}
+\begin{tikzpicture}[
+      scale=2,
+      dot/.style={circle,fill,inner sep=1.5pt},
+      edge/.style={line width=0.9pt}
+  ]
+  \pgfmathsetmacro{\s}{0.866025403784}
+  \pgfmathsetmacro{\m}{0.65}
+  \pgfmathsetmacro{\r}{0.30}
+
+  \coordinate (O1) at (1,0);
+  \coordinate (O2) at (0.5,\s);
+  \coordinate (O3) at (-0.5,\s);
+  \coordinate (O4) at (-1,0);
+  \coordinate (O5) at (-0.5,-\s);
+  \coordinate (O6) at (0.5,-\s);
+
+  \coordinate (M1) at (\m*1,\m*0);
+  \coordinate (M2) at (\m*0.5,\m*\s);
+  \coordinate (M3) at (\m*-0.5,\m*\s);
+  \coordinate (M4) at (\m*-1,\m*0);
+  \coordinate (M5) at (\m*-0.5,\m*-\s);
+  \coordinate (M6) at (\m*0.5,\m*-\s);
+
+  \coordinate (I1) at (\r*1,\r*0);
+  \coordinate (I2) at (\r*0.5,\r*\s);
+  \coordinate (I3) at (\r*-0.5,\r*\s);
+  \coordinate (I4) at (\r*-1,\r*0);
+  \coordinate (I5) at (\r*-0.5,\r*-\s);
+  \coordinate (I6) at (\r*0.5,\r*-\s);
+
+  \draw[edge] (O1)--(O2)--(O3)--(O4)--(O5)--(O6)--cycle;
+  \draw[edge] (I1)--(I2)--(I3)--(I4)--(I5)--(I6)--cycle;
+
+  \foreach \P in {O1,O2,O3,O4,O5,O6} \node[dot] at (\P) {};
+  \foreach \P in {I1,I2,I3,I4,I5,I6} \node[dot] at (\P) {};
+
+  % midpoints on middle edges 
+  \coordinate (Mm12) at ($(M1)!0.5!(M2)$);
+  \coordinate (Mm23) at ($(M2)!0.5!(M3)$);
+  \coordinate (Mm34) at ($(M3)!0.5!(M4)$);
+  \coordinate (Mm45) at ($(M4)!0.5!(M5)$);
+  \coordinate (Mm56) at ($(M5)!0.5!(M6)$);
+  \coordinate (Mm61) at ($(M6)!0.5!(M1)$);
+  \foreach \Q in {Mm12,Mm23,Mm34,Mm45,Mm56,Mm61} \node[dot] at (\Q) {};
+
+  \node[left] at (O1) {(1)};
+  \node[left] at (I1) {(2)};
+  \node[above] at (Mm23) {(3)};
+  \node[above] at (Mm12) {(4)};
+  \node[above] at (Mm61) {(5)};
+  \node[above] at (Mm56) {(6)};
+  \node[above] at (Mm45) {(7)};
+  \node[above] at (Mm34) {(8)};
+
+\end{tikzpicture}\end{center}
+We highlighted 6 vertices for $S\subseteq G$, hence $\abs{S}=6$. The graph $G-S$, has componets: the outer ring, the inner ring, and the 6 isolated vertices. Hence, $\abs{\operatorname{Comp}(G-S)}=8$. 
+\[
+  \abs{S}=6 < 8 = \abs{\operatorname{Comp}(G-S)}.
+\]
+Therefore, by Theorem 26.85, the graph is not Hamiltonian.
+
+\newpage
+\qs{6 marks}{
+  For any integer $n\geq 4$, let $K_n$ be the complete graph on vertices  $1,2,\ldots,n$. Let   $G_n$ be the graph obtained from  $K_n$ by deleting two edges $\{1,2\}$ and $\{3,4\}$. What is the vertex chromatic number of $G_n$? Justify your answer. 
+}
+\sol 
+
+
+\newpage
+\qs{8 marks}{
+  Use Dijkstra's algorithm  to determine the distance from $s$ to each other vertex in the weighted graph shown below, and state a shortest path from $s$ to $e$.
+  \begin{center}
+   \begin{tikzpicture}[
+      scale=1,
+      v/.style={circle,fill,inner sep=1.6pt},
+      e/.style={line width=0.9pt}
+  ]
+  % vertices
+  \node (s) at (-2,0)   [v,label=left:$s$] {};
+  \node (a) at (0,1.6)  [v,label=above:$a$] {};
+  \node (b) at (0,-1.6) [v,label=below:$b$] {};
+  \node (c) at (2,1.6)  [v,label=above:$c$] {};
+  \node (d) at (2,-1.6) [v,label=below:$d$] {};
+  \node (e) at (4,0)    [v,label=right:$e$] {};
+  \node (f) at (3,2.4)  [v,label=above:$f$] {};
+  \node (g) at (3,-2.4) [v,label=below:$g$] {};
+
+  % edges with weights
+  \draw[e] (s)--(a) node[midway,above left]{2};
+  \draw[e] (s)--(b) node[midway,below left]{5};
+
+  \draw[e] (a)--(b) node[midway,left]{2};
+
+  \draw[e] (a)--(c) node[midway,below]{6};
+  \draw[e] (a)--(d) node[pos=0.3, below]{3};
+
+  \draw[e] (b)--(c) node[pos=0.3,above]{4};
+  \draw[e] (b)--(d) node[midway,above]{6};
+
+  \draw[e] (c)--(d) node[midway,right]{1}; 
+
+  \draw[e] (c)--(e) node[midway,above]{7};
+  \draw[e] (d)--(e) node[midway,above]{5};
+
+  \draw[e] (c)--(f) node[midway,below]{3};
+  \draw[e] (f)--(e) node[midway,above right]{4};
+
+  \draw[e] (d)--(g) node[pos=0.6,above]{2};
+  \draw[e] (g)--(e) node[midway,below]{4};
+
+  \draw[e] (a)--(f) node[midway,above]{5};
+  \draw[e] (b)--(g) node[midway,below]{4};
+  \end{tikzpicture}
+  \end{center}
+}
+\sol
+\begin{center}
+  \begin{tabular}{c|c|c|c|c|c|c|c|c}
+    $s$ & $a$ & $b$ & $c$ & $d$ & $f$ & $g$ & $e$ & Vertex Added to $S$ \\ \hline
+    $\boxed{0}$ & $(2,s)$ & $(5,s)$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $s$ \\
+    \phantom{\boxed{(0,a)}} & $\boxed{(2,s)}$ & $(4,a)$ & $(8,a)$ & $(5,a)$ & $(7,a)$ & $\infty$ & $\infty$ & $a$ \\
+      & & $\boxed{(4,a)}$ & $(8,a)$ & $(5,a)$ & $(7,a)$ & $(8,b)$ & $\infty$ & $b$ \\
+      & & & $(6,d)$ & \boxed{(5,a)} & $(7,a)$ & $(7,d)$ & $(10,d)$ & $d$ \\
+      & & & $\boxed{(6,d)}$ & & $(7,a)$ & $(7,d)$ & $(10,d)$ & $c$ \\
+      & & & & & $\boxed{(7,a)}$ & $(7,d)$ & $(10,d)$ & $f$ \\
+      & & & & & & $\boxed{(7,d)}$ & $(10,d)$ & $g$ \\
+      & & & & & & & $\boxed{(10,d)}$ & $e$ \\
+  \end{tabular}
+\end{center}
+
+From the final entry in the table, we can see that the shortest path from $s$ to $e$ has distance 10. Starting at the end, $e$, we can work our way back to $d$. Back to $a$. Then back to the starting point $s$. Therefore, the shortest path is
+$$
+  s \to a \to d \to e\quad\text{with}\quad d(s,e)=10.
+$$
+
+\begin{figure}[H]\begin{center}\begin{tikzpicture}[
+  scale=1,
+  v/.style={circle,fill,inner sep=1.6pt},
+  e/.style={line width=0.9pt}
+  ]
+  % vertices
+  \node (s) at (-2,0)   [v,label=left:$s$] {};
+  \node (a) at (0,1.6)  [v,label=above:$a$] {};
+  \node (b) at (0,-1.6) [v,label=below:$b$] {};
+  \node (c) at (2,1.6)  [v,label=above:$c$] {};
+  \node (d) at (2,-1.6) [v,label=below:$d$] {};
+  \node (e) at (4,0)    [v,label=right:$e$] {};
+  \node (f) at (3,2.4)  [v,label=above:$f$] {};
+  \node (g) at (3,-2.4) [v,label=below:$g$] {};
+
+  % edges with weights
+  \draw[e] (s)--(a) node[midway,above left]{2};
+  \draw[e] (s)--(b) node[midway,below left]{5};
+
+  \draw[e] (a)--(b) node[midway,left]{2};
+
+  \draw[e] (a)--(c) node[midway,below]{6};
+  \draw[e] (a)--(d) node[pos=0.3, below]{3};
+
+  \draw[e] (b)--(c) node[pos=0.3,above]{4};
+  \draw[e] (b)--(d) node[midway,above]{6};
+
+  \draw[e] (c)--(d) node[midway,right]{1}; 
+
+  \draw[e] (c)--(e) node[midway,above]{7};
+  \draw[e] (d)--(e) node[midway,above]{5};
+
+  \draw[e] (c)--(f) node[midway,below]{3};
+  \draw[e] (f)--(e) node[midway,above right]{4};
+
+  \draw[e] (d)--(g) node[pos=0.6,above]{2};
+  \draw[e] (g)--(e) node[midway,below]{4};
+
+  \draw[e] (a)--(f) node[midway,above]{5};
+  \draw[e] (b)--(g) node[midway,below]{4};
+
+  \draw[red, ultra thick] (s) -- (a) -- (d) -- (e);
+\end{tikzpicture}
+\caption{An illustraion of the shortest path, $s\to a\to d\to e$ which has $\text{distance}=10$}
+\end{center}\end{figure}
+
+
+
+\newpage
+\qs{10 marks}{
+  Use Algorithm 33.113 from the notes to find a maximum weight perfect matching
+  in the weighted complete bipartite graph $G$ with parts $V_1 = \{v_1,v_2,...,v_6\}$ and $V_2 =\{u_1,u_2,...,u_6\}$. The weight $w(v_iu_j)$ of the edge $v_iu_j$ is given by $w(v_iu_j)= m_{ij}$,  where $M =[m_{ij}]$
+  is given by
+  \[
+    \begin{bmatrix}
+    7 & 5 & 9 & 4 & 7 & 6\\
+    6 & 9 & 9 & 7 & 5 & 5\\
+    5 & 6 & 4 & 8 & 9 & 7\\
+    8 & 7 & 5 & 6 & 8 & 4\\
+    6 & 5 & 7 & 5 & 9 & 8\\
+    7 & 6 & 6 & 9 & 5 & 9
+    \end{bmatrix}.
+  \]
+}
+\sol
+
+
+\end{document}

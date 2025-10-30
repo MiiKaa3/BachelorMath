@@ -1,0 +1,114 @@
+\documentclass[a4paper,11pt]{report}
+
+\input{../../../latex_template/preamble}
+\input{../../../latex_template/macros}
+\input{../../../latex_template/letterfonts}
+
+\begin{document}
+\begin{center}
+  {\bf\small Universtiy of Queensland \\ School of Mathematics and Physics}
+\end{center}
+\begin{center}
+	{\Large\bf MATH2302 Discrete Mathematics II \\ Semester 2 2025 \\ Problem Set 2} \\ \vspace{1em}
+	Michael Kasumagic, 44302669 \\
+  Applied Class \#1 \\
+	Due 3pm Friday 12 September 2025
+\end{center}
+
+\qs{10 marks}{
+  Consider the set $X$ of all positive divisors of $360$. We define a partial order $\preceq$ on $X$ by
+  \[
+    x\preceq y \quad \text{if and only if} \quad x \text{ divides } y.
+  \]
+  Every divisor $d$ in $X$ can be written uniquely as $d=2^a3^b5^c$ with $0\leq a\leq 3, 0\leq b\leq 2$ and $0\leq c\leq 1$. We define the \emph{rank} function
+  \[
+    \rho : X \longrightarrow \mathbb{Z}_{\ge 0}, \qquad 
+    \rho (2^a 3^b 5^c )=a+b+c.
+  \]
+  \begin{enumerate}[label=(\alph*)]
+    \item List all divisors of rank $2$.
+    \item Show that two distinct divisors of the same rank are incomparable. 
+    \item Determine the size of the maximum antichain in the poset $X$. Hint: use generating functions to determine the number of divisors in each rank, and then use part (b).  
+    \item Determine the minimum number of chains needed to partition $X$ (you do not need to list the chains explicitly).
+  \end{enumerate}
+}
+\sol 1(a)
+\[
+  \rho(2^a3^b5^c) = 2 \iff a + b + c = 2.
+\]
+Knowing this, I can exhaustively list every 3-tuple, $(a,b,c),\ \text{with}\  a\in\braces{0,1,2,3},\  b\in\braces{0,1,2},\  c\in\braces{0,1}$ such that $a+b+c=2$.
+\[
+  \begin{array}{ccc|c}
+    a & b & c & 2^a3^b5^c \\ \hline
+    2 & 0 & 0 & 4 \\
+    0 & 2 & 0 & 9 \\
+    1 & 1 & 0 & 6 \\
+    1 & 0 & 1 & 10 \\
+    0 & 1 & 1 & 15 
+  \end{array}
+\]
+I know that this is the exhaustive list because, ignoring the upper bounds, $a+b+c=2$ is analogous to $a'+b'+c'=5$ (where $a'=a+1,\ b'=b+1,\ c'=c+1$), i.e. 5 stars \& 3 bars, which has $\#\text{solutions} = \comb{2+3-1}{3-1} = \comb{4}{2} = 6$.
+
+Only one of these solutions, $(0,0,2)$, breaks the upper bound restriction. Once I've remove that from the list, I'm left with the exhaustive list of divisors of rank 2,
+\[
+  \braces{x\in X\suchthat \rho(x) = 2} = \braces{2,4,6,9,10,15}.
+\]
+
+\newpage
+\sol 1(b) \\
+
+\Claim $\ \forall x,y\in X: x\neq y, \rho(x) = \rho(y) \implies x\npreceq y,\  y\npreceq x$.
+
+
+\newpage
+\qs{8 marks}{
+  A regular pentagon is divided into five congruent triangular regions by drawing lines from its centre to the vertices. Each triangular region is to be coloured using one of three colours. Recall that the symmetry group of the regular pentagon is the dihedral group $D_{5}$. Two colourings are considered the same if one can be obtained from another by a symmetry of the pentagon. 
+  \begin{center}
+    \begin{tikzpicture}[scale=1.5]
+      \foreach \i in {1,...,5}{
+        \coordinate (P\i) at (90+72*\i:1);
+      }
+      \coordinate (O) at (0,0);
+      \draw (P1)--(P2)--(P3)--(P4)--(P5)--cycle;
+      \foreach \i in {1,...,5}{
+        \draw (O)--(P\i);
+      }
+      \node at (barycentric cs:O=1,P1=1,P2=1) {1};
+      \node at (barycentric cs:O=1,P2=1,P3=1) {2};
+      \node at (barycentric cs:O=1,P3=1,P4=1) {3};
+      \node at (barycentric cs:O=1,P4=1,P5=1) {4};
+      \node at (barycentric cs:O=1,P5=1,P1=1) {5};
+    \end{tikzpicture}
+  \end{center}
+  \begin{enumerate}[label=(\alph*)]
+    \item Determine the orbit and the stabiliser of the region $\{1,2\}$ under the action of $D_5$.
+    \item Use the counting theorem to determine the number of distinct colourings of the pentagon. 
+  \end{enumerate}
+}
+\sol 2(a)
+
+
+\newpage
+\qs{8 marks}{
+  Using generating functions, determine the number of integer solutions to the inequality
+  \[
+    x_1+x_2+x_3\leq 15,
+  \]
+  where $x_1\geq 1$, $0\leq x_2\leq 2$ and $0\leq x_3\leq 5$. 
+}
+\sol
+
+
+\newpage
+\qs{6 marks}{
+  Use a generating function to find a closed form for the recurrence
+  \[
+    a_n = 3a_{n-1}+2^{n},\qquad
+    a_0=0.
+  \]
+}
+\sol
+
+
+
+\end{document}

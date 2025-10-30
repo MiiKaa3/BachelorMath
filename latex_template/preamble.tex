@@ -7,9 +7,7 @@
 \allowdisplaybreaks
 \usepackage{undertilde}
 \usepackage{xfrac}
-\usepackage{mathtools}
 \usepackage[makeroom]{cancel}
-\usepackage{mathtools}
 \usepackage{bookmark}
 \usepackage{enumitem}
 \usepackage{kbordermatrix}
@@ -83,6 +81,30 @@
     showstringspaces	= false,
 		numbers						= left,
 		tabsize						= 4,
+}
+
+\definecolor{mathematicaPurple}{rgb}{0.36,0.2,0.5}
+\definecolor{mathematicaBlue}{rgb}{0.25,0.35,0.75}
+\definecolor{mathematicaGreen}{rgb}{0.0,0.5,0.0}
+
+\lstdefinelanguage{Mathematica}{
+  morekeywords={Plot, Solve, Table, Do, Module, If, True, False, Integrate,
+    Sum, Limit, Sin, Cos, Exp, Log, Simplify, FullSimplify, Eigenvalues,
+    Eigenvectors, D, DSolve, NDSolve, Piecewise},
+  sensitive=true,
+  morecomment=[l](*),
+  morestring=[b]"
+}
+
+\lstset{
+  language=Mathematica,
+  basicstyle=\ttfamily,
+  keywordstyle=\color{mathematicaBlue}\bfseries,
+  stringstyle=\color{mathematicaGreen},
+  commentstyle=\color{mathematicaPurple}\itshape,
+  showstringspaces=false,
+  breaklines=true,
+  columns=flexible,
 }
 
 \definecolor{stringyellow}{RGB}{227, 78, 48}
