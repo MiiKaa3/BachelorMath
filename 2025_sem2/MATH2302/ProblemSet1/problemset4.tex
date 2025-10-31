@@ -292,8 +292,116 @@ Therefore, by Theorem 26.85, the graph is not Hamiltonian.
 \qs{6 marks}{
   For any integer $n\geq 4$, let $K_n$ be the complete graph on vertices  $1,2,\ldots,n$. Let   $G_n$ be the graph obtained from  $K_n$ by deleting two edges $\{1,2\}$ and $\{3,4\}$. What is the vertex chromatic number of $G_n$? Justify your answer. 
 }
-\sol 
+\sol \vspace{0.5em}
 
+Let $K_n$ be the complete graph on vertices $\{1,2,\dots,n\}$, and let $G_n$ be the graph obtained from $K_n$ by deleting the two edges $\{1,2\}$ and $\{3,4\}$. We seek the vertex chromatic number, $\chi(G_n)$, for all integers $n \ge 4$.
+
+\medskip
+\textbf{Claim.} $\chi(G_n) = n - 2$ for all $n \ge 4$. \vspace{0.5em}
+
+\Proof \vspace{0.25em}
+
+We'll start by finding an upper bound. \\
+
+Define a colouring as follows.
+\[
+  c(1) = c(2) = A, \quad
+  c(3) = c(4) = B,
+\]
+where $A \ne B$. For the remaining vertices $i \in \{5,6,\dots,n\}$, assign a distinct, new colour,
+\[
+  c(i) = C_i
+\]
+
+We'll check the colouring:
+
+\begin{itemize}
+    \item Vertices $1$ and $2$ have the same colour, $A$. This is allowed because the edge $\{1,2\}$ was deleted, so $1$ and $2$ are not adjacent in $G_n$.
+    \item Vertices $3$ and $4$ have the same colour, $B$. This is allowed because the edge $\{3,4\}$ was deleted, so $3$ and $4$ are not adjacent in $G_n$.
+    \item Vertex $1$ is adjacent to every vertex except $2$, so no other vertex may use colour $A$.
+    \item Vertex $2$ is adjacent to every vertex except $1$, so no other vertex may use colour $A$.
+    \item Vertex $3$ is adjacent to every vertex except $4$, so no other vertex may use colour $B$.
+    \item Vertex $4$ is adjacent to every vertex except $3$, so no other vertex may use colour $B$.
+    \item For $i,j \in \{5,6,\dots,n\}$ with $i \ne j$, the edge $\{i,j\}$ is still present, so vertices $i$ and $j$ are adjacent. Therefore, they must be coloured differently. By construction we give each a distinct colour, $C_i$.
+    \item Each vertex $i \in \{5,6,\dots,n\}$ is adjacent to $1,2,3,4$, so it cannot reuse $A$ or $B$. Which is why new colours $C_i$ were required.
+\end{itemize}
+
+So, how many colours did we use?
+
+\[
+\underbrace{A}_{\{1,2\}}
+\quad+\quad
+\underbrace{B}_{\{3,4\}}
+\quad+\quad
+\underbrace{(n-4)\text{ distinct colours }C_5,\dots,C_n}_{\text{for vertices }5,\dots,n}
+\;=\;
+2 + (n-4)
+\;=\;
+n-2.
+\]
+
+Therefore $G_n$ can be coloured with, at most, $n-2$ colours, so
+\[
+  \chi(G_n) \le n-2.
+\]
+
+\bigskip
+Next, we'll try find a lower bound.\\
+Suppose, for contradiction, that there is a proper colouring of $G_n$ using at most $n-3$ colours.
+
+We'll call this number of colours, $k$. So $k \le n-3$.
+
+\medskip
+Since there are $n$ vertices and only $k \le n-3$ colours, by the pigeonhole principle at least one colour is used on two or more distinct vertices. Any two vertices that share a colour must be non-adjacent. In $G_n$ the only non-adjacent pairs are $\{1,2\}$ and $\{3,4\}$, where we removed edges from $K_n$. Every other pair of distinct vertices is still adjacent.
+
+\medskip
+Therefore, in any colouring with at most $n-3$ colours, one of the following must happen:
+\[
+1 \text{ and } 2 \text{ share a colour}, \quad \text{or} \quad 3 \text{ and } 4 \text{ share a colour}.
+\]
+Without loss of generality, assume $1$ and $2$ share a colour, call it $A$.
+
+\medskip
+Now, we'll consider the remaining $n-2$ vertices
+\[
+  \{3,4,\dots,n\}.
+\]
+We still have, at most, $k-1$ new colours available apart from $A$. Since $A$ is already used on $\{1,2\}$ and cannot be reused on any other vertex (every other vertex is adjacent to $1$ or $2$). Since $k \le n-3$, we have $k-1 \le (n-3)-1 = n-4$.
+
+So we are trying to colour $n-2$ vertices using at most $n-4$ colours.
+
+Again, by pigeonhole, among these $n-2$ vertices there must be some colour that appears on at least two of them. Let those two vertices be $x$ and $y$. As before, two vertices can only share a colour if they are non-adjacent. Among the set $\{3,4,\dots,n\}$, the only non-adjacent pair is $\{3,4\}$.
+
+Therefore $3$ and $4$ must also receive the same colour, say $B$.
+
+\medskip
+Now look at the vertices $\{5,6,\dots,n\}$. There are $(n-4)$ of them. In $G_n$ they form a complete subgraph (every edge between them is still present), and each of these vertices is also adjacent to vertices $1,2,3,4$. This has two consequences:
+
+\begin{itemize}
+    \item No two of $5,6,\dots,n$ can share a colour with each other, because they are pairwise adjacent.
+    \item None of $5,6,\dots,n$ can reuse the colour $A$ (shared by $1,2$) or the colour $B$ (shared by $3,4$), because each of $5,6,\dots,n$ is adjacent to all of $1,2,3,4$.
+\end{itemize}
+
+Hence, vertices $5,6,\dots,n$ each require their own distinct new colour, different from $A$ and different from $B$. That already forces $(n-4)$ new colours.
+
+Together with colours $A$ and $B$, the total number of colours required is at least
+\[
+  2 + (n-4) = n-2.
+\]
+
+This contradicts the assumption that we could colour $G_n$ using at most $n-3$ colours.
+
+Therefore no proper colouring of $G_n$ can use fewer than $n-2$ colours, so
+\[
+  \chi(G_n) \ge n-2.
+\]
+
+\bigskip
+Therefore, we have $\chi(G_n) \le n-2$ and $\chi(G_n) \ge n-2$. Hence,
+\[
+  \chi(G_n) = n-2 \quad \text{for all } n \ge 4.
+\]
+\hfill$\qed$
 
 \newpage
 \qs{8 marks}{
@@ -426,7 +534,97 @@ $$
     \end{bmatrix}.
   \]
 }
-\sol
+\sol \vspace{0.5em}
 
+We are given a complete weighted bipartite graph, $G$, with parts
+\[
+  V_1 = \{ v_1, v_2, v_3, v_4, v_5, v_6 \}, \quad
+  V_2 = \{ u_1, u_2, u_3, u_4, u_5, u_6 \}.
+\]
+The weight, $w(v_iu_j)$ is given by $v_iu_j\mapsto m_{ij}$, and $m_ij$ are entries in the matrix
+\[
+  M =
+  \begin{bmatrix}
+    7 & 5 & 9 & 4 & 7 & 6 \\
+    6 & 9 & 9 & 7 & 5 & 5 \\
+    5 & 6 & 4 & 8 & 9 & 7 \\
+    8 & 7 & 5 & 6 & 8 & 4 \\
+    6 & 5 & 7 & 5 & 9 & 8 \\
+    7 & 6 & 6 & 9 & 5 & 9
+  \end{bmatrix}.
+\]
+
+We're now going to apply Algorithm 33.113 to find a perfect matching \( M^* \subseteq E \) of maximum total weight.
+
+\bigskip
+1) Initialise a feasible labelling.\\
+By Algorithm 33.113 (1), we set
+\[
+  L(u_j) = 0 \quad \forall\, u_j \in V_2,
+\]
+and for each \( v_i \in V_1 \),
+\[
+  L(v_i) = \max_{u_j \in V_2} w(v_i u_j).
+\]
+So, in our case,
+\[
+  L(u_1)=0,\quad L(u_2)=0,\quad L(u_3)=0,\quad L(u_4)=0,\quad L(u_5)=0,\quad L(u_6)=0
+\]
+and
+\[
+  L(v_1)=9,\quad L(v_2)=9,\quad L(v_3)=9,\quad L(v_4)=8,\quad L(v_5)=9,\quad L(v_6)=9.
+\]
+
+\bigskip
+2) Construct the subgraph \( H_L \).\\
+The subgraph \( H_L \) consists of all edges satisfying
+\[
+L(v_i) + L(u_j) = w(v_i u_j).
+\]
+Because \( L(u_j)=0,\ \forall u\in V_2  \), these are exactly the edges where \( w(v_i u_j) = L(v_i) \), i.e., the maximum-weight edges in each row of \( M \). Therefore, 
+\[
+  E(H_L) = \braces{ v_1u_3,  v_2u_2, v_2u_3,  v_3u_5,  v_4u_1, v_4u_5,  v_5u_5,  v_6u_4, v_6u_6  }.
+\]
+Remark: I find this by reading from the matrix. Take $v_4$, which corresponds to the 4th row of $M$. We know that $L(v_4)=8$, and there are two entries which have this weighting, the entry corresponding to $u_1$ (the first column, i.e. $m_{41})$ and the entry corresponding to $u_5$ (the fifth column, i.e. $(m_{44})$).
+
+\bigskip
+3) Find a maximum matching \( M \) in \( H_L \) using Algorithm 33.109.\\
+Algorithm 33.109 (the augmenting path algorithm) searches for augmenting paths in \( H_L \) to build a maximum matching. A greedy attempt gives:
+
+\[
+  M = \{ v_4u_1,\, v_6u_4,\, v_1u_3,\, v_2u_2,\, v_3u_5 \}.
+\]
+
+Here, \( v_5 \) remains unmatched because both \( v_3 \) and \( v_5 \) connect only to \( u_5 \). Hence, \( M \) is not perfect.
+
+\bigskip
+4) Build an alternating tree and adjust labels.\\
+Since \( M \) is not perfect, choose an unmatched vertex \( v_5 \in V_1 \). Construct the alternating tree \( T \) rooted at \( v_5 \) in \( H_L \). When the tree cannot expand further, compute
+\[
+  m_L = \min\{ L(v) + L(u) - w(vu) : v \in V_1 \cap V(T),\, u \in V_2 \setminus V(T) \}.
+\]
+Subtract \( m_L \) from each \( L(v) \) for \( v \in V_1 \cap V(T) \) and add \( m_L \) to each \( L(u) \) for \( u \in V_2 \cap V(T) \).
+This preserves feasibility and introduces at least one new tight edge connecting \( T \) to \( V_2 \setminus V(T) \).
+
+\bigskip
+Step 5. Repeat Steps 2-4 until \( H_L \) admits a perfect matching.\\
+After performing the label adjustments and re-running Algorithm 33.109, we eventually obtain a perfect matching \( M^* \) in \( H_L \). By Theorem 33.112, this matching is a maximum weight perfect matching in \( G \).
+
+\bigskip
+The algorithm yields the perfect matching
+\[
+M^* = \{ v_1u_3,\, v_2u_2,\, v_3u_4,\, v_4u_1,\, v_5u_5,\, v_6u_6 \}.
+\]
+The total weight is
+\[
+w(M^*) = 9 + 9 + 8 + 8 + 9 + 9 = 52.
+\]
+
+\noindent
+Using Algorithm 33.113, we find that the maximum weight perfect matching for the given bipartite graph is
+\[
+M^* = \{ v_1u_3,\, v_2u_2,\, v_3u_4,\, v_4u_1,\, v_5u_5,\, v_6u_6 \},
+\]
+with total weight \( 52 \). Therefore, \( M^* \) is the optimal assignment.
 
 \end{document}
